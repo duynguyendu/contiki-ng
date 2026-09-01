@@ -100,7 +100,7 @@ PT_THREAD(shell_input(struct pt *pt, shell_output_func output, const char *cmd))
   /* Skip empty lines */
   if(*cmd != '\0') {
     /* Look for arguments */
-    args = strchr(cmd, ' ');
+    args = (char *)strchr(cmd, ' ');
     if(args != NULL) {
       *args = '\0';
       args++;

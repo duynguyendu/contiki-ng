@@ -247,6 +247,7 @@ dio_input(void)
           LOG_WARN("dio_input: invalid DAG MC, len %u, discard\n", len);
           goto discard;
         }
+        // NEW: update this to extract more metrics
         dio.mc.type = buffer[i + 2];
         dio.mc.flags = buffer[i + 3] << 1;
         dio.mc.flags |= buffer[i + 4] >> 7;
@@ -398,6 +399,7 @@ rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr)
   memcpy(buffer + pos, &curr_instance.dag.dag_id, sizeof(curr_instance.dag.dag_id));
   pos += 16;
 
+  // NEW: have to update this to include more metrics
   if(!rpl_get_leaf_only()) {
     if(curr_instance.mc.type != RPL_DAG_MC_NONE) {
       buffer[pos++] = RPL_OPTION_DAG_METRIC_CONTAINER;

@@ -49,7 +49,7 @@
 /* Statistics with no update in FRESHNESS_EXPIRATION_TIMEOUT is not fresh */
 #define FRESHNESS_EXPIRATION_TIME       (10 * 60 * (clock_time_t)CLOCK_SECOND)
 /* Half time for the freshness counter */
-#define FRESHNESS_HALF_LIFE             (15 * 60 * (clock_time_t)CLOCK_SECOND)
+#define FRESHNESS_HALF_LIFE             (1* 60 * (clock_time_t)CLOCK_SECOND)
 /* Statistics are fresh if the freshness counter is FRESHNESS_TARGET or more */
 #define FRESHNESS_TARGET                 4
 /* Maximum value for the freshness counter */
