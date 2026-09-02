@@ -109,6 +109,20 @@ struct rpl_metric_object_energy {
   uint8_t energy_est;
 };
 
+#if RPL_MULTIPLE_METRICS
+struct rpl_metric {
+  uint8_t type;    /* RFC 6551 metric type, or a local RPL_DAG_MC_* id */
+  uint16_t value;  /* Metric value (dummy placeholder for now) */
+};
+
+/** \brief Set of routing metrics advertised together in a single DIO. */
+struct rpl_metric_set {
+  uint8_t num_metrics;
+  struct rpl_metric metrics[RPL_MC_MAX_METRICS];
+};
+typedef struct rpl_metric_set rpl_metric_set_t;
+#endif /* RPL_MULTIPLE_METRICS */
+
 /** \brief Logical representation of a DAG Metric Container. */
 struct rpl_metric_container {
   uint8_t type;
@@ -120,6 +134,10 @@ struct rpl_metric_container {
    struct rpl_metric_object_energy energy;
    uint16_t etx;
   } obj;
+#if RPL_MULTIPLE_METRICS
+  /* Full set of metrics carried in the DIO when RPL_MULTIPLE_METRICS is set */
+  rpl_metric_set_t metrics;
+#endif /* RPL_MULTIPLE_METRICS */
 };
 typedef struct rpl_metric_container rpl_metric_container_t;
 
