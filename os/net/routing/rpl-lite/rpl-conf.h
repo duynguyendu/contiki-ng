@@ -128,9 +128,15 @@
  * rpl_icmp6_dio_output() emits a multi-metric DAG Metric Container and
  * dio_input() parses it, storing the whole set in the DIO / neighbor
  * metric container.
+ *
+ * It is enabled explicitly with RPL_CONF_MULTIPLE_METRICS, and implicitly
+ * whenever MLOF is the selected objective function, since MLOF is built
+ * around the multi-metric container.
  */
 #ifdef RPL_CONF_MULTIPLE_METRICS
 #define RPL_MULTIPLE_METRICS RPL_CONF_MULTIPLE_METRICS
+#elif RPL_OF_OCP == RPL_OCP_MLOF
+#define RPL_MULTIPLE_METRICS 1
 #else
 #define RPL_MULTIPLE_METRICS 0
 #endif /* RPL_CONF_MULTIPLE_METRICS */

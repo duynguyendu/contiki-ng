@@ -61,22 +61,7 @@ static uint16_t nbr_path_cost(rpl_nbr_t *nbr) {
     return 0xffff;
   }
 
-#if RPL_WITH_MC
-  /* Handle the different MC types */
-  switch (curr_instance.mc.type) {
-  case RPL_DAG_MC_ETX:
-    base = nbr->mc.obj.etx;
-    break;
-  case RPL_DAG_MC_ENERGY:
-    base = nbr->mc.obj.energy.energy_est << 8;
-    break;
-  default:
-    base = nbr->rank;
-    break;
-  }
-#else  /* RPL_WITH_MC */
   base = nbr->rank;
-#endif /* RPL_WITH_MC */
 
   /* path cost upper bound: 0xffff */
   return MIN((uint32_t)base + link_metric_to_rank(nbr_link_metric(nbr)),
@@ -152,58 +137,52 @@ static rpl_nbr_t *best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2) {
   return nbr_path_cost(nbr1) < nbr_path_cost(nbr2) ? nbr1 : nbr2;
 }
 /*---------------------------------------------------------------------------*/
-#if !RPL_WITH_MC
+#if RPL_MULTIPLE_METRICS
+/* Default value of each metric at the root.
+ * TODO: replace with real per-metric measurements. */
+#define RPL_METRIC_DEFAULT_VALUE 123
+
+/* Value the root advertises; bumped by one every time it is refreshed. */
+static uint16_t root_metric_value = RPL_METRIC_DEFAULT_VALUE;
+
+static void fill_multiple_metrics(void) {
+  const uint8_t types[] = {RPL_DAG_MC_ENERGY, RPL_DAG_MC_ETX, RPL_DAG_MC_RSSI};
+  rpl_metric_set_t *set = &curr_instance.mc.metrics;
+  int is_root = rpl_dag_root_is_root();
+  unsigned t;
+
+  set->num_metrics = 0;
+  for (t = 0; t < sizeof(types) && set->num_metrics < RPL_MC_MAX_METRICS; t++) {
+    uint16_t value;
+    if (is_root) {
+      value = root_metric_value;
+    } else {
+      uint16_t received;
+      // TODO: maybe have a fixed order of metrics and extract by index to
+      // increase speed
+      if (!rpl_icmp6_last_received_metric(types[t], &received)) {
+        received = RPL_METRIC_DEFAULT_VALUE;
+      }
+      value = received + RPL_MIN_HOPRANKINC;
+    }
+    set->metrics[set->num_metrics].type = types[t];
+    set->metrics[set->num_metrics].value = value;
+    set->num_metrics++;
+  }
+
+  if (is_root) {
+    root_metric_value++;
+  }
+}
+#endif /* RPL_MULTIPLE_METRICS */
+/*---------------------------------------------------------------------------*/
 static void update_metric_container(void) {
   curr_instance.mc.type = RPL_DAG_MC_NONE;
+#if RPL_MULTIPLE_METRICS
+  fill_multiple_metrics();
+#endif /* RPL_MULTIPLE_METRICS */
 }
-#else  /* RPL_WITH_MC */
-static void update_metric_container(void) {
-  uint16_t path_cost;
-  uint8_t type;
 
-  if (!curr_instance.used) {
-    LOG_WARN("cannot update the metric container when not joined\n");
-    return;
-  }
-
-  if (curr_instance.dag.rank == ROOT_RANK) {
-    /* Configure MC at root only, other nodes are auto-configured when joining
-     */
-    curr_instance.mc.type = RPL_DAG_MC;
-    curr_instance.mc.flags = 0;
-    curr_instance.mc.aggr = RPL_DAG_MC_AGGR_ADDITIVE;
-    curr_instance.mc.prec = 0;
-    path_cost = curr_instance.dag.rank;
-  } else {
-    path_cost = nbr_path_cost(curr_instance.dag.preferred_parent);
-  }
-
-  /* Handle the different MC types */
-  switch (curr_instance.mc.type) {
-  case RPL_DAG_MC_NONE:
-    break;
-  case RPL_DAG_MC_ETX:
-    curr_instance.mc.length = sizeof(curr_instance.mc.obj.etx);
-    curr_instance.mc.obj.etx = path_cost;
-    break;
-  case RPL_DAG_MC_ENERGY:
-    curr_instance.mc.length = sizeof(curr_instance.mc.obj.energy);
-    if (curr_instance.dag.rank == ROOT_RANK) {
-      type = RPL_DAG_MC_ENERGY_TYPE_MAINS;
-    } else {
-      type = RPL_DAG_MC_ENERGY_TYPE_BATTERY;
-    }
-    curr_instance.mc.obj.energy.flags = type << RPL_DAG_MC_ENERGY_TYPE;
-    /* Energy_est is only one byte, use the least significant byte of the path
-     * metric. */
-    curr_instance.mc.obj.energy.energy_est = path_cost >> 8;
-    break;
-  default:
-    LOG_WARN("MRHOF, non-supported MC %u\n", curr_instance.mc.type);
-    break;
-  }
-}
-#endif /* RPL_WITH_MC */
 /*---------------------------------------------------------------------------*/
 rpl_of_t rpl_mlof = {reset,
                      nbr_link_metric,

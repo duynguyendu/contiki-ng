@@ -102,16 +102,16 @@ static void set16(uint8_t *buffer, int pos, uint16_t value) {
 }
 /*---------------------------------------------------------------------------*/
 #if RPL_MULTIPLE_METRICS
-/*
- * Dummy value reported for every metric until each one gets a real
- * implementation (energy level, ETX, RSSI). See the project TODO list.
- */
-#define RPL_METRIC_DUMMY_VALUE 123
-
 /* Wire layout of the multi-metric DAG Metric Container option payload:
  *   [type(1)][len(1)] [num_metrics(1)] [ type(1) value(2 BE) ] * num_metrics
  */
 #define RPL_MULTI_METRIC_ENTRY_LEN 3
+
+/* Metrics as last seen in a received DIO. The objective function reads these
+   through rpl_icmp6_last_received_metric() when building the DAG metric
+   container. Invalid until the first DIO is processed. */
+static rpl_metric_set_t parent_metrics;
+static uint8_t parent_metrics_valid;
 
 static const char *metric_name(uint8_t type) {
   switch (type) {
@@ -126,20 +126,18 @@ static const char *metric_name(uint8_t type) {
   }
 }
 /*---------------------------------------------------------------------------*/
-/*
- * Populate the local set of metrics that this node advertises in its DIOs.
- * TODO: replace each dummy value with a real measurement.
- */
-static void fill_local_metrics(rpl_metric_set_t *set) {
-  const uint8_t types[] = {RPL_DAG_MC_ENERGY, RPL_DAG_MC_ETX, RPL_DAG_MC_RSSI};
-  unsigned t;
-
-  set->num_metrics = 0;
-  for (t = 0; t < sizeof(types) && set->num_metrics < RPL_MC_MAX_METRICS; t++) {
-    set->metrics[set->num_metrics].type = types[t];
-    set->metrics[set->num_metrics].value = RPL_METRIC_DUMMY_VALUE;
-    set->num_metrics++;
+int rpl_icmp6_last_received_metric(uint8_t type, uint16_t *value) {
+  int k;
+  if (!parent_metrics_valid) {
+    return 0;
   }
+  for (k = 0; k < parent_metrics.num_metrics; k++) {
+    if (parent_metrics.metrics[k].type == type) {
+      *value = parent_metrics.metrics[k].value;
+      return 1;
+    }
+  }
+  return 0;
 }
 #endif /* RPL_MULTIPLE_METRICS */
 /*---------------------------------------------------------------------------*/
@@ -303,6 +301,9 @@ static void dio_input(void) {
                  (unsigned)dio.mc.metrics.metrics[m].type,
                  (unsigned)dio.mc.metrics.metrics[m].value);
       }
+      parent_metrics = dio.mc.metrics;
+      parent_metrics_valid = 1;
+
       /* The multi-metric set does not drive parent selection yet, so keep
          the legacy single-metric fields empty (downstream code is a no-op). */
       dio.mc.type = RPL_DAG_MC_NONE;
@@ -470,12 +471,11 @@ void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr) {
   if (!rpl_get_leaf_only()) {
 #if RPL_MULTIPLE_METRICS
     /* Advertise the full set of metrics in a multi-metric DAG Metric Container.
-     */
+       The set is populated by the objective function's
+       update_metric_container(), already run via rpl_dag_update_state() above. */
     {
       rpl_metric_set_t *set = &curr_instance.mc.metrics;
       int m;
-
-      fill_local_metrics(set);
 
       buffer[pos++] = RPL_OPTION_DAG_METRIC_CONTAINER;
       buffer[pos++] = 1 + set->num_metrics * RPL_MULTI_METRIC_ENTRY_LEN;
