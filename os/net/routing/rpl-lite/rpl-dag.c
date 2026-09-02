@@ -54,7 +54,7 @@
 #define LOG_LEVEL LOG_LEVEL_RPL
 
 /*---------------------------------------------------------------------------*/
-extern rpl_of_t rpl_of0, rpl_mrhof;
+extern rpl_of_t rpl_of0, rpl_mrhof, rpl_mlof;
 static rpl_of_t * const objective_functions[] = RPL_SUPPORTED_OFS;
 static int process_dio_init_dag(rpl_dio_t *dio);
 
