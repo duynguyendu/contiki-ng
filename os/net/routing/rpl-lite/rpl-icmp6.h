@@ -69,6 +69,9 @@ struct rpl_dio {
   rpl_prefix_t destination_prefix;
   rpl_prefix_t prefix_info;
   struct rpl_metric_container mc;
+#if RPL_MULTIPLE_METRICS
+  uint8_t mlof_mc_present;  /* 1 if this DIO carried a MLOF_MC container */
+#endif /* RPL_MULTIPLE_METRICS */
 };
 typedef struct rpl_dio rpl_dio_t;
 
@@ -85,17 +88,6 @@ struct rpl_dao {
 typedef struct rpl_dao rpl_dao_t;
 
 /********** Public functions **********/
-
-#if RPL_MULTIPLE_METRICS
-/**
- * Returns the value last received in a DIO for a given metric type.
- *
- * \param type The metric type (RPL_DAG_MC_ENERGY, RPL_DAG_MC_ETX, RPL_DAG_MC_RSSI)
- * \param value Output: the last received value for this metric
- * \return 1 if a value was found (a DIO has been processed), 0 otherwise
- */
-int rpl_icmp6_last_received_metric(uint8_t type, uint16_t *value);
-#endif /* RPL_MULTIPLE_METRICS */
 
 /**
  * Updates IPv6 neighbor cache on incoming link-local RPL ICMPv6 messages.

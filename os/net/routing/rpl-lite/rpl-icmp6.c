@@ -102,43 +102,11 @@ static void set16(uint8_t *buffer, int pos, uint16_t value) {
 }
 /*---------------------------------------------------------------------------*/
 #if RPL_MULTIPLE_METRICS
-/* Wire layout of the multi-metric DAG Metric Container option payload:
- *   [type(1)][len(1)] [num_metrics(1)] [ type(1) value(2 BE) ] * num_metrics
+/* Wire layout of the MLOF_MC DAG Metric Container option:
+ *   [opt(1)][len(1)] [RPL_DAG_MC_MLOF(1)] [cpu_usage(2 BE)][etx(2 BE)][rssi(2 BE)]
+ * i.e. a fixed 7-byte payload (1-byte type tag + three uint16 fields).
  */
-#define RPL_MULTI_METRIC_ENTRY_LEN 3
-
-/* Metrics as last seen in a received DIO. The objective function reads these
-   through rpl_icmp6_last_received_metric() when building the DAG metric
-   container. Invalid until the first DIO is processed. */
-static rpl_metric_set_t parent_metrics;
-static uint8_t parent_metrics_valid;
-
-static const char *metric_name(uint8_t type) {
-  switch (type) {
-  case RPL_DAG_MC_ENERGY:
-    return "energy";
-  case RPL_DAG_MC_ETX:
-    return "etx";
-  case RPL_DAG_MC_RSSI:
-    return "rssi";
-  default:
-    return "unknown";
-  }
-}
-/*---------------------------------------------------------------------------*/
-int rpl_icmp6_last_received_metric(uint8_t type, uint16_t *value) {
-  int k;
-  if (!parent_metrics_valid) {
-    return 0;
-  }
-  for (k = 0; k < parent_metrics.num_metrics; k++) {
-    if (parent_metrics.metrics[k].type == type) {
-      *value = parent_metrics.metrics[k].value;
-      return 1;
-    }
-  }
-  return 0;
-}
+#define RPL_MLOF_MC_PAYLOAD_LEN 7
 #endif /* RPL_MULTIPLE_METRICS */
 /*---------------------------------------------------------------------------*/
 uip_ds6_nbr_t *rpl_icmp6_update_nbr_table(uip_ipaddr_t *from,
@@ -272,39 +240,23 @@ static void dio_input(void) {
     case RPL_OPTION_DAG_METRIC_CONTAINER:
 #if RPL_MULTIPLE_METRICS
     {
-      /* Multi-metric DAG Metric Container: a list of (type, value) pairs. */
-      uint8_t num_metrics;
-      int m;
-
-      if (len < 3) {
-        LOG_WARN("dio_input: invalid multi-metric DAG MC, len %u, discard\n",
-                 len);
-        goto discard;
-      }
-      num_metrics = buffer[i + 2];
-      if (num_metrics > RPL_MC_MAX_METRICS ||
-          len != 2 + 1 + num_metrics * RPL_MULTI_METRIC_ENTRY_LEN) {
-        LOG_WARN("dio_input: invalid multi-metric DAG MC (%u metrics, len %u), "
-                 "discard\n",
-                 (unsigned)num_metrics, len);
+      /* Fixed-layout MLOF_MC DAG Metric Container. */
+      if (len != 2 + RPL_MLOF_MC_PAYLOAD_LEN ||
+          buffer[i + 2] != RPL_DAG_MC_MLOF) {
+        LOG_WARN("dio_input: invalid MLOF_MC (len %u, tag %u), discard\n",
+                 len, (unsigned)buffer[i + 2]);
         goto discard;
       }
 
-      dio.mc.metrics.num_metrics = num_metrics;
-      LOG_WARN("dio_input: DAG MC carries %u metrics\n", (unsigned)num_metrics);
-      for (m = 0; m < num_metrics; m++) {
-        int off = i + 3 + m * RPL_MULTI_METRIC_ENTRY_LEN;
-        dio.mc.metrics.metrics[m].type = buffer[off];
-        dio.mc.metrics.metrics[m].value = get16(buffer, off + 1);
-        LOG_WARN("dio_input:   metric[%d] %s (type %u) = %u\n", m,
-                 metric_name(dio.mc.metrics.metrics[m].type),
-                 (unsigned)dio.mc.metrics.metrics[m].type,
-                 (unsigned)dio.mc.metrics.metrics[m].value);
-      }
-      parent_metrics = dio.mc.metrics;
-      parent_metrics_valid = 1;
+      dio.mc.mlof.cpu_usage = get16(buffer, i + 3);
+      dio.mc.mlof.etx = get16(buffer, i + 5);
+      dio.mc.mlof.rssi = get16(buffer, i + 7);
+      dio.mlof_mc_present = 1;
+      LOG_DBG("dio_input: MLOF_MC cpu_usage=%u etx=%u rssi=%u\n",
+              (unsigned)dio.mc.mlof.cpu_usage, (unsigned)dio.mc.mlof.etx,
+              (unsigned)dio.mc.mlof.rssi);
 
-      /* The multi-metric set does not drive parent selection yet, so keep
+      /* The metric container does not drive parent selection yet, so keep
          the legacy single-metric fields empty (downstream code is a no-op). */
       dio.mc.type = RPL_DAG_MC_NONE;
     }
@@ -470,28 +422,24 @@ void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr) {
 
   if (!rpl_get_leaf_only()) {
 #if RPL_MULTIPLE_METRICS
-    /* Advertise the full set of metrics in a multi-metric DAG Metric Container.
-       The set is populated by the objective function's
+    /* Advertise energy, ETX and RSSI in the fixed-layout MLOF_MC container.
+       The values are populated by the objective function's
        update_metric_container(), already run via rpl_dag_update_state() above. */
     {
-      rpl_metric_set_t *set = &curr_instance.mc.metrics;
-      int m;
+      rpl_mlof_mc_t *m = &curr_instance.mc.mlof;
 
       buffer[pos++] = RPL_OPTION_DAG_METRIC_CONTAINER;
-      buffer[pos++] = 1 + set->num_metrics * RPL_MULTI_METRIC_ENTRY_LEN;
-      buffer[pos++] = set->num_metrics;
+      buffer[pos++] = RPL_MLOF_MC_PAYLOAD_LEN;
+      buffer[pos++] = RPL_DAG_MC_MLOF;
+      set16(buffer, pos, m->cpu_usage);
+      pos += 2;
+      set16(buffer, pos, m->etx);
+      pos += 2;
+      set16(buffer, pos, m->rssi);
+      pos += 2;
 
-      LOG_WARN("dio_output: DAG MC carries %u metrics\n",
-               (unsigned)set->num_metrics);
-      for (m = 0; m < set->num_metrics; m++) {
-        buffer[pos++] = set->metrics[m].type;
-        set16(buffer, pos, set->metrics[m].value);
-        pos += 2;
-        LOG_WARN("dio_output:   metric[%d] %s (type %u) = %u\n", m,
-                 metric_name(set->metrics[m].type),
-                 (unsigned)set->metrics[m].type,
-                 (unsigned)set->metrics[m].value);
-      }
+      LOG_DBG("dio_output: MLOF_MC cpu_usage=%u etx=%u rssi=%u\n",
+              (unsigned)m->cpu_usage, (unsigned)m->etx, (unsigned)m->rssi);
     }
 #else  /* RPL_MULTIPLE_METRICS */
     if (curr_instance.mc.type != RPL_DAG_MC_NONE) {

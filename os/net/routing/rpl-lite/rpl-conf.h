@@ -120,18 +120,18 @@
 #endif /* RPL_CONF_DAG_MC */
 
 /*
- * Enable advertising *multiple* routing metrics at once (e.g. energy
- * level, ETX and RSSI) inside the DAG Metric Container of DIO messages.
+ * Enable advertising energy, ETX and RSSI together inside the DAG Metric
+ * Container of DIO messages, using the fixed-layout MLOF_MC container
+ * (RPL_DAG_MC_MLOF): a 1-byte type tag followed by three uint16 fields.
  *
  * When disabled (default), RPL-lite carries at most a single metric in
  * the DAG Metric Container and behaves exactly as before. When enabled,
- * rpl_icmp6_dio_output() emits a multi-metric DAG Metric Container and
- * dio_input() parses it, storing the whole set in the DIO / neighbor
- * metric container.
+ * rpl_icmp6_dio_output() emits the MLOF_MC container and dio_input()
+ * parses it into the DIO metric container.
  *
  * It is enabled explicitly with RPL_CONF_MULTIPLE_METRICS, and implicitly
  * whenever MLOF is the selected objective function, since MLOF is built
- * around the multi-metric container.
+ * around this container.
  */
 #ifdef RPL_CONF_MULTIPLE_METRICS
 #define RPL_MULTIPLE_METRICS RPL_CONF_MULTIPLE_METRICS
@@ -140,13 +140,6 @@
 #else
 #define RPL_MULTIPLE_METRICS 0
 #endif /* RPL_CONF_MULTIPLE_METRICS */
-
-/* Maximum number of metrics carried simultaneously in a DIO Metric Container */
-#ifdef RPL_CONF_MC_MAX_METRICS
-#define RPL_MC_MAX_METRICS RPL_CONF_MC_MAX_METRICS
-#else
-#define RPL_MC_MAX_METRICS 3
-#endif /* RPL_CONF_MC_MAX_METRICS */
 
 /*
  * RPL DAO-ACK support. When enabled, DAO-ACK will be sent and requested.

@@ -110,17 +110,13 @@ struct rpl_metric_object_energy {
 };
 
 #if RPL_MULTIPLE_METRICS
-struct rpl_metric {
-  uint8_t type;    /* RFC 6551 metric type, or a local RPL_DAG_MC_* id */
-  uint16_t value;  /* Metric value (dummy placeholder for now) */
+/** \brief Fixed-layout metric container advertised by MLOF (CPU usage, ETX, RSSI). */
+struct rpl_mlof_mc {
+  uint16_t cpu_usage; /* Node CPU usage in percent (0..100) */
+  uint16_t etx;
+  uint16_t rssi;
 };
-
-/** \brief Set of routing metrics advertised together in a single DIO. */
-struct rpl_metric_set {
-  uint8_t num_metrics;
-  struct rpl_metric metrics[RPL_MC_MAX_METRICS];
-};
-typedef struct rpl_metric_set rpl_metric_set_t;
+typedef struct rpl_mlof_mc rpl_mlof_mc_t;
 #endif /* RPL_MULTIPLE_METRICS */
 
 /** \brief Logical representation of a DAG Metric Container. */
@@ -135,8 +131,8 @@ struct rpl_metric_container {
    uint16_t etx;
   } obj;
 #if RPL_MULTIPLE_METRICS
-  /* Full set of metrics carried in the DIO when RPL_MULTIPLE_METRICS is set */
-  rpl_metric_set_t metrics;
+  /* Fixed metric container carried in the DIO when RPL_MULTIPLE_METRICS is set */
+  rpl_mlof_mc_t mlof;
 #endif /* RPL_MULTIPLE_METRICS */
 };
 typedef struct rpl_metric_container rpl_metric_container_t;
@@ -158,6 +154,10 @@ struct rpl_nbr {
 #if RPL_WITH_MC
   rpl_metric_container_t mc;
 #endif /* RPL_WITH_MC */
+#if RPL_MULTIPLE_METRICS
+  rpl_mlof_mc_t mlof;    /* {cpu_usage, etx, rssi} from this neighbor's last DIO */
+  uint8_t mlof_valid;    /* set once an MLOF_MC container is received from it */
+#endif /* RPL_MULTIPLE_METRICS */
   rpl_rank_t rank;
   uint8_t dtsn;
 };

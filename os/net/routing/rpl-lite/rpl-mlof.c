@@ -16,6 +16,9 @@
 #include "net/link-stats.h"
 #include "net/nbr-table.h"
 #include "net/routing/rpl-lite/rpl.h"
+#if RPL_MULTIPLE_METRICS
+#include "sys/energest.h"
+#endif /* RPL_MULTIPLE_METRICS */
 
 /* Log configuration */
 #include "sys/log.h"
@@ -97,6 +100,7 @@ static int nbr_is_acceptable_parent(rpl_nbr_t *nbr) {
 }
 /*---------------------------------------------------------------------------*/
 static int within_hysteresis(rpl_nbr_t *nbr) {
+  // TODO: update this hysteresis for new metrics
   uint16_t path_cost = nbr_path_cost(nbr);
   uint16_t parent_path_cost = nbr_path_cost(curr_instance.dag.preferred_parent);
 
@@ -127,6 +131,7 @@ static rpl_nbr_t *best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2) {
   /* Maintain stability of the preferred parent. Switch only if the gain
   is greater than RANK_THRESHOLD, or if the neighbor has been better than the
   current parent for at more than TIME_THRESHOLD. */
+  // TODO: Calculate the path cost of nbr1 and nbr2 
   if (nbr1 == curr_instance.dag.preferred_parent && within_hysteresis(nbr2)) {
     return nbr1;
   }
@@ -134,45 +139,78 @@ static rpl_nbr_t *best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2) {
     return nbr2;
   }
 
+  // TODO: add custom OF here
+
   return nbr_path_cost(nbr1) < nbr_path_cost(nbr2) ? nbr1 : nbr2;
 }
 /*---------------------------------------------------------------------------*/
 #if RPL_MULTIPLE_METRICS
-/* Default value of each metric at the root.
- * TODO: replace with real per-metric measurements. */
-#define RPL_METRIC_DEFAULT_VALUE 123
+/* Local CPU usage in percent over the interval since the previous call:
+ * delta(CPU ticks) / delta(total ticks) * 100. Total ticks = CPU + LPM +
+ * DEEP_LPM (ENERGEST_GET_TOTAL_TIME). The first call measures since boot.
+ * Returns 0 when Energest is disabled (ENERGEST_CONF_ON == 0). */
+static uint16_t cpu_usage_percent(void) {
+#if ENERGEST_CONF_ON
+  static uint64_t last_cpu = 0;
+  static uint64_t last_total = 0;
+  uint64_t cpu, total, delta_cpu, delta_total;
 
-/* Value the root advertises; bumped by one every time it is refreshed. */
-static uint16_t root_metric_value = RPL_METRIC_DEFAULT_VALUE;
+  energest_flush();
+  cpu = energest_type_time(ENERGEST_TYPE_CPU);
+  total = ENERGEST_GET_TOTAL_TIME();
+
+  delta_cpu = cpu - last_cpu;
+  delta_total = total - last_total;
+  last_cpu = cpu;
+  last_total = total;
+
+  if (delta_total == 0) {
+    return 0;
+  }
+  return (uint16_t)MIN((delta_cpu * 100) / delta_total, 100);
+#else  /* ENERGEST_CONF_ON */
+  return 0;
+#endif /* ENERGEST_CONF_ON */
+}
+
+/* ETX / RSSI to the preferred parent, taken from its link statistics.
+ * Returns 0 at the root, and INT16_MAX when the value is unavailable: no
+ * preferred parent yet, or the statistic has not been measured (ETX == 0,
+ * RSSI == LINK_STATS_RSSI_UNKNOWN, which is itself INT16_MAX). The int16_t
+ * RSSI is carried in the uint16_t field as-is (reinterpret on the receiver). */
+typedef enum { PARENT_METRIC_ETX, PARENT_METRIC_RSSI } parent_metric_t;
+
+static uint16_t parent_link_metric(parent_metric_t which) {
+  rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
+  const struct link_stats *stats;
+  uint16_t value, unknown;
+
+  if (rpl_dag_root_is_root()) {
+    return 0;
+  }
+  stats = parent == NULL ? NULL : rpl_neighbor_get_link_stats(parent);
+  if (stats == NULL) {
+    return (uint16_t)INT16_MAX;
+  }
+
+  if (which == PARENT_METRIC_RSSI) {
+    value = (uint16_t)stats->rssi;
+    unknown = (uint16_t)LINK_STATS_RSSI_UNKNOWN;
+  } else {
+    value = stats->etx;
+    unknown = 0;
+  }
+  return value == unknown ? (uint16_t)INT16_MAX : value;
+}
 
 static void fill_multiple_metrics(void) {
-  const uint8_t types[] = {RPL_DAG_MC_ENERGY, RPL_DAG_MC_ETX, RPL_DAG_MC_RSSI};
-  rpl_metric_set_t *set = &curr_instance.mc.metrics;
-  int is_root = rpl_dag_root_is_root();
-  unsigned t;
+  rpl_mlof_mc_t *out = &curr_instance.mc.mlof;
 
-  set->num_metrics = 0;
-  for (t = 0; t < sizeof(types) && set->num_metrics < RPL_MC_MAX_METRICS; t++) {
-    uint16_t value;
-    if (is_root) {
-      value = root_metric_value;
-    } else {
-      uint16_t received;
-      // TODO: maybe have a fixed order of metrics and extract by index to
-      // increase speed
-      if (!rpl_icmp6_last_received_metric(types[t], &received)) {
-        received = RPL_METRIC_DEFAULT_VALUE;
-      }
-      value = received + RPL_MIN_HOPRANKINC;
-    }
-    set->metrics[set->num_metrics].type = types[t];
-    set->metrics[set->num_metrics].value = value;
-    set->num_metrics++;
-  }
-
-  if (is_root) {
-    root_metric_value++;
-  }
+  /* CPU usage is a local node property, advertised as-is by every node. */
+  out->cpu_usage = cpu_usage_percent();
+  /* ETX and RSSI to the preferred parent (0 at the root). */
+  out->etx = parent_link_metric(PARENT_METRIC_ETX);
+  out->rssi = parent_link_metric(PARENT_METRIC_RSSI);
 }
 #endif /* RPL_MULTIPLE_METRICS */
 /*---------------------------------------------------------------------------*/

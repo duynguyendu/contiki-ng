@@ -63,8 +63,9 @@
 #define RPL_DAG_MC_LQL                  6 /* Link Quality Level */
 #define RPL_DAG_MC_ETX                  7 /* Expected Transmission Count */
 #define RPL_DAG_MC_LC                   8 /* Link Color */
-/* Local (non-IANA) identifier, used only with RPL_MULTIPLE_METRICS */
+/* Local (non-IANA) identifiers, used only with RPL_MULTIPLE_METRICS */
 #define RPL_DAG_MC_RSSI                 20 /* Received Signal Strength Indicator */
+#define RPL_DAG_MC_MLOF                 21 /* Fixed {energy, etx, rssi} container */
 
 /* IANA Routing Metric/Constraint Common Header Flag field as defined in RFC6551 (bit indexes) */
 #define RPL_DAG_MC_FLAG_P               5
