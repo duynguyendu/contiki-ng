@@ -278,11 +278,11 @@ void
 rpl_neighbor_set_preferred_parent(rpl_nbr_t *nbr)
 {
   if(curr_instance.dag.preferred_parent != nbr) {
-    LOG_WARN("parent switch: ");
-    LOG_WARN_6ADDR(rpl_neighbor_get_ipaddr(curr_instance.dag.preferred_parent));
-    LOG_WARN_(" -> ");
-    LOG_WARN_6ADDR(rpl_neighbor_get_ipaddr(nbr));
-    LOG_WARN_("\n");
+    LOG_PRINT("parent switch: ");
+    LOG_PRINT_6ADDR(rpl_neighbor_get_ipaddr(curr_instance.dag.preferred_parent));
+    LOG_PRINT_(" -> ");
+    LOG_PRINT_6ADDR(rpl_neighbor_get_ipaddr(nbr));
+    LOG_PRINT_("\n");
 
 #ifdef RPL_CALLBACK_PARENT_SWITCH
     RPL_CALLBACK_PARENT_SWITCH(curr_instance.dag.preferred_parent, nbr);
