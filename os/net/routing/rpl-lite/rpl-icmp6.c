@@ -102,11 +102,12 @@ static void set16(uint8_t *buffer, int pos, uint16_t value) {
 }
 /*---------------------------------------------------------------------------*/
 #if RPL_MULTIPLE_METRICS
-/* Wire layout of the MLOF_MC DAG Metric Container option:
- *   [opt(1)][len(1)] [RPL_DAG_MC_MLOF(1)] [cpu_usage(2 BE)][etx(2 BE)][rssi(2 BE)]
- * i.e. a fixed 7-byte payload (1-byte type tag + three uint16 fields).
+/*
+ *   [opt(1)][len(1)] [RPL_DAG_MC_MLOF(1)]
+ *   [cpu_usage(1)][etx(2 BE)][rssi(2 BE)][ppm(2 BE)][hop_count(1)]
+ * i.e. a fixed 9-byte payload (1-byte type tag + three uint16 + two uint8).
  */
-#define RPL_MLOF_MC_PAYLOAD_LEN 7
+#define RPL_MLOF_MC_PAYLOAD_LEN 9
 #endif /* RPL_MULTIPLE_METRICS */
 /*---------------------------------------------------------------------------*/
 uip_ds6_nbr_t *rpl_icmp6_update_nbr_table(uip_ipaddr_t *from,
@@ -243,18 +244,21 @@ static void dio_input(void) {
       /* Fixed-layout MLOF_MC DAG Metric Container. */
       if (len != 2 + RPL_MLOF_MC_PAYLOAD_LEN ||
           buffer[i + 2] != RPL_DAG_MC_MLOF) {
-        LOG_WARN("dio_input: invalid MLOF_MC (len %u, tag %u), discard\n",
-                 len, (unsigned)buffer[i + 2]);
+        LOG_WARN("dio_input: invalid MLOF_MC (len %u, tag %u), discard\n", len,
+                 (unsigned)buffer[i + 2]);
         goto discard;
       }
 
-      dio.mc.mlof.cpu_usage = get16(buffer, i + 3);
-      dio.mc.mlof.etx = get16(buffer, i + 5);
-      dio.mc.mlof.rssi = get16(buffer, i + 7);
+      dio.mc.mlof.cpu_usage = buffer[i + 3];
+      dio.mc.mlof.etx = get16(buffer, i + 4);
+      dio.mc.mlof.rssi = get16(buffer, i + 6);
+      dio.mc.mlof.ppm = get16(buffer, i + 8);
+      dio.mc.mlof.hop_count = buffer[i + 10];
       dio.mlof_mc_present = 1;
-      LOG_DBG("dio_input: MLOF_MC cpu_usage=%u etx=%u rssi=%u\n",
+      LOG_DBG("dio_input: MLOF_MC cpu_usage=%u etx=%u rssi=%u ppm=%u hop_count=%u\n",
               (unsigned)dio.mc.mlof.cpu_usage, (unsigned)dio.mc.mlof.etx,
-              (unsigned)dio.mc.mlof.rssi);
+              (unsigned)dio.mc.mlof.rssi, (unsigned)dio.mc.mlof.ppm,
+              (unsigned)dio.mc.mlof.hop_count);
 
       /* The metric container does not drive parent selection yet, so keep
          the legacy single-metric fields empty (downstream code is a no-op). */
@@ -422,24 +426,20 @@ void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr) {
 
   if (!rpl_get_leaf_only()) {
 #if RPL_MULTIPLE_METRICS
-    /* Advertise energy, ETX and RSSI in the fixed-layout MLOF_MC container.
-       The values are populated by the objective function's
-       update_metric_container(), already run via rpl_dag_update_state() above. */
     {
       rpl_mlof_mc_t *m = &curr_instance.mc.mlof;
 
       buffer[pos++] = RPL_OPTION_DAG_METRIC_CONTAINER;
       buffer[pos++] = RPL_MLOF_MC_PAYLOAD_LEN;
       buffer[pos++] = RPL_DAG_MC_MLOF;
-      set16(buffer, pos, m->cpu_usage);
-      pos += 2;
+      buffer[pos++] = m->cpu_usage;
       set16(buffer, pos, m->etx);
       pos += 2;
       set16(buffer, pos, m->rssi);
       pos += 2;
-
-      LOG_DBG("dio_output: MLOF_MC cpu_usage=%u etx=%u rssi=%u\n",
-              (unsigned)m->cpu_usage, (unsigned)m->etx, (unsigned)m->rssi);
+      set16(buffer, pos, m->ppm);
+      pos += 2;
+      buffer[pos++] = m->hop_count;
     }
 #else  /* RPL_MULTIPLE_METRICS */
     if (curr_instance.mc.type != RPL_DAG_MC_NONE) {

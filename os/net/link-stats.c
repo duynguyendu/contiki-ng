@@ -268,34 +268,6 @@ link_stats_input_callback(const linkaddr_t *lladdr)
 #endif
 }
 /*---------------------------------------------------------------------------*/
-#if LINK_STATS_PACKET_COUNTERS
-/*---------------------------------------------------------------------------*/
-static void
-print_and_update_counters(void)
-{
-  struct link_stats *stats;
-
-  for(stats = nbr_table_head(link_stats); stats != NULL;
-      stats = nbr_table_next(link_stats, stats)) {
-
-    struct link_packet_counter *c = &stats->cnt_current;
-
-    LOG_INFO("num packets: tx=%u ack=%u rx=%u queue_drops=%u to=",
-             c->num_packets_tx, c->num_packets_acked,
-             c->num_packets_rx, c->num_queue_drops);
-    LOG_INFO_LLADDR(link_stats_get_lladdr(stats));
-    LOG_INFO_("\n");
-
-    stats->cnt_total.num_packets_tx += stats->cnt_current.num_packets_tx;
-    stats->cnt_total.num_packets_acked += stats->cnt_current.num_packets_acked;
-    stats->cnt_total.num_packets_rx += stats->cnt_current.num_packets_rx;
-    stats->cnt_total.num_queue_drops += stats->cnt_current.num_queue_drops;
-    memset(&stats->cnt_current, 0, sizeof(stats->cnt_current));
-  }
-}
-/*---------------------------------------------------------------------------*/
-#endif /* LINK_STATS_PACKET_COUNTERS */
-/*---------------------------------------------------------------------------*/
 /* Periodic timer called at a period of FRESHNESS_HALF_LIFE */
 static void
 periodic(void *ptr)
@@ -306,10 +278,6 @@ periodic(void *ptr)
   for(stats = nbr_table_head(link_stats); stats != NULL; stats = nbr_table_next(link_stats, stats)) {
     stats->freshness >>= 1;
   }
-
-#if LINK_STATS_PACKET_COUNTERS
-  print_and_update_counters();
-#endif
 }
 /*---------------------------------------------------------------------------*/
 /* Resets link-stats module */

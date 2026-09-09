@@ -131,7 +131,7 @@ static rpl_nbr_t *best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2) {
   /* Maintain stability of the preferred parent. Switch only if the gain
   is greater than RANK_THRESHOLD, or if the neighbor has been better than the
   current parent for at more than TIME_THRESHOLD. */
-  // TODO: Calculate the path cost of nbr1 and nbr2 
+  // TODO: Calculate the path cost of nbr1 and nbr2
   if (nbr1 == curr_instance.dag.preferred_parent && within_hysteresis(nbr2)) {
     return nbr1;
   }
@@ -145,11 +145,20 @@ static rpl_nbr_t *best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2) {
 }
 /*---------------------------------------------------------------------------*/
 #if RPL_MULTIPLE_METRICS
-/* Local CPU usage in percent over the interval since the previous call:
- * delta(CPU ticks) / delta(total ticks) * 100. Total ticks = CPU + LPM +
- * DEEP_LPM (ENERGEST_GET_TOTAL_TIME). The first call measures since boot.
- * Returns 0 when Energest is disabled (ENERGEST_CONF_ON == 0). */
-static uint16_t cpu_usage_percent(void) {
+/* CPU-usage fixed-point unit, mirroring the ETX divisor scheme: the utilization
+ * fraction f in [0,1] is carried as (uint8_t)(f * this). The container field is
+ * one byte, so real values are capped at MLOF_CPU_USAGE_MAX (0xfe, ~99.6%) and
+ * 0xff is reserved as the "unknown" sentinel. */
+#define MLOF_CPU_USAGE_UNIT 256
+#define MLOF_CPU_USAGE_MAX 0xfe
+#define MLOF_CPU_USAGE_UNKNOWN 0xff
+
+/* Local CPU usage over the interval since the previous call, as a fixed-point
+ * fraction with divisor MLOF_CPU_USAGE_UNIT (same scheme as ETX):
+ * delta(CPU ticks) * MLOF_CPU_USAGE_UNIT / delta(total ticks). Total ticks =
+ * CPU + LPM + DEEP_LPM (ENERGEST_GET_TOTAL_TIME). The first call measures since
+ * boot. Returns 0 when Energest is disabled (ENERGEST_CONF_ON == 0). */
+static uint8_t cpu_usage_percent(void) {
 #if ENERGEST_CONF_ON
   static uint64_t last_cpu = 0;
   static uint64_t last_total = 0;
@@ -167,7 +176,8 @@ static uint16_t cpu_usage_percent(void) {
   if (delta_total == 0) {
     return 0;
   }
-  return (uint16_t)MIN((delta_cpu * 100) / delta_total, 100);
+  return (uint8_t)MIN((delta_cpu * MLOF_CPU_USAGE_UNIT) / delta_total,
+                      MLOF_CPU_USAGE_MAX);
 #else  /* ENERGEST_CONF_ON */
   return 0;
 #endif /* ENERGEST_CONF_ON */
@@ -203,14 +213,124 @@ static uint16_t parent_link_metric(parent_metric_t which) {
   return value == unknown ? (uint16_t)INT16_MAX : value;
 }
 
+#define MLOF_CPU_W_SELF 3
+#define MLOF_CPU_W_PARENT 7
+
+static uint8_t weighted_cpu_usage(uint8_t self_cpu_usage) {
+  rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
+  unsigned blend;
+
+  if (rpl_dag_root_is_root()) {
+    return 0;
+  }
+  if (parent == NULL || !parent->mlof_valid ||
+      parent->mlof.cpu_usage == MLOF_CPU_USAGE_UNKNOWN) {
+    return MLOF_CPU_USAGE_UNKNOWN;
+  }
+
+  blend = (MLOF_CPU_W_SELF * self_cpu_usage +
+           MLOF_CPU_W_PARENT * parent->mlof.cpu_usage + 5) /
+          10;
+  return (uint8_t)MIN(blend, MLOF_CPU_USAGE_MAX);
+}
+
+#define MLOF_PPM_MIN_WINDOW (30 * CLOCK_SECOND)
+
+static uint16_t node_ppm(void) {
+#if LINK_STATS_PACKET_COUNTERS
+  static uint16_t prev_tx = 0;
+  static clock_time_t prev_time = 0;
+  static uint16_t last_ppm = 0;
+  rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
+  const struct link_stats *stats;
+  clock_time_t now = clock_time();
+  uint16_t tx_now, tx_delta;
+  clock_time_t time_delta;
+
+  if (rpl_dag_root_is_root()) {
+    return 0;
+  }
+  stats = parent == NULL ? NULL : rpl_neighbor_get_link_stats(parent);
+  if (stats == NULL) {
+    return (uint16_t)INT16_MAX;
+  }
+
+  tx_now = stats->cnt_current.num_packets_tx;
+  // TODO: really need to think about this
+  if (prev_time == 0 || tx_now < prev_tx) {
+    /* First sample, parent switch, or counter wrap: reset the baseline. */
+    prev_tx = tx_now;
+    prev_time = now;
+    last_ppm = 0;
+    return 0;
+  }
+
+  time_delta = now - prev_time;
+  if (time_delta <= MLOF_PPM_MIN_WINDOW) {
+    return last_ppm;
+  }
+
+  tx_delta = tx_now - prev_tx;
+  prev_tx = tx_now;
+  prev_time = now;
+
+  last_ppm = (uint16_t)MIN(
+      ((uint32_t)tx_delta * 128 * CLOCK_SECOND) / time_delta, 0xffff);
+
+  LOG_PRINT("MLOF ppm: tx_now=%u tx_delta=%u time_delta=%lu send_rate=%u\n",
+            (unsigned)tx_now, (unsigned)tx_delta, (unsigned long)time_delta,
+            (unsigned)last_ppm);
+
+  return last_ppm;
+#else  /* LINK_STATS_PACKET_COUNTERS */
+  return 0;
+#endif /* LINK_STATS_PACKET_COUNTERS */
+}
+
+static uint8_t hop_count_via_parent(void) {
+  rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
+
+  if (rpl_dag_root_is_root()) {
+    return 0;
+  }
+  if (parent == NULL || !parent->mlof_valid || parent->mlof.hop_count >= 0xfe) {
+    return 0xff;
+  }
+  return parent->mlof.hop_count + 1;
+}
+
+/* This node's own CPU usage (fixed point, divisor MLOF_CPU_USAGE_UNIT) as last
+ * sampled for the metric container. Cached so the parent-switch callback can
+ * report it without calling cpu_usage_percent() again (that call consumes the
+ * sampling interval). */
+static uint8_t last_self_cpu_usage;
+
 static void fill_multiple_metrics(void) {
   rpl_mlof_mc_t *out = &curr_instance.mc.mlof;
+  uint8_t self_cpu_usage = cpu_usage_percent();
 
-  /* CPU usage is a local node property, advertised as-is by every node. */
-  out->cpu_usage = cpu_usage_percent();
-  /* ETX and RSSI to the preferred parent (0 at the root). */
+  last_self_cpu_usage = self_cpu_usage;
+
+  out->cpu_usage = weighted_cpu_usage(self_cpu_usage);
   out->etx = parent_link_metric(PARENT_METRIC_ETX);
   out->rssi = parent_link_metric(PARENT_METRIC_RSSI);
+  out->ppm = node_ppm();
+  out->hop_count = hop_count_via_parent();
+}
+/*---------------------------------------------------------------------------*/
+void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *new) {
+  (void)old;
+
+  if (new == NULL || !new->mlof_valid) {
+    return;
+  }
+
+  LOG_PRINT(
+      "MLOF metrics: node_cpu_usage=%u | new parent mc cpu_usage=%u etx=%u "
+      "rssi=%d ppm=%u hop_count=%u\n",
+      (unsigned)last_self_cpu_usage, (unsigned)new->mlof.cpu_usage,
+      (unsigned)new->mlof.etx, (int)(int16_t)new->mlof.rssi,
+      (unsigned)new->mlof.ppm, (unsigned)new->mlof.hop_count);
 }
 #endif /* RPL_MULTIPLE_METRICS */
 /*---------------------------------------------------------------------------*/

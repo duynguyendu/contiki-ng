@@ -418,6 +418,15 @@
 
 #endif /* MAC_CONF_WITH_TSCH */
 
+/* When MLOF is the objective function and nothing else has claimed the
+ * parent-switch hook (e.g. TSCH above), log the MLOF metric container and the
+ * old/new parent link metrics on every preferred-parent switch. */
+#if RPL_OF_OCP == RPL_OCP_MLOF
+#ifndef RPL_CALLBACK_PARENT_SWITCH
+#define RPL_CALLBACK_PARENT_SWITCH rpl_mlof_callback_parent_switch
+#endif /* RPL_CALLBACK_PARENT_SWITCH */
+#endif /* RPL_OF_OCP == RPL_OCP_MLOF */
+
 /* Set to 1 to drop packets when a forwarding loop is detected
  * on a packet that already had an error signaled, as per RFC6550 - 11.2.2.2.
  * Disabled by default for more reliability: even in the event of a loop,
