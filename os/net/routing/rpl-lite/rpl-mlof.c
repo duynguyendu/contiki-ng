@@ -315,20 +315,28 @@ static void fill_multiple_metrics(void) {
   out->nbr_count = (uint8_t)MIN(rpl_neighbor_count(), 0xff);
 }
 /*---------------------------------------------------------------------------*/
-void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *new) {
+void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *new,
+                                     int is_new) {
   (void)old;
 
   if (new == NULL) {
-    LOG_PRINT("MLOF metrics: null new\n");
+    LOG_PRINT("MLOF metrics: null parent\n");
     return;
   }
 
-  LOG_PRINT("MLOF metrics: cpu=%u p_cpu=%u etx=%u rssi=%d ppm=%u drop_rate=%u "
-            "hop_count=%u nbr_count=%u\n",
-            (unsigned)last_self_cpu_usage, (unsigned)new->mlof.cpu_usage,
-            (unsigned)new->mlof.etx, (int)new->mlof.rssi,
-            (unsigned)new->mlof.ppm, (unsigned)new->mlof.drop_rate,
-            (unsigned)new->mlof.hop_count, (unsigned)new->mlof.nbr_count);
+  LOG_PRINT("MLOF metrics: is_new=%d cpu=%u p_cpu=%u etx=%u rssi=%d ppm=%u "
+            "drop_rate=%u hop_count=%u nbr_count=%u\n",
+            is_new, (unsigned)last_self_cpu_usage,
+            (unsigned)new->mlof.cpu_usage, (unsigned)new->mlof.etx,
+            (int)new->mlof.rssi, (unsigned)new->mlof.ppm,
+            (unsigned)new->mlof.drop_rate, (unsigned)new->mlof.hop_count,
+            (unsigned)new->mlof.nbr_count);
+}
+
+/* 2-arg adapter wired as RPL_CALLBACK_PARENT_SWITCH: every call through it is a
+ * real switch to a new preferred parent. */
+void rpl_mlof_of_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *new) {
+  rpl_mlof_callback_parent_switch(old, new, 1);
 }
 /*---------------------------------------------------------------------------*/
 static void update_metric_container(void) {

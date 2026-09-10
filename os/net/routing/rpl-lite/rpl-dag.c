@@ -59,7 +59,7 @@ static rpl_of_t *const objective_functions[] = RPL_SUPPORTED_OFS;
 static int process_dio_init_dag(rpl_dio_t *dio);
 
 #if RPL_MULTIPLE_METRICS
-void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *new);
+void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *new, int is_new);
 static uint8_t mlof_parent_dio_pending;
 #endif /* RPL_MULTIPLE_METRICS */
 
@@ -281,7 +281,10 @@ void rpl_dag_update_state(void) {
       mlof_parent_dio_pending = 0;
       if (curr_instance.dag.preferred_parent != NULL &&
           curr_instance.dag.preferred_parent == old_parent) {
-        rpl_mlof_callback_parent_switch(old_parent, old_parent);
+        LOG_PRINT("MLOF: current parent ");
+        LOG_PRINT_6ADDR(rpl_neighbor_get_ipaddr(old_parent));
+        LOG_PRINT_("\n");
+        rpl_mlof_callback_parent_switch(old_parent, old_parent, 0);
       }
     }
 #endif /* RPL_MULTIPLE_METRICS */

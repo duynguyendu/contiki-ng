@@ -406,7 +406,8 @@
 
 #if RPL_OF_OCP == RPL_OCP_MLOF
 #ifndef RPL_CALLBACK_PARENT_SWITCH
-#define RPL_CALLBACK_PARENT_SWITCH rpl_mlof_callback_parent_switch
+/* 2-arg adapter; the real 3-arg logger is rpl_mlof_callback_parent_switch(). */
+#define RPL_CALLBACK_PARENT_SWITCH rpl_mlof_of_callback_parent_switch
 #endif /* RPL_CALLBACK_PARENT_SWITCH */
 #endif /* RPL_OF_OCP == RPL_OCP_MLOF */
 
