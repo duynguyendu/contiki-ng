@@ -200,25 +200,33 @@ static uint8_t weighted_cpu_usage(uint8_t self_cpu_usage) {
   return (uint8_t)MIN(blend, MLOF_CPU_USAGE_MAX);
 }
 
-#define MLOF_PPM_MIN_WINDOW (30 * CLOCK_SECOND)
+#define MLOF_TRAFFIC_MIN_WINDOW (30 * CLOCK_SECOND)
 #define MLOF_DROP_RATE_UNKNOWN 0xff
 
-/* Traffic metrics on the link to the preferred parent, from a single link-stats
- * fetch:
- *  - drop_rate: transmissions per queue drop (tx / drops); 0 means no drops so
- *    far, 0xff when the parent link stats are unavailable.
- *  - ppm: tx rate sampled over a window of at least MLOF_PPM_MIN_WINDOW; the
- *    cached value is returned between samples.
+/* Traffic metrics on the link to the preferred parent. Both are sampled over a
+ * sliding window of at least MLOF_TRAFFIC_MIN_WINDOW and share one link-stats
+ * baseline (prev_tx / prev_drops / prev_time) that is reset whenever the
+ * preferred parent changes, is lost, or a link-stats counter wraps. Between
+ * windows the last computed values are returned; until the first full window
+ * after a (re)start they read "unknown" (INT16_MAX / 0xff).
+ *  - ppm:       tx attempts on the parent link, packets/second scaled by 128
+ *               (same fixed-point convention as the old send_rate value).
+ *  - drop_rate: tx attempts per queue drop over the window; 0 = no drops in
+ *               the window, 0xff = unknown.
  * Both are 0 at the root. Requires link-stats packet counters, which
  * contiki-default-conf.h enables automatically when MLOF is the OF. */
 static void parent_traffic_metrics(uint16_t *ppm, uint8_t *drop_rate) {
+  static const rpl_nbr_t *prev_parent = NULL;
   static uint16_t prev_tx = 0;
+  static uint16_t prev_drops = 0;
   static clock_time_t prev_time = 0;
-  static uint16_t last_ppm = 0;
+  static uint16_t last_ppm = (uint16_t)INT16_MAX;
+  static uint8_t last_drop_rate = MLOF_DROP_RATE_UNKNOWN;
+
   rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
   const struct link_stats *stats;
   clock_time_t now = clock_time();
-  uint16_t tx_now, tx_delta, drops;
+  uint16_t tx_now, drops_now, tx_delta, drops_delta;
   clock_time_t time_delta;
 
   if (rpl_dag_root_is_root()) {
@@ -226,45 +234,54 @@ static void parent_traffic_metrics(uint16_t *ppm, uint8_t *drop_rate) {
     *drop_rate = 0;
     return;
   }
+
   stats = parent == NULL ? NULL : rpl_neighbor_get_link_stats(parent);
-  if (stats == NULL) {
-    *ppm = (uint16_t)INT16_MAX;
-    *drop_rate = MLOF_DROP_RATE_UNKNOWN;
-    return;
-  }
 
-  tx_now = stats->cnt_current.num_packets_tx;
-  drops = stats->cnt_current.num_queue_drops;
-
-  *drop_rate = drops == 0 ? 0 : (uint8_t)MIN(tx_now / drops, 0xff);
-
-  if (prev_time == 0 || tx_now < prev_tx) {
-    /* First sample, parent switch, or counter wrap: reset the baseline. */
-    prev_tx = tx_now;
+  /* (Re)start the window on a parent change, a lost parent, or a counter wrap.
+   * Report "unknown" until the next full window has elapsed. */
+  if (parent != prev_parent || stats == NULL ||
+      stats->cnt_current.num_packets_tx < prev_tx ||
+      stats->cnt_current.num_queue_drops < prev_drops) {
+    prev_parent = parent;
     prev_time = now;
-    last_ppm = 0;
-    *ppm = 0;
+    prev_tx = stats ? stats->cnt_current.num_packets_tx : 0;
+    prev_drops = stats ? stats->cnt_current.num_queue_drops : 0;
+    last_ppm = (uint16_t)INT16_MAX;
+    last_drop_rate = MLOF_DROP_RATE_UNKNOWN;
+    *ppm = last_ppm;
+    *drop_rate = last_drop_rate;
     return;
   }
 
   time_delta = now - prev_time;
-  if (time_delta <= MLOF_PPM_MIN_WINDOW) {
+  if (time_delta <= MLOF_TRAFFIC_MIN_WINDOW) {
     *ppm = last_ppm;
+    *drop_rate = last_drop_rate;
     return;
   }
 
+  tx_now = stats->cnt_current.num_packets_tx;
+  drops_now = stats->cnt_current.num_queue_drops;
   tx_delta = tx_now - prev_tx;
-  prev_tx = tx_now;
-  prev_time = now;
+  drops_delta = drops_now - prev_drops;
 
   last_ppm = (uint16_t)MIN(
       ((uint32_t)tx_delta * 128 * CLOCK_SECOND) / time_delta, 0xffff);
+  last_drop_rate =
+      drops_delta == 0 ? 0 : (uint8_t)MIN(tx_delta / drops_delta, 0xff);
 
-  LOG_PRINT("MLOF ppm: tx_now=%u tx_delta=%u time_delta=%lu send_rate=%u\n",
-            (unsigned)tx_now, (unsigned)tx_delta, (unsigned long)time_delta,
-            (unsigned)last_ppm);
+  prev_tx = tx_now;
+  prev_drops = drops_now;
+  prev_time = now;
+
+  LOG_PRINT("MLOF traffic: parent_tx=%u tx_delta=%u drops_delta=%u "
+            "time_delta=%lu ppm=%u drop_rate=%u\n",
+            (unsigned)tx_now, (unsigned)tx_delta, (unsigned)drops_delta,
+            (unsigned long)time_delta, (unsigned)last_ppm,
+            (unsigned)last_drop_rate);
 
   *ppm = last_ppm;
+  *drop_rate = last_drop_rate;
 }
 
 static uint8_t hop_count_via_parent(void) {
