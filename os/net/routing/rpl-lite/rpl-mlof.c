@@ -123,8 +123,7 @@ static rpl_nbr_t *best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2) {
  * 0xff is reserved as the "unknown" sentinel. */
 #define MLOF_CPU_USAGE_UNIT 256
 #define MLOF_CPU_USAGE_MAX 0xfe
-#define MLOF_CPU_USAGE_UNKNOWN 0xff
-
+#define MLOF_CPU_USAGE_UNKNOWN 0xff 
 /* Local CPU usage over the interval since the previous call, as a fixed-point
  * fraction with divisor MLOF_CPU_USAGE_UNIT (same scheme as ETX):
  * delta(CPU ticks) * MLOF_CPU_USAGE_UNIT / delta(total ticks). Total ticks =
@@ -191,7 +190,10 @@ static uint8_t weighted_cpu_usage(uint8_t self_cpu_usage) {
     return 0;
   }
   if (parent == NULL || parent->mlof.cpu_usage == MLOF_CPU_USAGE_UNKNOWN) {
-    return MLOF_CPU_USAGE_UNKNOWN;
+    /* No usable ancestor term (no parent, or parent still advertising the
+       "unknown" sentinel, e.g. from stale firmware): report our own load
+       rather than blending a bogus value. */
+    return self_cpu_usage;
   }
 
   blend = (MLOF_CPU_W_SELF * self_cpu_usage +
@@ -317,6 +319,8 @@ static void fill_multiple_metrics(void) {
 /*---------------------------------------------------------------------------*/
 void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *new,
                                      int is_new) {
+  const linkaddr_t *lla;
+  unsigned parent_id;
   (void)old;
 
   if (new == NULL) {
@@ -324,9 +328,16 @@ void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *new,
     return;
   }
 
-  LOG_PRINT("MLOF metrics: is_new=%d cpu=%u p_cpu=%u etx=%u rssi=%d ppm=%u "
-            "drop_rate=%u hop_count=%u nbr_count=%u\n",
-            is_new, (unsigned)last_self_cpu_usage,
+  /* Node id of the new parent, derived from its link-layer address the same way
+     node_id_init() derives our own (last two bytes, big endian). */
+  lla = rpl_neighbor_get_lladdr(new);
+  parent_id = lla == NULL ? 0
+                          : lla->u8[LINKADDR_SIZE - 1] +
+                                (lla->u8[LINKADDR_SIZE - 2] << 8);
+
+  LOG_PRINT("MLOF metrics: is_new=%d parent_id=%u cpu=%u p_cpu=%u etx=%u "
+            "rssi=%d ppm=%u drop_rate=%u hop_count=%u nbr_count=%u\n",
+            is_new, parent_id, (unsigned)last_self_cpu_usage,
             (unsigned)new->mlof.cpu_usage, (unsigned)new->mlof.etx,
             (int)new->mlof.rssi, (unsigned)new->mlof.ppm,
             (unsigned)new->mlof.drop_rate, (unsigned)new->mlof.hop_count,
