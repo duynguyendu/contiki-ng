@@ -119,20 +119,6 @@
 #define RPL_DAG_MC RPL_DAG_MC_NONE
 #endif /* RPL_CONF_DAG_MC */
 
-/*
- * Enable advertising energy, ETX and RSSI together inside the DAG Metric
- * Container of DIO messages, using the fixed-layout MLOF_MC container
- * (RPL_DAG_MC_MLOF): a 1-byte type tag followed by three uint16 fields.
- *
- * When disabled (default), RPL-lite carries at most a single metric in
- * the DAG Metric Container and behaves exactly as before. When enabled,
- * rpl_icmp6_dio_output() emits the MLOF_MC container and dio_input()
- * parses it into the DIO metric container.
- *
- * It is enabled explicitly with RPL_CONF_MULTIPLE_METRICS, and implicitly
- * whenever MLOF is the selected objective function, since MLOF is built
- * around this container.
- */
 #ifdef RPL_CONF_MULTIPLE_METRICS
 #define RPL_MULTIPLE_METRICS RPL_CONF_MULTIPLE_METRICS
 #elif RPL_OF_OCP == RPL_OCP_MLOF
@@ -418,9 +404,6 @@
 
 #endif /* MAC_CONF_WITH_TSCH */
 
-/* When MLOF is the objective function and nothing else has claimed the
- * parent-switch hook (e.g. TSCH above), log the MLOF metric container and the
- * old/new parent link metrics on every preferred-parent switch. */
 #if RPL_OF_OCP == RPL_OCP_MLOF
 #ifndef RPL_CALLBACK_PARENT_SWITCH
 #define RPL_CALLBACK_PARENT_SWITCH rpl_mlof_callback_parent_switch

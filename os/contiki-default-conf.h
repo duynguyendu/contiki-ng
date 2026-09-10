@@ -222,4 +222,20 @@
 #define SICSLOWPAN_CONF_COMPRESSION SICSLOWPAN_COMPRESSION_IPHC
 #endif /* SICSLOWPAN_CONF_COMPRESSION */
 
+/*---------------------------------------------------------------------------*/
+/* RPL-lite MLOF derives its metrics from the link-stats packet counters
+   (ppm, drop_rate) and from Energest (cpu_usage), so enable both whenever
+   MLOF is the objective function. */
+#ifdef RPL_CONF_OF_OCP
+#include "net/routing/rpl-lite/rpl-const.h"
+#if RPL_CONF_OF_OCP == RPL_OCP_MLOF
+#ifndef LINK_STATS_CONF_PACKET_COUNTERS
+#define LINK_STATS_CONF_PACKET_COUNTERS 1
+#endif /* LINK_STATS_CONF_PACKET_COUNTERS */
+#ifndef ENERGEST_CONF_ON
+#define ENERGEST_CONF_ON 1
+#endif /* ENERGEST_CONF_ON */
+#endif /* RPL_CONF_OF_OCP == RPL_OCP_MLOF */
+#endif /* RPL_CONF_OF_OCP */
+
 #endif /* CONTIKI_DEFAULT_CONF_H */

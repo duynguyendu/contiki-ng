@@ -69,9 +69,6 @@ struct rpl_dio {
   rpl_prefix_t destination_prefix;
   rpl_prefix_t prefix_info;
   struct rpl_metric_container mc;
-#if RPL_MULTIPLE_METRICS
-  uint8_t mlof_mc_present;  /* 1 if this DIO carried a MLOF_MC container */
-#endif /* RPL_MULTIPLE_METRICS */
 };
 typedef struct rpl_dio rpl_dio_t;
 

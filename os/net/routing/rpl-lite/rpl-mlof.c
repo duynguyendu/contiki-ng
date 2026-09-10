@@ -1,50 +1,23 @@
-/**
- * \addtogroup rpl-lite
- * @{
- *
- * \file
- *         The Minimum Rank with Hysteresis Objective Function (MRHOF), RFC6719
- *
- *         This implementation uses the estimated number of
- *         transmissions (ETX) as the additive routing metric,
- *         and also provides stubs for the energy metric.
- *
- * \author Joakim Eriksson <joakime@sics.se>, Nicolas Tsiftes <nvt@sics.se>
- *  Simon Duquennoy <simon.duquennoy@inria.fr>
- */
-
 #include "net/link-stats.h"
 #include "net/nbr-table.h"
 #include "net/routing/rpl-lite/rpl.h"
-#if RPL_MULTIPLE_METRICS
 #include "sys/energest.h"
-#endif /* RPL_MULTIPLE_METRICS */
 
 /* Log configuration */
 #include "sys/log.h"
 #define LOG_MODULE "RPL"
 #define LOG_LEVEL LOG_LEVEL_RPL
 
-/* Configuration parameters of RFC6719. Reject parents that have a higher
- * link metric than the following. The default value is 512. */
-#ifdef RPL_MRHOF_CONF_MAX_LINK_METRIC
-#define MAX_LINK_METRIC RPL_MRHOF_CONF_MAX_LINK_METRIC
-#else                       /* RPL_MRHOF_CONF_MAX_LINK_METRIC */
-#define MAX_LINK_METRIC 512 /* Eq ETX of 4 */
-#endif                      /* RPL_MRHOF_CONF_MAX_LINK_METRIC */
+/* MLOF is only used when the multi-metric DAG Metric Container is advertised.
+ * Otherwise RPL_MULTIPLE_METRICS is 0 and this file compiles to an empty
+ * object (the rpl_mlof symbol is simply absent). rpl-conf.h sets
+ * RPL_MULTIPLE_METRICS when RPL_OF_OCP is MLOF or RPL_CONF_MULTIPLE_METRICS
+ * is set; add &rpl_mlof to RPL_SUPPORTED_OFS only in those builds. */
+#if RPL_MULTIPLE_METRICS
 
-/* Reject parents that have a higher path cost than the following. */
-#ifdef RPL_MRHOF_CONF_MAX_PATH_COST
-#define MAX_PATH_COST RPL_MRHOF_CONF_MAX_PATH_COST
-#else                       /*  RPL_MRHOF_CONF_MAX_PATH_COST */
+#define MAX_LINK_METRIC 512
 #define MAX_PATH_COST 32768 /* Eq path ETX of 256 */
-#endif                      /* RPL_MRHOF_CONF_MAX_PATH_COST */
-
-#define RANK_THRESHOLD 192 /* Eq ETX of 1.5 */
-
-/* Additional, custom hysteresis based on time. If a neighbor was consistently
- * better than our preferred parent for at least TIME_THRESHOLD, switch to
- * this neighbor regardless of RANK_THRESHOLD. */
+#define RANK_THRESHOLD 192  /* Eq ETX of 1.5 */
 #define TIME_THRESHOLD (10 * 60 * CLOCK_SECOND)
 
 /*---------------------------------------------------------------------------*/
@@ -144,7 +117,6 @@ static rpl_nbr_t *best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2) {
   return nbr_path_cost(nbr1) < nbr_path_cost(nbr2) ? nbr1 : nbr2;
 }
 /*---------------------------------------------------------------------------*/
-#if RPL_MULTIPLE_METRICS
 /* CPU-usage fixed-point unit, mirroring the ETX divisor scheme: the utilization
  * fraction f in [0,1] is carried as (uint8_t)(f * this). The container field is
  * one byte, so real values are capped at MLOF_CPU_USAGE_MAX (0xfe, ~99.6%) and
@@ -183,34 +155,29 @@ static uint8_t cpu_usage_percent(void) {
 #endif /* ENERGEST_CONF_ON */
 }
 
-/* ETX / RSSI to the preferred parent, taken from its link statistics.
- * Returns 0 at the root, and INT16_MAX when the value is unavailable: no
- * preferred parent yet, or the statistic has not been measured (ETX == 0,
- * RSSI == LINK_STATS_RSSI_UNKNOWN, which is itself INT16_MAX). The int16_t
- * RSSI is carried in the uint16_t field as-is (reinterpret on the receiver). */
-typedef enum { PARENT_METRIC_ETX, PARENT_METRIC_RSSI } parent_metric_t;
-
-static uint16_t parent_link_metric(parent_metric_t which) {
+/* ETX and RSSI to the preferred parent, from its link statistics. Both are 0 at
+ * the root and INT16_MAX when unavailable: no preferred parent yet, or the
+ * statistic has not been measured (ETX == 0, RSSI == LINK_STATS_RSSI_UNKNOWN,
+ * which is itself INT16_MAX). The int16_t RSSI is carried in the uint16_t field
+ * as-is. One shared root/link-stats check for both values. */
+static void parent_link_metrics(uint16_t *etx, int16_t *rssi) {
   rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
   const struct link_stats *stats;
-  uint16_t value, unknown;
 
   if (rpl_dag_root_is_root()) {
-    return 0;
+    *etx = 0;
+    *rssi = 0;
+    return;
   }
   stats = parent == NULL ? NULL : rpl_neighbor_get_link_stats(parent);
   if (stats == NULL) {
-    return (uint16_t)INT16_MAX;
+    *etx = (uint16_t)INT16_MAX;
+    *rssi = INT16_MAX;
+    return;
   }
 
-  if (which == PARENT_METRIC_RSSI) {
-    value = (uint16_t)stats->rssi;
-    unknown = (uint16_t)LINK_STATS_RSSI_UNKNOWN;
-  } else {
-    value = stats->etx;
-    unknown = 0;
-  }
-  return value == unknown ? (uint16_t)INT16_MAX : value;
+  *etx = stats->etx == 0 ? (uint16_t)INT16_MAX : stats->etx;
+  *rssi = stats->rssi == LINK_STATS_RSSI_UNKNOWN ? INT16_MAX : stats->rssi;
 }
 
 #define MLOF_CPU_W_SELF 3
@@ -223,8 +190,7 @@ static uint8_t weighted_cpu_usage(uint8_t self_cpu_usage) {
   if (rpl_dag_root_is_root()) {
     return 0;
   }
-  if (parent == NULL || !parent->mlof_valid ||
-      parent->mlof.cpu_usage == MLOF_CPU_USAGE_UNKNOWN) {
+  if (parent == NULL || parent->mlof.cpu_usage == MLOF_CPU_USAGE_UNKNOWN) {
     return MLOF_CPU_USAGE_UNKNOWN;
   }
 
@@ -235,39 +201,56 @@ static uint8_t weighted_cpu_usage(uint8_t self_cpu_usage) {
 }
 
 #define MLOF_PPM_MIN_WINDOW (30 * CLOCK_SECOND)
+#define MLOF_DROP_RATE_UNKNOWN 0xff
 
-static uint16_t node_ppm(void) {
-#if LINK_STATS_PACKET_COUNTERS
+/* Traffic metrics on the link to the preferred parent, from a single link-stats
+ * fetch:
+ *  - drop_rate: transmissions per queue drop (tx / drops); 0 means no drops so
+ *    far, 0xff when the parent link stats are unavailable.
+ *  - ppm: tx rate sampled over a window of at least MLOF_PPM_MIN_WINDOW; the
+ *    cached value is returned between samples.
+ * Both are 0 at the root. Requires link-stats packet counters, which
+ * contiki-default-conf.h enables automatically when MLOF is the OF. */
+static void parent_traffic_metrics(uint16_t *ppm, uint8_t *drop_rate) {
   static uint16_t prev_tx = 0;
   static clock_time_t prev_time = 0;
   static uint16_t last_ppm = 0;
   rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
   const struct link_stats *stats;
   clock_time_t now = clock_time();
-  uint16_t tx_now, tx_delta;
+  uint16_t tx_now, tx_delta, drops;
   clock_time_t time_delta;
 
   if (rpl_dag_root_is_root()) {
-    return 0;
+    *ppm = 0;
+    *drop_rate = 0;
+    return;
   }
   stats = parent == NULL ? NULL : rpl_neighbor_get_link_stats(parent);
   if (stats == NULL) {
-    return (uint16_t)INT16_MAX;
+    *ppm = (uint16_t)INT16_MAX;
+    *drop_rate = MLOF_DROP_RATE_UNKNOWN;
+    return;
   }
 
   tx_now = stats->cnt_current.num_packets_tx;
-  // TODO: really need to think about this
+  drops = stats->cnt_current.num_queue_drops;
+
+  *drop_rate = drops == 0 ? 0 : (uint8_t)MIN(tx_now / drops, 0xff);
+
   if (prev_time == 0 || tx_now < prev_tx) {
     /* First sample, parent switch, or counter wrap: reset the baseline. */
     prev_tx = tx_now;
     prev_time = now;
     last_ppm = 0;
-    return 0;
+    *ppm = 0;
+    return;
   }
 
   time_delta = now - prev_time;
   if (time_delta <= MLOF_PPM_MIN_WINDOW) {
-    return last_ppm;
+    *ppm = last_ppm;
+    return;
   }
 
   tx_delta = tx_now - prev_tx;
@@ -281,10 +264,7 @@ static uint16_t node_ppm(void) {
             (unsigned)tx_now, (unsigned)tx_delta, (unsigned long)time_delta,
             (unsigned)last_ppm);
 
-  return last_ppm;
-#else  /* LINK_STATS_PACKET_COUNTERS */
-  return 0;
-#endif /* LINK_STATS_PACKET_COUNTERS */
+  *ppm = last_ppm;
 }
 
 static uint8_t hop_count_via_parent(void) {
@@ -293,7 +273,7 @@ static uint8_t hop_count_via_parent(void) {
   if (rpl_dag_root_is_root()) {
     return 0;
   }
-  if (parent == NULL || !parent->mlof_valid || parent->mlof.hop_count >= 0xfe) {
+  if (parent == NULL || parent->mlof.hop_count >= 0xfe) {
     return 0xff;
   }
   return parent->mlof.hop_count + 1;
@@ -312,33 +292,31 @@ static void fill_multiple_metrics(void) {
   last_self_cpu_usage = self_cpu_usage;
 
   out->cpu_usage = weighted_cpu_usage(self_cpu_usage);
-  out->etx = parent_link_metric(PARENT_METRIC_ETX);
-  out->rssi = parent_link_metric(PARENT_METRIC_RSSI);
-  out->ppm = node_ppm();
+  parent_link_metrics(&out->etx, &out->rssi);
+  parent_traffic_metrics(&out->ppm, &out->drop_rate);
   out->hop_count = hop_count_via_parent();
+  out->nbr_count = (uint8_t)MIN(rpl_neighbor_count(), 0xff);
 }
 /*---------------------------------------------------------------------------*/
 void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *new) {
   (void)old;
 
-  if (new == NULL || !new->mlof_valid) {
+  if (new == NULL) {
+    LOG_PRINT("MLOF metrics: null new\n");
     return;
   }
 
-  LOG_PRINT(
-      "MLOF metrics: node_cpu_usage=%u | new parent mc cpu_usage=%u etx=%u "
-      "rssi=%d ppm=%u hop_count=%u\n",
-      (unsigned)last_self_cpu_usage, (unsigned)new->mlof.cpu_usage,
-      (unsigned)new->mlof.etx, (int)(int16_t)new->mlof.rssi,
-      (unsigned)new->mlof.ppm, (unsigned)new->mlof.hop_count);
+  LOG_PRINT("MLOF metrics: cpu=%u p_cpu=%u etx=%u rssi=%d ppm=%u drop_rate=%u "
+            "hop_count=%u nbr_count=%u\n",
+            (unsigned)last_self_cpu_usage, (unsigned)new->mlof.cpu_usage,
+            (unsigned)new->mlof.etx, (int)new->mlof.rssi,
+            (unsigned)new->mlof.ppm, (unsigned)new->mlof.drop_rate,
+            (unsigned)new->mlof.hop_count, (unsigned)new->mlof.nbr_count);
 }
-#endif /* RPL_MULTIPLE_METRICS */
 /*---------------------------------------------------------------------------*/
 static void update_metric_container(void) {
-  curr_instance.mc.type = RPL_DAG_MC_NONE;
-#if RPL_MULTIPLE_METRICS
+  curr_instance.mc.type = RPL_DAG_MC_MLOF;
   fill_multiple_metrics();
-#endif /* RPL_MULTIPLE_METRICS */
 }
 
 /*---------------------------------------------------------------------------*/
@@ -352,4 +330,4 @@ rpl_of_t rpl_mlof = {reset,
                      update_metric_container,
                      RPL_OCP_MLOF};
 
-/** @}*/
+#endif /* RPL_MULTIPLE_METRICS */

@@ -113,9 +113,12 @@ struct rpl_mlof_mc {
   uint8_t cpu_usage; /* CPU-usage path metric, fixed point with divisor
                         MLOF_CPU_USAGE_UNIT (256); 0..0xfe, 0xff while unknown */
   uint16_t etx;
-  uint16_t rssi;
-  uint16_t ppm; /* packets/minute to the preferred parent */
+  int16_t rssi;
+  uint16_t ppm;       /* packets/minute to the preferred parent */
+  uint8_t drop_rate;  /* queue-drop fraction on the parent link, fixed point
+                         /256; 0xff while unknown */
   uint8_t hop_count;
+  uint8_t nbr_count;  /* sender's RPL neighbor count, capped at 0xff */
 };
 typedef struct rpl_mlof_mc rpl_mlof_mc_t;
 #endif /* RPL_MULTIPLE_METRICS */
@@ -155,8 +158,7 @@ struct rpl_nbr {
   rpl_metric_container_t mc;
 #endif /* RPL_WITH_MC */
 #if RPL_MULTIPLE_METRICS
-  rpl_mlof_mc_t mlof;
-  uint8_t mlof_valid; /* set once an MLOF_MC container is received from it */
+  rpl_mlof_mc_t mlof; /* MLOF_MC from this neighbor's last DIO */
 #endif                /* RPL_MULTIPLE_METRICS */
   rpl_rank_t rank;
   uint8_t dtsn;

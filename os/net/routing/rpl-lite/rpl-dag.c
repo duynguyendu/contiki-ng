@@ -395,9 +395,8 @@ update_nbr_from_dio(uip_ipaddr_t *from, rpl_dio_t *dio)
   memcpy(&nbr->mc, &dio->mc, sizeof(nbr->mc));
 #endif /* RPL_WITH_MC */
 #if RPL_MULTIPLE_METRICS
-  if(dio->mlof_mc_present) {
+  if(dio->ocp == RPL_OCP_MLOF) {
     nbr->mlof = dio->mc.mlof;
-    nbr->mlof_valid = 1;
   }
 #endif /* RPL_MULTIPLE_METRICS */
 

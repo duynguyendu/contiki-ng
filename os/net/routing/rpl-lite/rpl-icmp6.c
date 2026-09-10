@@ -104,10 +104,11 @@ static void set16(uint8_t *buffer, int pos, uint16_t value) {
 #if RPL_MULTIPLE_METRICS
 /*
  *   [opt(1)][len(1)] [RPL_DAG_MC_MLOF(1)]
- *   [cpu_usage(1)][etx(2 BE)][rssi(2 BE)][ppm(2 BE)][hop_count(1)]
- * i.e. a fixed 9-byte payload (1-byte type tag + three uint16 + two uint8).
+ *   [cpu_usage(1)][etx(2 BE)][rssi(2 BE)][ppm(2 BE)][drop_rate(1)][hop_count(1)]
+ *   [nbr_count(1)]
+ * i.e. a fixed 11-byte payload (1-byte type tag + three uint16 + four uint8).
  */
-#define RPL_MLOF_MC_PAYLOAD_LEN 9
+#define RPL_MLOF_MC_PAYLOAD_LEN 11
 #endif /* RPL_MULTIPLE_METRICS */
 /*---------------------------------------------------------------------------*/
 uip_ds6_nbr_t *rpl_icmp6_update_nbr_table(uip_ipaddr_t *from,
@@ -251,14 +252,16 @@ static void dio_input(void) {
 
       dio.mc.mlof.cpu_usage = buffer[i + 3];
       dio.mc.mlof.etx = get16(buffer, i + 4);
-      dio.mc.mlof.rssi = get16(buffer, i + 6);
+      dio.mc.mlof.rssi = (int16_t)get16(buffer, i + 6);
       dio.mc.mlof.ppm = get16(buffer, i + 8);
-      dio.mc.mlof.hop_count = buffer[i + 10];
-      dio.mlof_mc_present = 1;
-      LOG_DBG("dio_input: MLOF_MC cpu_usage=%u etx=%u rssi=%u ppm=%u hop_count=%u\n",
+      dio.mc.mlof.drop_rate = buffer[i + 10];
+      dio.mc.mlof.hop_count = buffer[i + 11];
+      dio.mc.mlof.nbr_count = buffer[i + 12];
+      LOG_DBG("dio_input: MLOF_MC cpu_usage=%u etx=%u rssi=%d ppm=%u drop_rate=%u hop_count=%u nbr_count=%u\n",
               (unsigned)dio.mc.mlof.cpu_usage, (unsigned)dio.mc.mlof.etx,
-              (unsigned)dio.mc.mlof.rssi, (unsigned)dio.mc.mlof.ppm,
-              (unsigned)dio.mc.mlof.hop_count);
+              (int)dio.mc.mlof.rssi, (unsigned)dio.mc.mlof.ppm,
+              (unsigned)dio.mc.mlof.drop_rate, (unsigned)dio.mc.mlof.hop_count,
+              (unsigned)dio.mc.mlof.nbr_count);
 
       /* The metric container does not drive parent selection yet, so keep
          the legacy single-metric fields empty (downstream code is a no-op). */
@@ -435,11 +438,13 @@ void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr) {
       buffer[pos++] = m->cpu_usage;
       set16(buffer, pos, m->etx);
       pos += 2;
-      set16(buffer, pos, m->rssi);
+      set16(buffer, pos, (uint16_t)m->rssi);
       pos += 2;
       set16(buffer, pos, m->ppm);
       pos += 2;
+      buffer[pos++] = m->drop_rate;
       buffer[pos++] = m->hop_count;
+      buffer[pos++] = m->nbr_count;
     }
 #else  /* RPL_MULTIPLE_METRICS */
     if (curr_instance.mc.type != RPL_DAG_MC_NONE) {
