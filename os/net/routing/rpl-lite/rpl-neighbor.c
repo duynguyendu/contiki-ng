@@ -252,7 +252,6 @@ void rpl_neighbor_set_preferred_parent(rpl_nbr_t *nbr) {
     LOG_PRINT_6ADDR(rpl_neighbor_get_ipaddr(nbr));
     LOG_PRINT_("\n");
 
-// TODO: print this is receive new DIO from parent and get selected
 #ifdef RPL_CALLBACK_PARENT_SWITCH
     RPL_CALLBACK_PARENT_SWITCH(curr_instance.dag.preferred_parent, nbr);
 #endif /* RPL_CALLBACK_PARENT_SWITCH */

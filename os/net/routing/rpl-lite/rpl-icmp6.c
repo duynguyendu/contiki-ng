@@ -104,9 +104,9 @@ static void set16(uint8_t *buffer, int pos, uint16_t value) {
 #if RPL_MULTIPLE_METRICS
 /*
  *   [opt(1)][len(1)] [RPL_DAG_MC_MLOF(1)]
- *   [cpu_usage(1)][etx(2 BE)][rssi(2 BE)][ppm(2 BE)][drop_rate(1)][hop_count(1)]
- *   [nbr_count(1)]
- * i.e. a fixed 11-byte payload (1-byte type tag + three uint16 + four uint8).
+ *   [cpu_usage(1)][etx(2 BE)][rssi(2 BE)][ppm(2
+ * BE)][drop_rate(1)][hop_count(1)] [nbr_count(1)] i.e. a fixed 11-byte payload
+ * (1-byte type tag + three uint16 + four uint8).
  */
 #define RPL_MLOF_MC_PAYLOAD_LEN 11
 #endif /* RPL_MULTIPLE_METRICS */
@@ -257,7 +257,8 @@ static void dio_input(void) {
       dio.mc.mlof.drop_rate = buffer[i + 10];
       dio.mc.mlof.hop_count = buffer[i + 11];
       dio.mc.mlof.nbr_count = buffer[i + 12];
-      LOG_DBG("dio_input: MLOF_MC cpu_usage=%u etx=%u rssi=%d ppm=%u drop_rate=%u hop_count=%u nbr_count=%u\n",
+      LOG_DBG("dio_input: MLOF_MC cpu_usage=%u etx=%u rssi=%d ppm=%u "
+              "drop_rate=%u hop_count=%u nbr_count=%u\n",
               (unsigned)dio.mc.mlof.cpu_usage, (unsigned)dio.mc.mlof.etx,
               (int)dio.mc.mlof.rssi, (unsigned)dio.mc.mlof.ppm,
               (unsigned)dio.mc.mlof.drop_rate, (unsigned)dio.mc.mlof.hop_count,
