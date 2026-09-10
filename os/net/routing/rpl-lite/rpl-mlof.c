@@ -117,13 +117,19 @@ static rpl_nbr_t *best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2) {
   return nbr_path_cost(nbr1) < nbr_path_cost(nbr2) ? nbr1 : nbr2;
 }
 /*---------------------------------------------------------------------------*/
+/* 1-byte MLOF metrics keep real values in the lower half of the byte
+ * (0..0x7f); 0x80..0xfe are deliberately left unused so the "unknown" sentinel
+ * 0xff stays well separated from any legitimate maximum. */
+#define MLOF_U8_REAL_MAX 0x7f
+#define MLOF_U8_UNKNOWN 0xff
+
 /* CPU-usage fixed-point unit, mirroring the ETX divisor scheme: the utilization
- * fraction f in [0,1] is carried as (uint8_t)(f * this). The container field is
- * one byte, so real values are capped at MLOF_CPU_USAGE_MAX (0xfe, ~99.6%) and
- * 0xff is reserved as the "unknown" sentinel. */
-#define MLOF_CPU_USAGE_UNIT 256
-#define MLOF_CPU_USAGE_MAX 0xfe
-#define MLOF_CPU_USAGE_UNKNOWN 0xff 
+ * fraction f in [0,1] is carried as (uint8_t)(f * this). With unit 128 a value
+ * of 128 would be 100%, but real values are capped at MLOF_CPU_USAGE_MAX
+ * (0x7f, ~99.2%); 0xff is the "unknown" sentinel. */
+#define MLOF_CPU_USAGE_UNIT 128
+#define MLOF_CPU_USAGE_MAX MLOF_U8_REAL_MAX
+#define MLOF_CPU_USAGE_UNKNOWN MLOF_U8_UNKNOWN
 /* Local CPU usage over the interval since the previous call, as a fixed-point
  * fraction with divisor MLOF_CPU_USAGE_UNIT (same scheme as ETX):
  * delta(CPU ticks) * MLOF_CPU_USAGE_UNIT / delta(total ticks). Total ticks =
@@ -203,7 +209,8 @@ static uint8_t weighted_cpu_usage(uint8_t self_cpu_usage) {
 }
 
 #define MLOF_TRAFFIC_MIN_WINDOW (30 * CLOCK_SECOND)
-#define MLOF_DROP_RATE_UNKNOWN 0xff
+#define MLOF_DROP_RATE_MAX MLOF_U8_REAL_MAX
+#define MLOF_DROP_RATE_UNKNOWN MLOF_U8_UNKNOWN
 
 /* Traffic metrics on the link to the preferred parent. Both are sampled over a
  * sliding window of at least MLOF_TRAFFIC_MIN_WINDOW and share one link-stats
@@ -270,7 +277,8 @@ static void parent_traffic_metrics(uint16_t *ppm, uint8_t *drop_rate) {
   last_ppm = (uint16_t)MIN(
       ((uint32_t)tx_delta * 128 * CLOCK_SECOND) / time_delta, 0xffff);
   last_drop_rate =
-      drops_delta == 0 ? 0 : (uint8_t)MIN(tx_delta / drops_delta, 0xff);
+      drops_delta == 0 ? 0
+                       : (uint8_t)MIN(tx_delta / drops_delta, MLOF_DROP_RATE_MAX);
 
   prev_tx = tx_now;
   prev_drops = drops_now;
@@ -292,8 +300,8 @@ static uint8_t hop_count_via_parent(void) {
   if (rpl_dag_root_is_root()) {
     return 0;
   }
-  if (parent == NULL || parent->mlof.hop_count >= 0xfe) {
-    return 0xff;
+  if (parent == NULL || parent->mlof.hop_count >= MLOF_U8_REAL_MAX) {
+    return MLOF_U8_UNKNOWN;
   }
   return parent->mlof.hop_count + 1;
 }
@@ -335,6 +343,7 @@ void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *new,
                           : lla->u8[LINKADDR_SIZE - 1] +
                                 (lla->u8[LINKADDR_SIZE - 2] << 8);
 
+  // TODO: include parent link ppm and drop_rate
   LOG_PRINT("MLOF metrics: is_new=%d parent_id=%u cpu=%u p_cpu=%u etx=%u "
             "rssi=%d ppm=%u drop_rate=%u hop_count=%u nbr_count=%u\n",
             is_new, parent_id, (unsigned)last_self_cpu_usage,
