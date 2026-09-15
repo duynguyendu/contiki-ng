@@ -195,7 +195,8 @@ static uint8_t weighted_cpu_usage(uint8_t self_cpu_usage) {
   if (rpl_dag_root_is_root()) {
     return 0;
   }
-  if (parent == NULL || parent->mlof.cpu_usage == MLOF_CPU_USAGE_UNKNOWN) {
+  if (parent == NULL ||
+      parent->mlof.weighted_cpu_usage == MLOF_CPU_USAGE_UNKNOWN) {
     /* No usable ancestor term (no parent, or parent still advertising the
        "unknown" sentinel, e.g. from stale firmware): report our own load
        rather than blending a bogus value. */
@@ -203,7 +204,7 @@ static uint8_t weighted_cpu_usage(uint8_t self_cpu_usage) {
   }
 
   blend = (MLOF_CPU_W_SELF * self_cpu_usage +
-           MLOF_CPU_W_PARENT * parent->mlof.cpu_usage + 5) /
+           MLOF_CPU_W_PARENT * parent->mlof.weighted_cpu_usage + 5) /
           10;
   return (uint8_t)MIN(blend, MLOF_CPU_USAGE_MAX);
 }
@@ -212,31 +213,42 @@ static uint8_t weighted_cpu_usage(uint8_t self_cpu_usage) {
 #define MLOF_DROP_RATE_MAX MLOF_U8_REAL_MAX
 #define MLOF_DROP_RATE_UNKNOWN MLOF_U8_UNKNOWN
 
-/* Traffic metrics on the link to the preferred parent. Both are sampled over a
- * sliding window of at least MLOF_TRAFFIC_MIN_WINDOW and share one link-stats
- * baseline (prev_tx / prev_drops / prev_time) that is reset whenever the
- * preferred parent changes, is lost, or a link-stats counter wraps. Between
- * windows the last computed values are returned; until the first full window
- * after a (re)start they read "unknown" (INT16_MAX / 0xff).
- *  - ppm:       tx attempts on the parent link, packets/second scaled by 128
- *               (same fixed-point convention as the old send_rate value).
- *  - drop_rate: tx attempts per queue drop over the window; 0 = no drops in
- *               the window, 0xff = unknown.
- * Both are 0 at the root. Requires link-stats packet counters, which
- * contiki-default-conf.h enables automatically when MLOF is the OF. */
-static void parent_traffic_metrics(uint16_t *ppm, uint8_t *drop_rate) {
+/* Shared math for both traffic_metrics() call sites (closing out the outgoing
+ * parent's window, and the normal same-parent recompute): ppm/drop_rate from
+ * a tx/drops delta over elapsed_time. No-op (returns 0) if elapsed_time is 0
+ * or the counters went backwards (wrap) - the caller's last_ppm/last_drop_rate
+ * are left untouched in that case. */
+static int compute_traffic_rate(uint16_t new_tx, uint16_t new_drops,
+                                uint16_t base_tx, uint16_t base_drops,
+                                clock_time_t elapsed_time, uint16_t *out_ppm,
+                                uint8_t *out_drop_rate) {
+  if (elapsed_time == 0 || new_tx < base_tx || new_drops < base_drops) {
+    return 0;
+  }
+
+  uint16_t tx_delta, drops_delta;
+
+  tx_delta = new_tx - base_tx;
+  drops_delta = new_drops - base_drops;
+
+  *out_ppm = (uint16_t)MIN(
+      ((uint32_t)tx_delta * 128 * CLOCK_SECOND) / elapsed_time, 0xffff);
+  *out_drop_rate = drops_delta == 0 ? 0
+                                    : (uint8_t)MIN(tx_delta / drops_delta,
+                                                   MLOF_DROP_RATE_MAX);
+  return 1;
+}
+
+static void traffic_metrics(uint16_t *ppm, uint8_t *drop_rate) {
   static const rpl_nbr_t *prev_parent = NULL;
+
   static uint16_t prev_tx = 0;
   static uint16_t prev_drops = 0;
   static clock_time_t prev_time = 0;
+
+  // Use when time between parent switch is less than TRAFFIC_WINDOW
   static uint16_t last_ppm = (uint16_t)INT16_MAX;
   static uint8_t last_drop_rate = MLOF_DROP_RATE_UNKNOWN;
-
-  rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
-  const struct link_stats *stats;
-  clock_time_t now = clock_time();
-  uint16_t tx_now, drops_now, tx_delta, drops_delta;
-  clock_time_t time_delta;
 
   if (rpl_dag_root_is_root()) {
     *ppm = 0;
@@ -244,17 +256,9 @@ static void parent_traffic_metrics(uint16_t *ppm, uint8_t *drop_rate) {
     return;
   }
 
-  stats = parent == NULL ? NULL : rpl_neighbor_get_link_stats(parent);
-
-  /* (Re)start the window on a parent change, a lost parent, or a counter wrap.
-   * Report "unknown" until the next full window has elapsed. */
-  if (parent != prev_parent || stats == NULL ||
-      stats->cnt_current.num_packets_tx < prev_tx ||
-      stats->cnt_current.num_queue_drops < prev_drops) {
-    prev_parent = parent;
-    prev_time = now;
-    prev_tx = stats ? stats->cnt_current.num_packets_tx : 0;
-    prev_drops = stats ? stats->cnt_current.num_queue_drops : 0;
+  rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
+  if (parent == NULL) {
+    prev_parent = NULL;
     last_ppm = (uint16_t)INT16_MAX;
     last_drop_rate = MLOF_DROP_RATE_UNKNOWN;
     *ppm = last_ppm;
@@ -262,36 +266,75 @@ static void parent_traffic_metrics(uint16_t *ppm, uint8_t *drop_rate) {
     return;
   }
 
-  time_delta = now - prev_time;
-  if (time_delta <= MLOF_TRAFFIC_MIN_WINDOW) {
+  clock_time_t now = clock_time();
+  clock_time_t time_delta = now - prev_time;
+  if (parent == prev_parent && time_delta <= MLOF_TRAFFIC_MIN_WINDOW) {
     *ppm = last_ppm;
     *drop_rate = last_drop_rate;
     return;
   }
 
-  tx_now = stats->cnt_current.num_packets_tx;
-  drops_now = stats->cnt_current.num_queue_drops;
-  tx_delta = tx_now - prev_tx;
-  drops_delta = drops_now - prev_drops;
+  const struct link_stats *stats = rpl_neighbor_get_link_stats(parent);
+  uint16_t tx_now = stats ? stats->cnt_current.num_packets_tx : 0;
+  uint16_t drops_now = stats ? stats->cnt_current.num_queue_drops : 0;
 
-  last_ppm = (uint16_t)MIN(
-      ((uint32_t)tx_delta * 128 * CLOCK_SECOND) / time_delta, 0xffff);
-  last_drop_rate =
-      drops_delta == 0 ? 0
-                       : (uint8_t)MIN(tx_delta / drops_delta, MLOF_DROP_RATE_MAX);
+  if (parent != prev_parent) {
+    const struct link_stats *prev_stats =
+        prev_parent == NULL
+            ? NULL
+            : rpl_neighbor_get_link_stats((rpl_nbr_t *)prev_parent);
 
+    if (prev_stats != NULL && prev_time != 0) {
+      compute_traffic_rate(prev_stats->cnt_current.num_packets_tx,
+                           prev_stats->cnt_current.num_queue_drops, prev_tx,
+                           prev_drops, time_delta, &last_ppm, &last_drop_rate);
+    }
+  } else if (stats == NULL || tx_now < prev_tx || drops_now < prev_drops) {
+    /* Same parent, but its link stats vanished or a counter wrapped: this
+     * really is unknown, since there is no other link's data to fall back to.
+     */
+    last_ppm = (uint16_t)INT16_MAX;
+    last_drop_rate = MLOF_DROP_RATE_UNKNOWN;
+  } else {
+    compute_traffic_rate(tx_now, drops_now, prev_tx, prev_drops, time_delta,
+                         &last_ppm, &last_drop_rate);
+  }
+
+  prev_parent = parent;
+  prev_time = now;
   prev_tx = tx_now;
   prev_drops = drops_now;
-  prev_time = now;
-
-  LOG_PRINT("MLOF traffic: parent_tx=%u tx_delta=%u drops_delta=%u "
-            "time_delta=%lu ppm=%u drop_rate=%u\n",
-            (unsigned)tx_now, (unsigned)tx_delta, (unsigned)drops_delta,
-            (unsigned long)time_delta, (unsigned)last_ppm,
-            (unsigned)last_drop_rate);
 
   *ppm = last_ppm;
   *drop_rate = last_drop_rate;
+}
+
+/* Preferred parent's own ppm/drop_rate/cpu_usage, as last advertised in its DIO
+ * (i.e. fetched straight from its stored MLOF_MC, no recomputation) - lets a
+ * node see how loaded its parent's own uplink and CPU already are, one hop
+ * further up. 0 at the root, INT16_MAX / 0xff ("unknown") when there is no
+ * parent. None of these are re-advertised on the wire (see rpl-icmp6.c). */
+static void parent_advertised_metrics(uint16_t *parent_ppm,
+                                      uint8_t *parent_drop_rate,
+                                      uint8_t *parent_cpu_usage) {
+  rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
+
+  if (rpl_dag_root_is_root()) {
+    *parent_ppm = 0;
+    *parent_drop_rate = 0;
+    *parent_cpu_usage = 0;
+    return;
+  }
+  if (parent == NULL) {
+    *parent_ppm = (uint16_t)INT16_MAX;
+    *parent_drop_rate = MLOF_DROP_RATE_UNKNOWN;
+    *parent_cpu_usage = MLOF_CPU_USAGE_UNKNOWN;
+    return;
+  }
+
+  *parent_ppm = parent->mlof.ppm;
+  *parent_drop_rate = parent->mlof.drop_rate;
+  *parent_cpu_usage = parent->mlof.weighted_cpu_usage;
 }
 
 static uint8_t hop_count_via_parent(void) {
@@ -318,39 +361,55 @@ static void fill_multiple_metrics(void) {
 
   last_self_cpu_usage = self_cpu_usage;
 
-  out->cpu_usage = weighted_cpu_usage(self_cpu_usage);
+  /* out->weighted_cpu_usage: this node's own weighted path metric, advertised
+     on the wire. The weighted_cpu_usage() function is used only here, for that
+     advertised value - out->parent_cpu_usage below is a plain fetch, never
+     re-blended. */
+  out->weighted_cpu_usage = weighted_cpu_usage(self_cpu_usage);
   parent_link_metrics(&out->etx, &out->rssi);
-  parent_traffic_metrics(&out->ppm, &out->drop_rate);
+  /* This node's own ppm/drop_rate, measured locally on the link to its parent.
+   */
+  traffic_metrics(&out->ppm, &out->drop_rate);
+  /* The parent's own ppm/drop_rate/cpu_usage, fetched from its last DIO. */
+  parent_advertised_metrics(&out->parent_ppm, &out->parent_drop_rate,
+                            &out->parent_cpu_usage);
   out->hop_count = hop_count_via_parent();
   out->nbr_count = (uint8_t)MIN(rpl_neighbor_count(), 0xff);
 }
 /*---------------------------------------------------------------------------*/
-void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *new,
+void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *parent,
                                      int is_new) {
   const linkaddr_t *lla;
   unsigned parent_id;
   (void)old;
 
-  if (new == NULL) {
+  if (parent == NULL) {
     LOG_PRINT("MLOF metrics: null parent\n");
     return;
   }
 
   /* Node id of the new parent, derived from its link-layer address the same way
      node_id_init() derives our own (last two bytes, big endian). */
-  lla = rpl_neighbor_get_lladdr(new);
+  lla = rpl_neighbor_get_lladdr(parent);
   parent_id = lla == NULL ? 0
                           : lla->u8[LINKADDR_SIZE - 1] +
                                 (lla->u8[LINKADDR_SIZE - 2] << 8);
 
-  // TODO: include parent link ppm and drop_rate
+  /* new->mlof.{ppm,drop_rate} are the parent's own self-measured values (its
+     traffic to its own parent) - i.e., from here,
+     "parent_ppm"/"parent_drop_rate". curr_instance.mc.mlof.{ppm,drop_rate} are
+     this node's own, as last computed by fill_multiple_metrics() (a plain
+     stored value, safe to re-read here). */
   LOG_PRINT("MLOF metrics: is_new=%d parent_id=%u cpu=%u p_cpu=%u etx=%u "
-            "rssi=%d ppm=%u drop_rate=%u hop_count=%u nbr_count=%u\n",
+            "rssi=%d ppm=%u drop_rate=%u parent_ppm=%u parent_drop_rate=%u "
+            "hop_count=%u nbr_count=%u\n",
             is_new, parent_id, (unsigned)last_self_cpu_usage,
-            (unsigned)new->mlof.cpu_usage, (unsigned)new->mlof.etx,
-            (int)new->mlof.rssi, (unsigned)new->mlof.ppm,
-            (unsigned)new->mlof.drop_rate, (unsigned)new->mlof.hop_count,
-            (unsigned)new->mlof.nbr_count);
+            (unsigned)parent->mlof.weighted_cpu_usage,
+            (unsigned)parent->mlof.etx, (int)parent->mlof.rssi,
+            (unsigned)curr_instance.mc.mlof.ppm,
+            (unsigned)curr_instance.mc.mlof.drop_rate,
+            (unsigned)parent->mlof.ppm, (unsigned)parent->mlof.drop_rate,
+            (unsigned)parent->mlof.hop_count, (unsigned)parent->mlof.nbr_count);
 }
 
 /* 2-arg adapter wired as RPL_CALLBACK_PARENT_SWITCH: every call through it is a

@@ -250,19 +250,13 @@ static void dio_input(void) {
         goto discard;
       }
 
-      dio.mc.mlof.cpu_usage = buffer[i + 3];
+      dio.mc.mlof.weighted_cpu_usage = buffer[i + 3];
       dio.mc.mlof.etx = get16(buffer, i + 4);
       dio.mc.mlof.rssi = (int16_t)get16(buffer, i + 6);
       dio.mc.mlof.ppm = get16(buffer, i + 8);
       dio.mc.mlof.drop_rate = buffer[i + 10];
       dio.mc.mlof.hop_count = buffer[i + 11];
       dio.mc.mlof.nbr_count = buffer[i + 12];
-      LOG_DBG("dio_input: MLOF_MC cpu_usage=%u etx=%u rssi=%d ppm=%u "
-              "drop_rate=%u hop_count=%u nbr_count=%u\n",
-              (unsigned)dio.mc.mlof.cpu_usage, (unsigned)dio.mc.mlof.etx,
-              (int)dio.mc.mlof.rssi, (unsigned)dio.mc.mlof.ppm,
-              (unsigned)dio.mc.mlof.drop_rate, (unsigned)dio.mc.mlof.hop_count,
-              (unsigned)dio.mc.mlof.nbr_count);
 
       /* The metric container does not drive parent selection yet, so keep
          the legacy single-metric fields empty (downstream code is a no-op). */
@@ -436,7 +430,7 @@ void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr) {
       buffer[pos++] = RPL_OPTION_DAG_METRIC_CONTAINER;
       buffer[pos++] = RPL_MLOF_MC_PAYLOAD_LEN;
       buffer[pos++] = RPL_DAG_MC_MLOF;
-      buffer[pos++] = m->cpu_usage;
+      buffer[pos++] = m->weighted_cpu_usage;
       set16(buffer, pos, m->etx);
       pos += 2;
       set16(buffer, pos, (uint16_t)m->rssi);

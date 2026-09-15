@@ -110,13 +110,22 @@ struct rpl_metric_object_energy {
 
 #if RPL_MULTIPLE_METRICS
 struct rpl_mlof_mc {
-  uint8_t cpu_usage; /* CPU-usage path metric, fixed point with divisor
-                        MLOF_CPU_USAGE_UNIT (256); 0..0xfe, 0xff while unknown */
+  uint8_t weighted_cpu_usage; /* CPU-usage path metric (this node's own,
+                                  weighted with its parent's), fixed point with
+                                  divisor MLOF_CPU_USAGE_UNIT (128); 0..0x7f,
+                                  0xff while unknown */
   uint16_t etx;
   int16_t rssi;
-  uint16_t ppm;       /* packets/minute to the preferred parent */
-  uint8_t drop_rate;  /* queue-drop fraction on the parent link, fixed point
-                         /256; 0xff while unknown */
+  uint16_t ppm;       /* this node's own packets/minute to the preferred parent */
+  uint8_t drop_rate;  /* this node's own queue-drop fraction on the parent link,
+                         fixed point /256; 0xff while unknown */
+  uint16_t parent_ppm;       /* preferred parent's own ppm, as last advertised
+                                in its DIO; INT16_MAX while unknown */
+  uint8_t parent_drop_rate;  /* preferred parent's own drop_rate, as last
+                                advertised in its DIO; 0xff while unknown */
+  uint8_t parent_cpu_usage;  /* preferred parent's own cpu_usage (its weighted
+                                path metric), as last advertised in its DIO;
+                                0xff while unknown */
   uint8_t hop_count;
   uint8_t nbr_count;  /* sender's RPL neighbor count, capped at 0xff */
 };
