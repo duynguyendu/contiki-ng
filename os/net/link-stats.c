@@ -82,6 +82,13 @@
 /* Per-neighbor link statistics table */
 NBR_TABLE(struct link_stats, link_stats);
 
+#if LINK_STATS_PACKET_COUNTERS
+/* Node-wide counters, mirroring cnt_current.num_packets_tx/num_queue_drops
+ * but summed across all destinations instead of kept per-neighbor. */
+static uint32_t global_tx_count;
+static uint32_t global_drop_count;
+#endif /* LINK_STATS_PACKET_COUNTERS */
+
 /* Called at a period of FRESHNESS_HALF_LIFE */
 struct ctimer periodic_timer;
 
@@ -150,6 +157,14 @@ link_stats_packet_sent(const linkaddr_t *lladdr, int status, int numtx)
     /* Do not penalize the ETX when collisions or transmission errors occur. */
     return;
   }
+
+#if LINK_STATS_PACKET_COUNTERS
+  if(status == MAC_TX_QUEUE_FULL) {
+    global_drop_count++;
+  } else {
+    global_tx_count += numtx;
+  }
+#endif /* LINK_STATS_PACKET_COUNTERS */
 
   stats = nbr_table_get_from_lladdr(link_stats, lladdr);
   if(stats == NULL) {
@@ -278,6 +293,26 @@ periodic(void *ptr)
   for(stats = nbr_table_head(link_stats); stats != NULL; stats = nbr_table_next(link_stats, stats)) {
     stats->freshness >>= 1;
   }
+}
+/*---------------------------------------------------------------------------*/
+uint32_t
+link_stats_tx_count(void)
+{
+#if LINK_STATS_PACKET_COUNTERS
+  return global_tx_count;
+#else /* LINK_STATS_PACKET_COUNTERS */
+  return 0;
+#endif /* LINK_STATS_PACKET_COUNTERS */
+}
+/*---------------------------------------------------------------------------*/
+uint32_t
+link_stats_drop_count(void)
+{
+#if LINK_STATS_PACKET_COUNTERS
+  return global_drop_count;
+#else /* LINK_STATS_PACKET_COUNTERS */
+  return 0;
+#endif /* LINK_STATS_PACKET_COUNTERS */
 }
 /*---------------------------------------------------------------------------*/
 /* Resets link-stats module */

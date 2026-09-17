@@ -59,7 +59,8 @@ static rpl_of_t *const objective_functions[] = RPL_SUPPORTED_OFS;
 static int process_dio_init_dag(rpl_dio_t *dio);
 
 #if RPL_MULTIPLE_METRICS
-void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *new, int is_new);
+void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *new,
+                                     int is_new);
 static uint8_t mlof_parent_dio_pending;
 #endif /* RPL_MULTIPLE_METRICS */
 

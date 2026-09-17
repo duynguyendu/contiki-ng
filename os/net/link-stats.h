@@ -137,4 +137,7 @@ void link_stats_packet_sent(const linkaddr_t *lladdr, int status, int numtx);
 /* Packet input callback. Updates statistics for receptions on a given link */
 void link_stats_input_callback(const linkaddr_t *lladdr);
 
+uint32_t link_stats_tx_count(void);
+uint32_t link_stats_drop_count(void);
+
 #endif /* LINK_STATS_H_ */

@@ -20,6 +20,45 @@
 #define RANK_THRESHOLD 192  /* Eq ETX of 1.5 */
 #define TIME_THRESHOLD (10 * 60 * CLOCK_SECOND)
 
+#define MLOF_MODEL_SVM 0
+#define MLOF_MODEL_LINEAR 1
+#define MLOF_MODEL_DTREE 2
+
+#ifdef MLOF_CONF_MODEL
+#define MLOF_MODEL MLOF_CONF_MODEL
+#else
+#define MLOF_MODEL MLOF_MODEL_DTREE
+#endif
+
+#if MLOF_MODEL == MLOF_MODEL_LINEAR
+#include "mlof-linear.h"
+#elif MLOF_MODEL == MLOF_MODEL_DTREE
+#include "mlof-dtree.h"
+#else
+#include "mlof-svm.h"
+#endif
+
+#ifdef MLOF_CONF_PATH_W_ETX
+#define MLOF_PATH_W_ETX MLOF_CONF_PATH_W_ETX
+#else
+#define MLOF_PATH_W_ETX 3
+#endif
+
+#ifdef MLOF_CONF_PATH_W_PDR
+#define MLOF_PATH_W_PDR MLOF_CONF_PATH_W_PDR
+#else
+#define MLOF_PATH_W_PDR 7
+#endif
+
+static uint16_t predict_pdr(rpl_nbr_t *nbr, int is_new);
+
+static uint16_t pdr_to_etx(uint16_t pdr) {
+  if (pdr == 0) {
+    return 0xffff;
+  }
+  return (uint16_t)MIN((uint32_t)128 * 65535 / pdr, 0xffff);
+}
+
 /*---------------------------------------------------------------------------*/
 static void reset(void) { LOG_INFO("reset MLOF\n"); }
 /*---------------------------------------------------------------------------*/
@@ -31,17 +70,27 @@ static uint16_t nbr_link_metric(rpl_nbr_t *nbr) {
 static uint16_t link_metric_to_rank(uint16_t etx) { return etx; }
 /*---------------------------------------------------------------------------*/
 static uint16_t nbr_path_cost(rpl_nbr_t *nbr) {
-  uint16_t base;
+  uint16_t base_rank;
+  uint16_t etx;
+  uint16_t pdr;
+  uint16_t pdr_etx;
+  uint32_t rank_increase;
 
   if (nbr == NULL) {
     return 0xffff;
   }
 
-  base = nbr->rank;
+  base_rank = nbr->rank;
 
-  /* path cost upper bound: 0xffff */
-  return MIN((uint32_t)base + link_metric_to_rank(nbr_link_metric(nbr)),
-             0xffff);
+  pdr = predict_pdr(nbr, nbr != curr_instance.dag.preferred_parent);
+  pdr_etx = pdr_to_etx(pdr);
+  etx = nbr_link_metric(nbr);
+
+  rank_increase =
+      (MLOF_PATH_W_ETX * link_metric_to_rank(etx) + MLOF_PATH_W_PDR * pdr_etx) /
+      (MLOF_PATH_W_ETX + MLOF_PATH_W_PDR);
+
+  return (uint16_t)MIN((uint32_t)base_rank + rank_increase, 0xffff);
 }
 /*---------------------------------------------------------------------------*/
 static rpl_rank_t rank_via_nbr(rpl_nbr_t *nbr) {
@@ -104,15 +153,12 @@ static rpl_nbr_t *best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2) {
   /* Maintain stability of the preferred parent. Switch only if the gain
   is greater than RANK_THRESHOLD, or if the neighbor has been better than the
   current parent for at more than TIME_THRESHOLD. */
-  // TODO: Calculate the path cost of nbr1 and nbr2
   if (nbr1 == curr_instance.dag.preferred_parent && within_hysteresis(nbr2)) {
     return nbr1;
   }
   if (nbr2 == curr_instance.dag.preferred_parent && within_hysteresis(nbr1)) {
     return nbr2;
   }
-
-  // TODO: add custom OF here
 
   return nbr_path_cost(nbr1) < nbr_path_cost(nbr2) ? nbr1 : nbr2;
 }
@@ -213,40 +259,11 @@ static uint8_t weighted_cpu_usage(uint8_t self_cpu_usage) {
 #define MLOF_DROP_RATE_MAX MLOF_U8_REAL_MAX
 #define MLOF_DROP_RATE_UNKNOWN MLOF_U8_UNKNOWN
 
-/* Shared math for both traffic_metrics() call sites (closing out the outgoing
- * parent's window, and the normal same-parent recompute): ppm/drop_rate from
- * a tx/drops delta over elapsed_time. No-op (returns 0) if elapsed_time is 0
- * or the counters went backwards (wrap) - the caller's last_ppm/last_drop_rate
- * are left untouched in that case. */
-static int compute_traffic_rate(uint16_t new_tx, uint16_t new_drops,
-                                uint16_t base_tx, uint16_t base_drops,
-                                clock_time_t elapsed_time, uint16_t *out_ppm,
-                                uint8_t *out_drop_rate) {
-  if (elapsed_time == 0 || new_tx < base_tx || new_drops < base_drops) {
-    return 0;
-  }
-
-  uint16_t tx_delta, drops_delta;
-
-  tx_delta = new_tx - base_tx;
-  drops_delta = new_drops - base_drops;
-
-  *out_ppm = (uint16_t)MIN(
-      ((uint32_t)tx_delta * 128 * CLOCK_SECOND) / elapsed_time, 0xffff);
-  *out_drop_rate = drops_delta == 0 ? 0
-                                    : (uint8_t)MIN(tx_delta / drops_delta,
-                                                   MLOF_DROP_RATE_MAX);
-  return 1;
-}
-
 static void traffic_metrics(uint16_t *ppm, uint8_t *drop_rate) {
-  static const rpl_nbr_t *prev_parent = NULL;
-
-  static uint16_t prev_tx = 0;
-  static uint16_t prev_drops = 0;
+  static uint32_t prev_tx = 0;
+  static uint32_t prev_drops = 0;
   static clock_time_t prev_time = 0;
 
-  // Use when time between parent switch is less than TRAFFIC_WINDOW
   static uint16_t last_ppm = (uint16_t)INT16_MAX;
   static uint8_t last_drop_rate = MLOF_DROP_RATE_UNKNOWN;
 
@@ -256,9 +273,7 @@ static void traffic_metrics(uint16_t *ppm, uint8_t *drop_rate) {
     return;
   }
 
-  rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
-  if (parent == NULL) {
-    prev_parent = NULL;
+  if (curr_instance.dag.preferred_parent == NULL) {
     last_ppm = (uint16_t)INT16_MAX;
     last_drop_rate = MLOF_DROP_RATE_UNKNOWN;
     *ppm = last_ppm;
@@ -268,39 +283,23 @@ static void traffic_metrics(uint16_t *ppm, uint8_t *drop_rate) {
 
   clock_time_t now = clock_time();
   clock_time_t time_delta = now - prev_time;
-  if (parent == prev_parent && time_delta <= MLOF_TRAFFIC_MIN_WINDOW) {
+  if (time_delta <= MLOF_TRAFFIC_MIN_WINDOW) {
     *ppm = last_ppm;
     *drop_rate = last_drop_rate;
     return;
   }
 
-  const struct link_stats *stats = rpl_neighbor_get_link_stats(parent);
-  uint16_t tx_now = stats ? stats->cnt_current.num_packets_tx : 0;
-  uint16_t drops_now = stats ? stats->cnt_current.num_queue_drops : 0;
+  uint32_t tx_now = link_stats_tx_count();
+  uint32_t drops_now = link_stats_drop_count();
+  uint32_t tx_delta = tx_now - prev_tx;
+  uint32_t drops_delta = drops_now - prev_drops;
 
-  if (parent != prev_parent) {
-    const struct link_stats *prev_stats =
-        prev_parent == NULL
-            ? NULL
-            : rpl_neighbor_get_link_stats((rpl_nbr_t *)prev_parent);
+  last_ppm = (uint16_t)MIN(
+      ((uint64_t)tx_delta * 128 * CLOCK_SECOND) / time_delta, 0xffff);
+  last_drop_rate = drops_delta == 0 ? 0
+                                    : (uint8_t)MIN(tx_delta / drops_delta,
+                                                   MLOF_DROP_RATE_MAX);
 
-    if (prev_stats != NULL && prev_time != 0) {
-      compute_traffic_rate(prev_stats->cnt_current.num_packets_tx,
-                           prev_stats->cnt_current.num_queue_drops, prev_tx,
-                           prev_drops, time_delta, &last_ppm, &last_drop_rate);
-    }
-  } else if (stats == NULL || tx_now < prev_tx || drops_now < prev_drops) {
-    /* Same parent, but its link stats vanished or a counter wrapped: this
-     * really is unknown, since there is no other link's data to fall back to.
-     */
-    last_ppm = (uint16_t)INT16_MAX;
-    last_drop_rate = MLOF_DROP_RATE_UNKNOWN;
-  } else {
-    compute_traffic_rate(tx_now, drops_now, prev_tx, prev_drops, time_delta,
-                         &last_ppm, &last_drop_rate);
-  }
-
-  prev_parent = parent;
   prev_time = now;
   prev_tx = tx_now;
   prev_drops = drops_now;
@@ -354,6 +353,34 @@ static uint8_t hop_count_via_parent(void) {
  * report it without calling cpu_usage_percent() again (that call consumes the
  * sampling interval). */
 static uint8_t last_self_cpu_usage;
+
+static uint16_t predict_pdr(rpl_nbr_t *nbr, int is_new) {
+  uint16_t parent_ppm = nbr->mlof.ppm;
+  uint8_t parent_drop_rate = nbr->mlof.drop_rate;
+  int16_t rssi = nbr->mlof.rssi;
+  uint8_t hop_count = nbr->mlof.hop_count;
+  uint8_t cpu = last_self_cpu_usage; // TODO: may need to change this
+  uint8_t p_cpu = nbr->mlof.weighted_cpu_usage;
+  uint16_t etx = nbr->mlof.etx;
+  uint16_t ppm = curr_instance.mc.mlof.ppm; // TODO: may need to change this
+  uint8_t drop_rate =
+      curr_instance.mc.mlof.drop_rate; // TODO: may need to change this
+  uint8_t nbr_count = nbr->mlof.nbr_count;
+
+#if MLOF_MODEL == MLOF_MODEL_LINEAR
+  return mlof_predict_pdr_linear(parent_ppm, parent_drop_rate, rssi, hop_count,
+                                 (uint8_t)is_new, cpu, p_cpu, etx, ppm,
+                                 drop_rate, nbr_count);
+#elif MLOF_MODEL == MLOF_MODEL_DTREE
+  return mlof_predict_pdr_dtree(parent_ppm, parent_drop_rate, rssi, hop_count,
+                                (uint8_t)is_new, cpu, p_cpu, etx, ppm,
+                                drop_rate, nbr_count);
+#else /* MLOF_MODEL == MLOF_MODEL_SVM */
+  return mlof_predict_pdr_svm(parent_ppm, parent_drop_rate, rssi, hop_count,
+                              (uint8_t)is_new, cpu, p_cpu, etx, ppm, drop_rate,
+                              nbr_count);
+#endif
+}
 
 static void fill_multiple_metrics(void) {
   rpl_mlof_mc_t *out = &curr_instance.mc.mlof;
