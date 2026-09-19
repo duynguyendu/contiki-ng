@@ -17,8 +17,13 @@
 
 #define MAX_LINK_METRIC 512
 #define MAX_PATH_COST 32768 /* Eq path ETX of 256 */
-#define RANK_THRESHOLD 192  /* Eq ETX of 1.5 */
 #define TIME_THRESHOLD (10 * 60 * CLOCK_SECOND)
+
+#define NUM_PDR_STEP 32 // 1 step ~ 3.125% in PDR
+#define PDR_STEP_VALUE 64
+#define MLOF_PDR_RANGE_SCALED ((uint32_t)NUM_PDR_STEP * PDR_STEP_VALUE)
+
+#define RANK_THRESHOLD 96 // ~ 2.5 ETX (no PDR) or 6.69% in PDR (no ETX)
 
 #define MLOF_MODEL_SVM 0
 #define MLOF_MODEL_LINEAR 1
@@ -38,25 +43,17 @@
 #include "mlof-svm.h"
 #endif
 
-#ifdef MLOF_CONF_PATH_W_ETX
-#define MLOF_PATH_W_ETX MLOF_CONF_PATH_W_ETX
-#else
-#define MLOF_PATH_W_ETX 3
-#endif
-
 #ifdef MLOF_CONF_PATH_W_PDR
 #define MLOF_PATH_W_PDR MLOF_CONF_PATH_W_PDR
 #else
-#define MLOF_PATH_W_PDR 7
+#define MLOF_PATH_W_PDR 12
 #endif
 
 static uint16_t predict_pdr(rpl_nbr_t *nbr, int is_new);
 
-static uint16_t pdr_to_etx(uint16_t pdr) {
-  if (pdr == 0) {
-    return 0xffff;
-  }
-  return (uint16_t)MIN((uint32_t)128 * 65535 / pdr, 0xffff);
+static uint16_t scale_pdr_to_etx_range(uint16_t pdr) {
+  return (uint16_t)(MLOF_PDR_RANGE_SCALED -
+                    (MLOF_PDR_RANGE_SCALED * pdr) / 0xffff);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -83,12 +80,12 @@ static uint16_t nbr_path_cost(rpl_nbr_t *nbr) {
   base_rank = nbr->rank;
 
   pdr = predict_pdr(nbr, nbr != curr_instance.dag.preferred_parent);
-  pdr_etx = pdr_to_etx(pdr);
+  pdr_etx = scale_pdr_to_etx_range(pdr);
   etx = nbr_link_metric(nbr);
 
-  rank_increase =
-      (MLOF_PATH_W_ETX * link_metric_to_rank(etx) + MLOF_PATH_W_PDR * pdr_etx) /
-      (MLOF_PATH_W_ETX + MLOF_PATH_W_PDR);
+  rank_increase = ((16 - MLOF_PATH_W_PDR) * link_metric_to_rank(etx) +
+                   MLOF_PATH_W_PDR * pdr_etx) /
+                  16;
 
   return (uint16_t)MIN((uint32_t)base_rank + rank_increase, 0xffff);
 }
@@ -122,7 +119,6 @@ static int nbr_is_acceptable_parent(rpl_nbr_t *nbr) {
 }
 /*---------------------------------------------------------------------------*/
 static int within_hysteresis(rpl_nbr_t *nbr) {
-  // TODO: update this hysteresis for new metrics
   uint16_t path_cost = nbr_path_cost(nbr);
   uint16_t parent_path_cost = nbr_path_cost(curr_instance.dag.preferred_parent);
 
