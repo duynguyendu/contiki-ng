@@ -385,29 +385,27 @@ static uint16_t predict_pdr(rpl_nbr_t *nbr, int is_new) {
   uint8_t parent_drop_rate = nbr->mlof.drop_rate;
   int16_t rssi = nbr->mlof.rssi;
   uint8_t hop_count = nbr->mlof.hop_count;
-  uint8_t cpu = last_self_cpu_usage; // TODO: may need to change this
+  uint8_t cpu = last_self_cpu_usage;
   uint8_t p_cpu = nbr->mlof.weighted_cpu_usage;
   uint16_t etx = nbr->mlof.etx;
-  uint16_t ppm = curr_instance.mc.mlof.ppm; // TODO: may need to change this
+  uint16_t ppm = curr_instance.mc.mlof.ppm;
   uint8_t drop_rate =
-      curr_instance.mc.mlof.drop_rate; // TODO: may need to change this
-  uint8_t nbr_count = nbr->mlof.nbr_count;
+      curr_instance.mc.mlof.drop_rate;
 
 #if MLOF_MODEL == MLOF_MODEL_LINEAR
   return mlof_predict_pdr_linear(parent_ppm, parent_drop_rate, rssi, hop_count,
                                  (uint8_t)is_new, cpu, p_cpu, etx, ppm,
-                                 drop_rate, nbr_count);
+                                 drop_rate);
 #elif MLOF_MODEL == MLOF_MODEL_DTREE
   return mlof_predict_pdr_dtree(parent_ppm, parent_drop_rate, rssi, hop_count,
                                 (uint8_t)is_new, cpu, p_cpu, etx, ppm,
-                                drop_rate, nbr_count);
+                                drop_rate);
 #elif MLOF_MODEL == MLOF_MODEL_LGBM
   return mlof_predict_pdr_lgbm(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate,
                                parent_ppm, parent_drop_rate, hop_count);
 #else /* MLOF_MODEL == MLOF_MODEL_SVM */
   return mlof_predict_pdr_svm(parent_ppm, parent_drop_rate, rssi, hop_count,
-                              (uint8_t)is_new, cpu, p_cpu, etx, ppm, drop_rate,
-                              nbr_count);
+                              (uint8_t)is_new, cpu, p_cpu, etx, ppm, drop_rate);
 #endif
 }
 

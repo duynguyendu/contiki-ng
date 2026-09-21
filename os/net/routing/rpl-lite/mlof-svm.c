@@ -3,32 +3,32 @@
 #include "mlof-svm.h"
 
 static void mlof_predict_pdr_svm_standardise(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count, int32_t *out) {
-    out[0] = ((int32_t)is_new - 0L) * 257L;
-    out[1] = ((int32_t)cpu - 20L) * 3L;
-    out[2] = ((int32_t)p_cpu - 13L) * 5L;
-    out[3] = ((int32_t)etx - 166L) * 1L;
-    out[4] = ((int32_t)rssi - -54L) * 3L;
-    out[5] = ((int32_t)ppm - 248L) * 1L;
-    out[6] = ((int32_t)drop_rate - 3L) * 7L;
-    out[7] = ((int32_t)parent_ppm - 327L) * 1L;
-    out[8] = ((int32_t)parent_drop_rate - 3L) * 6L;
-    out[9] = ((int32_t)hop_count - 2L) * 37L;
+    out[0] = ((int32_t)is_new - 0L) * 204L;
+    out[1] = ((int32_t)cpu - 19L) * 3L;
+    out[2] = ((int32_t)p_cpu - 20L) * 4L;
+    out[3] = ((int32_t)etx - 212L) * 1L;
+    out[4] = ((int32_t)rssi - -65L) * 4L;
+    out[5] = ((int32_t)ppm - 259L) * 1L;
+    out[6] = ((int32_t)drop_rate - 4L) * 6L;
+    out[7] = ((int32_t)parent_ppm - 393L) * 1L;
+    out[8] = ((int32_t)parent_drop_rate - 5L) * 5L;
+    out[9] = ((int32_t)hop_count - 4L) * 28L;
 }
 
 uint16_t mlof_predict_pdr_svm(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
     int32_t z[10];
     mlof_predict_pdr_svm_standardise(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count, z);
-    int32_t sum = 5783978L;
-    sum += -747L * z[0];
-    sum += -1L * z[1];
-    sum += -3266L * z[2];
-    sum += -94L * z[3];
-    sum += -2759L * z[4];
-    sum += 0L * z[5];
-    sum += -746L * z[6];
-    sum += -352L * z[7];
-    sum += -458L * z[8];
-    sum += -10468L * z[9];
+    int32_t sum = 4844602L;
+    sum += -1876L * z[0];
+    sum += -568L * z[1];
+    sum += -5326L * z[2];
+    sum += -2173L * z[3];
+    sum += -4681L * z[4];
+    sum += -2890L * z[5];
+    sum += -2082L * z[6];
+    sum += -2612L * z[7];
+    sum += -2344L * z[8];
+    sum += -14050L * z[9];
     int32_t result = sum / 100L;
     if (result < 0) result = 0;
     if (result > 65535) result = 65535;
