@@ -28,6 +28,7 @@
 #define MLOF_MODEL_SVM 0
 #define MLOF_MODEL_LINEAR 1
 #define MLOF_MODEL_DTREE 2
+#define MLOF_MODEL_LGBM 3
 
 #ifdef MLOF_CONF_MODEL
 #define MLOF_MODEL MLOF_CONF_MODEL
@@ -39,6 +40,8 @@
 #include "mlof-linear.h"
 #elif MLOF_MODEL == MLOF_MODEL_DTREE
 #include "mlof-dtree.h"
+#elif MLOF_MODEL == MLOF_MODEL_LGBM
+#include "mlof-lgbm.h"
 #else
 #include "mlof-svm.h"
 #endif
@@ -398,6 +401,9 @@ static uint16_t predict_pdr(rpl_nbr_t *nbr, int is_new) {
   return mlof_predict_pdr_dtree(parent_ppm, parent_drop_rate, rssi, hop_count,
                                 (uint8_t)is_new, cpu, p_cpu, etx, ppm,
                                 drop_rate, nbr_count);
+#elif MLOF_MODEL == MLOF_MODEL_LGBM
+  return mlof_predict_pdr_lgbm(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate,
+                               parent_ppm, parent_drop_rate, hop_count);
 #else /* MLOF_MODEL == MLOF_MODEL_SVM */
   return mlof_predict_pdr_svm(parent_ppm, parent_drop_rate, rssi, hop_count,
                               (uint8_t)is_new, cpu, p_cpu, etx, ppm, drop_rate,

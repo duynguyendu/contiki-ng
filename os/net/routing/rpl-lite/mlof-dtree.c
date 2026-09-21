@@ -2,204 +2,860 @@
  * DO NOT EDIT BY HAND -- retrain and re-run the converter instead. */
 #include "mlof-dtree.h"
 
-uint16_t mlof_predict_pdr_dtree(uint16_t parent_ppm, uint8_t parent_drop_rate, int16_t rssi, uint8_t hop_count, uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint16_t ppm, uint8_t drop_rate, uint8_t nbr_count) {
-    if (hop_count <= 3) {
-        if (ppm <= 26) {
-            if (ppm <= 2) {
-                if (rssi <= -51) {
-                    if (etx <= 180) {
-                        if (etx <= 175) {
-                            return 41199;
-                        } else {
-                            return 26207;
-                        }
-                    } else {
-                        if (cpu <= 39) {
-                            if (etx <= 243) {
-                                if (parent_ppm <= 33) {
-                                    return 47761;
+uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 4) {
+        if (hop_count <= 2) {
+            if (ppm <= 26) {
+                if (etx <= 164) {
+                    if (rssi <= -52) {
+                        if (p_cpu <= 38) {
+                            if (parent_ppm <= 38) {
+                                if (parent_ppm <= 30) {
+                                    if (parent_ppm <= 3) {
+                                        if (cpu <= 11) {
+                                            return 44380;
+                                        } else {
+                                            return 59904;
+                                        }
+                                    } else {
+                                        if (etx <= 156) {
+                                            return 56504;
+                                        } else {
+                                            return 63213;
+                                        }
+                                    }
                                 } else {
-                                    return 61920;
+                                    if (ppm <= 5) {
+                                        if (cpu <= 74) {
+                                            return 0;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    } else {
+                                        if (cpu <= 1) {
+                                            return 40413;
+                                        } else {
+                                            return 60620;
+                                        }
+                                    }
                                 }
                             } else {
-                                if (rssi <= -67) {
-                                    return 40091;
+                                if (rssi <= -53) {
+                                    if (rssi <= -92) {
+                                        if (ppm <= 7) {
+                                            return 45111;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    } else {
+                                        if (etx <= 158) {
+                                            return 61962;
+                                        } else {
+                                            return 64732;
+                                        }
+                                    }
                                 } else {
-                                    return 51065;
+                                    if (parent_ppm <= 95) {
+                                        return 18204;
+                                    } else {
+                                        return 65535;
+                                    }
                                 }
                             }
                         } else {
-                            if (rssi <= -83) {
-                                return 37401;
+                            if (etx <= 156) {
+                                if (etx <= 154) {
+                                    if (ppm <= 16) {
+                                        return 26214;
+                                    } else {
+                                        return 32768;
+                                    }
+                                } else {
+                                    return 3102;
+                                }
                             } else {
-                                return 40826;
+                                if (ppm <= 5) {
+                                    return 65535;
+                                } else {
+                                    return 65535;
+                                }
+                            }
+                        }
+                    } else {
+                        if (cpu <= 32) {
+                            if (drop_rate <= 39) {
+                                if (ppm <= 8) {
+                                    if (ppm <= 7) {
+                                        if (cpu <= 6) {
+                                            return 64803;
+                                        } else {
+                                            return 63698;
+                                        }
+                                    } else {
+                                        if (cpu <= 29) {
+                                            return 65320;
+                                        } else {
+                                            return 63591;
+                                        }
+                                    }
+                                } else {
+                                    if (ppm <= 21) {
+                                        if (cpu <= 1) {
+                                            return 64230;
+                                        } else {
+                                            return 63407;
+                                        }
+                                    } else {
+                                        if (cpu <= 2) {
+                                            return 65194;
+                                        } else {
+                                            return 64617;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (drop_rate <= 60) {
+                                    return 4766;
+                                } else {
+                                    return 62414;
+                                }
+                            }
+                        } else {
+                            if (p_cpu <= 5) {
+                                if (cpu <= 42) {
+                                    if (hop_count <= 0) {
+                                        if (cpu <= 38) {
+                                            return 64062;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    } else {
+                                        return 49151;
+                                    }
+                                } else {
+                                    if (cpu <= 43) {
+                                        if (ppm <= 13) {
+                                            return 1900;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    } else {
+                                        if (cpu <= 44) {
+                                            return 57679;
+                                        } else {
+                                            return 61909;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (is_new <= 0) {
+                                    if (etx <= 159) {
+                                        if (p_cpu <= 12) {
+                                            return 52171;
+                                        } else {
+                                            return 57811;
+                                        }
+                                    } else {
+                                        return 65535;
+                                    }
+                                } else {
+                                    return 0;
+                                }
                             }
                         }
                     }
                 } else {
-                    if (is_new <= 0) {
-                        if (cpu <= 4) {
-                            if (nbr_count <= 7) {
-                                return 60294;
+                    if (etx <= 312) {
+                        if (hop_count <= 1) {
+                            if (rssi <= -93) {
+                                if (etx <= 180) {
+                                    if (cpu <= 69) {
+                                        if (cpu <= 2) {
+                                            return 36925;
+                                        } else {
+                                            return 58435;
+                                        }
+                                    } else {
+                                        return 0;
+                                    }
+                                } else {
+                                    if (rssi <= -94) {
+                                        if (parent_ppm <= 8) {
+                                            return 65535;
+                                        } else {
+                                            return 44242;
+                                        }
+                                    } else {
+                                        if (ppm <= 17) {
+                                            return 56089;
+                                        } else {
+                                            return 65098;
+                                        }
+                                    }
+                                }
                             } else {
-                                return 50517;
+                                if (is_new <= 0) {
+                                    if (parent_ppm <= 2019) {
+                                        if (rssi <= -80) {
+                                            return 56299;
+                                        } else {
+                                            return 59400;
+                                        }
+                                    } else {
+                                        return 5958;
+                                    }
+                                } else {
+                                    if (ppm <= 1) {
+                                        if (cpu <= 51) {
+                                            return 52218;
+                                        } else {
+                                            return 16644;
+                                        }
+                                    } else {
+                                        if (etx <= 166) {
+                                            return 32039;
+                                        } else {
+                                            return 56417;
+                                        }
+                                    }
+                                }
                             }
                         } else {
-                            if (cpu <= 28) {
-                                return 63286;
-                            } else {
-                                if (cpu <= 60) {
-                                    return 57547;
+                            if (is_new <= 0) {
+                                if (etx <= 194) {
+                                    if (p_cpu <= 1) {
+                                        if (rssi <= -60) {
+                                            return 41907;
+                                        } else {
+                                            return 58699;
+                                        }
+                                    } else {
+                                        if (cpu <= 6) {
+                                            return 57940;
+                                        } else {
+                                            return 52222;
+                                        }
+                                    }
                                 } else {
-                                    return 58599;
+                                    if (parent_drop_rate <= 7) {
+                                        if (parent_ppm <= 54) {
+                                            return 52347;
+                                        } else {
+                                            return 47719;
+                                        }
+                                    } else {
+                                        if (parent_drop_rate <= 19) {
+                                            return 1111;
+                                        } else {
+                                            return 49444;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (cpu <= 6) {
+                                    if (p_cpu <= 20) {
+                                        if (rssi <= -84) {
+                                            return 59838;
+                                        } else {
+                                            return 50789;
+                                        }
+                                    } else {
+                                        return 0;
+                                    }
+                                } else {
+                                    if (rssi <= -59) {
+                                        if (parent_ppm <= 64) {
+                                            return 30073;
+                                        } else {
+                                            return 51887;
+                                        }
+                                    } else {
+                                        if (cpu <= 8) {
+                                            return 63350;
+                                        } else {
+                                            return 0;
+                                        }
+                                    }
                                 }
                             }
                         }
                     } else {
-                        return 44724;
+                        if (p_cpu <= 5) {
+                            if (is_new <= 0) {
+                                if (etx <= 456) {
+                                    if (etx <= 393) {
+                                        if (etx <= 344) {
+                                            return 55386;
+                                        } else {
+                                            return 65406;
+                                        }
+                                    } else {
+                                        if (ppm <= 9) {
+                                            return 35726;
+                                        } else {
+                                            return 63487;
+                                        }
+                                    }
+                                } else {
+                                    return 440;
+                                }
+                            } else {
+                                if (parent_ppm <= 41) {
+                                    if (etx <= 320) {
+                                        return 53247;
+                                    } else {
+                                        if (etx <= 334) {
+                                            return 1771;
+                                        } else {
+                                            return 0;
+                                        }
+                                    }
+                                } else {
+                                    if (hop_count <= 1) {
+                                        return 58982;
+                                    } else {
+                                        return 65535;
+                                    }
+                                }
+                            }
+                        } else {
+                            if (cpu <= 46) {
+                                if (rssi <= -79) {
+                                    if (rssi <= -88) {
+                                        if (cpu <= 41) {
+                                            return 17988;
+                                        } else {
+                                            return 49151;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 14) {
+                                            return 2832;
+                                        } else {
+                                            return 58324;
+                                        }
+                                    }
+                                } else {
+                                    if (rssi <= -61) {
+                                        if (rssi <= -74) {
+                                            return 8697;
+                                        } else {
+                                            return 1437;
+                                        }
+                                    } else {
+                                        return 24576;
+                                    }
+                                }
+                            } else {
+                                if (parent_ppm <= 327) {
+                                    if (is_new <= 0) {
+                                        if (cpu <= 72) {
+                                            return 1934;
+                                        } else {
+                                            return 26214;
+                                        }
+                                    } else {
+                                        return 0;
+                                    }
+                                } else {
+                                    if (ppm <= 4) {
+                                        return 0;
+                                    } else {
+                                        if (cpu <= 92) {
+                                            return 65535;
+                                        } else {
+                                            return 57343;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             } else {
-                if (nbr_count <= 6) {
-                    if (parent_ppm <= 29) {
-                        if (p_cpu <= 1) {
-                            if (cpu <= 0) {
-                                return 39121;
-                            } else {
-                                if (etx <= 207) {
-                                    return 56682;
+                if (is_new <= 0) {
+                    if (etx <= 240) {
+                        if (parent_drop_rate <= 3) {
+                            if (ppm <= 38) {
+                                if (etx <= 149) {
+                                    if (cpu <= 124) {
+                                        if (ppm <= 33) {
+                                            return 64510;
+                                        } else {
+                                            return 65248;
+                                        }
+                                    } else {
+                                        if (ppm <= 30) {
+                                            return 52428;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    }
                                 } else {
-                                    return 46783;
+                                    if (parent_ppm <= 69) {
+                                        if (rssi <= -55) {
+                                            return 56551;
+                                        } else {
+                                            return 48635;
+                                        }
+                                    } else {
+                                        if (cpu <= 78) {
+                                            return 62941;
+                                        } else {
+                                            return 51222;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (hop_count <= 1) {
+                                    if (drop_rate <= 1) {
+                                        if (parent_ppm <= 901) {
+                                            return 64752;
+                                        } else {
+                                            return 63787;
+                                        }
+                                    } else {
+                                        if (drop_rate <= 3) {
+                                            return 50191;
+                                        } else {
+                                            return 63399;
+                                        }
+                                    }
+                                } else {
+                                    if (parent_ppm <= 36) {
+                                        if (rssi <= -75) {
+                                            return 42734;
+                                        } else {
+                                            return 53905;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 1331) {
+                                            return 64315;
+                                        } else {
+                                            return 59465;
+                                        }
+                                    }
                                 }
                             }
                         } else {
-                            if (p_cpu <= 20) {
-                                if (rssi <= -79) {
-                                    return 46094;
+                            if (parent_drop_rate <= 18) {
+                                if (rssi <= -87) {
+                                    if (rssi <= -91) {
+                                        if (parent_ppm <= 90) {
+                                            return 65535;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    } else {
+                                        if (rssi <= -89) {
+                                            return 58918;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    }
                                 } else {
-                                    return 31795;
+                                    if (hop_count <= 1) {
+                                        if (p_cpu <= 23) {
+                                            return 60516;
+                                        } else {
+                                            return 51908;
+                                        }
+                                    } else {
+                                        if (rssi <= -75) {
+                                            return 16268;
+                                        } else {
+                                            return 50505;
+                                        }
+                                    }
                                 }
                             } else {
-                                return 29184;
+                                if (p_cpu <= 4) {
+                                    if (parent_drop_rate <= 22) {
+                                        if (cpu <= 14) {
+                                            return 63350;
+                                        } else {
+                                            return 48241;
+                                        }
+                                    } else {
+                                        if (cpu <= 20) {
+                                            return 65458;
+                                        } else {
+                                            return 63521;
+                                        }
+                                    }
+                                } else {
+                                    if (parent_ppm <= 118) {
+                                        if (p_cpu <= 15) {
+                                            return 40583;
+                                        } else {
+                                            return 63234;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 1424) {
+                                            return 63607;
+                                        } else {
+                                            return 59251;
+                                        }
+                                    }
+                                }
                             }
                         }
                     } else {
-                        if (rssi <= -77) {
-                            return 60358;
+                        if (parent_ppm <= 57) {
+                            if (ppm <= 179) {
+                                if (ppm <= 48) {
+                                    if (parent_ppm <= 53) {
+                                        if (rssi <= -82) {
+                                            return 51215;
+                                        } else {
+                                            return 60745;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 56) {
+                                            return 41145;
+                                        } else {
+                                            return 9362;
+                                        }
+                                    }
+                                } else {
+                                    if (parent_ppm <= 56) {
+                                        if (cpu <= 9) {
+                                            return 63154;
+                                        } else {
+                                            return 59303;
+                                        }
+                                    } else {
+                                        return 37449;
+                                    }
+                                }
+                            } else {
+                                if (p_cpu <= 7) {
+                                    if (ppm <= 183) {
+                                        return 19275;
+                                    } else {
+                                        if (parent_ppm <= 4) {
+                                            return 57343;
+                                        } else {
+                                            return 65275;
+                                        }
+                                    }
+                                } else {
+                                    if (etx <= 278) {
+                                        if (ppm <= 222) {
+                                            return 4369;
+                                        } else {
+                                            return 61037;
+                                        }
+                                    } else {
+                                        if (rssi <= -75) {
+                                            return 39825;
+                                        } else {
+                                            return 6668;
+                                        }
+                                    }
+                                }
+                            }
                         } else {
-                            return 47203;
+                            if (parent_ppm <= 1069) {
+                                if (etx <= 365) {
+                                    if (p_cpu <= 11) {
+                                        if (parent_ppm <= 98) {
+                                            return 58108;
+                                        } else {
+                                            return 64032;
+                                        }
+                                    } else {
+                                        if (drop_rate <= 1) {
+                                            return 61736;
+                                        } else {
+                                            return 48079;
+                                        }
+                                    }
+                                } else {
+                                    if (p_cpu <= 29) {
+                                        if (parent_ppm <= 1046) {
+                                            return 60410;
+                                        } else {
+                                            return 2149;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 815) {
+                                            return 39636;
+                                        } else {
+                                            return 63682;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (p_cpu <= 7) {
+                                    if (cpu <= 83) {
+                                        if (ppm <= 2532) {
+                                            return 63094;
+                                        } else {
+                                            return 40049;
+                                        }
+                                    } else {
+                                        if (ppm <= 1724) {
+                                            return 45213;
+                                        } else {
+                                            return 53930;
+                                        }
+                                    }
+                                } else {
+                                    if (parent_ppm <= 1087) {
+                                        if (p_cpu <= 19) {
+                                            return 29709;
+                                        } else {
+                                            return 3686;
+                                        }
+                                    } else {
+                                        if (p_cpu <= 22) {
+                                            return 53118;
+                                        } else {
+                                            return 59085;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 } else {
-                    if (etx <= 151) {
-                        if (ppm <= 16) {
-                            if (hop_count <= 0) {
-                                if (cpu <= 3) {
-                                    if (cpu <= 0) {
-                                        return 33734;
-                                    } else {
-                                        if (ppm <= 15) {
-                                            return 40390;
+                    if (hop_count <= 1) {
+                        if (p_cpu <= 10) {
+                            if (rssi <= -56) {
+                                if (parent_ppm <= 22) {
+                                    if (cpu <= 29) {
+                                        if (ppm <= 33) {
+                                            return 0;
                                         } else {
-                                            return 46629;
+                                            return 56041;
+                                        }
+                                    } else {
+                                        if (p_cpu <= 0) {
+                                            return 58607;
+                                        } else {
+                                            return 37448;
                                         }
                                     }
                                 } else {
-                                    if (ppm <= 9) {
-                                        return 41923;
-                                    } else {
-                                        if (ppm <= 13) {
-                                            return 20476;
+                                    if (drop_rate <= 12) {
+                                        if (etx <= 472) {
+                                            return 62434;
                                         } else {
-                                            return 34133;
+                                            return 34492;
+                                        }
+                                    } else {
+                                        if (cpu <= 113) {
+                                            return 57148;
+                                        } else {
+                                            return 27886;
                                         }
                                     }
                                 }
                             } else {
-                                if (cpu <= 4) {
-                                    return 43452;
+                                if (etx <= 175) {
+                                    if (ppm <= 2099) {
+                                        if (ppm <= 122) {
+                                            return 65062;
+                                        } else {
+                                            return 64004;
+                                        }
+                                    } else {
+                                        if (drop_rate <= 24) {
+                                            return 62185;
+                                        } else {
+                                            return 56922;
+                                        }
+                                    }
                                 } else {
-                                    return 50889;
+                                    if (parent_ppm <= 35) {
+                                        if (etx <= 200) {
+                                            return 44138;
+                                        } else {
+                                            return 65318;
+                                        }
+                                    } else {
+                                        if (ppm <= 43) {
+                                            return 53742;
+                                        } else {
+                                            return 63558;
+                                        }
+                                    }
                                 }
                             }
                         } else {
-                            if (cpu <= 1) {
-                                if (ppm <= 20) {
-                                    return 48257;
+                            if (cpu <= 9) {
+                                if (etx <= 344) {
+                                    if (parent_ppm <= 1477) {
+                                        if (p_cpu <= 13) {
+                                            return 56731;
+                                        } else {
+                                            return 63994;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 1592) {
+                                            return 0;
+                                        } else {
+                                            return 60658;
+                                        }
+                                    }
                                 } else {
-                                    return 44784;
+                                    if (rssi <= -84) {
+                                        if (parent_ppm <= 262) {
+                                            return 11915;
+                                        } else {
+                                            return 26985;
+                                        }
+                                    } else {
+                                        if (cpu <= 7) {
+                                            return 63318;
+                                        } else {
+                                            return 43690;
+                                        }
+                                    }
                                 }
                             } else {
-                                return 49212;
+                                if (etx <= 179) {
+                                    if (ppm <= 252) {
+                                        if (ppm <= 190) {
+                                            return 60448;
+                                        } else {
+                                            return 42715;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 5) {
+                                            return 59826;
+                                        } else {
+                                            return 64133;
+                                        }
+                                    }
+                                } else {
+                                    if (parent_ppm <= 9) {
+                                        if (cpu <= 62) {
+                                            return 39014;
+                                        } else {
+                                            return 2207;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 670) {
+                                            return 55449;
+                                        } else {
+                                            return 42507;
+                                        }
+                                    }
+                                }
                             }
                         }
                     } else {
-                        if (cpu <= 2) {
-                            if (rssi <= -94) {
-                                return 40471;
-                            } else {
-                                if (ppm <= 8) {
-                                    if (etx <= 252) {
-                                        if (etx <= 226) {
-                                            return 20954;
+                        if (parent_ppm <= 21) {
+                            if (drop_rate <= 6) {
+                                if (cpu <= 9) {
+                                    if (p_cpu <= 20) {
+                                        if (parent_ppm <= 15) {
+                                            return 52458;
                                         } else {
-                                            return 33142;
+                                            return 24427;
                                         }
                                     } else {
-                                        if (ppm <= 6) {
-                                            return 12281;
+                                        if (p_cpu <= 35) {
+                                            return 0;
                                         } else {
-                                            return 17294;
+                                            return 58982;
                                         }
                                     }
                                 } else {
-                                    if (nbr_count <= 7) {
-                                        if (parent_ppm <= 24) {
-                                            return 46478;
+                                    if (etx <= 286) {
+                                        if (parent_ppm <= 5) {
+                                            return 42939;
                                         } else {
-                                            return 31825;
+                                            return 24214;
                                         }
                                     } else {
-                                        if (etx <= 202) {
-                                            return 17729;
+                                        if (ppm <= 59) {
+                                            return 65535;
                                         } else {
-                                            return 27813;
+                                            return 3789;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (etx <= 164) {
+                                    return 65535;
+                                } else {
+                                    if (drop_rate <= 123) {
+                                        if (ppm <= 2316) {
+                                            return 158;
+                                        } else {
+                                            return 12483;
+                                        }
+                                    } else {
+                                        if (p_cpu <= 5) {
+                                            return 16759;
+                                        } else {
+                                            return 65535;
                                         }
                                     }
                                 }
                             }
                         } else {
-                            if (nbr_count <= 7) {
-                                if (etx <= 178) {
-                                    return 24748;
-                                } else {
-                                    if (parent_ppm <= 29) {
-                                        if (parent_ppm <= 10) {
-                                            return 58359;
+                            if (drop_rate <= 1) {
+                                if (etx <= 281) {
+                                    if (rssi <= -56) {
+                                        if (parent_ppm <= 34) {
+                                            return 48869;
                                         } else {
-                                            return 50063;
+                                            return 59706;
                                         }
                                     } else {
-                                        return 41770;
+                                        if (parent_ppm <= 36) {
+                                            return 34042;
+                                        } else {
+                                            return 52459;
+                                        }
+                                    }
+                                } else {
+                                    if (ppm <= 117) {
+                                        if (etx <= 475) {
+                                            return 60782;
+                                        } else {
+                                            return 0;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 65) {
+                                            return 0;
+                                        } else {
+                                            return 44295;
+                                        }
                                     }
                                 }
                             } else {
-                                if (parent_ppm <= 56) {
-                                    if (p_cpu <= 1) {
-                                        if (rssi <= -79) {
-                                            return 51602;
+                                if (parent_ppm <= 166) {
+                                    if (ppm <= 1630) {
+                                        if (ppm <= 259) {
+                                            return 62086;
                                         } else {
-                                            return 37588;
+                                            return 7750;
                                         }
                                     } else {
-                                        if (ppm <= 11) {
-                                            return 23872;
+                                        if (drop_rate <= 9) {
+                                            return 0;
                                         } else {
-                                            return 36390;
+                                            return 52868;
                                         }
                                     }
                                 } else {
-                                    return 14375;
+                                    if (etx <= 315) {
+                                        if (drop_rate <= 50) {
+                                            return 44570;
+                                        } else {
+                                            return 61934;
+                                        }
+                                    } else {
+                                        if (etx <= 448) {
+                                            return 0;
+                                        } else {
+                                            return 56903;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -207,199 +863,211 @@ uint16_t mlof_predict_pdr_dtree(uint16_t parent_ppm, uint8_t parent_drop_rate, i
                 }
             }
         } else {
-            if (hop_count <= 2) {
-                if (parent_ppm <= 1415) {
-                    if (is_new <= 0) {
-                        if (cpu <= 9) {
-                            if (ppm <= 175) {
-                                if (ppm <= 32) {
-                                    if (p_cpu <= 2) {
-                                        if (etx <= 167) {
-                                            return 38657;
+            if (drop_rate <= 1) {
+                if (ppm <= 26) {
+                    if (p_cpu <= 14) {
+                        if (etx <= 249) {
+                            if (hop_count <= 3) {
+                                if (parent_ppm <= 57) {
+                                    if (parent_ppm <= 23) {
+                                        if (is_new <= 0) {
+                                            return 52644;
                                         } else {
-                                            return 47543;
+                                            return 37626;
                                         }
                                     } else {
-                                        return 60450;
+                                        if (parent_ppm <= 29) {
+                                            return 38854;
+                                        } else {
+                                            return 48862;
+                                        }
                                     }
                                 } else {
-                                    if (ppm <= 98) {
-                                        if (parent_ppm <= 72) {
-                                            return 59004;
+                                    if (parent_ppm <= 915) {
+                                        if (p_cpu <= 6) {
+                                            return 52454;
                                         } else {
-                                            return 61477;
+                                            return 63923;
                                         }
                                     } else {
-                                        if (parent_ppm <= 1135) {
-                                            return 58957;
-                                        } else {
-                                            return 51526;
-                                        }
+                                        return 0;
                                     }
                                 }
                             } else {
-                                if (ppm <= 434) {
-                                    if (nbr_count <= 7) {
-                                        if (etx <= 272) {
-                                            return 55089;
+                                if (rssi <= -48) {
+                                    if (etx <= 172) {
+                                        if (ppm <= 5) {
+                                            return 52748;
                                         } else {
-                                            return 49694;
+                                            return 65535;
                                         }
                                     } else {
-                                        if (parent_ppm <= 870) {
-                                            return 58334;
+                                        if (rssi <= -93) {
+                                            return 60793;
                                         } else {
-                                            return 48562;
+                                            return 40408;
                                         }
                                     }
                                 } else {
-                                    if (rssi <= -73) {
-                                        if (rssi <= -83) {
-                                            return 58855;
-                                        } else {
-                                            return 47275;
-                                        }
+                                    if (parent_ppm <= 130) {
+                                        return 0;
                                     } else {
-                                        if (ppm <= 825) {
-                                            return 61285;
-                                        } else {
-                                            return 58765;
-                                        }
+                                        return 0;
                                     }
                                 }
                             }
                         } else {
-                            if (etx <= 333) {
-                                if (parent_ppm <= 1131) {
-                                    if (ppm <= 481) {
-                                        if (ppm <= 175) {
-                                            return 60639;
+                            if (rssi <= -78) {
+                                if (hop_count <= 3) {
+                                    if (parent_drop_rate <= 10) {
+                                        if (etx <= 305) {
+                                            return 42599;
                                         } else {
-                                            return 59116;
+                                            return 57100;
                                         }
                                     } else {
-                                        if (etx <= 216) {
-                                            return 61051;
-                                        } else {
-                                            return 58139;
-                                        }
+                                        return 0;
                                     }
                                 } else {
-                                    if (rssi <= -75) {
-                                        return 49556;
-                                    } else {
-                                        if (etx <= 189) {
-                                            return 53807;
+                                    if (p_cpu <= 2) {
+                                        if (rssi <= -81) {
+                                            return 61439;
                                         } else {
-                                            return 60229;
+                                            return 26916;
+                                        }
+                                    } else {
+                                        if (rssi <= -79) {
+                                            return 31004;
+                                        } else {
+                                            return 2427;
                                         }
                                     }
                                 }
                             } else {
-                                if (etx <= 346) {
-                                    return 34678;
-                                } else {
-                                    if (cpu <= 21) {
-                                        return 50626;
+                                if (cpu <= 21) {
+                                    if (parent_ppm <= 46) {
+                                        if (etx <= 270) {
+                                            return 65535;
+                                        } else {
+                                            return 34154;
+                                        }
                                     } else {
-                                        return 59163;
+                                        if (rssi <= -72) {
+                                            return 57343;
+                                        } else {
+                                            return 13369;
+                                        }
+                                    }
+                                } else {
+                                    if (is_new <= 0) {
+                                        if (parent_ppm <= 46) {
+                                            return 62086;
+                                        } else {
+                                            return 16962;
+                                        }
+                                    } else {
+                                        if (cpu <= 25) {
+                                            return 6554;
+                                        } else {
+                                            return 465;
+                                        }
                                     }
                                 }
                             }
                         }
                     } else {
-                        if (etx <= 161) {
-                            if (ppm <= 727) {
-                                if (ppm <= 150) {
-                                    if (ppm <= 56) {
-                                        return 56309;
-                                    } else {
-                                        if (cpu <= 38) {
-                                            return 61340;
+                        if (etx <= 300) {
+                            if (is_new <= 0) {
+                                if (rssi <= -83) {
+                                    if (parent_drop_rate <= 9) {
+                                        if (rssi <= -86) {
+                                            return 42098;
                                         } else {
-                                            return 57102;
+                                            return 54775;
+                                        }
+                                    } else {
+                                        if (p_cpu <= 37) {
+                                            return 7058;
+                                        } else {
+                                            return 0;
                                         }
                                     }
                                 } else {
-                                    if (cpu <= 3) {
-                                        return 42490;
-                                    } else {
-                                        if (cpu <= 22) {
-                                            return 57838;
+                                    if (etx <= 230) {
+                                        if (etx <= 172) {
+                                            return 27942;
                                         } else {
-                                            return 54467;
+                                            return 40623;
+                                        }
+                                    } else {
+                                        if (p_cpu <= 32) {
+                                            return 12064;
+                                        } else {
+                                            return 34395;
                                         }
                                     }
                                 }
                             } else {
-                                if (ppm <= 1803) {
-                                    if (drop_rate <= 8) {
-                                        if (nbr_count <= 7) {
-                                            return 62630;
+                                if (cpu <= 32) {
+                                    if (parent_ppm <= 10) {
+                                        if (etx <= 204) {
+                                            return 16384;
                                         } else {
-                                            return 56746;
+                                            return 0;
                                         }
                                     } else {
-                                        if (ppm <= 1134) {
-                                            return 65535;
+                                        if (parent_ppm <= 84) {
+                                            return 54066;
                                         } else {
-                                            return 62974;
+                                            return 23715;
                                         }
                                     }
                                 } else {
-                                    if (ppm <= 2362) {
-                                        return 57072;
+                                    if (parent_ppm <= 32) {
+                                        if (cpu <= 40) {
+                                            return 3121;
+                                        } else {
+                                            return 0;
+                                        }
                                     } else {
-                                        return 62707;
+                                        if (parent_ppm <= 35) {
+                                            return 65535;
+                                        } else {
+                                            return 5099;
+                                        }
                                     }
                                 }
                             }
                         } else {
-                            if (parent_ppm <= 22) {
-                                if (etx <= 206) {
-                                    if (ppm <= 711) {
-                                        return 38971;
+                            if (cpu <= 3) {
+                                if (parent_ppm <= 466) {
+                                    if (parent_ppm <= 11) {
+                                        return 0;
                                     } else {
-                                        return 17880;
+                                        if (ppm <= 6) {
+                                            return 26245;
+                                        } else {
+                                            return 57343;
+                                        }
                                     }
                                 } else {
-                                    if (nbr_count <= 6) {
-                                        return 56683;
+                                    if (ppm <= 8) {
+                                        return 0;
                                     } else {
-                                        if (ppm <= 273) {
-                                            return 33085;
-                                        } else {
-                                            return 47624;
-                                        }
+                                        return 0;
                                     }
                                 }
                             } else {
-                                if (parent_ppm <= 161) {
-                                    if (ppm <= 70) {
-                                        if (cpu <= 1) {
-                                            return 64141;
-                                        } else {
-                                            return 59763;
-                                        }
-                                    } else {
-                                        if (parent_ppm <= 50) {
-                                            return 51066;
-                                        } else {
-                                            return 56992;
-                                        }
-                                    }
+                                if (parent_ppm <= 56) {
+                                    return 0;
                                 } else {
-                                    if (rssi <= -59) {
-                                        if (ppm <= 124) {
-                                            return 57522;
-                                        } else {
-                                            return 52208;
-                                        }
+                                    if (p_cpu <= 17) {
+                                        return 63313;
                                     } else {
-                                        if (hop_count <= 1) {
-                                            return 52790;
+                                        if (parent_ppm <= 63) {
+                                            return 36227;
                                         } else {
-                                            return 41532;
+                                            return 9315;
                                         }
                                     }
                                 }
@@ -407,801 +1075,1797 @@ uint16_t mlof_predict_pdr_dtree(uint16_t parent_ppm, uint8_t parent_drop_rate, i
                         }
                     }
                 } else {
-                    if (etx <= 319) {
-                        if (rssi <= -58) {
-                            if (nbr_count <= 5) {
-                                if (parent_ppm <= 1703) {
-                                    return 58709;
-                                } else {
-                                    return 55340;
-                                }
-                            } else {
-                                if (ppm <= 380) {
-                                    if (p_cpu <= 7) {
-                                        if (parent_ppm <= 1711) {
-                                            return 55370;
+                    if (parent_drop_rate <= 1) {
+                        if (parent_ppm <= 34) {
+                            if (cpu <= 6) {
+                                if (etx <= 445) {
+                                    if (p_cpu <= 48) {
+                                        if (parent_ppm <= 32) {
+                                            return 49643;
                                         } else {
-                                            return 53026;
+                                            return 37507;
                                         }
                                     } else {
-                                        if (etx <= 226) {
-                                            return 48313;
+                                        if (parent_ppm <= 2) {
+                                            return 58386;
                                         } else {
-                                            return 38535;
+                                            return 3517;
                                         }
                                     }
                                 } else {
-                                    if (ppm <= 478) {
-                                        return 56485;
+                                    if (ppm <= 81) {
+                                        return 8192;
                                     } else {
-                                        if (rssi <= -77) {
-                                            return 53678;
+                                        return 0;
+                                    }
+                                }
+                            } else {
+                                if (etx <= 226) {
+                                    if (is_new <= 0) {
+                                        if (p_cpu <= 45) {
+                                            return 58136;
                                         } else {
-                                            return 48024;
+                                            return 23656;
+                                        }
+                                    } else {
+                                        if (etx <= 198) {
+                                            return 15370;
+                                        } else {
+                                            return 43349;
+                                        }
+                                    }
+                                } else {
+                                    if (p_cpu <= 5) {
+                                        if (ppm <= 300) {
+                                            return 55886;
+                                        } else {
+                                            return 0;
+                                        }
+                                    } else {
+                                        if (ppm <= 65) {
+                                            return 2319;
+                                        } else {
+                                            return 15807;
                                         }
                                     }
                                 }
                             }
                         } else {
-                            if (parent_ppm <= 1715) {
-                                if (rssi <= -51) {
-                                    return 44979;
+                            if (cpu <= 2) {
+                                if (parent_ppm <= 64) {
+                                    if (rssi <= -86) {
+                                        if (etx <= 234) {
+                                            return 64998;
+                                        } else {
+                                            return 60350;
+                                        }
+                                    } else {
+                                        if (etx <= 271) {
+                                            return 55542;
+                                        } else {
+                                            return 20480;
+                                        }
+                                    }
                                 } else {
-                                    return 58486;
+                                    if (ppm <= 88) {
+                                        if (etx <= 434) {
+                                            return 64048;
+                                        } else {
+                                            return 22654;
+                                        }
+                                    } else {
+                                        if (p_cpu <= 72) {
+                                            return 60883;
+                                        } else {
+                                            return 0;
+                                        }
+                                    }
                                 }
                             } else {
-                                return 18483;
+                                if (is_new <= 0) {
+                                    if (hop_count <= 3) {
+                                        if (parent_ppm <= 1964) {
+                                            return 60053;
+                                        } else {
+                                            return 26033;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 985) {
+                                            return 54826;
+                                        } else {
+                                            return 35331;
+                                        }
+                                    }
+                                } else {
+                                    if (hop_count <= 3) {
+                                        if (rssi <= -54) {
+                                            return 54187;
+                                        } else {
+                                            return 36752;
+                                        }
+                                    } else {
+                                        if (ppm <= 175) {
+                                            return 49441;
+                                        } else {
+                                            return 31107;
+                                        }
+                                    }
+                                }
                             }
                         }
                     } else {
-                        if (hop_count <= 1) {
-                            if (parent_ppm <= 1568) {
-                                return 29765;
+                        if (parent_drop_rate <= 16) {
+                            if (etx <= 219) {
+                                if (ppm <= 280) {
+                                    if (cpu <= 2) {
+                                        if (rssi <= -56) {
+                                            return 65535;
+                                        } else {
+                                            return 0;
+                                        }
+                                    } else {
+                                        if (rssi <= -83) {
+                                            return 10668;
+                                        } else {
+                                            return 0;
+                                        }
+                                    }
+                                } else {
+                                    if (hop_count <= 3) {
+                                        if (parent_drop_rate <= 5) {
+                                            return 0;
+                                        } else {
+                                            return 50641;
+                                        }
+                                    } else {
+                                        if (p_cpu <= 48) {
+                                            return 1324;
+                                        } else {
+                                            return 31899;
+                                        }
+                                    }
+                                }
                             } else {
-                                return 41608;
+                                if (hop_count <= 3) {
+                                    if (parent_ppm <= 563) {
+                                        if (cpu <= 74) {
+                                            return 862;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    } else {
+                                        if (p_cpu <= 21) {
+                                            return 32984;
+                                        } else {
+                                            return 55002;
+                                        }
+                                    }
+                                } else {
+                                    if (cpu <= 6) {
+                                        if (parent_ppm <= 786) {
+                                            return 52428;
+                                        } else {
+                                            return 3845;
+                                        }
+                                    } else {
+                                        if (p_cpu <= 55) {
+                                            return 41180;
+                                        } else {
+                                            return 0;
+                                        }
+                                    }
+                                }
                             }
                         } else {
-                            return 21250;
+                            if (rssi <= -79) {
+                                if (parent_ppm <= 539) {
+                                    if (cpu <= 32) {
+                                        if (etx <= 332) {
+                                            return 64110;
+                                        } else {
+                                            return 28650;
+                                        }
+                                    } else {
+                                        return 0;
+                                    }
+                                } else {
+                                    if (hop_count <= 3) {
+                                        if (parent_ppm <= 1835) {
+                                            return 60715;
+                                        } else {
+                                            return 48692;
+                                        }
+                                    } else {
+                                        if (p_cpu <= 10) {
+                                            return 0;
+                                        } else {
+                                            return 47751;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (parent_drop_rate <= 58) {
+                                    if (parent_ppm <= 383) {
+                                        if (rssi <= -62) {
+                                            return 22111;
+                                        } else {
+                                            return 62669;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 2321) {
+                                            return 16499;
+                                        } else {
+                                            return 50385;
+                                        }
+                                    }
+                                } else {
+                                    if (etx <= 271) {
+                                        if (p_cpu <= 37) {
+                                            return 55568;
+                                        } else {
+                                            return 36204;
+                                        }
+                                    } else {
+                                        if (rssi <= -58) {
+                                            return 5041;
+                                        } else {
+                                            return 43985;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             } else {
-                if (ppm <= 753) {
-                    if (ppm <= 127) {
-                        if (etx <= 356) {
-                            if (parent_ppm <= 563) {
-                                if (rssi <= -71) {
-                                    if (nbr_count <= 7) {
-                                        if (parent_ppm <= 68) {
-                                            return 65535;
-                                        } else {
-                                            return 62105;
-                                        }
+                if (is_new <= 0) {
+                    if (parent_ppm <= 1362) {
+                        if (parent_ppm <= 15) {
+                            if (etx <= 277) {
+                                if (etx <= 198) {
+                                    if (parent_ppm <= 9) {
+                                        return 13107;
                                     } else {
-                                        return 57638;
+                                        return 0;
                                     }
                                 } else {
-                                    if (ppm <= 86) {
-                                        if (parent_ppm <= 73) {
-                                            return 51961;
-                                        } else {
-                                            return 61767;
-                                        }
+                                    if (drop_rate <= 32) {
+                                        return 65535;
                                     } else {
-                                        if (cpu <= 4) {
-                                            return 43648;
+                                        if (rssi <= -58) {
+                                            return 44683;
                                         } else {
-                                            return 61889;
+                                            return 34492;
                                         }
                                     }
                                 }
                             } else {
-                                if (p_cpu <= 12) {
-                                    return 38375;
+                                if (ppm <= 35) {
+                                    return 11565;
                                 } else {
-                                    return 57732;
+                                    if (drop_rate <= 6) {
+                                        return 1725;
+                                    } else {
+                                        return 0;
+                                    }
                                 }
                             }
                         } else {
-                            return 39211;
+                            if (cpu <= 54) {
+                                if (drop_rate <= 26) {
+                                    if (parent_drop_rate <= 1) {
+                                        if (parent_ppm <= 183) {
+                                            return 29616;
+                                        } else {
+                                            return 57345;
+                                        }
+                                    } else {
+                                        if (hop_count <= 3) {
+                                            return 46526;
+                                        } else {
+                                            return 15615;
+                                        }
+                                    }
+                                } else {
+                                    if (cpu <= 2) {
+                                        if (ppm <= 57) {
+                                            return 64478;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    } else {
+                                        if (rssi <= -47) {
+                                            return 54633;
+                                        } else {
+                                            return 37330;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (rssi <= -49) {
+                                    if (ppm <= 1077) {
+                                        if (parent_drop_rate <= 6) {
+                                            return 25279;
+                                        } else {
+                                            return 54804;
+                                        }
+                                    } else {
+                                        if (p_cpu <= 37) {
+                                            return 58982;
+                                        } else {
+                                            return 34361;
+                                        }
+                                    }
+                                } else {
+                                    return 0;
+                                }
+                            }
                         }
                     } else {
-                        if (parent_ppm <= 48) {
-                            if (p_cpu <= 18) {
-                                return 16254;
+                        if (etx <= 218) {
+                            if (rssi <= -80) {
+                                return 65535;
                             } else {
-                                return 31439;
-                            }
-                        } else {
-                            if (parent_ppm <= 428) {
-                                if (parent_ppm <= 145) {
-                                    if (rssi <= -64) {
-                                        return 62941;
-                                    } else {
-                                        return 57087;
-                                    }
-                                } else {
-                                    if (parent_ppm <= 231) {
-                                        if (etx <= 237) {
-                                            return 29855;
+                                if (ppm <= 2365) {
+                                    if (p_cpu <= 83) {
+                                        if (etx <= 214) {
+                                            return 0;
                                         } else {
-                                            return 49323;
+                                            return 3641;
                                         }
                                     } else {
-                                        if (ppm <= 171) {
-                                            return 47468;
+                                        if (parent_drop_rate <= 3) {
+                                            return 0;
                                         } else {
-                                            return 59274;
+                                            return 20597;
+                                        }
+                                    }
+                                } else {
+                                    return 50115;
+                                }
+                            }
+                        } else {
+                            if (cpu <= 59) {
+                                if (parent_drop_rate <= 15) {
+                                    if (parent_drop_rate <= 2) {
+                                        if (ppm <= 436) {
+                                            return 46260;
+                                        } else {
+                                            return 62686;
+                                        }
+                                    } else {
+                                        if (cpu <= 8) {
+                                            return 35014;
+                                        } else {
+                                            return 0;
+                                        }
+                                    }
+                                } else {
+                                    if (parent_ppm <= 2634) {
+                                        if (cpu <= 13) {
+                                            return 56433;
+                                        } else {
+                                            return 63328;
+                                        }
+                                    } else {
+                                        if (p_cpu <= 31) {
+                                            return 39321;
+                                        } else {
+                                            return 47185;
                                         }
                                     }
                                 }
                             } else {
-                                if (cpu <= 46) {
-                                    if (rssi <= -48) {
-                                        if (rssi <= -64) {
-                                            return 48470;
-                                        } else {
-                                            return 18849;
-                                        }
+                                if (ppm <= 1787) {
+                                    if (parent_ppm <= 1551) {
+                                        return 794;
                                     } else {
-                                        if (parent_ppm <= 555) {
-                                            return 61616;
-                                        } else {
-                                            return 49751;
-                                        }
+                                        return 0;
                                     }
                                 } else {
-                                    return 25230;
+                                    return 21845;
                                 }
                             }
                         }
                     }
                 } else {
-                    if (drop_rate <= 0) {
-                        if (etx <= 202) {
-                            return 47632;
-                        } else {
-                            if (etx <= 377) {
-                                if (p_cpu <= 13) {
-                                    return 11498;
+                    if (etx <= 252) {
+                        if (ppm <= 609) {
+                            if (drop_rate <= 27) {
+                                if (cpu <= 5) {
+                                    return 54138;
                                 } else {
-                                    if (cpu <= 48) {
-                                        return 42979;
+                                    if (drop_rate <= 20) {
+                                        return 0;
                                     } else {
-                                        return 23162;
+                                        return 9830;
                                     }
                                 }
                             } else {
-                                return 5642;
+                                if (etx <= 221) {
+                                    if (drop_rate <= 32) {
+                                        return 35498;
+                                    } else {
+                                        if (p_cpu <= 30) {
+                                            return 65535;
+                                        } else {
+                                            return 39321;
+                                        }
+                                    }
+                                } else {
+                                    if (ppm <= 251) {
+                                        if (ppm <= 102) {
+                                            return 54612;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    } else {
+                                        if (rssi <= -88) {
+                                            return 55453;
+                                        } else {
+                                            return 7648;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            if (ppm <= 2036) {
+                                if (parent_ppm <= 116) {
+                                    if (p_cpu <= 49) {
+                                        if (parent_ppm <= 93) {
+                                            return 0;
+                                        } else {
+                                            return 8738;
+                                        }
+                                    } else {
+                                        if (rssi <= -71) {
+                                            return 12288;
+                                        } else {
+                                            return 0;
+                                        }
+                                    }
+                                } else {
+                                    if (drop_rate <= 24) {
+                                        if (ppm <= 1034) {
+                                            return 60415;
+                                        } else {
+                                            return 15918;
+                                        }
+                                    } else {
+                                        return 0;
+                                    }
+                                }
+                            } else {
+                                if (ppm <= 2175) {
+                                    if (p_cpu <= 8) {
+                                        if (ppm <= 2084) {
+                                            return 53052;
+                                        } else {
+                                            return 61214;
+                                        }
+                                    } else {
+                                        if (cpu <= 70) {
+                                            return 52428;
+                                        } else {
+                                            return 25853;
+                                        }
+                                    }
+                                } else {
+                                    if (ppm <= 2214) {
+                                        return 0;
+                                    } else {
+                                        if (etx <= 235) {
+                                            return 47502;
+                                        } else {
+                                            return 36928;
+                                        }
+                                    }
+                                }
                             }
                         }
                     } else {
-                        if (drop_rate <= 8) {
-                            if (p_cpu <= 26) {
-                                return 695;
+                        if (ppm <= 2339) {
+                            if (cpu <= 5) {
+                                if (parent_ppm <= 489) {
+                                    if (p_cpu <= 31) {
+                                        if (p_cpu <= 14) {
+                                            return 56173;
+                                        } else {
+                                            return 63549;
+                                        }
+                                    } else {
+                                        if (rssi <= -81) {
+                                            return 43690;
+                                        } else {
+                                            return 0;
+                                        }
+                                    }
+                                } else {
+                                    if (drop_rate <= 63) {
+                                        if (rssi <= -67) {
+                                            return 1285;
+                                        } else {
+                                            return 1890;
+                                        }
+                                    } else {
+                                        return 0;
+                                    }
+                                }
                             } else {
-                                return 9752;
+                                if (parent_drop_rate <= 55) {
+                                    if (p_cpu <= 76) {
+                                        if (rssi <= -73) {
+                                            return 9058;
+                                        } else {
+                                            return 2494;
+                                        }
+                                    } else {
+                                        return 53620;
+                                    }
+                                } else {
+                                    if (cpu <= 93) {
+                                        if (parent_ppm <= 740) {
+                                            return 57343;
+                                        } else {
+                                            return 62914;
+                                        }
+                                    } else {
+                                        return 0;
+                                    }
+                                }
                             }
                         } else {
-                            return 19884;
+                            if (p_cpu <= 48) {
+                                return 65535;
+                            } else {
+                                return 0;
+                            }
                         }
                     }
                 }
             }
         }
     } else {
-        if (hop_count <= 5) {
-            if (parent_drop_rate <= 0) {
-                if (etx <= 319) {
-                    if (ppm <= 258) {
-                        if (nbr_count <= 6) {
-                            if (cpu <= 45) {
-                                if (parent_ppm <= 408) {
-                                    if (hop_count <= 4) {
-                                        if (parent_ppm <= 52) {
-                                            return 46124;
+        if (ppm <= 152) {
+            if (p_cpu <= 13) {
+                if (etx <= 243) {
+                    if (hop_count <= 6) {
+                        if (parent_ppm <= 435) {
+                            if (rssi <= -48) {
+                                if (ppm <= 29) {
+                                    if (cpu <= 5) {
+                                        if (rssi <= -56) {
+                                            return 58918;
                                         } else {
-                                            return 60133;
+                                            return 40968;
                                         }
                                     } else {
-                                        return 43624;
+                                        if (parent_ppm <= 123) {
+                                            return 48865;
+                                        } else {
+                                            return 12655;
+                                        }
                                     }
                                 } else {
-                                    if (rssi <= -59) {
-                                        return 49694;
+                                    if (parent_ppm <= 39) {
+                                        if (cpu <= 3) {
+                                            return 62258;
+                                        } else {
+                                            return 14979;
+                                        }
                                     } else {
-                                        return 27116;
+                                        if (parent_ppm <= 233) {
+                                            return 63982;
+                                        } else {
+                                            return 54205;
+                                        }
                                     }
                                 }
                             } else {
-                                return 23757;
+                                if (ppm <= 87) {
+                                    if (parent_ppm <= 69) {
+                                        return 0;
+                                    } else {
+                                        if (cpu <= 17) {
+                                            return 4256;
+                                        } else {
+                                            return 2881;
+                                        }
+                                    }
+                                } else {
+                                    if (p_cpu <= 10) {
+                                        return 65535;
+                                    } else {
+                                        if (ppm <= 121) {
+                                            return 65535;
+                                        } else {
+                                            return 0;
+                                        }
+                                    }
+                                }
                             }
                         } else {
-                            if (rssi <= -80) {
-                                if (rssi <= -85) {
-                                    return 19899;
-                                } else {
-                                    return 4761;
-                                }
-                            } else {
-                                if (nbr_count <= 7) {
-                                    if (parent_ppm <= 871) {
-                                        if (parent_ppm <= 287) {
-                                            return 21131;
+                            if (rssi <= -65) {
+                                if (p_cpu <= 10) {
+                                    if (ppm <= 58) {
+                                        if (parent_ppm <= 1212) {
+                                            return 14398;
                                         } else {
-                                            return 43928;
+                                            return 0;
                                         }
                                     } else {
-                                        return 9593;
+                                        return 30247;
                                     }
                                 } else {
-                                    if (etx <= 205) {
-                                        return 60961;
+                                    return 0;
+                                }
+                            } else {
+                                if (parent_ppm <= 1739) {
+                                    if (p_cpu <= 10) {
+                                        if (cpu <= 0) {
+                                            return 63897;
+                                        } else {
+                                            return 65535;
+                                        }
                                     } else {
-                                        return 38829;
+                                        return 44564;
+                                    }
+                                } else {
+                                    if (is_new <= 0) {
+                                        return 6554;
+                                    } else {
+                                        return 14563;
                                     }
                                 }
                             }
                         }
                     } else {
-                        if (p_cpu <= 49) {
-                            if (p_cpu <= 10) {
-                                if (ppm <= 933) {
-                                    return 10853;
+                        if (parent_ppm <= 133) {
+                            if (parent_ppm <= 8) {
+                                if (rssi <= -73) {
+                                    return 65535;
                                 } else {
-                                    return 104;
+                                    if (p_cpu <= 3) {
+                                        return 65535;
+                                    } else {
+                                        if (parent_ppm <= 2) {
+                                            return 46811;
+                                        } else {
+                                            return 5097;
+                                        }
+                                    }
                                 }
                             } else {
-                                if (parent_ppm <= 253) {
-                                    if (p_cpu <= 22) {
-                                        return 27946;
-                                    } else {
-                                        return 5346;
-                                    }
+                                if (p_cpu <= 4) {
+                                    return 0;
                                 } else {
-                                    if (nbr_count <= 6) {
-                                        if (p_cpu <= 22) {
-                                            return 32526;
+                                    if (rssi <= -43) {
+                                        if (drop_rate <= 63) {
+                                            return 54087;
                                         } else {
-                                            return 14706;
+                                            return 0;
                                         }
                                     } else {
-                                        if (p_cpu <= 27) {
-                                            return 30620;
-                                        } else {
-                                            return 48602;
-                                        }
+                                        return 0;
                                     }
                                 }
                             }
                         } else {
-                            if (rssi <= -49) {
-                                if (etx <= 258) {
-                                    return 58702;
-                                } else {
-                                    return 47131;
-                                }
+                            if (rssi <= -89) {
+                                return 65535;
                             } else {
-                                return 33628;
+                                if (rssi <= -62) {
+                                    if (p_cpu <= 5) {
+                                        return 21845;
+                                    } else {
+                                        if (etx <= 185) {
+                                            return 4389;
+                                        } else {
+                                            return 0;
+                                        }
+                                    }
+                                } else {
+                                    if (ppm <= 123) {
+                                        if (parent_ppm <= 398) {
+                                            return 59770;
+                                        } else {
+                                            return 46020;
+                                        }
+                                    } else {
+                                        if (rssi <= -60) {
+                                            return 59367;
+                                        } else {
+                                            return 683;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 } else {
-                    if (is_new <= 0) {
-                        if (cpu <= 10) {
-                            return 8902;
-                        } else {
-                            return 329;
-                        }
-                    } else {
-                        if (nbr_count <= 7) {
-                            if (etx <= 404) {
-                                return 3715;
+                    if (hop_count <= 5) {
+                        if (cpu <= 1) {
+                            if (p_cpu <= 11) {
+                                return 65535;
                             } else {
-                                return 24061;
+                                return 13107;
                             }
                         } else {
-                            if (cpu <= 19) {
-                                return 47279;
+                            if (ppm <= 98) {
+                                if (parent_ppm <= 406) {
+                                    if (is_new <= 0) {
+                                        if (parent_ppm <= 176) {
+                                            return 30479;
+                                        } else {
+                                            return 10513;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 122) {
+                                            return 0;
+                                        } else {
+                                            return 55453;
+                                        }
+                                    }
+                                } else {
+                                    if (ppm <= 91) {
+                                        return 65535;
+                                    } else {
+                                        return 58982;
+                                    }
+                                }
                             } else {
-                                return 22402;
+                                if (is_new <= 0) {
+                                    return 23831;
+                                } else {
+                                    if (p_cpu <= 6) {
+                                        return 0;
+                                    } else {
+                                        if (cpu <= 11) {
+                                            return 2048;
+                                        } else {
+                                            return 10581;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        if (is_new <= 0) {
+                            if (etx <= 304) {
+                                if (p_cpu <= 7) {
+                                    if (parent_ppm <= 118) {
+                                        if (etx <= 285) {
+                                            return 0;
+                                        } else {
+                                            return 34868;
+                                        }
+                                    } else {
+                                        if (hop_count <= 7) {
+                                            return 62659;
+                                        } else {
+                                            return 40478;
+                                        }
+                                    }
+                                } else {
+                                    if (parent_ppm <= 610) {
+                                        if (parent_ppm <= 8) {
+                                            return 49151;
+                                        } else {
+                                            return 4328;
+                                        }
+                                    } else {
+                                        if (ppm <= 116) {
+                                            return 26810;
+                                        } else {
+                                            return 50972;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (hop_count <= 9) {
+                                    return 0;
+                                } else {
+                                    if (parent_ppm <= 359) {
+                                        return 23405;
+                                    } else {
+                                        return 0;
+                                    }
+                                }
+                            }
+                        } else {
+                            if (ppm <= 106) {
+                                if (p_cpu <= 8) {
+                                    if (parent_drop_rate <= 2) {
+                                        return 0;
+                                    } else {
+                                        return 13107;
+                                    }
+                                } else {
+                                    if (etx <= 299) {
+                                        if (p_cpu <= 10) {
+                                            return 10922;
+                                        } else {
+                                            return 6554;
+                                        }
+                                    } else {
+                                        if (rssi <= -71) {
+                                            return 54612;
+                                        } else {
+                                            return 63229;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (parent_drop_rate <= 38) {
+                                    if (rssi <= -77) {
+                                        return 61894;
+                                    } else {
+                                        return 65535;
+                                    }
+                                } else {
+                                    return 56360;
+                                }
                             }
                         }
                     }
                 }
             } else {
-                if (rssi <= -52) {
-                    if (ppm <= 760) {
-                        if (parent_ppm <= 1659) {
-                            return 12495;
-                        } else {
-                            if (hop_count <= 4) {
-                                return 8270;
+                if (cpu <= 1) {
+                    if (hop_count <= 6) {
+                        if (etx <= 285) {
+                            if (rssi <= -55) {
+                                if (drop_rate <= 56) {
+                                    if (p_cpu <= 70) {
+                                        if (etx <= 259) {
+                                            return 60434;
+                                        } else {
+                                            return 39394;
+                                        }
+                                    } else {
+                                        if (hop_count <= 5) {
+                                            return 32768;
+                                        } else {
+                                            return 8192;
+                                        }
+                                    }
+                                } else {
+                                    return 0;
+                                }
                             } else {
-                                return 203;
+                                if (parent_ppm <= 96) {
+                                    return 0;
+                                } else {
+                                    if (etx <= 172) {
+                                        if (rssi <= -50) {
+                                            return 65535;
+                                        } else {
+                                            return 9830;
+                                        }
+                                    } else {
+                                        if (ppm <= 28) {
+                                            return 18432;
+                                        } else {
+                                            return 62560;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            if (ppm <= 87) {
+                                if (etx <= 486) {
+                                    if (rssi <= -85) {
+                                        if (etx <= 390) {
+                                            return 13107;
+                                        } else {
+                                            return 9892;
+                                        }
+                                    } else {
+                                        if (p_cpu <= 19) {
+                                            return 2521;
+                                        } else {
+                                            return 0;
+                                        }
+                                    }
+                                } else {
+                                    return 38229;
+                                }
+                            } else {
+                                if (rssi <= -89) {
+                                    return 65535;
+                                } else {
+                                    if (ppm <= 141) {
+                                        if (ppm <= 138) {
+                                            return 31688;
+                                        } else {
+                                            return 40167;
+                                        }
+                                    } else {
+                                        return 65535;
+                                    }
+                                }
                             }
                         }
                     } else {
-                        if (parent_drop_rate <= 8) {
-                            return 88;
+                        if (parent_ppm <= 212) {
+                            if (etx <= 316) {
+                                if (etx <= 156) {
+                                    if (hop_count <= 8) {
+                                        if (ppm <= 36) {
+                                            return 32263;
+                                        } else {
+                                            return 1257;
+                                        }
+                                    } else {
+                                        if (rssi <= -70) {
+                                            return 0;
+                                        } else {
+                                            return 47398;
+                                        }
+                                    }
+                                } else {
+                                    if (hop_count <= 9) {
+                                        if (ppm <= 17) {
+                                            return 64125;
+                                        } else {
+                                            return 46349;
+                                        }
+                                    } else {
+                                        if (p_cpu <= 45) {
+                                            return 28990;
+                                        } else {
+                                            return 47823;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (parent_drop_rate <= 3) {
+                                    if (p_cpu <= 20) {
+                                        return 34192;
+                                    } else {
+                                        return 0;
+                                    }
+                                } else {
+                                    if (rssi <= -86) {
+                                        return 65535;
+                                    } else {
+                                        if (ppm <= 9) {
+                                            return 34952;
+                                        } else {
+                                            return 28086;
+                                        }
+                                    }
+                                }
+                            }
                         } else {
-                            return 3310;
+                            if (etx <= 174) {
+                                if (rssi <= -53) {
+                                    if (drop_rate <= 24) {
+                                        if (parent_ppm <= 1828) {
+                                            return 0;
+                                        } else {
+                                            return 3121;
+                                        }
+                                    } else {
+                                        return 11915;
+                                    }
+                                } else {
+                                    if (ppm <= 69) {
+                                        if (parent_ppm <= 326) {
+                                            return 8937;
+                                        } else {
+                                            return 6144;
+                                        }
+                                    } else {
+                                        return 43690;
+                                    }
+                                }
+                            } else {
+                                if (hop_count <= 12) {
+                                    if (etx <= 195) {
+                                        if (etx <= 183) {
+                                            return 21845;
+                                        } else {
+                                            return 59646;
+                                        }
+                                    } else {
+                                        if (rssi <= -44) {
+                                            return 16663;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    }
+                                } else {
+                                    if (parent_ppm <= 330) {
+                                        if (p_cpu <= 55) {
+                                            return 65067;
+                                        } else {
+                                            return 51895;
+                                        }
+                                    } else {
+                                        if (rssi <= -92) {
+                                            return 65535;
+                                        } else {
+                                            return 17863;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 } else {
-                    return 21509;
+                    if (parent_drop_rate <= 0) {
+                        if (etx <= 247) {
+                            if (hop_count <= 5) {
+                                if (parent_ppm <= 289) {
+                                    if (parent_ppm <= 74) {
+                                        if (p_cpu <= 45) {
+                                            return 39553;
+                                        } else {
+                                            return 10922;
+                                        }
+                                    } else {
+                                        if (rssi <= -49) {
+                                            return 55849;
+                                        } else {
+                                            return 28086;
+                                        }
+                                    }
+                                } else {
+                                    if (etx <= 196) {
+                                        if (parent_ppm <= 408) {
+                                            return 36541;
+                                        } else {
+                                            return 10252;
+                                        }
+                                    } else {
+                                        if (ppm <= 58) {
+                                            return 12862;
+                                        } else {
+                                            return 46680;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (rssi <= -58) {
+                                    if (p_cpu <= 65) {
+                                        if (ppm <= 5) {
+                                            return 44120;
+                                        } else {
+                                            return 29104;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 1951) {
+                                            return 14947;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    }
+                                } else {
+                                    if (p_cpu <= 26) {
+                                        if (p_cpu <= 23) {
+                                            return 16535;
+                                        } else {
+                                            return 45358;
+                                        }
+                                    } else {
+                                        if (hop_count <= 8) {
+                                            return 8263;
+                                        } else {
+                                            return 24440;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            if (rssi <= -72) {
+                                if (hop_count <= 13) {
+                                    if (hop_count <= 12) {
+                                        if (p_cpu <= 25) {
+                                            return 29840;
+                                        } else {
+                                            return 16578;
+                                        }
+                                    } else {
+                                        if (rssi <= -73) {
+                                            return 63455;
+                                        } else {
+                                            return 0;
+                                        }
+                                    }
+                                } else {
+                                    if (p_cpu <= 29) {
+                                        if (p_cpu <= 28) {
+                                            return 9362;
+                                        } else {
+                                            return 64495;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 509) {
+                                            return 320;
+                                        } else {
+                                            return 8851;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (parent_ppm <= 567) {
+                                    if (p_cpu <= 103) {
+                                        if (rssi <= -43) {
+                                            return 8424;
+                                        } else {
+                                            return 32768;
+                                        }
+                                    } else {
+                                        if (is_new <= 0) {
+                                            return 0;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    }
+                                } else {
+                                    if (parent_ppm <= 729) {
+                                        if (hop_count <= 8) {
+                                            return 64764;
+                                        } else {
+                                            return 0;
+                                        }
+                                    } else {
+                                        if (rssi <= -54) {
+                                            return 30110;
+                                        } else {
+                                            return 1489;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        if (parent_ppm <= 23) {
+                            if (etx <= 229) {
+                                if (cpu <= 54) {
+                                    if (ppm <= 90) {
+                                        if (p_cpu <= 15) {
+                                            return 52428;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    } else {
+                                        return 39321;
+                                    }
+                                } else {
+                                    return 0;
+                                }
+                            } else {
+                                if (p_cpu <= 22) {
+                                    return 28086;
+                                } else {
+                                    if (etx <= 247) {
+                                        return 6241;
+                                    } else {
+                                        return 0;
+                                    }
+                                }
+                            }
+                        } else {
+                            if (etx <= 196) {
+                                if (etx <= 135) {
+                                    if (ppm <= 140) {
+                                        return 59454;
+                                    } else {
+                                        return 59577;
+                                    }
+                                } else {
+                                    if (parent_ppm <= 2602) {
+                                        if (ppm <= 2) {
+                                            return 65535;
+                                        } else {
+                                            return 2756;
+                                        }
+                                    } else {
+                                        if (rssi <= -62) {
+                                            return 65535;
+                                        } else {
+                                            return 37900;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (p_cpu <= 29) {
+                                    if (p_cpu <= 22) {
+                                        if (parent_drop_rate <= 120) {
+                                            return 3202;
+                                        } else {
+                                            return 58982;
+                                        }
+                                    } else {
+                                        if (p_cpu <= 27) {
+                                            return 53553;
+                                        } else {
+                                            return 23371;
+                                        }
+                                    }
+                                } else {
+                                    if (ppm <= 43) {
+                                        if (parent_ppm <= 38) {
+                                            return 13222;
+                                        } else {
+                                            return 972;
+                                        }
+                                    } else {
+                                        if (etx <= 452) {
+                                            return 14950;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         } else {
             if (parent_drop_rate <= 0) {
-                if (hop_count <= 52) {
-                    if (ppm <= 82) {
-                        if (ppm <= 26) {
-                            if (etx <= 236) {
-                                if (is_new <= 0) {
-                                    if (etx <= 211) {
-                                        return 20743;
-                                    } else {
-                                        return 29868;
-                                    }
-                                } else {
-                                    if (hop_count <= 17) {
-                                        if (cpu <= 48) {
-                                            return 32181;
+                if (hop_count <= 5) {
+                    if (parent_ppm <= 153) {
+                        if (etx <= 224) {
+                            if (ppm <= 1034) {
+                                if (rssi <= -56) {
+                                    if (cpu <= 126) {
+                                        if (rssi <= -89) {
+                                            return 12873;
                                         } else {
-                                            return 7841;
+                                            return 57738;
                                         }
                                     } else {
-                                        return 1223;
+                                        return 0;
+                                    }
+                                } else {
+                                    if (etx <= 153) {
+                                        return 49151;
+                                    } else {
+                                        if (ppm <= 275) {
+                                            return 1575;
+                                        } else {
+                                            return 18724;
+                                        }
                                     }
                                 }
                             } else {
-                                if (is_new <= 0) {
-                                    if (hop_count <= 11) {
-                                        return 3025;
-                                    } else {
-                                        return 15936;
-                                    }
+                                if (ppm <= 1377) {
+                                    return 1872;
                                 } else {
-                                    if (p_cpu <= 76) {
-                                        return 223;
-                                    } else {
-                                        if (etx <= 292) {
-                                            return 6337;
-                                        } else {
-                                            return 2033;
-                                        }
-                                    }
+                                    return 0;
                                 }
                             }
                         } else {
-                            if (hop_count <= 15) {
-                                if (rssi <= -78) {
-                                    if (hop_count <= 8) {
-                                        return 21976;
+                            if (etx <= 439) {
+                                if (etx <= 230) {
+                                    if (rssi <= -76) {
+                                        return 0;
                                     } else {
-                                        if (rssi <= -85) {
-                                            return 42694;
-                                        } else {
-                                            return 62382;
-                                        }
+                                        return 21065;
                                     }
                                 } else {
-                                    if (etx <= 188) {
-                                        return 38018;
-                                    } else {
-                                        if (nbr_count <= 7) {
-                                            return 15576;
+                                    if (ppm <= 387) {
+                                        if (ppm <= 299) {
+                                            return 0;
                                         } else {
-                                            return 30827;
+                                            return 7102;
                                         }
+                                    } else {
+                                        return 0;
                                     }
                                 }
                             } else {
-                                if (ppm <= 53) {
-                                    if (rssi <= -81) {
-                                        if (nbr_count <= 5) {
-                                            return 48907;
-                                        } else {
-                                            return 30957;
-                                        }
+                                if (cpu <= 9) {
+                                    if (rssi <= -65) {
+                                        return 40329;
                                     } else {
-                                        if (p_cpu <= 57) {
-                                            return 12344;
-                                        } else {
-                                            return 26300;
-                                        }
+                                        return 30137;
                                     }
                                 } else {
-                                    if (rssi <= -79) {
-                                        if (nbr_count <= 6) {
-                                            return 2569;
-                                        } else {
-                                            return 13564;
-                                        }
+                                    if (rssi <= -53) {
+                                        return 0;
                                     } else {
-                                        if (p_cpu <= 34) {
-                                            return 1759;
-                                        } else {
-                                            return 19156;
-                                        }
+                                        return 4572;
                                     }
                                 }
                             }
                         }
                     } else {
-                        if (hop_count <= 38) {
-                            if (hop_count <= 11) {
-                                if (nbr_count <= 7) {
-                                    if (cpu <= 2) {
-                                        if (ppm <= 108) {
-                                            return 14782;
+                        if (parent_ppm <= 1512) {
+                            if (p_cpu <= 32) {
+                                if (etx <= 384) {
+                                    if (drop_rate <= 76) {
+                                        if (rssi <= -42) {
+                                            return 40456;
                                         } else {
-                                            return 2589;
+                                            return 0;
                                         }
                                     } else {
-                                        if (etx <= 184) {
-                                            return 8019;
-                                        } else {
-                                            return 16335;
-                                        }
+                                        return 0;
                                     }
                                 } else {
-                                    if (parent_ppm <= 111) {
-                                        if (parent_ppm <= 18) {
-                                            return 33433;
-                                        } else {
-                                            return 52048;
-                                        }
+                                    if (p_cpu <= 13) {
+                                        return 15231;
                                     } else {
-                                        if (p_cpu <= 26) {
-                                            return 7605;
+                                        if (cpu <= 16) {
+                                            return 3449;
                                         } else {
-                                            return 24288;
+                                            return 0;
                                         }
                                     }
                                 }
                             } else {
-                                if (ppm <= 953) {
-                                    if (rssi <= -75) {
-                                        if (rssi <= -76) {
-                                            return 12042;
+                                if (parent_ppm <= 849) {
+                                    if (etx <= 195) {
+                                        if (etx <= 180) {
+                                            return 0;
                                         } else {
-                                            return 36123;
+                                            return 11901;
                                         }
                                     } else {
-                                        if (p_cpu <= 114) {
-                                            return 7880;
+                                        if (ppm <= 183) {
+                                            return 41051;
                                         } else {
-                                            return 22607;
+                                            return 20393;
                                         }
                                     }
                                 } else {
-                                    if (rssi <= -52) {
-                                        if (p_cpu <= 119) {
-                                            return 4097;
+                                    if (rssi <= -57) {
+                                        if (etx <= 173) {
+                                            return 0;
                                         } else {
-                                            return 11968;
+                                            return 56995;
                                         }
                                     } else {
-                                        if (rssi <= -48) {
-                                            return 19573;
+                                        if (cpu <= 106) {
+                                            return 4493;
                                         } else {
-                                            return 6156;
+                                            return 65535;
                                         }
                                     }
                                 }
                             }
                         } else {
-                            if (hop_count <= 43) {
-                                if (rssi <= -51) {
-                                    if (nbr_count <= 7) {
-                                        if (etx <= 280) {
-                                            return 36659;
-                                        } else {
-                                            return 6135;
-                                        }
-                                    } else {
-                                        return 55753;
-                                    }
+                            if (parent_ppm <= 2015) {
+                                if (parent_ppm <= 1962) {
+                                    return 0;
                                 } else {
-                                    if (hop_count <= 41) {
-                                        return 18502;
-                                    } else {
-                                        return 5089;
-                                    }
+                                    return 1293;
                                 }
                             } else {
-                                if (nbr_count <= 4) {
-                                    if (rssi <= -59) {
-                                        return 7049;
-                                    } else {
-                                        return 182;
-                                    }
+                                if (is_new <= 0) {
+                                    return 47662;
                                 } else {
-                                    if (parent_ppm <= 1755) {
-                                        if (ppm <= 1639) {
-                                            return 22739;
-                                        } else {
-                                            return 6757;
-                                        }
+                                    if (cpu <= 4) {
+                                        return 0;
                                     } else {
-                                        return 778;
+                                        return 12529;
                                     }
                                 }
                             }
                         }
                     }
                 } else {
-                    if (hop_count <= 75) {
-                        if (parent_ppm <= 57) {
-                            if (cpu <= 29) {
-                                return 23137;
-                            } else {
-                                if (rssi <= -61) {
-                                    return 1266;
+                    if (cpu <= 2) {
+                        if (etx <= 308) {
+                            if (rssi <= -85) {
+                                if (etx <= 220) {
+                                    if (etx <= 205) {
+                                        if (rssi <= -88) {
+                                            return 13107;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    } else {
+                                        return 0;
+                                    }
                                 } else {
-                                    return 13539;
+                                    if (ppm <= 195) {
+                                        if (parent_ppm <= 380) {
+                                            return 64970;
+                                        } else {
+                                            return 58245;
+                                        }
+                                    } else {
+                                        if (p_cpu <= 53) {
+                                            return 27347;
+                                        } else {
+                                            return 57840;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (etx <= 144) {
+                                    if (p_cpu <= 50) {
+                                        if (ppm <= 710) {
+                                            return 63262;
+                                        } else {
+                                            return 49151;
+                                        }
+                                    } else {
+                                        return 32768;
+                                    }
+                                } else {
+                                    if (rssi <= -45) {
+                                        if (ppm <= 165) {
+                                            return 14216;
+                                        } else {
+                                            return 28444;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 50) {
+                                            return 5461;
+                                        } else {
+                                            return 0;
+                                        }
+                                    }
                                 }
                             }
                         } else {
-                            if (ppm <= 107) {
-                                if (nbr_count <= 7) {
-                                    if (ppm <= 87) {
-                                        if (nbr_count <= 6) {
-                                            return 2070;
-                                        } else {
-                                            return 7194;
-                                        }
-                                    } else {
-                                        return 16804;
-                                    }
+                            if (ppm <= 207) {
+                                if (ppm <= 199) {
+                                    return 0;
                                 } else {
-                                    return 18566;
+                                    return 697;
                                 }
                             } else {
-                                if (hop_count <= 61) {
-                                    if (etx <= 159) {
-                                        return 12501;
-                                    } else {
-                                        if (rssi <= -44) {
-                                            return 3201;
-                                        } else {
-                                            return 9832;
-                                        }
-                                    }
+                                if (ppm <= 229) {
+                                    return 58982;
                                 } else {
-                                    if (rssi <= -71) {
-                                        if (rssi <= -75) {
+                                    if (ppm <= 761) {
+                                        if (etx <= 333) {
                                             return 0;
                                         } else {
-                                            return 14921;
+                                            return 15213;
                                         }
                                     } else {
-                                        if (etx <= 298) {
-                                            return 223;
-                                        } else {
-                                            return 5064;
-                                        }
+                                        return 41263;
                                     }
                                 }
                             }
                         }
                     } else {
-                        if (p_cpu <= 109) {
-                            if (cpu <= 21) {
-                                if (etx <= 219) {
-                                    return 14644;
+                        if (rssi <= -51) {
+                            if (drop_rate <= 1) {
+                                if (parent_ppm <= 23) {
+                                    if (hop_count <= 12) {
+                                        if (p_cpu <= 19) {
+                                            return 9234;
+                                        } else {
+                                            return 889;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 6) {
+                                            return 58253;
+                                        } else {
+                                            return 4766;
+                                        }
+                                    }
                                 } else {
-                                    return 31054;
+                                    if (etx <= 329) {
+                                        if (parent_ppm <= 1479) {
+                                            return 19848;
+                                        } else {
+                                            return 37963;
+                                        }
+                                    } else {
+                                        if (ppm <= 766) {
+                                            return 6068;
+                                        } else {
+                                            return 41689;
+                                        }
+                                    }
                                 }
                             } else {
-                                return 9268;
+                                if (parent_ppm <= 1755) {
+                                    if (parent_ppm <= 369) {
+                                        if (parent_ppm <= 358) {
+                                            return 9810;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 748) {
+                                            return 142;
+                                        } else {
+                                            return 10883;
+                                        }
+                                    }
+                                } else {
+                                    if (rssi <= -77) {
+                                        return 0;
+                                    } else {
+                                        if (hop_count <= 10) {
+                                            return 61439;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    }
+                                }
                             }
                         } else {
-                            if (ppm <= 980) {
-                                if (p_cpu <= 119) {
-                                    return 6713;
+                            if (parent_ppm <= 292) {
+                                if (hop_count <= 8) {
+                                    if (p_cpu <= 99) {
+                                        if (rssi <= -40) {
+                                            return 7206;
+                                        } else {
+                                            return 34859;
+                                        }
+                                    } else {
+                                        return 65535;
+                                    }
                                 } else {
-                                    return 0;
+                                    if (cpu <= 32) {
+                                        if (cpu <= 15) {
+                                            return 22540;
+                                        } else {
+                                            return 62501;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 138) {
+                                            return 2043;
+                                        } else {
+                                            return 17507;
+                                        }
+                                    }
                                 }
                             } else {
-                                return 14672;
+                                if (ppm <= 157) {
+                                    if (ppm <= 155) {
+                                        return 0;
+                                    } else {
+                                        return 59141;
+                                    }
+                                } else {
+                                    if (etx <= 261) {
+                                        if (hop_count <= 9) {
+                                            return 1433;
+                                        } else {
+                                            return 6097;
+                                        }
+                                    } else {
+                                        if (etx <= 265) {
+                                            return 62174;
+                                        } else {
+                                            return 7880;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 }
             } else {
-                if (parent_ppm <= 1105) {
-                    if (parent_drop_rate <= 3) {
-                        if (etx <= 373) {
-                            if (cpu <= 4) {
-                                if (nbr_count <= 6) {
-                                    return 1768;
+                if (cpu <= 16) {
+                    if (ppm <= 2185) {
+                        if (p_cpu <= 25) {
+                            if (etx <= 245) {
+                                if (hop_count <= 6) {
+                                    if (etx <= 235) {
+                                        if (etx <= 189) {
+                                            return 44837;
+                                        } else {
+                                            return 17998;
+                                        }
+                                    } else {
+                                        return 65535;
+                                    }
                                 } else {
-                                    return 11861;
-                                }
-                            } else {
-                                if (cpu <= 121) {
-                                    if (p_cpu <= 119) {
-                                        if (p_cpu <= 106) {
+                                    if (etx <= 210) {
+                                        return 0;
+                                    } else {
+                                        if (hop_count <= 7) {
                                             return 0;
                                         } else {
-                                            return 1043;
+                                            return 55978;
                                         }
+                                    }
+                                }
+                            } else {
+                                if (hop_count <= 6) {
+                                    if (p_cpu <= 24) {
+                                        return 0;
                                     } else {
-                                        return 2477;
+                                        if (cpu <= 6) {
+                                            return 1252;
+                                        } else {
+                                            return 0;
+                                        }
                                     }
                                 } else {
-                                    return 6469;
+                                    if (p_cpu <= 11) {
+                                        if (ppm <= 455) {
+                                            return 40478;
+                                        } else {
+                                            return 63715;
+                                        }
+                                    } else {
+                                        if (parent_ppm <= 1623) {
+                                            return 0;
+                                        } else {
+                                            return 38941;
+                                        }
+                                    }
                                 }
                             }
                         } else {
-                            return 12436;
+                            if (parent_ppm <= 1923) {
+                                if (etx <= 135) {
+                                    if (is_new <= 0) {
+                                        return 65535;
+                                    } else {
+                                        return 54811;
+                                    }
+                                } else {
+                                    if (cpu <= 15) {
+                                        if (etx <= 484) {
+                                            return 5741;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    } else {
+                                        if (etx <= 238) {
+                                            return 13107;
+                                        } else {
+                                            return 61152;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (etx <= 360) {
+                                    if (parent_drop_rate <= 14) {
+                                        if (parent_ppm <= 2879) {
+                                            return 15174;
+                                        } else {
+                                            return 65535;
+                                        }
+                                    } else {
+                                        if (drop_rate <= 44) {
+                                            return 4721;
+                                        } else {
+                                            return 61015;
+                                        }
+                                    }
+                                } else {
+                                    return 65535;
+                                }
+                            }
                         }
                     } else {
-                        if (nbr_count <= 6) {
-                            if (rssi <= -70) {
-                                if (ppm <= 317) {
-                                    return 596;
-                                } else {
-                                    return 0;
-                                }
-                            } else {
-                                if (cpu <= 12) {
-                                    return 16527;
-                                } else {
-                                    return 4310;
-                                }
-                            }
+                        if (etx <= 193) {
+                            return 28978;
                         } else {
-                            if (p_cpu <= 97) {
-                                if (p_cpu <= 50) {
-                                    if (p_cpu <= 43) {
-                                        return 9557;
-                                    } else {
-                                        return 42474;
-                                    }
+                            if (parent_ppm <= 2008) {
+                                if (parent_drop_rate <= 67) {
+                                    return 63598;
                                 } else {
-                                    if (parent_drop_rate <= 29) {
-                                        if (cpu <= 33) {
-                                            return 114;
-                                        } else {
-                                            return 5461;
-                                        }
-                                    } else {
-                                        return 15640;
-                                    }
+                                    return 64141;
                                 }
                             } else {
-                                if (ppm <= 726) {
-                                    return 46230;
-                                } else {
-                                    return 18478;
-                                }
+                                return 65535;
                             }
                         }
                     }
                 } else {
-                    if (etx <= 319) {
-                        if (parent_drop_rate <= 6) {
-                            if (hop_count <= 24) {
-                                if (etx <= 153) {
-                                    return 4571;
+                    if (etx <= 338) {
+                        if (parent_ppm <= 2917) {
+                            if (parent_ppm <= 22) {
+                                if (parent_drop_rate <= 37) {
+                                    return 0;
                                 } else {
-                                    if (ppm <= 49) {
-                                        return 4103;
-                                    } else {
-                                        if (p_cpu <= 31) {
-                                            return 1034;
-                                        } else {
-                                            return 165;
-                                        }
-                                    }
+                                    return 59577;
                                 }
                             } else {
-                                if (is_new <= 0) {
-                                    if (parent_ppm <= 1799) {
-                                        if (nbr_count <= 6) {
-                                            return 0;
+                                if (rssi <= -40) {
+                                    if (etx <= 282) {
+                                        if (parent_ppm <= 2134) {
+                                            return 1875;
                                         } else {
-                                            return 8264;
+                                            return 6810;
                                         }
                                     } else {
-                                        if (cpu <= 67) {
-                                            return 0;
+                                        if (cpu <= 112) {
+                                            return 3990;
                                         } else {
-                                            return 1229;
+                                            return 30560;
                                         }
                                     }
                                 } else {
-                                    if (nbr_count <= 6) {
-                                        return 16859;
+                                    if (cpu <= 23) {
+                                        return 65535;
                                     } else {
-                                        if (cpu <= 37) {
-                                            return 4371;
+                                        if (p_cpu <= 56) {
+                                            return 406;
                                         } else {
-                                            return 30;
+                                            return 22953;
                                         }
                                     }
                                 }
                             }
                         } else {
-                            if (cpu <= 13) {
-                                if (parent_ppm <= 1978) {
-                                    if (ppm <= 84) {
-                                        return 25750;
-                                    } else {
-                                        if (cpu <= 4) {
-                                            return 4247;
-                                        } else {
-                                            return 16092;
-                                        }
-                                    }
+                            if (drop_rate <= 23) {
+                                if (cpu <= 36) {
+                                    return 42130;
                                 } else {
-                                    if (ppm <= 125) {
-                                        if (rssi <= -64) {
-                                            return 197;
-                                        } else {
-                                            return 4990;
-                                        }
-                                    } else {
-                                        if (nbr_count <= 6) {
-                                            return 4437;
-                                        } else {
-                                            return 13770;
-                                        }
-                                    }
+                                    return 43690;
                                 }
                             } else {
-                                if (parent_drop_rate <= 114) {
-                                    if (rssi <= -55) {
-                                        if (nbr_count <= 5) {
-                                            return 287;
-                                        } else {
-                                            return 2601;
-                                        }
-                                    } else {
-                                        if (hop_count <= 19) {
-                                            return 8640;
-                                        } else {
-                                            return 397;
-                                        }
-                                    }
-                                } else {
-                                    if (p_cpu <= 61) {
-                                        return 16640;
-                                    } else {
-                                        return 5325;
-                                    }
-                                }
+                                return 0;
                             }
                         }
                     } else {
-                        if (p_cpu <= 118) {
-                            if (p_cpu <= 55) {
-                                if (etx <= 386) {
-                                    return 11909;
+                        if (drop_rate <= 1) {
+                            if (hop_count <= 6) {
+                                if (cpu <= 58) {
+                                    if (cpu <= 54) {
+                                        if (ppm <= 368) {
+                                            return 65535;
+                                        } else {
+                                            return 35043;
+                                        }
+                                    } else {
+                                        return 0;
+                                    }
                                 } else {
-                                    return 27138;
+                                    if (parent_drop_rate <= 18) {
+                                        if (cpu <= 72) {
+                                            return 61439;
+                                        } else {
+                                            return 59014;
+                                        }
+                                    } else {
+                                        return 65535;
+                                    }
                                 }
                             } else {
-                                if (ppm <= 544) {
-                                    if (parent_drop_rate <= 4) {
-                                        return 8214;
-                                    } else {
-                                        return 1465;
-                                    }
-                                } else {
-                                    if (hop_count <= 25) {
+                                if (etx <= 361) {
+                                    if (p_cpu <= 67) {
                                         return 0;
                                     } else {
-                                        return 473;
+                                        if (hop_count <= 8) {
+                                            return 56293;
+                                        } else {
+                                            return 43225;
+                                        }
                                     }
+                                } else {
+                                    return 0;
                                 }
                             }
                         } else {
-                            return 27262;
+                            if (hop_count <= 9) {
+                                if (ppm <= 671) {
+                                    if (hop_count <= 5) {
+                                        return 10922;
+                                    } else {
+                                        return 24858;
+                                    }
+                                } else {
+                                    if (cpu <= 123) {
+                                        if (hop_count <= 8) {
+                                            return 94;
+                                        } else {
+                                            return 1425;
+                                        }
+                                    } else {
+                                        if (hop_count <= 5) {
+                                            return 10922;
+                                        } else {
+                                            return 429;
+                                        }
+                                    }
+                                }
+                            } else {
+                                if (parent_ppm <= 1145) {
+                                    return 0;
+                                } else {
+                                    return 55629;
+                                }
+                            }
                         }
                     }
                 }

@@ -6,6 +6,6 @@
 #define MLOF_PREDICT_PDR_DTREE_H_
 #include <stdint.h>
 
-uint16_t mlof_predict_pdr_dtree(uint16_t parent_ppm, uint8_t parent_drop_rate, int16_t rssi, uint8_t hop_count, uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint16_t ppm, uint8_t drop_rate, uint8_t nbr_count);
+uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count);
 
 #endif /* MLOF_PREDICT_PDR_DTREE_H_ */
