@@ -113,15 +113,16 @@ static int nbr_has_usable_link(rpl_nbr_t *nbr) {
 }
 /*---------------------------------------------------------------------------*/
 static int nbr_is_acceptable_parent(rpl_nbr_t *nbr) {
-  uint16_t path_cost = nbr_path_cost(nbr);
-  /* Exclude links with too high link metrics or path cost (RFC6719, 3.2.2) */
-  return nbr_has_usable_link(nbr) && path_cost <= MAX_PATH_COST;
+  /* Exclude links with too high link metrics or path cost (RFC6719, 3.2.2).
+     The link check goes first: it is cheap, while nbr_path_cost() runs the
+     model. */
+  return nbr_has_usable_link(nbr) && nbr_path_cost(nbr) <= MAX_PATH_COST;
 }
 /*---------------------------------------------------------------------------*/
-static int within_hysteresis(rpl_nbr_t *nbr) {
-  uint16_t path_cost = nbr_path_cost(nbr);
-  uint16_t parent_path_cost = nbr_path_cost(curr_instance.dag.preferred_parent);
-
+/* Path costs are passed in rather than recomputed: nbr_path_cost() runs the
+ * model, and best_parent() already has both costs. */
+static int within_hysteresis(rpl_nbr_t *nbr, uint16_t path_cost,
+                             uint16_t parent_path_cost) {
   int within_rank_hysteresis = path_cost + RANK_THRESHOLD > parent_path_cost;
   int within_time_hysteresis =
       nbr->better_parent_since == 0 ||
@@ -132,31 +133,43 @@ static int within_hysteresis(rpl_nbr_t *nbr) {
   return within_rank_hysteresis && within_time_hysteresis;
 }
 /*---------------------------------------------------------------------------*/
+/* Path cost of nbr if it is an acceptable parent (usable link, cost within
+ * MAX_PATH_COST), evaluating the model at most once. Returns 0 if not
+ * acceptable, in which case *path_cost is unset. */
+static int acceptable_path_cost(rpl_nbr_t *nbr, uint16_t *path_cost) {
+  if (nbr == NULL || !nbr_has_usable_link(nbr)) {
+    return 0;
+  }
+  *path_cost = nbr_path_cost(nbr);
+  return *path_cost <= MAX_PATH_COST;
+}
+/*---------------------------------------------------------------------------*/
 static rpl_nbr_t *best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2) {
-  int nbr1_is_acceptable;
-  int nbr2_is_acceptable;
-
-  nbr1_is_acceptable = nbr1 != NULL && nbr_is_acceptable_parent(nbr1);
-  nbr2_is_acceptable = nbr2 != NULL && nbr_is_acceptable_parent(nbr2);
+  uint16_t cost1 = 0;
+  uint16_t cost2 = 0;
+  int nbr1_is_acceptable = acceptable_path_cost(nbr1, &cost1);
+  int nbr2_is_acceptable = acceptable_path_cost(nbr2, &cost2);
 
   if (!nbr1_is_acceptable) {
     return nbr2_is_acceptable ? nbr2 : NULL;
   }
   if (!nbr2_is_acceptable) {
-    return nbr1_is_acceptable ? nbr1 : NULL;
+    return nbr1;
   }
 
   /* Maintain stability of the preferred parent. Switch only if the gain
   is greater than RANK_THRESHOLD, or if the neighbor has been better than the
   current parent for at more than TIME_THRESHOLD. */
-  if (nbr1 == curr_instance.dag.preferred_parent && within_hysteresis(nbr2)) {
+  if (nbr1 == curr_instance.dag.preferred_parent &&
+      within_hysteresis(nbr2, cost2, cost1)) {
     return nbr1;
   }
-  if (nbr2 == curr_instance.dag.preferred_parent && within_hysteresis(nbr1)) {
+  if (nbr2 == curr_instance.dag.preferred_parent &&
+      within_hysteresis(nbr1, cost1, cost2)) {
     return nbr2;
   }
 
-  return nbr_path_cost(nbr1) < nbr_path_cost(nbr2) ? nbr1 : nbr2;
+  return cost1 < cost2 ? nbr1 : nbr2;
 }
 /*---------------------------------------------------------------------------*/
 /* 1-byte MLOF metrics keep real values in the lower half of the byte
@@ -164,6 +177,24 @@ static rpl_nbr_t *best_parent(rpl_nbr_t *nbr1, rpl_nbr_t *nbr2) {
  * 0xff stays well separated from any legitimate maximum. */
 #define MLOF_U8_REAL_MAX 0x7f
 #define MLOF_U8_UNKNOWN 0xff
+
+/* num * scale / den with a single 32-bit divide, for 64-bit counters that avoid
+ * a __udivdi3 call on 32-bit MCUs. If num * scale or den would not fit in 32
+ * bits, both are shifted right first (the ratio is preserved, only the lowest
+ * bits are lost). Saturates to UINT32_MAX if den shifts down to 0, i.e. the
+ * ratio is huge. den must be non-zero on entry. */
+static uint32_t scaled_ratio(uint64_t num, uint64_t den, uint32_t scale) {
+  const uint64_t num_max = UINT32_MAX / scale;
+
+  while (num > num_max || den > UINT32_MAX) {
+    num >>= 1;
+    den >>= 1;
+  }
+  if (den == 0) {
+    return UINT32_MAX;
+  }
+  return ((uint32_t)num * scale) / (uint32_t)den;
+}
 
 /* CPU-usage fixed-point unit, mirroring the ETX divisor scheme: the utilization
  * fraction f in [0,1] is carried as (uint8_t)(f * this). With unit 128 a value
@@ -195,7 +226,7 @@ static uint8_t cpu_usage_percent(void) {
   if (delta_total == 0) {
     return 0;
   }
-  return (uint8_t)MIN((delta_cpu * MLOF_CPU_USAGE_UNIT) / delta_total,
+  return (uint8_t)MIN(scaled_ratio(delta_cpu, delta_total, MLOF_CPU_USAGE_UNIT),
                       MLOF_CPU_USAGE_MAX);
 #else  /* ENERGEST_CONF_ON */
   return 0;
@@ -227,8 +258,11 @@ static void parent_link_metrics(uint16_t *etx, int16_t *rssi) {
   *rssi = stats->rssi == LINK_STATS_RSSI_UNKNOWN ? INT16_MAX : stats->rssi;
 }
 
-#define MLOF_CPU_W_SELF 3
-#define MLOF_CPU_W_PARENT 7
+/* Blend weights out of 16 (5/16 ~= 0.31, 11/16 ~= 0.69) so the average is a
+ * shift instead of a division. */
+#define MLOF_CPU_W_SELF 5
+#define MLOF_CPU_W_PARENT 11
+#define MLOF_CPU_W_SHIFT 4
 
 static uint8_t weighted_cpu_usage(uint8_t self_cpu_usage) {
   rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
@@ -246,8 +280,9 @@ static uint8_t weighted_cpu_usage(uint8_t self_cpu_usage) {
   }
 
   blend = (MLOF_CPU_W_SELF * self_cpu_usage +
-           MLOF_CPU_W_PARENT * parent->mlof.weighted_cpu_usage + 5) /
-          10;
+           MLOF_CPU_W_PARENT * parent->mlof.weighted_cpu_usage +
+           (1 << (MLOF_CPU_W_SHIFT - 1))) >>
+          MLOF_CPU_W_SHIFT;
   return (uint8_t)MIN(blend, MLOF_CPU_USAGE_MAX);
 }
 
@@ -260,20 +295,12 @@ static void traffic_metrics(uint16_t *ppm, uint8_t *drop_rate) {
   static uint32_t prev_drops = 0;
   static clock_time_t prev_time = 0;
 
-  static uint16_t last_ppm = (uint16_t)INT16_MAX;
-  static uint8_t last_drop_rate = MLOF_DROP_RATE_UNKNOWN;
+  static uint16_t last_ppm = 0;
+  static uint8_t last_drop_rate = 0;
 
   if (rpl_dag_root_is_root()) {
     *ppm = 0;
     *drop_rate = 0;
-    return;
-  }
-
-  if (curr_instance.dag.preferred_parent == NULL) {
-    last_ppm = (uint16_t)INT16_MAX;
-    last_drop_rate = MLOF_DROP_RATE_UNKNOWN;
-    *ppm = last_ppm;
-    *drop_rate = last_drop_rate;
     return;
   }
 
@@ -291,7 +318,7 @@ static void traffic_metrics(uint16_t *ppm, uint8_t *drop_rate) {
   uint32_t drops_delta = drops_now - prev_drops;
 
   last_ppm = (uint16_t)MIN(
-      ((uint64_t)tx_delta * 128 * CLOCK_SECOND) / time_delta, 0xffff);
+      scaled_ratio(tx_delta, time_delta, 128 * CLOCK_SECOND), 0xffff);
   last_drop_rate = drops_delta == 0 ? 0
                                     : (uint8_t)MIN(tx_delta / drops_delta,
                                                    MLOF_DROP_RATE_MAX);
@@ -400,6 +427,7 @@ static void fill_multiple_metrics(void) {
   out->nbr_count = (uint8_t)MIN(rpl_neighbor_count(), 0xff);
 }
 /*---------------------------------------------------------------------------*/
+#if MLOF_LOG_TRAINING_DATA
 void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *parent,
                                      int is_new) {
   const linkaddr_t *lla;
@@ -440,6 +468,7 @@ void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *parent,
 void rpl_mlof_of_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *new) {
   rpl_mlof_callback_parent_switch(old, new, 1);
 }
+#endif /* MLOF_LOG_TRAINING_DATA */
 /*---------------------------------------------------------------------------*/
 static void update_metric_container(void) {
   curr_instance.mc.type = RPL_DAG_MC_MLOF;

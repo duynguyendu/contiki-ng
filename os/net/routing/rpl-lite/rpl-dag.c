@@ -58,11 +58,11 @@ extern rpl_of_t rpl_of0, rpl_mrhof, rpl_mlof;
 static rpl_of_t *const objective_functions[] = RPL_SUPPORTED_OFS;
 static int process_dio_init_dag(rpl_dio_t *dio);
 
-#if RPL_MULTIPLE_METRICS
+#if RPL_MULTIPLE_METRICS && MLOF_LOG_TRAINING_DATA
 void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *new,
                                      int is_new);
 static uint8_t mlof_parent_dio_pending;
-#endif /* RPL_MULTIPLE_METRICS */
+#endif /* RPL_MULTIPLE_METRICS && MLOF_LOG_TRAINING_DATA */
 
 /*---------------------------------------------------------------------------*/
 /* Allocate instance table. */
@@ -277,7 +277,7 @@ void rpl_dag_update_state(void) {
     curr_instance.dag.rank =
         rpl_neighbor_rank_via_nbr(curr_instance.dag.preferred_parent);
 
-#if RPL_MULTIPLE_METRICS
+#if RPL_MULTIPLE_METRICS && MLOF_LOG_TRAINING_DATA
     if (mlof_parent_dio_pending) {
       mlof_parent_dio_pending = 0;
       if (curr_instance.dag.preferred_parent != NULL &&
@@ -288,7 +288,7 @@ void rpl_dag_update_state(void) {
         rpl_mlof_callback_parent_switch(old_parent, old_parent, 0);
       }
     }
-#endif /* RPL_MULTIPLE_METRICS */
+#endif /* RPL_MULTIPLE_METRICS && MLOF_LOG_TRAINING_DATA */
 
     /* Update better_parent_since flag for each neighbor */
     nbr = nbr_table_head(rpl_neighbors);
@@ -399,9 +399,11 @@ static rpl_nbr_t *update_nbr_from_dio(uip_ipaddr_t *from, rpl_dio_t *dio) {
 #if RPL_MULTIPLE_METRICS
   if (dio->ocp == RPL_OCP_MLOF) {
     nbr->mlof = dio->mc.mlof;
+#if MLOF_LOG_TRAINING_DATA
     if (nbr == curr_instance.dag.preferred_parent) {
       mlof_parent_dio_pending = 1;
     }
+#endif /* MLOF_LOG_TRAINING_DATA */
   }
 #endif /* RPL_MULTIPLE_METRICS */
 

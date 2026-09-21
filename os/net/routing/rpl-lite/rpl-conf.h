@@ -404,12 +404,22 @@
 
 #endif /* MAC_CONF_WITH_TSCH */
 
-#if RPL_OF_OCP == RPL_OCP_MLOF
+/* Set to 1 to log the MLOF metrics of the preferred parent on every parent
+ * switch and DIO from the current parent (the training-data lines). When 0 the
+ * logging, and the RPL_CALLBACK_PARENT_SWITCH hook that drives it, are compiled
+ * out. */
+#ifdef MLOF_CONF_LOG_TRAINING_DATA
+#define MLOF_LOG_TRAINING_DATA MLOF_CONF_LOG_TRAINING_DATA
+#else
+#define MLOF_LOG_TRAINING_DATA 1
+#endif
+
+#if RPL_OF_OCP == RPL_OCP_MLOF && MLOF_LOG_TRAINING_DATA
 #ifndef RPL_CALLBACK_PARENT_SWITCH
 /* 2-arg adapter; the real 3-arg logger is rpl_mlof_callback_parent_switch(). */
 #define RPL_CALLBACK_PARENT_SWITCH rpl_mlof_of_callback_parent_switch
 #endif /* RPL_CALLBACK_PARENT_SWITCH */
-#endif /* RPL_OF_OCP == RPL_OCP_MLOF */
+#endif /* RPL_OF_OCP == RPL_OCP_MLOF && MLOF_LOG_TRAINING_DATA */
 
 /* Set to 1 to drop packets when a forwarding loop is detected
  * on a packet that already had an error signaled, as per RFC6550 - 11.2.2.2.
