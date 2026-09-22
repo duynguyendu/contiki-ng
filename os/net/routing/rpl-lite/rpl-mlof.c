@@ -236,11 +236,21 @@ static uint8_t cpu_usage_percent(void) {
 #endif /* ENERGEST_CONF_ON */
 }
 
-/* ETX and RSSI to the preferred parent, from its link statistics. Both are 0 at
- * the root and INT16_MAX when unavailable: no preferred parent yet, or the
- * statistic has not been measured (ETX == 0, RSSI == LINK_STATS_RSSI_UNKNOWN,
- * which is itself INT16_MAX). The int16_t RSSI is carried in the uint16_t field
- * as-is. One shared root/link-stats check for both values. */
+/* When link stats are unavailable, report a plausible-but-poor link rather
+ * than an out-of-range sentinel (e.g. INT16_MAX): the model only ever sees
+ * values from that range during training, so an unmeasured link should still
+ * land somewhere realistic instead of forcing an unmodeled extreme through
+ * predict_pdr(). ETX 4.0 (four transmissions per successful delivery) and
+ * RSSI -90 dBm (weak but not implausible) both read as "bad link", not
+ * "unknown". */
+#define MLOF_ETX_UNKNOWN ((uint16_t)(4 * LINK_STATS_ETX_DIVISOR))
+#define MLOF_RSSI_UNKNOWN ((int16_t)-100)
+
+/* ETX and RSSI to the preferred parent, from its link statistics. Both are 0
+ * at the root and MLOF_{ETX,RSSI}_UNKNOWN when unavailable: no preferred
+ * parent yet, or the statistic has not been measured (ETX == 0, RSSI ==
+ * LINK_STATS_RSSI_UNKNOWN). One shared root/link-stats check for both
+ * values. */
 static void parent_link_metrics(uint16_t *etx, int16_t *rssi) {
   rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
   const struct link_stats *stats;
@@ -252,13 +262,13 @@ static void parent_link_metrics(uint16_t *etx, int16_t *rssi) {
   }
   stats = parent == NULL ? NULL : rpl_neighbor_get_link_stats(parent);
   if (stats == NULL) {
-    *etx = (uint16_t)INT16_MAX;
-    *rssi = INT16_MAX;
+    *etx = MLOF_ETX_UNKNOWN;
+    *rssi = MLOF_RSSI_UNKNOWN;
     return;
   }
 
-  *etx = stats->etx == 0 ? (uint16_t)INT16_MAX : stats->etx;
-  *rssi = stats->rssi == LINK_STATS_RSSI_UNKNOWN ? INT16_MAX : stats->rssi;
+  *etx = stats->etx == 0 ? MLOF_ETX_UNKNOWN : stats->etx;
+  *rssi = stats->rssi == LINK_STATS_RSSI_UNKNOWN ? MLOF_RSSI_UNKNOWN : stats->rssi;
 }
 
 /* Blend weights out of 16 (5/16 ~= 0.31, 11/16 ~= 0.69) so the average is a
@@ -389,8 +399,7 @@ static uint16_t predict_pdr(rpl_nbr_t *nbr, int is_new) {
   uint8_t p_cpu = nbr->mlof.weighted_cpu_usage;
   uint16_t etx = nbr->mlof.etx;
   uint16_t ppm = curr_instance.mc.mlof.ppm;
-  uint8_t drop_rate =
-      curr_instance.mc.mlof.drop_rate;
+  uint8_t drop_rate = curr_instance.mc.mlof.drop_rate;
 
 #if MLOF_MODEL == MLOF_MODEL_LINEAR
   return mlof_predict_pdr_linear(parent_ppm, parent_drop_rate, rssi, hop_count,

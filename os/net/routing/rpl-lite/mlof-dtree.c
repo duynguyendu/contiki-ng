@@ -13,27 +13,87 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (etx <= 275) {
                                     if (etx <= 206) {
                                         if (cpu <= 84) {
-                                            return 64009;
+                                            if (cpu <= 3) {
+                                                if (ppm <= 11) {
+                                                    return 63926;
+                                                } else {
+                                                    return 64992;
+                                                }
+                                            } else {
+                                                if (cpu <= 21) {
+                                                    return 62567;
+                                                } else {
+                                                    return 64987;
+                                                }
+                                            }
                                         } else {
-                                            return 61034;
+                                            if (cpu <= 118) {
+                                                if (etx <= 180) {
+                                                    return 51757;
+                                                } else {
+                                                    return 65535;
+                                                }
+                                            } else {
+                                                if (rssi <= -81) {
+                                                    return 59777;
+                                                } else {
+                                                    return 65244;
+                                                }
+                                            }
                                         }
                                     } else {
                                         if (parent_ppm <= 103) {
-                                            return 60717;
+                                            if (parent_ppm <= 102) {
+                                                if (rssi <= -90) {
+                                                    return 62874;
+                                                } else {
+                                                    return 60228;
+                                                }
+                                            } else {
+                                                return 50627;
+                                            }
                                         } else {
-                                            return 63311;
+                                            if (ppm <= 14) {
+                                                if (rssi <= -89) {
+                                                    return 64508;
+                                                } else {
+                                                    return 57275;
+                                                }
+                                            } else {
+                                                if (etx <= 210) {
+                                                    return 60654;
+                                                } else {
+                                                    return 65352;
+                                                }
+                                            }
                                         }
                                     }
                                 } else {
                                     if (hop_count <= 2) {
                                         if (rssi <= -82) {
-                                            return 62639;
+                                            if (parent_ppm <= 204) {
+                                                if (etx <= 310) {
+                                                    return 65052;
+                                                } else {
+                                                    return 61287;
+                                                }
+                                            } else {
+                                                return 57989;
+                                            }
                                         } else {
-                                            return 47417;
+                                            if (cpu <= 4) {
+                                                return 53473;
+                                            } else {
+                                                return 42370;
+                                            }
                                         }
                                     } else {
                                         if (p_cpu <= 7) {
-                                            return 54771;
+                                            if (parent_ppm <= 68) {
+                                                return 44038;
+                                            } else {
+                                                return 63715;
+                                            }
                                         } else {
                                             return 35632;
                                         }
@@ -43,29 +103,125 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (etx <= 250) {
                                     if (p_cpu <= 4) {
                                         if (parent_ppm <= 224) {
-                                            return 64817;
+                                            if (parent_ppm <= 223) {
+                                                if (rssi <= -59) {
+                                                    return 64653;
+                                                } else {
+                                                    return 65022;
+                                                }
+                                            } else {
+                                                if (ppm <= 55) {
+                                                    return 56277;
+                                                } else {
+                                                    return 65535;
+                                                }
+                                            }
                                         } else {
-                                            return 65249;
+                                            if (ppm <= 924) {
+                                                if (rssi <= -40) {
+                                                    return 65277;
+                                                } else {
+                                                    return 63879;
+                                                }
+                                            } else {
+                                                if (parent_ppm <= 1183) {
+                                                    return 60159;
+                                                } else {
+                                                    return 63549;
+                                                }
+                                            }
                                         }
                                     } else {
                                         if (parent_ppm <= 54) {
-                                            return 62236;
+                                            if (p_cpu <= 6) {
+                                                if (cpu <= 21) {
+                                                    return 58877;
+                                                } else {
+                                                    return 65409;
+                                                }
+                                            } else {
+                                                if (parent_ppm <= 18) {
+                                                    return 58142;
+                                                } else {
+                                                    return 63436;
+                                                }
+                                            }
                                         } else {
-                                            return 64697;
+                                            if (rssi <= -69) {
+                                                if (parent_ppm <= 1461) {
+                                                    return 64973;
+                                                } else {
+                                                    return 63824;
+                                                }
+                                            } else {
+                                                if (hop_count <= 2) {
+                                                    return 64546;
+                                                } else {
+                                                    return 62844;
+                                                }
+                                            }
                                         }
                                     }
                                 } else {
                                     if (parent_ppm <= 76) {
                                         if (etx <= 255) {
-                                            return 53656;
+                                            if (p_cpu <= 5) {
+                                                if (parent_ppm <= 51) {
+                                                    return 65535;
+                                                } else {
+                                                    return 54596;
+                                                }
+                                            } else {
+                                                if (hop_count <= 2) {
+                                                    return 59816;
+                                                } else {
+                                                    return 48746;
+                                                }
+                                            }
                                         } else {
-                                            return 61279;
+                                            if (parent_ppm <= 70) {
+                                                if (cpu <= 16) {
+                                                    return 63722;
+                                                } else {
+                                                    return 58908;
+                                                }
+                                            } else {
+                                                if (etx <= 282) {
+                                                    return 61181;
+                                                } else {
+                                                    return 50415;
+                                                }
+                                            }
                                         }
                                     } else {
                                         if (hop_count <= 2) {
-                                            return 64575;
+                                            if (p_cpu <= 31) {
+                                                if (rssi <= -52) {
+                                                    return 64819;
+                                                } else {
+                                                    return 63063;
+                                                }
+                                            } else {
+                                                if (rssi <= -84) {
+                                                    return 64809;
+                                                } else {
+                                                    return 60462;
+                                                }
+                                            }
                                         } else {
-                                            return 62483;
+                                            if (ppm <= 447) {
+                                                if (cpu <= 2) {
+                                                    return 64550;
+                                                } else {
+                                                    return 61139;
+                                                }
+                                            } else {
+                                                if (p_cpu <= 14) {
+                                                    return 58708;
+                                                } else {
+                                                    return 45202;
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -75,29 +231,81 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (parent_drop_rate <= 47) {
                                     if (hop_count <= 1) {
                                         if (rssi <= -54) {
-                                            return 63004;
+                                            if (cpu <= 26) {
+                                                if (etx <= 169) {
+                                                    return 61431;
+                                                } else {
+                                                    return 64406;
+                                                }
+                                            } else {
+                                                return 60218;
+                                            }
                                         } else {
-                                            return 58985;
+                                            if (etx <= 196) {
+                                                return 54921;
+                                            } else {
+                                                return 62033;
+                                            }
                                         }
                                     } else {
                                         if (rssi <= -76) {
-                                            return 62409;
+                                            if (parent_drop_rate <= 17) {
+                                                return 65479;
+                                            } else {
+                                                return 60148;
+                                            }
                                         } else {
-                                            return 52332;
+                                            if (rssi <= -70) {
+                                                return 41668;
+                                            } else {
+                                                if (rssi <= -59) {
+                                                    return 60446;
+                                                } else {
+                                                    return 54376;
+                                                }
+                                            }
                                         }
                                     }
                                 } else {
                                     if (p_cpu <= 6) {
                                         if (rssi <= -82) {
-                                            return 63454;
+                                            if (parent_ppm <= 1310) {
+                                                return 60868;
+                                            } else {
+                                                return 65301;
+                                            }
                                         } else {
-                                            return 65439;
+                                            if (parent_drop_rate <= 77) {
+                                                return 65150;
+                                            } else {
+                                                return 65535;
+                                            }
                                         }
                                     } else {
                                         if (etx <= 232) {
-                                            return 63545;
+                                            if (etx <= 177) {
+                                                if (ppm <= 205) {
+                                                    return 55744;
+                                                } else {
+                                                    return 65138;
+                                                }
+                                            } else {
+                                                if (cpu <= 24) {
+                                                    return 65125;
+                                                } else {
+                                                    return 62363;
+                                                }
+                                            }
                                         } else {
-                                            return 61062;
+                                            if (rssi <= -85) {
+                                                return 56738;
+                                            } else {
+                                                if (cpu <= 9) {
+                                                    return 61821;
+                                                } else {
+                                                    return 65175;
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -111,7 +319,15 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         }
                                     } else {
                                         if (cpu <= 23) {
-                                            return 63484;
+                                            if (parent_ppm <= 748) {
+                                                if (parent_ppm <= 335) {
+                                                    return 65535;
+                                                } else {
+                                                    return 58555;
+                                                }
+                                            } else {
+                                                return 65403;
+                                            }
                                         } else {
                                             return 54545;
                                         }
@@ -126,7 +342,7 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                             if (cpu <= 1) {
                                 if (parent_ppm <= 96) {
                                     if (p_cpu <= 2) {
-                                        if (parent_ppm <= 21) {
+                                        if (hop_count <= 0) {
                                             return 40943;
                                         } else {
                                             return 27878;
@@ -147,7 +363,15 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (parent_ppm <= 11) {
                                             return 54886;
                                         } else {
-                                            return 62369;
+                                            if (rssi <= -90) {
+                                                return 64726;
+                                            } else {
+                                                if (parent_ppm <= 44) {
+                                                    return 59306;
+                                                } else {
+                                                    return 62647;
+                                                }
+                                            }
                                         }
                                     } else {
                                         if (etx <= 213) {
@@ -169,29 +393,109 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (etx <= 265) {
                                     if (cpu <= 22) {
                                         if (ppm <= 16) {
-                                            return 59719;
+                                            if (parent_ppm <= 67) {
+                                                if (rssi <= -79) {
+                                                    return 62787;
+                                                } else {
+                                                    return 59260;
+                                                }
+                                            } else {
+                                                if (etx <= 229) {
+                                                    return 53737;
+                                                } else {
+                                                    return 65360;
+                                                }
+                                            }
                                         } else {
-                                            return 63588;
+                                            if (ppm <= 68) {
+                                                if (parent_ppm <= 70) {
+                                                    return 63630;
+                                                } else {
+                                                    return 64674;
+                                                }
+                                            } else {
+                                                if (p_cpu <= 3) {
+                                                    return 63598;
+                                                } else {
+                                                    return 61768;
+                                                }
+                                            }
                                         }
                                     } else {
                                         if (p_cpu <= 20) {
-                                            return 61887;
+                                            if (etx <= 202) {
+                                                if (ppm <= 49) {
+                                                    return 64622;
+                                                } else {
+                                                    return 62471;
+                                                }
+                                            } else {
+                                                if (rssi <= -44) {
+                                                    return 60685;
+                                                } else {
+                                                    return 44989;
+                                                }
+                                            }
                                         } else {
-                                            return 55480;
+                                            if (ppm <= 516) {
+                                                if (cpu <= 27) {
+                                                    return 48371;
+                                                } else {
+                                                    return 60189;
+                                                }
+                                            } else {
+                                                if (parent_ppm <= 370) {
+                                                    return 28430;
+                                                } else {
+                                                    return 38553;
+                                                }
+                                            }
                                         }
                                     }
                                 } else {
                                     if (cpu <= 23) {
                                         if (rssi <= -51) {
-                                            return 61354;
+                                            if (ppm <= 671) {
+                                                if (parent_ppm <= 25) {
+                                                    return 55512;
+                                                } else {
+                                                    return 61887;
+                                                }
+                                            } else {
+                                                return 46211;
+                                            }
                                         } else {
-                                            return 50041;
+                                            if (parent_ppm <= 124) {
+                                                return 64042;
+                                            } else {
+                                                return 36041;
+                                            }
                                         }
                                     } else {
                                         if (hop_count <= 1) {
-                                            return 64124;
+                                            if (etx <= 306) {
+                                                if (parent_ppm <= 702) {
+                                                    return 65107;
+                                                } else {
+                                                    return 62421;
+                                                }
+                                            } else {
+                                                return 61894;
+                                            }
                                         } else {
-                                            return 49383;
+                                            if (ppm <= 308) {
+                                                if (rssi <= -55) {
+                                                    return 55068;
+                                                } else {
+                                                    return 25559;
+                                                }
+                                            } else {
+                                                if (rssi <= -67) {
+                                                    return 23502;
+                                                } else {
+                                                    return 45328;
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -199,7 +503,11 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (hop_count <= 1) {
                                     if (rssi <= -59) {
                                         if (ppm <= 286) {
-                                            return 65067;
+                                            if (parent_ppm <= 1787) {
+                                                return 65535;
+                                            } else {
+                                                return 64599;
+                                            }
                                         } else {
                                             return 60796;
                                         }
@@ -213,15 +521,31 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 } else {
                                     if (p_cpu <= 12) {
                                         if (rssi <= -74) {
-                                            return 59782;
+                                            if (cpu <= 4) {
+                                                return 58124;
+                                            } else {
+                                                return 61439;
+                                            }
                                         } else {
                                             return 34362;
                                         }
                                     } else {
                                         if (parent_drop_rate <= 43) {
-                                            return 21630;
+                                            if (hop_count <= 2) {
+                                                return 29925;
+                                            } else {
+                                                if (ppm <= 157) {
+                                                    return 24398;
+                                                } else {
+                                                    return 10994;
+                                                }
+                                            }
                                         } else {
-                                            return 37816;
+                                            if (rssi <= -67) {
+                                                return 23831;
+                                            } else {
+                                                return 49649;
+                                            }
                                         }
                                     }
                                 }
@@ -241,15 +565,39 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (p_cpu <= 55) {
                                     if (ppm <= 24) {
                                         if (parent_ppm <= 143) {
-                                            return 61741;
+                                            if (p_cpu <= 4) {
+                                                return 64521;
+                                            } else {
+                                                return 57571;
+                                            }
                                         } else {
                                             return 26467;
                                         }
                                     } else {
                                         if (ppm <= 254) {
-                                            return 63052;
+                                            if (parent_ppm <= 113) {
+                                                if (ppm <= 98) {
+                                                    return 62966;
+                                                } else {
+                                                    return 52865;
+                                                }
+                                            } else {
+                                                if (p_cpu <= 36) {
+                                                    return 63670;
+                                                } else {
+                                                    return 59696;
+                                                }
+                                            }
                                         } else {
-                                            return 58064;
+                                            if (hop_count <= 2) {
+                                                if (rssi <= -75) {
+                                                    return 64527;
+                                                } else {
+                                                    return 57622;
+                                                }
+                                            } else {
+                                                return 44415;
+                                            }
                                         }
                                     }
                                 } else {
@@ -275,13 +623,33 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (parent_ppm <= 70) {
                                             return 52576;
                                         } else {
-                                            return 62779;
+                                            if (cpu <= 4) {
+                                                if (ppm <= 71) {
+                                                    return 65421;
+                                                } else {
+                                                    return 57333;
+                                                }
+                                            } else {
+                                                if (parent_ppm <= 153) {
+                                                    return 65467;
+                                                } else {
+                                                    return 64881;
+                                                }
+                                            }
                                         }
                                     }
                                 } else {
                                     if (parent_ppm <= 344) {
                                         if (etx <= 368) {
-                                            return 62557;
+                                            if (parent_ppm <= 211) {
+                                                if (cpu <= 7) {
+                                                    return 65535;
+                                                } else {
+                                                    return 63496;
+                                                }
+                                            } else {
+                                                return 58045;
+                                            }
                                         } else {
                                             return 45182;
                                         }
@@ -297,7 +665,19 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 } else {
                                     if (rssi <= -82) {
                                         if (parent_ppm <= 329) {
-                                            return 59545;
+                                            if (ppm <= 78) {
+                                                if (ppm <= 27) {
+                                                    return 59612;
+                                                } else {
+                                                    return 65535;
+                                                }
+                                            } else {
+                                                if (p_cpu <= 9) {
+                                                    return 48167;
+                                                } else {
+                                                    return 62125;
+                                                }
+                                            }
                                         } else {
                                             return 45866;
                                         }
@@ -305,7 +685,15 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (p_cpu <= 6) {
                                             return 19088;
                                         } else {
-                                            return 41866;
+                                            if (p_cpu <= 39) {
+                                                if (ppm <= 34) {
+                                                    return 31371;
+                                                } else {
+                                                    return 49451;
+                                                }
+                                            } else {
+                                                return 21065;
+                                            }
                                         }
                                     }
                                 }
@@ -353,29 +741,85 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (etx <= 240) {
                                     if (ppm <= 9) {
                                         if (is_new <= 0) {
-                                            return 56864;
+                                            if (p_cpu <= 2) {
+                                                return 65535;
+                                            } else {
+                                                if (etx <= 190) {
+                                                    return 55458;
+                                                } else {
+                                                    return 52143;
+                                                }
+                                            }
                                         } else {
                                             return 19859;
                                         }
                                     } else {
                                         if (is_new <= 0) {
-                                            return 63592;
+                                            if (rssi <= -43) {
+                                                if (parent_ppm <= 51) {
+                                                    return 60969;
+                                                } else {
+                                                    return 64103;
+                                                }
+                                            } else {
+                                                if (p_cpu <= 8) {
+                                                    return 65535;
+                                                } else {
+                                                    return 38448;
+                                                }
+                                            }
                                         } else {
-                                            return 60651;
+                                            if (cpu <= 28) {
+                                                if (parent_ppm <= 216) {
+                                                    return 62769;
+                                                } else {
+                                                    return 53800;
+                                                }
+                                            } else {
+                                                if (rssi <= -53) {
+                                                    return 58101;
+                                                } else {
+                                                    return 39806;
+                                                }
+                                            }
                                         }
                                     }
                                 } else {
                                     if (rssi <= -64) {
                                         if (parent_ppm <= 332) {
-                                            return 60520;
+                                            if (cpu <= 3) {
+                                                if (rssi <= -74) {
+                                                    return 63562;
+                                                } else {
+                                                    return 56350;
+                                                }
+                                            } else {
+                                                if (p_cpu <= 28) {
+                                                    return 58486;
+                                                } else {
+                                                    return 41704;
+                                                }
+                                            }
                                         } else {
                                             return 32347;
                                         }
                                     } else {
                                         if (cpu <= 6) {
-                                            return 51221;
+                                            if (parent_ppm <= 210) {
+                                                if (p_cpu <= 15) {
+                                                    return 58915;
+                                                } else {
+                                                    return 47578;
+                                                }
+                                            } else {
+                                                return 41281;
+                                            }
                                         } else {
-                                            return 24158;
+                                            if (parent_ppm <= 133) {
+                                                return 12435;
+                                            } else {
+                                                return 39399;
+                                            }
                                         }
                                     }
                                 }
@@ -402,10 +846,10 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                             } else {
                                 if (etx <= 206) {
                                     if (rssi <= -59) {
-                                        if (ppm <= 277) {
-                                            return 58982;
-                                        } else {
+                                        if (parent_ppm <= 170) {
                                             return 56329;
+                                        } else {
+                                            return 58982;
                                         }
                                     } else {
                                         return 34111;
@@ -435,15 +879,35 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 } else {
                                     if (parent_ppm <= 490) {
                                         if (rssi <= -73) {
-                                            return 65308;
+                                            if (etx <= 202) {
+                                                return 65059;
+                                            } else {
+                                                return 65535;
+                                            }
                                         } else {
-                                            return 56073;
+                                            if (p_cpu <= 10) {
+                                                return 62022;
+                                            } else {
+                                                return 50974;
+                                            }
                                         }
                                     } else {
                                         if (cpu <= 40) {
-                                            return 51792;
+                                            if (ppm <= 55) {
+                                                return 31097;
+                                            } else {
+                                                if (ppm <= 187) {
+                                                    return 59079;
+                                                } else {
+                                                    return 49345;
+                                                }
+                                            }
                                         } else {
-                                            return 34175;
+                                            if (ppm <= 357) {
+                                                return 38122;
+                                            } else {
+                                                return 29833;
+                                            }
                                         }
                                     }
                                 }
@@ -471,7 +935,11 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (etx <= 201) {
                                             return 31708;
                                         } else {
-                                            return 6575;
+                                            if (rssi <= -69) {
+                                                return 962;
+                                            } else {
+                                                return 13914;
+                                            }
                                         }
                                     } else {
                                         return 31244;
@@ -481,9 +949,21 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         return 56412;
                                     } else {
                                         if (parent_drop_rate <= 95) {
-                                            return 25291;
+                                            if (parent_ppm <= 1360) {
+                                                if (p_cpu <= 23) {
+                                                    return 42423;
+                                                } else {
+                                                    return 19381;
+                                                }
+                                            } else {
+                                                return 10111;
+                                            }
                                         } else {
-                                            return 42860;
+                                            if (ppm <= 200) {
+                                                return 32886;
+                                            } else {
+                                                return 51300;
+                                            }
                                         }
                                     }
                                 }
@@ -497,13 +977,29 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (ppm <= 346) {
                                     if (p_cpu <= 12) {
                                         if (is_new <= 0) {
-                                            return 61072;
+                                            if (parent_ppm <= 71) {
+                                                return 54081;
+                                            } else {
+                                                if (ppm <= 95) {
+                                                    return 65535;
+                                                } else {
+                                                    return 59582;
+                                                }
+                                            }
                                         } else {
-                                            return 50664;
+                                            if (cpu <= 7) {
+                                                return 38447;
+                                            } else {
+                                                return 60062;
+                                            }
                                         }
                                     } else {
                                         if (ppm <= 101) {
-                                            return 32146;
+                                            if (parent_ppm <= 102) {
+                                                return 41426;
+                                            } else {
+                                                return 22866;
+                                            }
                                         } else {
                                             return 52134;
                                         }
@@ -525,9 +1021,17 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         return 16109;
                                     } else {
                                         if (etx <= 366) {
-                                            return 28814;
+                                            if (p_cpu <= 12) {
+                                                return 21671;
+                                            } else {
+                                                return 35447;
+                                            }
                                         } else {
-                                            return 46556;
+                                            if (ppm <= 107) {
+                                                return 59021;
+                                            } else {
+                                                return 31600;
+                                            }
                                         }
                                     }
                                 } else {
@@ -535,10 +1039,10 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 }
                             } else {
                                 if (etx <= 363) {
-                                    if (cpu <= 53) {
-                                        return 0;
-                                    } else {
+                                    if (etx <= 339) {
                                         return 6289;
+                                    } else {
+                                        return 0;
                                     }
                                 } else {
                                     if (rssi <= -78) {
@@ -563,7 +1067,19 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (parent_ppm <= 114) {
                                             return 24300;
                                         } else {
-                                            return 11784;
+                                            if (p_cpu <= 37) {
+                                                if (parent_ppm <= 254) {
+                                                    return 12267;
+                                                } else {
+                                                    return 24302;
+                                                }
+                                            } else {
+                                                if (ppm <= 156) {
+                                                    return 10487;
+                                                } else {
+                                                    return 700;
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -639,7 +1155,15 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (ppm <= 1137) {
                                             return 65535;
                                         } else {
-                                            return 63991;
+                                            if (ppm <= 1650) {
+                                                return 62754;
+                                            } else {
+                                                if (cpu <= 39) {
+                                                    return 63743;
+                                                } else {
+                                                    return 65022;
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -651,13 +1175,25 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (parent_ppm <= 938) {
                                     if (p_cpu <= 3) {
                                         if (ppm <= 1111) {
-                                            return 64671;
+                                            if (cpu <= 10) {
+                                                return 65309;
+                                            } else {
+                                                return 64033;
+                                            }
                                         } else {
-                                            return 57351;
+                                            if (rssi <= -57) {
+                                                return 63004;
+                                            } else {
+                                                return 52568;
+                                            }
                                         }
                                     } else {
                                         if (drop_rate <= 74) {
-                                            return 65404;
+                                            if (etx <= 247) {
+                                                return 65535;
+                                            } else {
+                                                return 65050;
+                                            }
                                         } else {
                                             return 63345;
                                         }
@@ -673,7 +1209,15 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (drop_rate <= 8) {
                                             return 58005;
                                         } else {
-                                            return 62657;
+                                            if (parent_ppm <= 1536) {
+                                                return 65171;
+                                            } else {
+                                                if (p_cpu <= 18) {
+                                                    return 63200;
+                                                } else {
+                                                    return 58797;
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -685,7 +1229,11 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (p_cpu <= 43) {
                                     if (p_cpu <= 12) {
                                         if (cpu <= 8) {
-                                            return 65438;
+                                            if (ppm <= 370) {
+                                                return 65283;
+                                            } else {
+                                                return 65535;
+                                            }
                                         } else {
                                             return 63245;
                                         }
@@ -693,7 +1241,11 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (ppm <= 618) {
                                             return 57512;
                                         } else {
-                                            return 62936;
+                                            if (parent_ppm <= 961) {
+                                                return 64909;
+                                            } else {
+                                                return 59582;
+                                            }
                                         }
                                     }
                                 } else {
@@ -827,7 +1379,15 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (cpu <= 5) {
                                             return 11595;
                                         } else {
-                                            return 1024;
+                                            if (cpu <= 110) {
+                                                if (cpu <= 23) {
+                                                    return 443;
+                                                } else {
+                                                    return 0;
+                                                }
+                                            } else {
+                                                return 3815;
+                                            }
                                         }
                                     }
                                 } else {
@@ -835,13 +1395,33 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (drop_rate <= 17) {
                                             return 48940;
                                         } else {
-                                            return 16914;
+                                            if (drop_rate <= 94) {
+                                                if (parent_ppm <= 159) {
+                                                    return 5617;
+                                                } else {
+                                                    return 16066;
+                                                }
+                                            } else {
+                                                return 27033;
+                                            }
                                         }
                                     } else {
                                         if (parent_drop_rate <= 6) {
-                                            return 16853;
+                                            if (parent_ppm <= 108) {
+                                                return 4854;
+                                            } else {
+                                                if (cpu <= 32) {
+                                                    return 28112;
+                                                } else {
+                                                    return 12972;
+                                                }
+                                            }
                                         } else {
-                                            return 6290;
+                                            if (ppm <= 1029) {
+                                                return 11604;
+                                            } else {
+                                                return 350;
+                                            }
                                         }
                                     }
                                 }
@@ -851,21 +1431,57 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         return 12288;
                                     } else {
                                         if (etx <= 345) {
-                                            return 1824;
+                                            if (p_cpu <= 5) {
+                                                return 6692;
+                                            } else {
+                                                if (p_cpu <= 47) {
+                                                    return 480;
+                                                } else {
+                                                    return 3313;
+                                                }
+                                            }
                                         } else {
-                                            return 6444;
+                                            if (rssi <= -53) {
+                                                if (ppm <= 750) {
+                                                    return 280;
+                                                } else {
+                                                    return 4825;
+                                                }
+                                            } else {
+                                                return 12931;
+                                            }
                                         }
                                     }
                                 } else {
                                     if (drop_rate <= 14) {
                                         if (etx <= 272) {
-                                            return 1605;
+                                            if (cpu <= 32) {
+                                                return 4488;
+                                            } else {
+                                                if (etx <= 214) {
+                                                    return 231;
+                                                } else {
+                                                    return 0;
+                                                }
+                                            }
                                         } else {
-                                            return 7947;
+                                            if (etx <= 365) {
+                                                return 12153;
+                                            } else {
+                                                return 3741;
+                                            }
                                         }
                                     } else {
                                         if (ppm <= 1729) {
-                                            return 10367;
+                                            if (parent_drop_rate <= 15) {
+                                                if (drop_rate <= 18) {
+                                                    return 18507;
+                                                } else {
+                                                    return 3759;
+                                                }
+                                            } else {
+                                                return 20069;
+                                            }
                                         } else {
                                             return 25462;
                                         }
@@ -897,15 +1513,39 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 } else {
                                     if (ppm <= 58) {
                                         if (rssi <= -48) {
-                                            return 64289;
+                                            if (parent_ppm <= 56) {
+                                                if (cpu <= 0) {
+                                                    return 59323;
+                                                } else {
+                                                    return 64182;
+                                                }
+                                            } else {
+                                                if (rssi <= -57) {
+                                                    return 64999;
+                                                } else {
+                                                    return 62804;
+                                                }
+                                            }
                                         } else {
                                             return 54215;
                                         }
                                     } else {
                                         if (etx <= 232) {
-                                            return 60179;
+                                            if (cpu <= 13) {
+                                                if (p_cpu <= 3) {
+                                                    return 64130;
+                                                } else {
+                                                    return 59566;
+                                                }
+                                            } else {
+                                                return 53873;
+                                            }
                                         } else {
-                                            return 51879;
+                                            if (rssi <= -81) {
+                                                return 58780;
+                                            } else {
+                                                return 41794;
+                                            }
                                         }
                                     }
                                 }
@@ -913,13 +1553,33 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (hop_count <= 5) {
                                     if (etx <= 206) {
                                         if (rssi <= -49) {
-                                            return 63573;
+                                            if (ppm <= 86) {
+                                                if (p_cpu <= 5) {
+                                                    return 65535;
+                                                } else {
+                                                    return 64343;
+                                                }
+                                            } else {
+                                                if (rssi <= -65) {
+                                                    return 64625;
+                                                } else {
+                                                    return 52870;
+                                                }
+                                            }
                                         } else {
                                             return 50060;
                                         }
                                     } else {
                                         if (ppm <= 108) {
-                                            return 53518;
+                                            if (etx <= 212) {
+                                                return 43644;
+                                            } else {
+                                                if (ppm <= 49) {
+                                                    return 62538;
+                                                } else {
+                                                    return 51217;
+                                                }
+                                            }
                                         } else {
                                             return 30282;
                                         }
@@ -927,7 +1587,11 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 } else {
                                     if (cpu <= 1) {
                                         if (etx <= 207) {
-                                            return 61884;
+                                            if (parent_ppm <= 56) {
+                                                return 65535;
+                                            } else {
+                                                return 58233;
+                                            }
                                         } else {
                                             return 34065;
                                         }
@@ -935,7 +1599,11 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (parent_ppm <= 103) {
                                             return 40612;
                                         } else {
-                                            return 12894;
+                                            if (cpu <= 5) {
+                                                return 21778;
+                                            } else {
+                                                return 5120;
+                                            }
                                         }
                                     }
                                 }
@@ -945,9 +1613,25 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (parent_ppm <= 821) {
                                     if (cpu <= 9) {
                                         if (is_new <= 0) {
-                                            return 56559;
+                                            if (parent_ppm <= 496) {
+                                                if (p_cpu <= 10) {
+                                                    return 57568;
+                                                } else {
+                                                    return 64825;
+                                                }
+                                            } else {
+                                                if (ppm <= 87) {
+                                                    return 55295;
+                                                } else {
+                                                    return 41027;
+                                                }
+                                            }
                                         } else {
-                                            return 39190;
+                                            if (parent_ppm <= 472) {
+                                                return 29592;
+                                            } else {
+                                                return 57427;
+                                            }
                                         }
                                     } else {
                                         if (parent_ppm <= 399) {
@@ -1055,7 +1739,15 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 } else {
                                     if (etx <= 349) {
                                         if (ppm <= 141) {
-                                            return 5171;
+                                            if (parent_ppm <= 100) {
+                                                return 15726;
+                                            } else {
+                                                if (ppm <= 115) {
+                                                    return 1955;
+                                                } else {
+                                                    return 8448;
+                                                }
+                                            }
                                         } else {
                                             return 23384;
                                         }
@@ -1147,7 +1839,11 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (parent_ppm <= 69) {
                                             return 5096;
                                         } else {
-                                            return 25149;
+                                            if (etx <= 237) {
+                                                return 33804;
+                                            } else {
+                                                return 15628;
+                                            }
                                         }
                                     } else {
                                         if (parent_ppm <= 73) {
@@ -1189,9 +1885,17 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         return 104;
                                     } else {
                                         if (parent_ppm <= 834) {
-                                            return 12713;
+                                            if (drop_rate <= 5) {
+                                                return 19460;
+                                            } else {
+                                                return 4841;
+                                            }
                                         } else {
-                                            return 2098;
+                                            if (parent_ppm <= 1084) {
+                                                return 4196;
+                                            } else {
+                                                return 0;
+                                            }
                                         }
                                     }
                                 } else {
@@ -1203,15 +1907,43 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 } else {
                                     if (parent_ppm <= 343) {
                                         if (ppm <= 1084) {
-                                            return 2907;
+                                            if (cpu <= 7) {
+                                                return 6266;
+                                            } else {
+                                                return 931;
+                                            }
                                         } else {
                                             return 18364;
                                         }
                                     } else {
                                         if (p_cpu <= 9) {
-                                            return 3432;
+                                            if (parent_ppm <= 637) {
+                                                if (etx <= 300) {
+                                                    return 0;
+                                                } else {
+                                                    return 1984;
+                                                }
+                                            } else {
+                                                if (parent_ppm <= 1022) {
+                                                    return 7602;
+                                                } else {
+                                                    return 1992;
+                                                }
+                                            }
                                         } else {
-                                            return 505;
+                                            if (ppm <= 774) {
+                                                if (ppm <= 305) {
+                                                    return 410;
+                                                } else {
+                                                    return 0;
+                                                }
+                                            } else {
+                                                if (ppm <= 1132) {
+                                                    return 1807;
+                                                } else {
+                                                    return 456;
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -1228,16 +1960,20 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                             if (etx <= 206) {
                                 if (ppm <= 72) {
                                     if (ppm <= 35) {
-                                        if (ppm <= 26) {
-                                            return 62083;
-                                        } else {
+                                        if (etx <= 194) {
                                             return 56251;
+                                        } else {
+                                            return 62083;
                                         }
                                     } else {
                                         if (p_cpu <= 18) {
                                             return 61790;
                                         } else {
-                                            return 65260;
+                                            if (p_cpu <= 40) {
+                                                return 65535;
+                                            } else {
+                                                return 64764;
+                                            }
                                         }
                                     }
                                 } else {
@@ -1245,9 +1981,17 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         return 43655;
                                     } else {
                                         if (etx <= 193) {
-                                            return 63797;
+                                            if (ppm <= 116) {
+                                                return 65223;
+                                            } else {
+                                                return 61800;
+                                            }
                                         } else {
-                                            return 54335;
+                                            if (ppm <= 102) {
+                                                return 63350;
+                                            } else {
+                                                return 46822;
+                                            }
                                         }
                                     }
                                 }
@@ -1255,9 +1999,25 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (p_cpu <= 34) {
                                     if (rssi <= -72) {
                                         if (parent_ppm <= 341) {
-                                            return 52429;
+                                            if (parent_ppm <= 118) {
+                                                if (parent_ppm <= 77) {
+                                                    return 51227;
+                                                } else {
+                                                    return 65535;
+                                                }
+                                            } else {
+                                                if (parent_ppm <= 176) {
+                                                    return 37683;
+                                                } else {
+                                                    return 51429;
+                                                }
+                                            }
                                         } else {
-                                            return 63324;
+                                            if (rssi <= -82) {
+                                                return 61475;
+                                            } else {
+                                                return 65316;
+                                            }
                                         }
                                     } else {
                                         if (p_cpu <= 22) {
@@ -1307,7 +2067,11 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (ppm <= 62) {
                                             return 29640;
                                         } else {
-                                            return 42557;
+                                            if (etx <= 254) {
+                                                return 35740;
+                                            } else {
+                                                return 51420;
+                                            }
                                         }
                                     }
                                 } else {
@@ -1329,7 +2093,15 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (etx <= 225) {
                                     if (parent_drop_rate <= 4) {
                                         if (p_cpu <= 24) {
-                                            return 33342;
+                                            if (p_cpu <= 17) {
+                                                return 47862;
+                                            } else {
+                                                if (p_cpu <= 20) {
+                                                    return 11915;
+                                                } else {
+                                                    return 32485;
+                                                }
+                                            }
                                         } else {
                                             return 53067;
                                         }
@@ -1339,9 +2111,25 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 } else {
                                     if (p_cpu <= 35) {
                                         if (cpu <= 5) {
-                                            return 16842;
+                                            if (ppm <= 13) {
+                                                if (p_cpu <= 28) {
+                                                    return 13664;
+                                                } else {
+                                                    return 1998;
+                                                }
+                                            } else {
+                                                if (rssi <= -57) {
+                                                    return 14818;
+                                                } else {
+                                                    return 37515;
+                                                }
+                                            }
                                         } else {
-                                            return 6155;
+                                            if (p_cpu <= 21) {
+                                                return 11172;
+                                            } else {
+                                                return 1433;
+                                            }
                                         }
                                     } else {
                                         return 31901;
@@ -1357,7 +2145,11 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         }
                                     } else {
                                         if (p_cpu <= 55) {
-                                            return 210;
+                                            if (parent_ppm <= 1349) {
+                                                return 462;
+                                            } else {
+                                                return 0;
+                                            }
                                         } else {
                                             return 2207;
                                         }
@@ -1369,7 +2161,11 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (rssi <= -70) {
                                             return 8377;
                                         } else {
-                                            return 32152;
+                                            if (cpu <= 2) {
+                                                return 44080;
+                                            } else {
+                                                return 22108;
+                                            }
                                         }
                                     }
                                 }
@@ -1385,27 +2181,79 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (ppm <= 19) {
                                             return 17518;
                                         } else {
-                                            return 53153;
+                                            if (ppm <= 55) {
+                                                if (etx <= 169) {
+                                                    return 65209;
+                                                } else {
+                                                    return 54544;
+                                                }
+                                            } else {
+                                                if (cpu <= 1) {
+                                                    return 52987;
+                                                } else {
+                                                    return 31899;
+                                                }
+                                            }
                                         }
                                     } else {
                                         if (p_cpu <= 20) {
                                             return 58982;
                                         } else {
-                                            return 21285;
+                                            if (p_cpu <= 37) {
+                                                return 10526;
+                                            } else {
+                                                return 31326;
+                                            }
                                         }
                                     }
                                 } else {
                                     if (rssi <= -61) {
                                         if (p_cpu <= 24) {
-                                            return 49134;
+                                            if (ppm <= 72) {
+                                                return 36141;
+                                            } else {
+                                                return 57255;
+                                            }
                                         } else {
-                                            return 27636;
+                                            if (parent_ppm <= 213) {
+                                                if (etx <= 171) {
+                                                    return 14222;
+                                                } else {
+                                                    return 50844;
+                                                }
+                                            } else {
+                                                if (p_cpu <= 40) {
+                                                    return 8764;
+                                                } else {
+                                                    return 26860;
+                                                }
+                                            }
                                         }
                                     } else {
                                         if (parent_ppm <= 162) {
-                                            return 29411;
+                                            if (parent_ppm <= 133) {
+                                                if (parent_ppm <= 100) {
+                                                    return 30665;
+                                                } else {
+                                                    return 15105;
+                                                }
+                                            } else {
+                                                return 49583;
+                                            }
                                         } else {
-                                            return 13450;
+                                            if (rssi <= -56) {
+                                                if (p_cpu <= 35) {
+                                                    return 34753;
+                                                } else {
+                                                    return 16384;
+                                                }
+                                            } else {
+                                                if (parent_ppm <= 377) {
+                                                    return 7141;
+                                                } else {
+                                                    return 17476;
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -1413,9 +2261,33 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (hop_count <= 12) {
                                     if (parent_ppm <= 689) {
                                         if (cpu <= 1) {
-                                            return 24445;
+                                            if (etx <= 175) {
+                                                if (etx <= 151) {
+                                                    return 37225;
+                                                } else {
+                                                    return 17966;
+                                                }
+                                            } else {
+                                                if (parent_ppm <= 338) {
+                                                    return 34184;
+                                                } else {
+                                                    return 18386;
+                                                }
+                                            }
                                         } else {
-                                            return 17421;
+                                            if (rssi <= -55) {
+                                                if (p_cpu <= 20) {
+                                                    return 38344;
+                                                } else {
+                                                    return 18734;
+                                                }
+                                            } else {
+                                                if (cpu <= 4) {
+                                                    return 20803;
+                                                } else {
+                                                    return 8347;
+                                                }
+                                            }
                                         }
                                     } else {
                                         if (rssi <= -46) {
@@ -1433,7 +2305,15 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         }
                                     } else {
                                         if (cpu <= 2) {
-                                            return 3081;
+                                            if (parent_ppm <= 113) {
+                                                return 13146;
+                                            } else {
+                                                if (ppm <= 78) {
+                                                    return 0;
+                                                } else {
+                                                    return 1255;
+                                                }
+                                            }
                                         } else {
                                             return 20633;
                                         }
@@ -1457,7 +2337,15 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (parent_drop_rate <= 7) {
                                             return 6040;
                                         } else {
-                                            return 340;
+                                            if (parent_drop_rate <= 11) {
+                                                return 1290;
+                                            } else {
+                                                if (parent_ppm <= 1642) {
+                                                    return 386;
+                                                } else {
+                                                    return 0;
+                                                }
+                                            }
                                         }
                                     } else {
                                         return 10045;
@@ -1465,9 +2353,29 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 } else {
                                     if (parent_ppm <= 2369) {
                                         if (hop_count <= 6) {
-                                            return 16024;
+                                            if (ppm <= 103) {
+                                                if (etx <= 176) {
+                                                    return 29615;
+                                                } else {
+                                                    return 7624;
+                                                }
+                                            } else {
+                                                return 4711;
+                                            }
                                         } else {
-                                            return 7235;
+                                            if (p_cpu <= 86) {
+                                                if (etx <= 165) {
+                                                    return 2161;
+                                                } else {
+                                                    return 8228;
+                                                }
+                                            } else {
+                                                if (ppm <= 52) {
+                                                    return 0;
+                                                } else {
+                                                    return 23667;
+                                                }
+                                            }
                                         }
                                     } else {
                                         return 24824;
@@ -1481,15 +2389,39 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (rssi <= -82) {
                                     if (etx <= 216) {
                                         if (parent_ppm <= 181) {
-                                            return 33033;
+                                            if (etx <= 207) {
+                                                return 16640;
+                                            } else {
+                                                return 51065;
+                                            }
                                         } else {
                                             return 58879;
                                         }
                                     } else {
                                         if (ppm <= 33) {
-                                            return 29988;
+                                            if (etx <= 274) {
+                                                return 38335;
+                                            } else {
+                                                if (rssi <= -88) {
+                                                    return 17866;
+                                                } else {
+                                                    return 34012;
+                                                }
+                                            }
                                         } else {
-                                            return 17375;
+                                            if (hop_count <= 7) {
+                                                if (etx <= 288) {
+                                                    return 31565;
+                                                } else {
+                                                    return 15360;
+                                                }
+                                            } else {
+                                                if (hop_count <= 10) {
+                                                    return 9457;
+                                                } else {
+                                                    return 22514;
+                                                }
+                                            }
                                         }
                                     }
                                 } else {
@@ -1497,13 +2429,33 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (parent_ppm <= 22) {
                                             return 36996;
                                         } else {
-                                            return 16966;
+                                            if (parent_ppm <= 170) {
+                                                if (etx <= 191) {
+                                                    return 29527;
+                                                } else {
+                                                    return 13893;
+                                                }
+                                            } else {
+                                                if (p_cpu <= 19) {
+                                                    return 6890;
+                                                } else {
+                                                    return 22380;
+                                                }
+                                            }
                                         }
                                     } else {
                                         if (ppm <= 19) {
                                             return 15087;
                                         } else {
-                                            return 3286;
+                                            if (etx <= 427) {
+                                                if (etx <= 403) {
+                                                    return 79;
+                                                } else {
+                                                    return 2734;
+                                                }
+                                            } else {
+                                                return 9612;
+                                            }
                                         }
                                     }
                                 }
@@ -1511,29 +2463,97 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (parent_ppm <= 395) {
                                     if (cpu <= 0) {
                                         if (p_cpu <= 58) {
-                                            return 132;
+                                            if (parent_ppm <= 309) {
+                                                return 395;
+                                            } else {
+                                                return 0;
+                                            }
                                         } else {
-                                            return 3994;
+                                            if (parent_ppm <= 338) {
+                                                return 306;
+                                            } else {
+                                                return 7683;
+                                            }
                                         }
                                     } else {
                                         if (etx <= 254) {
-                                            return 15801;
+                                            if (ppm <= 56) {
+                                                return 34613;
+                                            } else {
+                                                if (parent_ppm <= 352) {
+                                                    return 7246;
+                                                } else {
+                                                    return 22741;
+                                                }
+                                            }
                                         } else {
-                                            return 6770;
+                                            if (ppm <= 77) {
+                                                if (rssi <= -80) {
+                                                    return 0;
+                                                } else {
+                                                    return 18772;
+                                                }
+                                            } else {
+                                                if (ppm <= 101) {
+                                                    return 969;
+                                                } else {
+                                                    return 5367;
+                                                }
+                                            }
                                         }
                                     }
                                 } else {
                                     if (rssi <= -59) {
                                         if (rssi <= -80) {
-                                            return 17504;
+                                            if (etx <= 309) {
+                                                if (hop_count <= 6) {
+                                                    return 25977;
+                                                } else {
+                                                    return 9633;
+                                                }
+                                            } else {
+                                                if (p_cpu <= 66) {
+                                                    return 22204;
+                                                } else {
+                                                    return 42858;
+                                                }
+                                            }
                                         } else {
-                                            return 9428;
+                                            if (parent_ppm <= 434) {
+                                                if (rssi <= -73) {
+                                                    return 34958;
+                                                } else {
+                                                    return 4078;
+                                                }
+                                            } else {
+                                                if (parent_ppm <= 1987) {
+                                                    return 7084;
+                                                } else {
+                                                    return 20085;
+                                                }
+                                            }
                                         }
                                     } else {
                                         if (rssi <= -53) {
-                                            return 24757;
+                                            if (hop_count <= 6) {
+                                                return 5123;
+                                            } else {
+                                                if (parent_drop_rate <= 1) {
+                                                    return 38006;
+                                                } else {
+                                                    return 19071;
+                                                }
+                                            }
                                         } else {
-                                            return 14145;
+                                            if (parent_drop_rate <= 81) {
+                                                if (hop_count <= 10) {
+                                                    return 15660;
+                                                } else {
+                                                    return 5743;
+                                                }
+                                            } else {
+                                                return 28624;
+                                            }
                                         }
                                     }
                                 }
@@ -1543,13 +2563,37 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (p_cpu <= 24) {
                                     if (parent_drop_rate <= 7) {
                                         if (rssi <= -82) {
-                                            return 25925;
+                                            if (hop_count <= 10) {
+                                                if (hop_count <= 8) {
+                                                    return 22905;
+                                                } else {
+                                                    return 44799;
+                                                }
+                                            } else {
+                                                return 5483;
+                                            }
                                         } else {
-                                            return 15983;
+                                            if (cpu <= 80) {
+                                                if (cpu <= 2) {
+                                                    return 21148;
+                                                } else {
+                                                    return 11975;
+                                                }
+                                            } else {
+                                                return 30732;
+                                            }
                                         }
                                     } else {
                                         if (rssi <= -53) {
-                                            return 2835;
+                                            if (etx <= 306) {
+                                                if (parent_ppm <= 877) {
+                                                    return 0;
+                                                } else {
+                                                    return 1929;
+                                                }
+                                            } else {
+                                                return 7880;
+                                            }
                                         } else {
                                             return 13046;
                                         }
@@ -1557,15 +2601,59 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 } else {
                                     if (ppm <= 127) {
                                         if (rssi <= -66) {
-                                            return 13877;
+                                            if (ppm <= 87) {
+                                                if (hop_count <= 7) {
+                                                    return 15595;
+                                                } else {
+                                                    return 9817;
+                                                }
+                                            } else {
+                                                if (etx <= 361) {
+                                                    return 18345;
+                                                } else {
+                                                    return 8387;
+                                                }
+                                            }
                                         } else {
-                                            return 11001;
+                                            if (p_cpu <= 90) {
+                                                if (p_cpu <= 32) {
+                                                    return 15276;
+                                                } else {
+                                                    return 9366;
+                                                }
+                                            } else {
+                                                if (p_cpu <= 96) {
+                                                    return 36369;
+                                                } else {
+                                                    return 12395;
+                                                }
+                                            }
                                         }
                                     } else {
                                         if (p_cpu <= 52) {
-                                            return 6035;
+                                            if (hop_count <= 11) {
+                                                if (p_cpu <= 36) {
+                                                    return 7957;
+                                                } else {
+                                                    return 1975;
+                                                }
+                                            } else {
+                                                return 20525;
+                                            }
                                         } else {
-                                            return 11108;
+                                            if (ppm <= 135) {
+                                                if (p_cpu <= 60) {
+                                                    return 13908;
+                                                } else {
+                                                    return 3166;
+                                                }
+                                            } else {
+                                                if (cpu <= 2) {
+                                                    return 33739;
+                                                } else {
+                                                    return 11339;
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -1575,7 +2663,11 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         return 9730;
                                     } else {
                                         if (etx <= 238) {
-                                            return 163;
+                                            if (parent_ppm <= 2487) {
+                                                return 0;
+                                            } else {
+                                                return 586;
+                                            }
                                         } else {
                                             return 3273;
                                         }
@@ -1583,9 +2675,21 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 } else {
                                     if (parent_ppm <= 2467) {
                                         if (parent_drop_rate <= 8) {
-                                            return 13652;
+                                            if (parent_drop_rate <= 5) {
+                                                return 1276;
+                                            } else {
+                                                return 22590;
+                                            }
                                         } else {
-                                            return 3908;
+                                            if (hop_count <= 9) {
+                                                if (hop_count <= 6) {
+                                                    return 5632;
+                                                } else {
+                                                    return 966;
+                                                }
+                                            } else {
+                                                return 9520;
+                                            }
                                         }
                                     } else {
                                         return 20521;
@@ -1611,7 +2715,15 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (parent_ppm <= 67) {
                                             return 4681;
                                         } else {
-                                            return 22826;
+                                            if (etx <= 214) {
+                                                if (etx <= 203) {
+                                                    return 22157;
+                                                } else {
+                                                    return 0;
+                                                }
+                                            } else {
+                                                return 39434;
+                                            }
                                         }
                                     }
                                 } else {
@@ -1619,13 +2731,33 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (rssi <= -86) {
                                             return 32300;
                                         } else {
-                                            return 13062;
+                                            if (cpu <= 6) {
+                                                return 21149;
+                                            } else {
+                                                return 6841;
+                                            }
                                         }
                                     } else {
                                         if (parent_ppm <= 346) {
-                                            return 7863;
+                                            if (etx <= 265) {
+                                                if (p_cpu <= 47) {
+                                                    return 19;
+                                                } else {
+                                                    return 4881;
+                                                }
+                                            } else {
+                                                if (rssi <= -70) {
+                                                    return 5255;
+                                                } else {
+                                                    return 15953;
+                                                }
+                                            }
                                         } else {
-                                            return 18605;
+                                            if (cpu <= 5) {
+                                                return 3058;
+                                            } else {
+                                                return 28969;
+                                            }
                                         }
                                     }
                                 }
@@ -1651,7 +2783,11 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (p_cpu <= 35) {
                                             return 0;
                                         } else {
-                                            return 28091;
+                                            if (etx <= 210) {
+                                                return 45778;
+                                            } else {
+                                                return 17037;
+                                            }
                                         }
                                     }
                                 }
@@ -1663,9 +2799,29 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 } else {
                                     if (etx <= 407) {
                                         if (parent_ppm <= 2247) {
-                                            return 7593;
+                                            if (etx <= 254) {
+                                                if (rssi <= -44) {
+                                                    return 11984;
+                                                } else {
+                                                    return 1924;
+                                                }
+                                            } else {
+                                                if (parent_ppm <= 1351) {
+                                                    return 601;
+                                                } else {
+                                                    return 11068;
+                                                }
+                                            }
                                         } else {
-                                            return 1893;
+                                            if (ppm <= 378) {
+                                                if (parent_ppm <= 2394) {
+                                                    return 60;
+                                                } else {
+                                                    return 936;
+                                                }
+                                            } else {
+                                                return 4243;
+                                            }
                                         }
                                     } else {
                                         return 18208;
@@ -1693,29 +2849,105 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (is_new <= 0) {
                                     if (ppm <= 290) {
                                         if (ppm <= 272) {
-                                            return 22847;
+                                            if (rssi <= -90) {
+                                                return 345;
+                                            } else {
+                                                if (hop_count <= 6) {
+                                                    return 11446;
+                                                } else {
+                                                    return 26846;
+                                                }
+                                            }
                                         } else {
                                             return 48188;
                                         }
                                     } else {
                                         if (parent_ppm <= 559) {
-                                            return 6136;
+                                            if (cpu <= 40) {
+                                                if (rssi <= -46) {
+                                                    return 1181;
+                                                } else {
+                                                    return 12025;
+                                                }
+                                            } else {
+                                                return 15712;
+                                            }
                                         } else {
-                                            return 18493;
+                                            if (rssi <= -56) {
+                                                if (cpu <= 5) {
+                                                    return 33179;
+                                                } else {
+                                                    return 16384;
+                                                }
+                                            } else {
+                                                if (parent_ppm <= 743) {
+                                                    return 18644;
+                                                } else {
+                                                    return 895;
+                                                }
+                                            }
                                         }
                                     }
                                 } else {
                                     if (p_cpu <= 42) {
                                         if (parent_ppm <= 117) {
-                                            return 26088;
+                                            if (ppm <= 212) {
+                                                if (p_cpu <= 24) {
+                                                    return 1293;
+                                                } else {
+                                                    return 22705;
+                                                }
+                                            } else {
+                                                if (etx <= 191) {
+                                                    return 25992;
+                                                } else {
+                                                    return 48474;
+                                                }
+                                            }
                                         } else {
-                                            return 13821;
+                                            if (p_cpu <= 37) {
+                                                if (parent_ppm <= 557) {
+                                                    return 9150;
+                                                } else {
+                                                    return 22329;
+                                                }
+                                            } else {
+                                                if (ppm <= 240) {
+                                                    return 39039;
+                                                } else {
+                                                    return 14607;
+                                                }
+                                            }
                                         }
                                     } else {
                                         if (rssi <= -52) {
-                                            return 7660;
+                                            if (p_cpu <= 80) {
+                                                if (hop_count <= 8) {
+                                                    return 2945;
+                                                } else {
+                                                    return 8776;
+                                                }
+                                            } else {
+                                                if (cpu <= 22) {
+                                                    return 19749;
+                                                } else {
+                                                    return 6546;
+                                                }
+                                            }
                                         } else {
-                                            return 15637;
+                                            if (p_cpu <= 60) {
+                                                if (ppm <= 271) {
+                                                    return 14901;
+                                                } else {
+                                                    return 3745;
+                                                }
+                                            } else {
+                                                if (p_cpu <= 100) {
+                                                    return 26421;
+                                                } else {
+                                                    return 5081;
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -1723,29 +2955,81 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (cpu <= 85) {
                                     if (hop_count <= 17) {
                                         if (p_cpu <= 90) {
-                                            return 9919;
+                                            if (p_cpu <= 34) {
+                                                if (etx <= 254) {
+                                                    return 14996;
+                                                } else {
+                                                    return 9977;
+                                                }
+                                            } else {
+                                                if (ppm <= 713) {
+                                                    return 8241;
+                                                } else {
+                                                    return 14604;
+                                                }
+                                            }
                                         } else {
-                                            return 15332;
+                                            if (rssi <= -58) {
+                                                if (ppm <= 382) {
+                                                    return 15705;
+                                                } else {
+                                                    return 5073;
+                                                }
+                                            } else {
+                                                if (etx <= 290) {
+                                                    return 12357;
+                                                } else {
+                                                    return 34943;
+                                                }
+                                            }
                                         }
                                     } else {
                                         if (hop_count <= 19) {
                                             return 42278;
                                         } else {
-                                            return 10089;
+                                            if (parent_ppm <= 239) {
+                                                return 21598;
+                                            } else {
+                                                return 3425;
+                                            }
                                         }
                                     }
                                 } else {
                                     if (rssi <= -81) {
                                         if (parent_ppm <= 303) {
-                                            return 15177;
+                                            if (ppm <= 209) {
+                                                return 24075;
+                                            } else {
+                                                if (ppm <= 414) {
+                                                    return 510;
+                                                } else {
+                                                    return 20423;
+                                                }
+                                            }
                                         } else {
-                                            return 4367;
+                                            if (ppm <= 404) {
+                                                return 0;
+                                            } else {
+                                                return 10480;
+                                            }
                                         }
                                     } else {
                                         if (cpu <= 108) {
                                             return 0;
                                         } else {
-                                            return 6005;
+                                            if (p_cpu <= 82) {
+                                                if (ppm <= 257) {
+                                                    return 8088;
+                                                } else {
+                                                    return 3091;
+                                                }
+                                            } else {
+                                                if (etx <= 297) {
+                                                    return 22565;
+                                                } else {
+                                                    return 3554;
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -1755,29 +3039,85 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (rssi <= -42) {
                                     if (parent_ppm <= 959) {
                                         if (hop_count <= 16) {
-                                            return 5847;
+                                            if (parent_drop_rate <= 36) {
+                                                if (rssi <= -61) {
+                                                    return 2692;
+                                                } else {
+                                                    return 6175;
+                                                }
+                                            } else {
+                                                if (parent_drop_rate <= 102) {
+                                                    return 8756;
+                                                } else {
+                                                    return 4257;
+                                                }
+                                            }
                                         } else {
-                                            return 624;
+                                            if (p_cpu <= 60) {
+                                                return 4759;
+                                            } else {
+                                                if (ppm <= 505) {
+                                                    return 0;
+                                                } else {
+                                                    return 423;
+                                                }
+                                            }
                                         }
                                     } else {
                                         if (parent_drop_rate <= 92) {
-                                            return 7874;
+                                            if (ppm <= 294) {
+                                                if (parent_ppm <= 1810) {
+                                                    return 12808;
+                                                } else {
+                                                    return 6273;
+                                                }
+                                            } else {
+                                                if (ppm <= 678) {
+                                                    return 4656;
+                                                } else {
+                                                    return 9505;
+                                                }
+                                            }
                                         } else {
-                                            return 17129;
+                                            if (ppm <= 690) {
+                                                if (p_cpu <= 40) {
+                                                    return 24268;
+                                                } else {
+                                                    return 8675;
+                                                }
+                                            } else {
+                                                return 36333;
+                                            }
                                         }
                                     }
                                 } else {
                                     if (parent_drop_rate <= 28) {
                                         if (etx <= 282) {
-                                            return 3443;
+                                            if (cpu <= 30) {
+                                                if (parent_ppm <= 996) {
+                                                    return 3618;
+                                                } else {
+                                                    return 0;
+                                                }
+                                            } else {
+                                                return 11616;
+                                            }
                                         } else {
                                             return 18209;
                                         }
                                     } else {
                                         if (p_cpu <= 74) {
-                                            return 14456;
+                                            if (etx <= 212) {
+                                                return 24179;
+                                            } else {
+                                                return 5341;
+                                            }
                                         } else {
-                                            return 35332;
+                                            if (etx <= 234) {
+                                                return 27717;
+                                            } else {
+                                                return 43707;
+                                            }
                                         }
                                     }
                                 }
@@ -1803,13 +3143,33 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                         if (ppm <= 965) {
                                             return 0;
                                         } else {
-                                            return 1118;
+                                            if (drop_rate <= 21) {
+                                                return 409;
+                                            } else {
+                                                return 1898;
+                                            }
                                         }
                                     } else {
                                         if (drop_rate <= 90) {
-                                            return 6517;
+                                            if (etx <= 182) {
+                                                if (parent_ppm <= 74) {
+                                                    return 8210;
+                                                } else {
+                                                    return 26810;
+                                                }
+                                            } else {
+                                                if (is_new <= 0) {
+                                                    return 16656;
+                                                } else {
+                                                    return 2899;
+                                                }
+                                            }
                                         } else {
-                                            return 16804;
+                                            if (cpu <= 52) {
+                                                return 7580;
+                                            } else {
+                                                return 29576;
+                                            }
                                         }
                                     }
                                 } else {
@@ -1820,7 +3180,7 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                     } else {
                         if (ppm <= 225) {
                             if (ppm <= 194) {
-                                if (ppm <= 182) {
+                                if (parent_ppm <= 918) {
                                     return 0;
                                 } else {
                                     return 6554;
@@ -1851,15 +3211,43 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 } else {
                                     if (parent_ppm <= 348) {
                                         if (rssi <= -83) {
-                                            return 7860;
+                                            if (cpu <= 4) {
+                                                return 19533;
+                                            } else {
+                                                if (parent_ppm <= 185) {
+                                                    return 11175;
+                                                } else {
+                                                    return 3407;
+                                                }
+                                            }
                                         } else {
-                                            return 4583;
+                                            if (ppm <= 594) {
+                                                if (parent_ppm <= 139) {
+                                                    return 22170;
+                                                } else {
+                                                    return 5527;
+                                                }
+                                            } else {
+                                                if (parent_ppm <= 165) {
+                                                    return 1148;
+                                                } else {
+                                                    return 4790;
+                                                }
+                                            }
                                         }
                                     } else {
                                         if (hop_count <= 5) {
                                             return 25573;
                                         } else {
-                                            return 6902;
+                                            if (drop_rate <= 50) {
+                                                if (cpu <= 3) {
+                                                    return 6122;
+                                                } else {
+                                                    return 797;
+                                                }
+                                            } else {
+                                                return 18976;
+                                            }
                                         }
                                     }
                                 }
@@ -1867,29 +3255,113 @@ uint16_t mlof_predict_pdr_dtree(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint
                                 if (parent_drop_rate <= 34) {
                                     if (parent_drop_rate <= 3) {
                                         if (drop_rate <= 95) {
-                                            return 4228;
+                                            if (rssi <= -43) {
+                                                if (ppm <= 1843) {
+                                                    return 3050;
+                                                } else {
+                                                    return 6841;
+                                                }
+                                            } else {
+                                                if (cpu <= 20) {
+                                                    return 17455;
+                                                } else {
+                                                    return 2551;
+                                                }
+                                            }
                                         } else {
-                                            return 9881;
+                                            if (parent_ppm <= 991) {
+                                                if (cpu <= 4) {
+                                                    return 14311;
+                                                } else {
+                                                    return 3170;
+                                                }
+                                            } else {
+                                                if (etx <= 252) {
+                                                    return 8472;
+                                                } else {
+                                                    return 30595;
+                                                }
+                                            }
                                         }
                                     } else {
                                         if (ppm <= 1525) {
-                                            return 2776;
+                                            if (etx <= 178) {
+                                                if (etx <= 175) {
+                                                    return 3723;
+                                                } else {
+                                                    return 20278;
+                                                }
+                                            } else {
+                                                if (parent_ppm <= 394) {
+                                                    return 11038;
+                                                } else {
+                                                    return 2388;
+                                                }
+                                            }
                                         } else {
-                                            return 4573;
+                                            if (etx <= 185) {
+                                                if (p_cpu <= 87) {
+                                                    return 1046;
+                                                } else {
+                                                    return 5748;
+                                                }
+                                            } else {
+                                                if (drop_rate <= 4) {
+                                                    return 11443;
+                                                } else {
+                                                    return 5047;
+                                                }
+                                            }
                                         }
                                     }
                                 } else {
                                     if (parent_ppm <= 1018) {
                                         if (ppm <= 1682) {
-                                            return 3495;
+                                            if (hop_count <= 7) {
+                                                if (hop_count <= 5) {
+                                                    return 4137;
+                                                } else {
+                                                    return 1013;
+                                                }
+                                            } else {
+                                                if (drop_rate <= 8) {
+                                                    return 14321;
+                                                } else {
+                                                    return 3985;
+                                                }
+                                            }
                                         } else {
-                                            return 8378;
+                                            if (ppm <= 2082) {
+                                                if (drop_rate <= 7) {
+                                                    return 2476;
+                                                } else {
+                                                    return 19788;
+                                                }
+                                            } else {
+                                                if (cpu <= 64) {
+                                                    return 879;
+                                                } else {
+                                                    return 6185;
+                                                }
+                                            }
                                         }
                                     } else {
                                         if (ppm <= 407) {
                                             return 25298;
                                         } else {
-                                            return 8212;
+                                            if (hop_count <= 5) {
+                                                if (p_cpu <= 42) {
+                                                    return 28940;
+                                                } else {
+                                                    return 6686;
+                                                }
+                                            } else {
+                                                if (drop_rate <= 42) {
+                                                    return 5065;
+                                                } else {
+                                                    return 11250;
+                                                }
+                                            }
                                         }
                                     }
                                 }
