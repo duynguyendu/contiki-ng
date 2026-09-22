@@ -253,8 +253,8 @@ static void dio_input(void) {
       dio.mc.mlof.weighted_cpu_usage = buffer[i + 3];
       dio.mc.mlof.etx = get16(buffer, i + 4);
       dio.mc.mlof.rssi = (int16_t)get16(buffer, i + 6);
-      dio.mc.mlof.ppm = get16(buffer, i + 8);
-      dio.mc.mlof.drop_rate = buffer[i + 10];
+      dio.mc.mlof.weighted_ppm = get16(buffer, i + 8);
+      dio.mc.mlof.weighted_drop_rate = buffer[i + 10];
       dio.mc.mlof.hop_count = buffer[i + 11];
       dio.mc.mlof.nbr_count = buffer[i + 12];
 
@@ -435,9 +435,9 @@ void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr) {
       pos += 2;
       set16(buffer, pos, (uint16_t)m->rssi);
       pos += 2;
-      set16(buffer, pos, m->ppm);
+      set16(buffer, pos, m->weighted_ppm);
       pos += 2;
-      buffer[pos++] = m->drop_rate;
+      buffer[pos++] = m->weighted_drop_rate;
       buffer[pos++] = m->hop_count;
       buffer[pos++] = m->nbr_count;
     }

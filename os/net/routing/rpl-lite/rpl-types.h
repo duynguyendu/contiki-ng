@@ -116,9 +116,13 @@ struct rpl_mlof_mc {
                                   0xff while unknown */
   uint16_t etx;
   int16_t rssi;
-  uint16_t ppm;       /* this node's own packets/minute to the preferred parent */
-  uint8_t drop_rate;  /* this node's own queue-drop fraction on the parent link,
-                         fixed point /256; 0xff while unknown */
+  uint16_t weighted_ppm;       /* ppm path metric (this node's own
+                                   packets/minute to the preferred parent,
+                                   weighted with its parent's) */
+  uint8_t weighted_drop_rate;  /* drop_rate path metric (this node's own
+                                   queue-drop fraction on the parent link,
+                                   weighted with its parent's), fixed point
+                                   /256; 0xff while unknown */
   uint16_t parent_ppm;       /* preferred parent's own ppm, as last advertised
                                 in its DIO; INT16_MAX while unknown */
   uint8_t parent_drop_rate;  /* preferred parent's own drop_rate, as last
