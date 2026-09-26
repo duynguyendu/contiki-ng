@@ -379,6 +379,8 @@ discard:
   uipbuf_clear();
 }
 /*---------------------------------------------------------------------------*/
+uint32_t rpl_dio_sent_count = 0;
+
 void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr) {
   unsigned char *buffer;
   int pos;
@@ -512,6 +514,7 @@ void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr) {
   LOG_INFO_("\n");
 
   uip_icmp6_send(addr, ICMP6_RPL, RPL_CODE_DIO, pos);
+  rpl_dio_sent_count++;
 }
 /*---------------------------------------------------------------------------*/
 static void dao_input(void) {

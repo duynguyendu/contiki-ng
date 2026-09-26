@@ -112,6 +112,9 @@ void rpl_icmp6_dis_output(uip_ipaddr_t *addr);
 */
 void rpl_icmp6_dio_output(uip_ipaddr_t *uc_addr);
 
+/** Total number of DIOs (multicast + unicast) sent since boot */
+extern uint32_t rpl_dio_sent_count;
+
 /**
  * Creates an ICMPv6 DAO packet and sends it to the root, advertising the
  * current preferred parent, and with our global address as prefix.

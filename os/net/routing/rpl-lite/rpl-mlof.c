@@ -199,6 +199,10 @@ static uint32_t scaled_ratio(uint64_t num, uint64_t den, uint32_t scale) {
   return ((uint32_t)num * scale) / (uint32_t)den;
 }
 
+/* EWMA of this node's own samples (CPU usage, ppm, drop_rate), weighting the
+ * current sample 5/16 so the divide is a shift. */
+#define MLOF_EWMA(avg, cur) (((uint32_t)(avg) * 11 + (uint32_t)(cur) * 5) >> 4)
+
 /* CPU-usage fixed-point unit, mirroring the ETX divisor scheme: the utilization
  * fraction f in [0,1] is carried as (uint8_t)(f * this). With unit 128 a value
  * of 128 would be 100%, but real values are capped at MLOF_CPU_USAGE_MAX
@@ -210,11 +214,13 @@ static uint32_t scaled_ratio(uint64_t num, uint64_t den, uint32_t scale) {
  * fraction with divisor MLOF_CPU_USAGE_UNIT (same scheme as ETX):
  * delta(CPU ticks) * MLOF_CPU_USAGE_UNIT / delta(total ticks). Total ticks =
  * CPU + LPM + DEEP_LPM (ENERGEST_GET_TOTAL_TIME). The first call measures since
- * boot. Returns 0 when Energest is disabled (ENERGEST_CONF_ON == 0). */
+ * boot. Each sample is EWMA-smoothed (see MLOF_EWMA) and the smoothed value
+ * is returned. Returns 0 when Energest is disabled (ENERGEST_CONF_ON == 0). */
 static uint8_t cpu_usage_percent(void) {
 #if ENERGEST_CONF_ON
   static uint64_t last_cpu = 0;
   static uint64_t last_total = 0;
+  static uint8_t cpu_usage = 0;
   uint64_t cpu, total, delta_cpu, delta_total;
 
   energest_flush();
@@ -227,10 +233,12 @@ static uint8_t cpu_usage_percent(void) {
   last_total = total;
 
   if (delta_total == 0) {
-    return 0;
+    return cpu_usage;
   }
-  return (uint8_t)MIN(scaled_ratio(delta_cpu, delta_total, MLOF_CPU_USAGE_UNIT),
-                      MLOF_CPU_USAGE_MAX);
+  cpu_usage = (uint8_t)MLOF_EWMA(
+      cpu_usage, MIN(scaled_ratio(delta_cpu, delta_total, MLOF_CPU_USAGE_UNIT),
+                     MLOF_CPU_USAGE_MAX));
+  return cpu_usage;
 #else  /* ENERGEST_CONF_ON */
   return 0;
 #endif /* ENERGEST_CONF_ON */
@@ -243,8 +251,8 @@ static uint8_t cpu_usage_percent(void) {
  * predict_pdr(). ETX 4.0 (four transmissions per successful delivery) and
  * RSSI -90 dBm (weak but not implausible) both read as "bad link", not
  * "unknown". */
-#define MLOF_ETX_UNKNOWN ((uint16_t)(4 * LINK_STATS_ETX_DIVISOR))
-#define MLOF_RSSI_UNKNOWN ((int16_t)-100)
+#define MLOF_ETX_UNKNOWN ((uint16_t)(8 * LINK_STATS_ETX_DIVISOR))
+#define MLOF_RSSI_UNKNOWN ((int16_t)-120)
 
 /* ETX and RSSI to the preferred parent, from its link statistics. Both are 0
  * at the root and MLOF_{ETX,RSSI}_UNKNOWN when unavailable: no preferred
@@ -371,11 +379,15 @@ static void traffic_metrics(uint16_t *ppm, uint8_t *drop_rate) {
   uint32_t tx_delta = tx_now - prev_tx;
   uint32_t drops_delta = drops_now - prev_drops;
 
-  last_ppm = (uint16_t)MIN(
+  /* One new sample per window, EWMA-smoothed. ppm starts from the current
+     sample rather than blending with 0. */
+  uint16_t cur_ppm = (uint16_t)MIN(
       scaled_ratio(tx_delta, time_delta, 128 * CLOCK_SECOND), 0xffff);
-  last_drop_rate = drops_delta == 0 ? 0
-                                    : (uint8_t)MIN(tx_delta / drops_delta,
-                                                   MLOF_DROP_RATE_MAX);
+  last_ppm =
+      last_ppm == 0 ? cur_ppm : (uint16_t)MLOF_EWMA(last_ppm, cur_ppm);
+  last_drop_rate = (uint8_t)MLOF_EWMA(
+      last_drop_rate,
+      drops_delta == 0 ? 0 : MIN(tx_delta / drops_delta, MLOF_DROP_RATE_MAX));
 
   prev_time = now;
   prev_tx = tx_now;
@@ -517,14 +529,6 @@ void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *parent,
                           : lla->u8[LINKADDR_SIZE - 1] +
                                 (lla->u8[LINKADDR_SIZE - 2] << 8);
 
-  /* new->mlof.{weighted_ppm,weighted_drop_rate} are the parent's own
-     last-advertised, path-blended values - i.e., from here,
-     "parent_ppm"/"parent_drop_rate". last_self_ppm/last_self_drop_rate are
-     this node's own single-hop
-     reading, as last computed by fill_multiple_metrics() (cached, safe to
-     re-read here) - these are the same values predict_pdr() uses for its
-     own "ppm"/"drop_rate" features, so the logged row matches the model's
-     actual inputs. */
   LOG_PRINT("MLOF metrics: is_new=%d parent_id=%u cpu=%u p_cpu=%u etx=%u "
             "rssi=%d ppm=%u drop_rate=%u parent_ppm=%u parent_drop_rate=%u "
             "hop_count=%u nbr_count=%u\n",
