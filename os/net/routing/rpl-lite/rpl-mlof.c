@@ -2,6 +2,7 @@
 #include "net/nbr-table.h"
 #include "net/routing/rpl-lite/rpl.h"
 #include "sys/energest.h"
+#include "sys/rtimer.h"
 
 /* Log configuration */
 #include "sys/log.h"
@@ -51,6 +52,10 @@
 #else
 #define MLOF_PATH_W_PDR 12
 #endif
+
+/* Neighbors advertising a larger hop count (e.g. counting up in a loop, or
+   0xff = unknown) are not usable. */
+#define MLOF_MAX_HOP_COUNT 127
 
 static uint16_t predict_pdr(rpl_nbr_t *nbr, int is_new);
 
@@ -111,8 +116,9 @@ static rpl_rank_t rank_via_nbr(rpl_nbr_t *nbr) {
 /*---------------------------------------------------------------------------*/
 static int nbr_has_usable_link(rpl_nbr_t *nbr) {
   uint16_t link_metric = nbr_link_metric(nbr);
-  /* Exclude links with too high link metrics  */
-  return link_metric <= MAX_LINK_METRIC;
+  /* Exclude links with too high link metrics or hop count */
+  return link_metric <= MAX_LINK_METRIC &&
+         nbr->mlof.hop_count <= MLOF_MAX_HOP_COUNT;
 }
 /*---------------------------------------------------------------------------*/
 static int nbr_is_acceptable_parent(rpl_nbr_t *nbr) {
@@ -449,7 +455,14 @@ static uint8_t last_self_cpu_usage;
 static uint16_t last_self_ppm;
 static uint8_t last_self_drop_rate;
 
+/* Total rtimer ticks spent in predict_pdr() and number of calls since boot,
+ * printed by the client's metrics log to get the average run time. */
+uint32_t mlof_predict_ticks;
+uint32_t mlof_predict_count;
+
 static uint16_t predict_pdr(rpl_nbr_t *nbr, int is_new) {
+  rtimer_clock_t start = RTIMER_NOW();
+  uint16_t pdr;
   uint16_t parent_ppm = nbr->mlof.weighted_ppm;
   uint8_t parent_drop_rate = nbr->mlof.weighted_drop_rate;
   int16_t rssi = nbr->mlof.rssi;
@@ -461,20 +474,24 @@ static uint16_t predict_pdr(rpl_nbr_t *nbr, int is_new) {
   uint8_t drop_rate = last_self_drop_rate;
 
 #if MLOF_MODEL == MLOF_MODEL_LINEAR
-  return mlof_predict_pdr_linear(parent_ppm, parent_drop_rate, rssi, hop_count,
-                                 (uint8_t)is_new, cpu, p_cpu, etx, ppm,
-                                 drop_rate);
-#elif MLOF_MODEL == MLOF_MODEL_DTREE
-  return mlof_predict_pdr_dtree(parent_ppm, parent_drop_rate, rssi, hop_count,
+  pdr = mlof_predict_pdr_linear(parent_ppm, parent_drop_rate, rssi, hop_count,
                                 (uint8_t)is_new, cpu, p_cpu, etx, ppm,
                                 drop_rate);
+#elif MLOF_MODEL == MLOF_MODEL_DTREE
+  pdr = mlof_predict_pdr_dtree(parent_ppm, parent_drop_rate, rssi, hop_count,
+                               (uint8_t)is_new, cpu, p_cpu, etx, ppm,
+                               drop_rate);
 #elif MLOF_MODEL == MLOF_MODEL_LGBM
-  return mlof_predict_pdr_lgbm(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate,
-                               parent_ppm, parent_drop_rate, hop_count);
+  pdr = mlof_predict_pdr_lgbm(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate,
+                              parent_ppm, parent_drop_rate, hop_count);
 #else /* MLOF_MODEL == MLOF_MODEL_SVM */
-  return mlof_predict_pdr_svm(parent_ppm, parent_drop_rate, rssi, hop_count,
-                              (uint8_t)is_new, cpu, p_cpu, etx, ppm, drop_rate);
+  pdr = mlof_predict_pdr_svm(parent_ppm, parent_drop_rate, rssi, hop_count,
+                             (uint8_t)is_new, cpu, p_cpu, etx, ppm, drop_rate);
 #endif
+
+  mlof_predict_ticks += (rtimer_clock_t)(RTIMER_NOW() - start);
+  mlof_predict_count++;
+  return pdr;
 }
 
 static void fill_multiple_metrics(void) {

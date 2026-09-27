@@ -2,3099 +2,3099 @@
  * DO NOT EDIT BY HAND -- retrain and re-run the converter instead. */
 #include "mlof-lgbm.h"
 
-static int32_t mlof_predict_pdr_lgbm_tree0(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
+static int32_t mlof_predict_pdr_lgbm_tree0(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (p_cpu <= 25) {
         if (parent_drop_rate <= 0) {
             if (is_new <= 0) {
-                if (etx <= 334) {
-                    if (hop_count <= 3) {
-                        return 51041;
-                    } else {
-                        return 50752;
-                    }
+                if (etx <= 303) {
+                    return 51074;
                 } else {
-                    if (hop_count <= 3) {
-                        return 50353;
-                    } else {
-                        return 47639;
-                    }
+                    return 50627;
                 }
             } else {
-                if (hop_count <= 3) {
-                    if (hop_count <= 2) {
-                        return 50765;
+                if (p_cpu <= 13) {
+                    if (p_cpu <= 6) {
+                        return 50999;
                     } else {
-                        if (etx <= 326) {
-                            if (cpu <= 14) {
-                                return 50274;
-                            } else {
-                                return 48853;
-                            }
+                        if (cpu <= 61) {
+                            return 50390;
                         } else {
-                            return 46957;
+                            return 48158;
                         }
                     }
                 } else {
-                    if (etx <= 218) {
-                        if (cpu <= 10) {
-                            return 50131;
+                    if (cpu <= 30) {
+                        if (etx <= 239) {
+                            return 50130;
                         } else {
-                            return 48160;
+                            return 48656;
                         }
                     } else {
-                        if (p_cpu <= 5) {
-                            return 49761;
+                        if (etx <= 226) {
+                            return 48988;
                         } else {
-                            return 46401;
+                            return 46840;
                         }
                     }
                 }
             }
         } else {
-            if (hop_count <= 3) {
-                if (etx <= 276) {
-                    return 50506;
+            if (p_cpu <= 16) {
+                if (is_new <= 0) {
+                    if (p_cpu <= 12) {
+                        return 50759;
+                    } else {
+                        return 49922;
+                    }
                 } else {
-                    return 48757;
+                    if (p_cpu <= 9) {
+                        return 50281;
+                    } else {
+                        if (cpu <= 48) {
+                            return 48969;
+                        } else {
+                            return 47437;
+                        }
+                    }
                 }
             } else {
                 if (is_new <= 0) {
-                    if (etx <= 254) {
-                        if (p_cpu <= 30) {
-                            return 49548;
-                        } else {
-                            return 47498;
-                        }
+                    if (etx <= 272) {
+                        return 49308;
                     } else {
-                        return 46831;
+                        return 48233;
                     }
                 } else {
-                    return 46449;
+                    return 47474;
                 }
             }
         }
     } else {
-        if (p_cpu <= 13) {
-            if (parent_drop_rate <= 1) {
-                if (is_new <= 0) {
-                    return 50367;
-                } else {
-                    if (etx <= 219) {
-                        return 49112;
+        if (p_cpu <= 35) {
+            if (is_new <= 0) {
+                if (parent_drop_rate <= 0) {
+                    if (p_cpu <= 32) {
+                        return 50360;
                     } else {
-                        return 47012;
+                        if (parent_ppm <= 197) {
+                            return 47267;
+                        } else {
+                            return 50111;
+                        }
+                    }
+                } else {
+                    if (etx <= 245) {
+                        return 48129;
+                    } else {
+                        if (p_cpu <= 29) {
+                            return 47862;
+                        } else {
+                            return 46587;
+                        }
                     }
                 }
             } else {
-                return 46682;
+                if (parent_ppm <= 175) {
+                    return 45945;
+                } else {
+                    return 46958;
+                }
             }
         } else {
-            if (parent_drop_rate <= 2) {
-                if (is_new <= 0) {
-                    if (p_cpu <= 59) {
-                        if (hop_count <= 6) {
-                            if (etx <= 233) {
-                                return 49757;
-                            } else {
-                                return 46912;
-                            }
-                        } else {
-                            return 47390;
-                        }
+            if (cpu <= 43) {
+                if (p_cpu <= 54) {
+                    if (parent_ppm <= 199) {
+                        return 45926;
                     } else {
-                        return 45671;
+                        if (parent_drop_rate <= 0) {
+                            return 48331;
+                        } else {
+                            if (cpu <= 0) {
+                                return 47770;
+                            } else {
+                                return 46571;
+                            }
+                        }
                     }
                 } else {
-                    return 45989;
+                    return 46011;
                 }
             } else {
-                if (cpu <= 14) {
-                    if (parent_ppm <= 681) {
-                        if (etx <= 214) {
-                            return 46528;
-                        } else {
-                            return 45967;
-                        }
-                    } else {
-                        return 45714;
-                    }
-                } else {
-                    return 45529;
-                }
+                return 45695;
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree1(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (parent_drop_rate <= 0) {
-        if (p_cpu <= 42) {
-            if (is_new <= 0) {
-                if (etx <= 271) {
-                    if (p_cpu <= 8) {
-                        return 1339;
-                    } else {
-                        return 1181;
-                    }
+static int32_t mlof_predict_pdr_lgbm_tree1(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (p_cpu <= 25) {
+        if (parent_drop_rate <= 0) {
+            if (drop_rate <= 1) {
+                if (p_cpu <= 18) {
+                    return 1307;
                 } else {
-                    if (p_cpu <= 13) {
-                        return 1008;
+                    if (etx <= 282) {
+                        return 1034;
                     } else {
-                        if (etx <= 314) {
-                            return 551;
-                        } else {
-                            return -573;
-                        }
+                        return -236;
                     }
                 }
             } else {
                 if (p_cpu <= 9) {
-                    if (etx <= 322) {
-                        if (p_cpu <= 3) {
-                            return 1106;
-                        } else {
-                            if (ppm <= 430) {
-                                return 630;
-                            } else {
-                                return -1274;
-                            }
-                        }
-                    } else {
-                        if (p_cpu <= 3) {
-                            return 140;
-                        } else {
-                            return -2050;
-                        }
-                    }
+                    return 1078;
                 } else {
-                    if (ppm <= 387) {
-                        if (etx <= 218) {
-                            if (ppm <= 57) {
-                                return 732;
-                            } else {
-                                return -387;
-                            }
-                        } else {
-                            if (rssi <= -82) {
-                                return -249;
-                            } else {
-                                return -1850;
-                            }
-                        }
+                    if (parent_ppm <= 99) {
+                        return -2346;
                     } else {
-                        return -2869;
+                        if (etx <= 304) {
+                            return 360;
+                        } else {
+                            return -2583;
+                        }
                     }
                 }
             }
         } else {
-            if (is_new <= 0) {
-                if (p_cpu <= 67) {
-                    if (etx <= 307) {
-                        return 464;
-                    } else {
-                        return -2521;
-                    }
+            if (p_cpu <= 16) {
+                if (p_cpu <= 11) {
+                    return 728;
                 } else {
-                    return -2777;
+                    if (cpu <= 61) {
+                        if (etx <= 257) {
+                            return 292;
+                        } else {
+                            return -894;
+                        }
+                    } else {
+                        return -2447;
+                    }
                 }
             } else {
-                return -3278;
+                if (etx <= 264) {
+                    if (cpu <= 22) {
+                        return -571;
+                    } else {
+                        return -1268;
+                    }
+                } else {
+                    if (parent_ppm <= 231) {
+                        return -2720;
+                    } else {
+                        return -1439;
+                    }
+                }
             }
         }
     } else {
-        if (p_cpu <= 14) {
-            if (is_new <= 0) {
-                if (p_cpu <= 5) {
-                    return 541;
-                } else {
-                    if (etx <= 303) {
-                        return -529;
+        if (p_cpu <= 35) {
+            if (parent_drop_rate <= 0) {
+                if (etx <= 293) {
+                    if (parent_ppm <= 170) {
+                        if (drop_rate <= 0) {
+                            return -341;
+                        } else {
+                            return -2844;
+                        }
                     } else {
-                        return -2323;
+                        return 772;
+                    }
+                } else {
+                    if (parent_ppm <= 186) {
+                        return -3187;
+                    } else {
+                        return -544;
                     }
                 }
             } else {
-                if (p_cpu <= 1) {
-                    return 704;
+                if (drop_rate <= 2) {
+                    if (parent_ppm <= 189) {
+                        return -3125;
+                    } else {
+                        if (etx <= 294) {
+                            return -1521;
+                        } else {
+                            return -2465;
+                        }
+                    }
                 } else {
-                    return -2366;
+                    return -2908;
                 }
             }
         } else {
-            if (ppm <= 185) {
-                if (p_cpu <= 49) {
-                    if (etx <= 341) {
-                        return -2405;
+            if (drop_rate <= 1) {
+                if (p_cpu <= 53) {
+                    if (parent_ppm <= 253) {
+                        return -2928;
                     } else {
-                        return -3217;
+                        if (parent_drop_rate <= 0) {
+                            return -498;
+                        } else {
+                            return -2330;
+                        }
                     }
                 } else {
-                    if (ppm <= 19) {
-                        return -3761;
-                    } else {
-                        return -3007;
-                    }
+                    return -3004;
                 }
             } else {
-                if (p_cpu <= 42) {
-                    if (is_new <= 0) {
-                        return -2501;
+                if (cpu <= 42) {
+                    if (parent_ppm <= 362) {
+                        return -3557;
                     } else {
-                        return -3352;
+                        return -3040;
                     }
                 } else {
-                    return -3636;
+                    return -3735;
                 }
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree2(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
-        if (drop_rate <= 1) {
-            if (parent_drop_rate <= 0) {
-                if (etx <= 332) {
-                    if (is_new <= 0) {
-                        if (hop_count <= 2) {
-                            return 1233;
-                        } else {
-                            if (etx <= 234) {
-                                return 1127;
-                            } else {
-                                return 818;
-                            }
-                        }
-                    } else {
-                        if (hop_count <= 2) {
-                            return 1098;
-                        } else {
-                            if (ppm <= 60) {
-                                return 549;
-                            } else {
-                                return -892;
-                            }
-                        }
-                    }
+static int32_t mlof_predict_pdr_lgbm_tree2(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (p_cpu <= 24) {
+        if (p_cpu <= 17) {
+            if (is_new <= 0) {
+                if (p_cpu <= 11) {
+                    return 1224;
                 } else {
-                    if (hop_count <= 3) {
-                        return 406;
-                    } else {
-                        return -1964;
-                    }
+                    return 1018;
                 }
             } else {
-                if (hop_count <= 3) {
-                    return 787;
-                } else {
-                    if (is_new <= 0) {
-                        if (etx <= 250) {
-                            return 175;
-                        } else {
-                            return -1898;
-                        }
+                if (p_cpu <= 10) {
+                    if (p_cpu <= 3) {
+                        return 1183;
                     } else {
-                        return -1911;
+                        if (drop_rate <= 0) {
+                            return 736;
+                        } else {
+                            return -345;
+                        }
+                    }
+                } else {
+                    if (drop_rate <= 1) {
+                        return -107;
+                    } else {
+                        return -1657;
                     }
                 }
             }
         } else {
-            if (hop_count <= 2) {
-                return 578;
-            } else {
-                if (hop_count <= 3) {
-                    if (is_new <= 0) {
-                        return -236;
+            if (is_new <= 0) {
+                if (etx <= 264) {
+                    if (parent_ppm <= 482) {
+                        return 775;
                     } else {
-                        return -2550;
+                        return -186;
                     }
                 } else {
-                    return -3163;
-                }
-            }
-        }
-    } else {
-        if (p_cpu <= 13) {
-            if (ppm <= 118) {
-                if (parent_drop_rate <= 0) {
-                    if (hop_count <= 8) {
-                        if (rssi <= -49) {
-                            return 790;
-                        } else {
-                            return -3688;
-                        }
+                    if (drop_rate <= 0) {
+                        return -17;
                     } else {
-                        return -2619;
-                    }
-                } else {
-                    return -1458;
-                }
-            } else {
-                if (drop_rate <= 1) {
-                    return -2216;
-                } else {
-                    return -3446;
-                }
-            }
-        } else {
-            if (ppm <= 162) {
-                if (hop_count <= 6) {
-                    if (etx <= 201) {
-                        if (parent_drop_rate <= 0) {
-                            return 836;
-                        } else {
-                            return -1579;
-                        }
-                    } else {
-                        return -2167;
-                    }
-                } else {
-                    if (etx <= 184) {
-                        if (rssi <= -59) {
-                            return -1720;
-                        } else {
-                            return -2712;
-                        }
-                    } else {
-                        if (parent_drop_rate <= 10) {
-                            return -2580;
-                        } else {
-                            return -2972;
-                        }
+                        return -1836;
                     }
                 }
             } else {
                 if (drop_rate <= 0) {
-                    return -3041;
+                    return -1261;
                 } else {
-                    return -3465;
-                }
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree3(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
-        if (drop_rate <= 1) {
-            if (is_new <= 0) {
-                if (hop_count <= 3) {
-                    return 1075;
-                } else {
-                    if (etx <= 257) {
-                        if (parent_ppm <= 876) {
-                            return 898;
-                        } else {
-                            return -1840;
-                        }
-                    } else {
-                        if (p_cpu <= 18) {
-                            return 478;
-                        } else {
-                            return -1590;
-                        }
-                    }
-                }
-            } else {
-                if (hop_count <= 3) {
-                    if (etx <= 324) {
-                        if (hop_count <= 1) {
-                            return 1112;
-                        } else {
-                            return 608;
-                        }
-                    } else {
-                        return -689;
-                    }
-                } else {
-                    if (p_cpu <= 21) {
-                        if (etx <= 335) {
-                            if (cpu <= 19) {
-                                return 239;
-                            } else {
-                                return -1534;
-                            }
-                        } else {
-                            return -2799;
-                        }
-                    } else {
-                        return -2031;
-                    }
-                }
-            }
-        } else {
-            if (hop_count <= 2) {
-                return 555;
-            } else {
-                if (is_new <= 0) {
-                    return -1726;
-                } else {
-                    return -2822;
+                    return -2261;
                 }
             }
         }
     } else {
-        if (p_cpu <= 14) {
+        if (p_cpu <= 32) {
             if (is_new <= 0) {
-                if (parent_ppm <= 393) {
-                    if (etx <= 250) {
-                        if (hop_count <= 7) {
-                            return 822;
+                if (drop_rate <= 2) {
+                    if (etx <= 247) {
+                        if (parent_ppm <= 600) {
+                            return 53;
                         } else {
-                            return -494;
+                            return -1209;
                         }
                     } else {
-                        if (parent_ppm <= 69) {
-                            return 738;
+                        return -993;
+                    }
+                } else {
+                    return -1649;
+                }
+            } else {
+                if (drop_rate <= 1) {
+                    if (etx <= 280) {
+                        return -1664;
+                    } else {
+                        return -2532;
+                    }
+                } else {
+                    return -2813;
+                }
+            }
+        } else {
+            if (drop_rate <= 1) {
+                if (p_cpu <= 46) {
+                    if (parent_ppm <= 183) {
+                        return -2760;
+                    } else {
+                        if (is_new <= 0) {
+                            if (etx <= 261) {
+                                return -1228;
+                            } else {
+                                return -2394;
+                            }
                         } else {
                             return -2120;
                         }
                     }
                 } else {
-                    return -1933;
-                }
-            } else {
-                if (drop_rate <= 1) {
-                    if (parent_ppm <= 57) {
-                        return 465;
+                    if (parent_ppm <= 148) {
+                        return -3447;
                     } else {
-                        return -1772;
-                    }
-                } else {
-                    return -3181;
-                }
-            }
-        } else {
-            if (drop_rate <= 0) {
-                if (hop_count <= 6) {
-                    if (p_cpu <= 21) {
-                        return -442;
-                    } else {
-                        if (etx <= 182) {
-                            return -808;
+                        if (parent_ppm <= 715) {
+                            return -2387;
                         } else {
-                            return -2285;
+                            return -2986;
                         }
-                    }
-                } else {
-                    if (parent_ppm <= 716) {
-                        if (p_cpu <= 68) {
-                            if (etx <= 181) {
-                                return -1748;
-                            } else {
-                                return -2412;
-                            }
-                        } else {
-                            return -2773;
-                        }
-                    } else {
-                        return -2878;
                     }
                 }
             } else {
-                return -3121;
+                if (cpu <= 33) {
+                    if (parent_ppm <= 156) {
+                        return -3691;
+                    } else {
+                        if (p_cpu <= 40) {
+                            return -2305;
+                        } else {
+                            return -2944;
+                        }
+                    }
+                } else {
+                    return -3335;
+                }
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree4(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (parent_drop_rate <= 0) {
-        if (drop_rate <= 1) {
-            if (p_cpu <= 46) {
-                if (etx <= 303) {
-                    if (p_cpu <= 19) {
-                        if (etx <= 218) {
-                            return 970;
-                        } else {
-                            if (rssi <= -56) {
-                                return 840;
-                            } else {
-                                return 290;
-                            }
-                        }
-                    } else {
-                        if (rssi <= -78) {
-                            return 817;
-                        } else {
-                            if (etx <= 216) {
-                                return 631;
-                            } else {
-                                return -110;
-                            }
-                        }
-                    }
-                } else {
-                    if (p_cpu <= 7) {
-                        return 573;
-                    } else {
-                        if (rssi <= -80) {
-                            if (etx <= 345) {
-                                return 404;
-                            } else {
-                                return -980;
-                            }
-                        } else {
-                            return -1493;
-                        }
-                    }
-                }
-            } else {
-                if (p_cpu <= 67) {
-                    if (etx <= 267) {
-                        if (ppm <= 302) {
-                            return 130;
-                        } else {
-                            return -1712;
-                        }
-                    } else {
-                        return -1904;
-                    }
-                } else {
-                    if (parent_ppm <= 406) {
-                        return -2736;
-                    } else {
-                        return -398;
-                    }
-                }
-            }
-        } else {
-            if (p_cpu <= 3) {
-                return 508;
-            } else {
-                if (parent_ppm <= 415) {
-                    if (etx <= 219) {
-                        return -1821;
-                    } else {
-                        return -2864;
-                    }
-                } else {
-                    return -1035;
-                }
-            }
-        }
-    } else {
-        if (p_cpu <= 14) {
-            if (etx <= 254) {
-                if (drop_rate <= 1) {
-                    if (p_cpu <= 5) {
-                        return 501;
-                    } else {
-                        return -593;
-                    }
-                } else {
-                    return -1460;
-                }
-            } else {
-                return -1657;
-            }
-        } else {
-            if (drop_rate <= 0) {
-                if (p_cpu <= 42) {
-                    if (etx <= 313) {
-                        if (rssi <= -65) {
-                            return -1431;
-                        } else {
-                            return -1930;
-                        }
-                    } else {
-                        return -2356;
-                    }
-                } else {
-                    if (parent_ppm <= 697) {
-                        if (ppm <= 143) {
-                            if (ppm <= 15) {
-                                return -2733;
-                            } else {
-                                return -1913;
-                            }
-                        } else {
-                            return -2452;
-                        }
-                    } else {
-                        return -2559;
-                    }
-                }
-            } else {
-                return -2700;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree5(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+static int32_t mlof_predict_pdr_lgbm_tree3(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
     if (hop_count <= 5) {
-        if (drop_rate <= 1) {
-            if (hop_count <= 4) {
-                if (etx <= 335) {
-                    if (hop_count <= 2) {
-                        return 906;
-                    } else {
-                        if (etx <= 253) {
-                            return 780;
-                        } else {
-                            if (rssi <= -70) {
-                                return 530;
-                            } else {
-                                return -667;
-                            }
-                        }
-                    }
-                } else {
-                    if (hop_count <= 2) {
-                        return 666;
-                    } else {
-                        if (etx <= 397) {
-                            return -351;
-                        } else {
-                            return -1777;
-                        }
-                    }
-                }
-            } else {
-                if (p_cpu <= 23) {
-                    if (ppm <= 88) {
-                        return 592;
-                    } else {
-                        return -628;
-                    }
-                } else {
-                    if (etx <= 188) {
-                        return 96;
-                    } else {
-                        return -1852;
-                    }
-                }
-            }
-        } else {
-            if (hop_count <= 2) {
-                return 554;
-            } else {
-                if (hop_count <= 4) {
-                    if (cpu <= 15) {
-                        if (etx <= 289) {
-                            return -176;
-                        } else {
-                            return -1987;
-                        }
-                    } else {
-                        return -2198;
-                    }
-                } else {
-                    return -2574;
-                }
-            }
-        }
-    } else {
-        if (p_cpu <= 16) {
-            if (ppm <= 118) {
-                if (hop_count <= 7) {
-                    if (etx <= 254) {
-                        if (parent_ppm <= 498) {
-                            return 614;
-                        } else {
-                            return -1756;
-                        }
-                    } else {
-                        if (parent_ppm <= 63) {
-                            return 621;
-                        } else {
-                            return -1752;
-                        }
-                    }
-                } else {
-                    return -1313;
-                }
-            } else {
-                if (etx <= 184) {
-                    return -702;
-                } else {
-                    return -2258;
-                }
-            }
-        } else {
-            if (ppm <= 131) {
-                if (hop_count <= 6) {
-                    if (etx <= 291) {
-                        if (parent_ppm <= 368) {
-                            return -98;
-                        } else {
-                            return -1414;
-                        }
-                    } else {
-                        return -2230;
-                    }
-                } else {
-                    if (parent_ppm <= 562) {
-                        if (etx <= 234) {
-                            if (p_cpu <= 84) {
-                                return -1371;
-                            } else {
-                                return -2408;
-                            }
-                        } else {
-                            return -2047;
-                        }
-                    } else {
-                        return -2222;
-                    }
-                }
-            } else {
-                return -2401;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree6(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
-        if (is_new <= 0) {
-            if (hop_count <= 3) {
-                return 802;
-            } else {
-                if (ppm <= 454) {
-                    if (etx <= 228) {
-                        return 689;
-                    } else {
-                        if (p_cpu <= 20) {
-                            return 371;
-                        } else {
-                            if (hop_count <= 4) {
-                                return -195;
-                            } else {
-                                return -1629;
-                            }
-                        }
-                    }
-                } else {
-                    return -1790;
-                }
-            }
-        } else {
-            if (hop_count <= 3) {
-                if (hop_count <= 2) {
-                    if (etx <= 454) {
-                        if (hop_count <= 1) {
-                            return 812;
-                        } else {
-                            if (ppm <= 454) {
-                                return 544;
-                            } else {
-                                return -516;
-                            }
-                        }
-                    } else {
-                        return -2003;
-                    }
-                } else {
-                    if (ppm <= 185) {
-                        if (etx <= 222) {
-                            return 643;
-                        } else {
-                            if (rssi <= -70) {
-                                return 115;
-                            } else {
-                                return -1248;
-                            }
-                        }
-                    } else {
-                        return -1395;
-                    }
-                }
-            } else {
-                if (ppm <= 56) {
-                    if (etx <= 223) {
-                        return 427;
-                    } else {
-                        return -710;
-                    }
-                } else {
-                    if (cpu <= 19) {
-                        if (ppm <= 394) {
-                            return -909;
-                        } else {
-                            return -1922;
-                        }
-                    } else {
-                        return -2369;
-                    }
-                }
-            }
-        }
-    } else {
-        if (p_cpu <= 13) {
-            if (ppm <= 114) {
-                if (hop_count <= 8) {
-                    if (parent_drop_rate <= 7) {
-                        if (rssi <= -49) {
-                            if (etx <= 266) {
-                                return 589;
-                            } else {
-                                return -720;
-                            }
-                        } else {
-                            return -2734;
-                        }
-                    } else {
-                        return -1749;
-                    }
-                } else {
-                    return -1563;
-                }
-            } else {
-                return -1881;
-            }
-        } else {
-            if (ppm <= 173) {
-                if (parent_drop_rate <= 2) {
-                    if (is_new <= 0) {
-                        if (etx <= 292) {
-                            if (hop_count <= 6) {
-                                return 432;
-                            } else {
-                                return -775;
-                            }
-                        } else {
-                            return -2520;
-                        }
-                    } else {
-                        return -1876;
-                    }
-                } else {
-                    return -1812;
-                }
-            } else {
-                return -2193;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree7(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (parent_drop_rate <= 0) {
-        if (is_new <= 0) {
-            if (etx <= 272) {
-                if (p_cpu <= 67) {
-                    return 696;
-                } else {
-                    return -1632;
-                }
-            } else {
-                if (rssi <= -67) {
-                    if (p_cpu <= 10) {
-                        return 595;
-                    } else {
-                        return 115;
-                    }
-                } else {
-                    if (p_cpu <= 13) {
-                        return -15;
-                    } else {
-                        return -1312;
-                    }
-                }
-            }
-        } else {
-            if (p_cpu <= 12) {
-                if (etx <= 268) {
-                    if (p_cpu <= 3) {
-                        return 619;
-                    } else {
-                        if (cpu <= 31) {
-                            return 405;
-                        } else {
-                            return -441;
-                        }
-                    }
-                } else {
-                    if (p_cpu <= 4) {
-                        return 156;
-                    } else {
-                        if (rssi <= -81) {
-                            if (etx <= 328) {
-                                return 214;
-                            } else {
-                                return -2005;
-                            }
-                        } else {
-                            return -1755;
-                        }
-                    }
-                }
-            } else {
-                if (ppm <= 79) {
-                    if (p_cpu <= 41) {
-                        if (etx <= 216) {
-                            return 288;
-                        } else {
-                            if (rssi <= -61) {
-                                return -328;
-                            } else {
-                                return -1908;
-                            }
-                        }
-                    } else {
-                        return -1537;
-                    }
-                } else {
-                    if (etx <= 218) {
-                        if (p_cpu <= 41) {
-                            return -511;
-                        } else {
-                            return -1930;
-                        }
-                    } else {
-                        return -1864;
-                    }
-                }
-            }
-        }
-    } else {
-        if (p_cpu <= 24) {
+        if (p_cpu <= 31) {
             if (is_new <= 0) {
-                if (p_cpu <= 7) {
-                    return 220;
-                } else {
-                    return -772;
-                }
-            } else {
-                if (ppm <= 185) {
-                    return -1029;
-                } else {
-                    if (p_cpu <= 3) {
-                        return -460;
-                    } else {
-                        return -1712;
-                    }
-                }
-            }
-        } else {
-            if (ppm <= 335) {
-                if (cpu <= 14) {
-                    if (parent_ppm <= 689) {
-                        if (ppm <= 15) {
-                            return -2014;
-                        } else {
-                            if (etx <= 182) {
-                                return -663;
-                            } else {
-                                return -1346;
-                            }
-                        }
-                    } else {
-                        return -1777;
-                    }
-                } else {
-                    return -1813;
-                }
-            } else {
-                return -1944;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree8(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
-        if (drop_rate <= 1) {
-            if (hop_count <= 4) {
-                if (etx <= 324) {
-                    if (hop_count <= 2) {
-                        return 675;
-                    } else {
-                        if (is_new <= 0) {
-                            return 583;
-                        } else {
-                            if (cpu <= 13) {
-                                return 346;
-                            } else {
-                                return -729;
-                            }
-                        }
-                    }
-                } else {
-                    if (is_new <= 0) {
-                        return 366;
-                    } else {
-                        if (hop_count <= 1) {
-                            return 1002;
-                        } else {
-                            return -981;
-                        }
-                    }
-                }
-            } else {
-                if (is_new <= 0) {
-                    if (p_cpu <= 30) {
-                        return 435;
-                    } else {
-                        if (rssi <= -42) {
-                            if (parent_ppm <= 244) {
-                                return -289;
-                            } else {
-                                return -1988;
-                            }
-                        } else {
-                            return 2091;
-                        }
-                    }
-                } else {
-                    if (etx <= 199) {
-                        return -194;
-                    } else {
-                        return -1466;
-                    }
-                }
-            }
-        } else {
-            if (hop_count <= 2) {
-                return 424;
-            } else {
-                if (parent_ppm <= 393) {
-                    return -1986;
-                } else {
-                    if (hop_count <= 3) {
-                        return 278;
-                    } else {
-                        return -1432;
-                    }
-                }
-            }
-        }
-    } else {
-        if (p_cpu <= 13) {
-            if (drop_rate <= 1) {
-                if (etx <= 240) {
-                    if (rssi <= -57) {
-                        if (hop_count <= 9) {
-                            return 358;
-                        } else {
-                            return -1348;
-                        }
-                    } else {
-                        return -968;
-                    }
-                } else {
-                    if (parent_ppm <= 63) {
-                        return 145;
-                    } else {
-                        return -1490;
-                    }
-                }
-            } else {
-                return -2183;
-            }
-        } else {
-            if (drop_rate <= 0) {
-                if (cpu <= 14) {
-                    if (hop_count <= 6) {
-                        if (etx <= 201) {
-                            if (is_new <= 0) {
-                                return 457;
-                            } else {
-                                return -1393;
-                            }
-                        } else {
-                            return -1258;
-                        }
-                    } else {
-                        if (parent_ppm <= 583) {
-                            if (is_new <= 0) {
-                                return -1091;
-                            } else {
-                                return -1483;
-                            }
-                        } else {
-                            return -1648;
-                        }
-                    }
-                } else {
-                    return -1720;
-                }
-            } else {
-                return -1901;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree9(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
-        if (drop_rate <= 1) {
-            if (hop_count <= 4) {
-                if (etx <= 399) {
-                    if (hop_count <= 2) {
-                        if (ppm <= 4) {
-                            return 342;
-                        } else {
-                            return 621;
-                        }
-                    } else {
-                        if (etx <= 253) {
-                            if (parent_ppm <= 57) {
-                                return 351;
-                            } else {
-                                return 585;
-                            }
-                        } else {
-                            if (rssi <= -70) {
-                                return 277;
-                            } else {
-                                return -504;
-                            }
-                        }
-                    }
-                } else {
-                    if (hop_count <= 2) {
-                        return 195;
-                    } else {
-                        return -1254;
-                    }
-                }
-            } else {
-                if (ppm <= 54) {
-                    if (rssi <= -49) {
-                        return 405;
-                    } else {
-                        return -1469;
-                    }
-                } else {
-                    if (etx <= 218) {
-                        if (rssi <= -58) {
-                            return 294;
-                        } else {
-                            return -940;
-                        }
-                    } else {
-                        if (cpu <= 17) {
-                            return -802;
-                        } else {
-                            return -2152;
-                        }
-                    }
-                }
-            }
-        } else {
-            if (hop_count <= 2) {
-                return 423;
-            } else {
-                if (hop_count <= 4) {
-                    if (parent_ppm <= 360) {
-                        return -1542;
-                    } else {
-                        return -399;
-                    }
-                } else {
-                    return -1814;
-                }
-            }
-        }
-    } else {
-        if (ppm <= 89) {
-            if (hop_count <= 6) {
-                if (etx <= 254) {
-                    if (parent_drop_rate <= 0) {
-                        if (rssi <= -93) {
-                            return -3365;
-                        } else {
-                            return 519;
-                        }
-                    } else {
-                        return -412;
-                    }
-                } else {
-                    return -866;
-                }
-            } else {
-                if (parent_ppm <= 81) {
-                    return 242;
-                } else {
-                    if (etx <= 202) {
-                        if (parent_drop_rate <= 0) {
-                            return -34;
-                        } else {
-                            return -1083;
-                        }
-                    } else {
-                        if (rssi <= -66) {
-                            return -1160;
-                        } else {
-                            return -1529;
-                        }
-                    }
-                }
-            }
-        } else {
-            if (ppm <= 329) {
-                if (etx <= 214) {
-                    if (parent_ppm <= 860) {
-                        return -1005;
-                    } else {
-                        return -1881;
-                    }
-                } else {
-                    return -1516;
-                }
-            } else {
-                return -1662;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree10(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
-        if (is_new <= 0) {
-            if (hop_count <= 3) {
-                return 538;
-            } else {
-                if (etx <= 301) {
-                    if (p_cpu <= 23) {
-                        return 451;
-                    } else {
-                        if (etx <= 197) {
-                            if (parent_ppm <= 817) {
-                                return 413;
-                            } else {
-                                return -2286;
-                            }
-                        } else {
-                            if (rssi <= -61) {
-                                return -138;
-                            } else {
-                                return -1805;
-                            }
-                        }
-                    }
-                } else {
-                    return -916;
-                }
-            }
-        } else {
-            if (hop_count <= 3) {
-                if (hop_count <= 1) {
-                    return 574;
-                } else {
-                    if (etx <= 275) {
-                        if (cpu <= 21) {
-                            return 405;
-                        } else {
-                            return -159;
-                        }
-                    } else {
-                        if (rssi <= -62) {
-                            return -371;
-                        } else {
-                            return -1876;
-                        }
-                    }
-                }
-            } else {
-                if (cpu <= 8) {
-                    if (etx <= 208) {
-                        return 271;
-                    } else {
-                        if (p_cpu <= 5) {
-                            return 188;
-                        } else {
-                            return -996;
-                        }
-                    }
-                } else {
-                    return -1431;
-                }
-            }
-        }
-    } else {
-        if (p_cpu <= 13) {
-            if (parent_drop_rate <= 1) {
-                if (is_new <= 0) {
-                    return 324;
-                } else {
-                    if (etx <= 196) {
-                        return 94;
-                    } else {
-                        return -1279;
-                    }
-                }
-            } else {
-                if (parent_drop_rate <= 12) {
-                    return -747;
-                } else {
-                    return -1675;
-                }
-            }
-        } else {
-            if (cpu <= 14) {
-                if (parent_drop_rate <= 2) {
-                    if (is_new <= 0) {
-                        if (rssi <= -50) {
-                            if (etx <= 291) {
-                                return -181;
-                            } else {
-                                return -1314;
-                            }
-                        } else {
-                            return -1504;
-                        }
-                    } else {
-                        if (parent_ppm <= 206) {
-                            return -1837;
-                        } else {
-                            return -863;
-                        }
-                    }
-                } else {
-                    if (parent_drop_rate <= 30) {
-                        if (etx <= 253) {
-                            if (parent_ppm <= 509) {
-                                return -864;
-                            } else {
-                                return -1263;
-                            }
-                        } else {
-                            return -1371;
-                        }
-                    } else {
-                        return -1566;
-                    }
-                }
-            } else {
-                return -1482;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree11(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
-        if (drop_rate <= 1) {
-            if (hop_count <= 4) {
-                if (is_new <= 0) {
-                    return 471;
-                } else {
-                    if (hop_count <= 2) {
-                        return 449;
-                    } else {
-                        if (rssi <= -67) {
-                            return 174;
-                        } else {
-                            if (cpu <= 7) {
-                                return -166;
-                            } else {
-                                return -1121;
-                            }
-                        }
-                    }
-                }
-            } else {
-                if (is_new <= 0) {
-                    if (parent_drop_rate <= 3) {
-                        return 330;
-                    } else {
-                        if (rssi <= -42) {
-                            return -1143;
-                        } else {
-                            return 1783;
-                        }
-                    }
-                } else {
-                    if (p_cpu <= 24) {
-                        if (rssi <= -45) {
-                            return -355;
-                        } else {
-                            return -2547;
-                        }
-                    } else {
-                        if (parent_ppm <= 275) {
-                            return -2003;
-                        } else {
-                            return -819;
-                        }
-                    }
-                }
-            }
-        } else {
-            if (hop_count <= 2) {
-                if (is_new <= 0) {
-                    return 738;
-                } else {
-                    if (hop_count <= 1) {
-                        return 362;
-                    } else {
-                        if (parent_ppm <= 169) {
-                            return -2223;
-                        } else {
-                            return -44;
-                        }
-                    }
-                }
-            } else {
-                if (parent_ppm <= 309) {
-                    return -1579;
-                } else {
-                    if (hop_count <= 3) {
-                        if (rssi <= -51) {
-                            return 486;
-                        } else {
-                            return -1946;
-                        }
-                    } else {
-                        return -1127;
-                    }
-                }
-            }
-        }
-    } else {
-        if (p_cpu <= 15) {
-            if (parent_drop_rate <= 1) {
-                if (is_new <= 0) {
-                    return 309;
-                } else {
-                    if (hop_count <= 7) {
-                        return -335;
-                    } else {
-                        return -1662;
-                    }
-                }
-            } else {
-                return -1061;
-            }
-        } else {
-            if (drop_rate <= 2) {
-                if (p_cpu <= 59) {
-                    if (cpu <= 14) {
-                        if (hop_count <= 6) {
-                            if (cpu <= 1) {
-                                return 149;
-                            } else {
-                                return -765;
-                            }
-                        } else {
-                            if (parent_ppm <= 568) {
-                                return -814;
-                            } else {
-                                return -1201;
-                            }
-                        }
-                    } else {
-                        return -1183;
-                    }
-                } else {
-                    return -1228;
-                }
-            } else {
-                return -1397;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree12(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
-        if (drop_rate <= 1) {
-            if (hop_count <= 3) {
-                if (ppm <= 4) {
-                    if (is_new <= 0) {
-                        return 206;
-                    } else {
-                        return -539;
-                    }
-                } else {
-                    return 434;
-                }
-            } else {
-                if (is_new <= 0) {
-                    if (p_cpu <= 23) {
-                        return 352;
-                    } else {
-                        if (ppm <= 35) {
-                            return 384;
-                        } else {
-                            if (rssi <= -42) {
-                                return -410;
-                            } else {
-                                return 1644;
-                            }
-                        }
-                    }
-                } else {
-                    if (cpu <= 19) {
-                        if (p_cpu <= 24) {
-                            if (rssi <= -45) {
-                                return 117;
-                            } else {
-                                return -1709;
-                            }
-                        } else {
-                            return -789;
-                        }
-                    } else {
-                        if (ppm <= 21) {
-                            return 1179;
-                        } else {
-                            return -1365;
-                        }
-                    }
-                }
-            }
-        } else {
-            if (hop_count <= 2) {
-                if (is_new <= 0) {
-                    return 732;
-                } else {
-                    return -159;
-                }
-            } else {
-                if (ppm <= 387) {
-                    return -163;
-                } else {
-                    if (hop_count <= 3) {
-                        if (parent_ppm <= 504) {
-                            return -1005;
-                        } else {
-                            return 1058;
-                        }
-                    } else {
-                        return -1304;
-                    }
-                }
-            }
-        }
-    } else {
-        if (ppm <= 131) {
-            if (p_cpu <= 15) {
-                if (hop_count <= 7) {
-                    if (rssi <= -55) {
-                        return 335;
-                    } else {
-                        return -1019;
-                    }
-                } else {
-                    return -628;
-                }
-            } else {
-                if (hop_count <= 6) {
-                    if (is_new <= 0) {
-                        if (ppm <= 43) {
-                            return 730;
-                        } else {
-                            return -474;
-                        }
-                    } else {
-                        if (parent_ppm <= 225) {
-                            return -1653;
-                        } else {
-                            return -477;
-                        }
-                    }
-                } else {
-                    if (rssi <= -66) {
-                        return -775;
-                    } else {
-                        if (rssi <= -63) {
-                            return -1499;
-                        } else {
-                            return -939;
-                        }
-                    }
-                }
-            }
-        } else {
-            if (parent_ppm <= 227) {
-                return -1522;
-            } else {
-                if (drop_rate <= 0) {
-                    return -1032;
-                } else {
-                    return -1241;
-                }
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree13(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
-        if (hop_count <= 4) {
-            if (etx <= 299) {
                 if (hop_count <= 3) {
-                    if (parent_drop_rate <= 2) {
-                        if (ppm <= 4) {
-                            return 165;
-                        } else {
+                    return 1109;
+                } else {
+                    if (etx <= 249) {
+                        return 970;
+                    } else {
+                        if (cpu <= 49) {
                             return 391;
-                        }
-                    } else {
-                        return 773;
-                    }
-                } else {
-                    if (ppm <= 156) {
-                        if (etx <= 231) {
-                            return 372;
                         } else {
-                            return -27;
-                        }
-                    } else {
-                        if (rssi <= -71) {
-                            return 293;
-                        } else {
-                            if (etx <= 200) {
-                                return -56;
-                            } else {
-                                return -1142;
-                            }
-                        }
-                    }
-                }
-            } else {
-                if (hop_count <= 2) {
-                    return 289;
-                } else {
-                    if (ppm <= 185) {
-                        if (rssi <= -69) {
-                            return 17;
-                        } else {
-                            return -969;
-                        }
-                    } else {
-                        if (parent_ppm <= 196) {
-                            return -2008;
-                        } else {
-                            return -627;
-                        }
-                    }
-                }
-            }
-        } else {
-            if (ppm <= 88) {
-                if (p_cpu <= 23) {
-                    return 300;
-                } else {
-                    return -420;
-                }
-            } else {
-                if (ppm <= 514) {
-                    if (cpu <= 19) {
-                        return -269;
-                    } else {
-                        if (etx <= 196) {
-                            return 35;
-                        } else {
-                            return -1532;
-                        }
-                    }
-                } else {
-                    return -1272;
-                }
-            }
-        }
-    } else {
-        if (ppm <= 48) {
-            if (parent_drop_rate <= 0) {
-                if (etx <= 252) {
-                    if (hop_count <= 9) {
-                        return 473;
-                    } else {
-                        return -756;
-                    }
-                } else {
-                    return -793;
-                }
-            } else {
-                if (ppm <= 17) {
-                    if (p_cpu <= 55) {
-                        return -787;
-                    } else {
-                        return -1481;
-                    }
-                } else {
-                    return -537;
-                }
-            }
-        } else {
-            if (etx <= 183) {
-                if (p_cpu <= 16) {
-                    return 98;
-                } else {
-                    if (parent_ppm <= 876) {
-                        return -688;
-                    } else {
-                        return -1249;
-                    }
-                }
-            } else {
-                if (cpu <= 14) {
-                    if (parent_drop_rate <= 10) {
-                        return -815;
-                    } else {
-                        return -1081;
-                    }
-                } else {
-                    return -1148;
-                }
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree14(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 4) {
-        if (etx <= 394) {
-            if (drop_rate <= 1) {
-                if (etx <= 217) {
-                    return 366;
-                } else {
-                    if (hop_count <= 2) {
-                        return 340;
-                    } else {
-                        if (is_new <= 0) {
-                            return 208;
-                        } else {
-                            if (rssi <= -70) {
-                                return -60;
-                            } else {
-                                return -913;
-                            }
-                        }
-                    }
-                }
-            } else {
-                if (is_new <= 0) {
-                    if (hop_count <= 3) {
-                        return 633;
-                    } else {
-                        return -521;
-                    }
-                } else {
-                    if (hop_count <= 1) {
-                        return 268;
-                    } else {
-                        if (parent_ppm <= 159) {
-                            return -1619;
-                        } else {
-                            return -501;
-                        }
-                    }
-                }
-            }
-        } else {
-            if (hop_count <= 2) {
-                return 8;
-            } else {
-                return -1198;
-            }
-        }
-    } else {
-        if (parent_drop_rate <= 2) {
-            if (is_new <= 0) {
-                if (rssi <= -50) {
-                    if (etx <= 294) {
-                        if (hop_count <= 8) {
-                            if (drop_rate <= 4) {
-                                return 304;
-                            } else {
-                                return -920;
-                            }
-                        } else {
-                            if (parent_ppm <= 290) {
-                                return -1092;
-                            } else {
-                                return 395;
-                            }
-                        }
-                    } else {
-                        if (rssi <= -73) {
-                            return -573;
-                        } else {
-                            return -1663;
-                        }
-                    }
-                } else {
-                    if (etx <= 183) {
-                        return -154;
-                    } else {
-                        return -1601;
-                    }
-                }
-            } else {
-                if (parent_ppm <= 309) {
-                    if (parent_ppm <= 38) {
-                        return 228;
-                    } else {
-                        if (etx <= 193) {
-                            return -630;
-                        } else {
-                            return -1184;
-                        }
-                    }
-                } else {
-                    if (hop_count <= 29) {
-                        return -636;
-                    } else {
-                        return 1500;
-                    }
-                }
-            }
-        } else {
-            if (drop_rate <= 0) {
-                if (rssi <= -66) {
-                    if (etx <= 254) {
-                        if (parent_ppm <= 509) {
-                            if (parent_drop_rate <= 31) {
-                                return -194;
-                            } else {
-                                return -1385;
-                            }
-                        } else {
-                            return -716;
-                        }
-                    } else {
-                        return -875;
-                    }
-                } else {
-                    return -896;
-                }
-            } else {
-                return -1069;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree15(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
-        if (drop_rate <= 1) {
-            if (hop_count <= 4) {
-                if (is_new <= 0) {
-                    if (parent_ppm <= 81) {
-                        if (hop_count <= 1) {
-                            return 344;
-                        } else {
-                            return 203;
-                        }
-                    } else {
-                        return 349;
-                    }
-                } else {
-                    if (hop_count <= 2) {
-                        return 285;
-                    } else {
-                        if (cpu <= 7) {
-                            if (cpu <= 0) {
-                                return 723;
-                            } else {
-                                return 7;
-                            }
-                        } else {
-                            if (p_cpu <= 4) {
-                                return 143;
-                            } else {
-                                return -862;
-                            }
-                        }
-                    }
-                }
-            } else {
-                if (p_cpu <= 18) {
-                    if (parent_drop_rate <= 23) {
-                        if (rssi <= -57) {
-                            return 285;
-                        } else {
-                            return -361;
-                        }
-                    } else {
-                        return -1515;
-                    }
-                } else {
-                    return -596;
-                }
-            }
-        } else {
-            if (hop_count <= 2) {
-                if (is_new <= 0) {
-                    return 503;
-                } else {
-                    return -211;
-                }
-            } else {
-                if (parent_ppm <= 471) {
-                    return -1029;
-                } else {
-                    if (cpu <= 30) {
-                        return 138;
-                    } else {
-                        return -851;
-                    }
-                }
-            }
-        }
-    } else {
-        if (parent_drop_rate <= 2) {
-            if (is_new <= 0) {
-                if (p_cpu <= 59) {
-                    if (rssi <= -50) {
-                        if (cpu <= 1) {
-                            return 351;
-                        } else {
-                            if (hop_count <= 7) {
-                                return 116;
-                            } else {
-                                return -456;
-                            }
-                        }
-                    } else {
-                        return -914;
-                    }
-                } else {
-                    return -1094;
-                }
-            } else {
-                if (parent_ppm <= 247) {
-                    if (p_cpu <= 6) {
-                        if (cpu <= 8) {
-                            return 631;
-                        } else {
-                            return -1207;
-                        }
-                    } else {
-                        return -1093;
-                    }
-                } else {
-                    return -576;
-                }
-            }
-        } else {
-            if (drop_rate <= 0) {
-                if (rssi <= -66) {
-                    if (p_cpu <= 71) {
-                        if (hop_count <= 21) {
-                            return -588;
-                        } else {
-                            return 443;
-                        }
-                    } else {
-                        return -861;
-                    }
-                } else {
-                    return -828;
-                }
-            } else {
-                return -968;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree16(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
-        if (drop_rate <= 1) {
-            if (etx <= 272) {
-                if (hop_count <= 3) {
-                    return 290;
-                } else {
-                    if (etx <= 206) {
-                        return 289;
-                    } else {
-                        if (ppm <= 160) {
-                            if (rssi <= -43) {
-                                return 68;
-                            } else {
-                                return -2489;
-                            }
-                        } else {
-                            return -666;
+                            return -2440;
                         }
                     }
                 }
             } else {
                 if (hop_count <= 3) {
-                    if (hop_count <= 1) {
-                        return 451;
+                    if (p_cpu <= 3) {
+                        return 1055;
                     } else {
-                        if (rssi <= -70) {
-                            return 136;
-                        } else {
-                            if (is_new <= 0) {
-                                return -171;
-                            } else {
-                                return -1358;
-                            }
-                        }
-                    }
-                } else {
-                    if (ppm <= 62) {
-                        return -154;
-                    } else {
-                        if (parent_ppm <= 372) {
-                            return -1252;
-                        } else {
-                            return -393;
-                        }
-                    }
-                }
-            }
-        } else {
-            if (hop_count <= 1) {
-                return 387;
-            } else {
-                if (is_new <= 0) {
-                    if (parent_ppm <= 393) {
-                        if (etx <= 293) {
-                            return -352;
-                        } else {
-                            return -2025;
-                        }
-                    } else {
-                        return 342;
-                    }
-                } else {
-                    return -857;
-                }
-            }
-        }
-    } else {
-        if (ppm <= 54) {
-            if (parent_drop_rate <= 0) {
-                if (etx <= 202) {
-                    return 508;
-                } else {
-                    if (ppm <= 36) {
-                        return 43;
-                    } else {
-                        return -802;
-                    }
-                }
-            } else {
-                if (ppm <= 17) {
-                    return -782;
-                } else {
-                    if (parent_ppm <= 779) {
-                        if (etx <= 330) {
-                            return -136;
-                        } else {
-                            return -786;
-                        }
-                    } else {
-                        return -845;
-                    }
-                }
-            }
-        } else {
-            if (etx <= 183) {
-                if (parent_ppm <= 791) {
-                    if (ppm <= 302) {
-                        if (hop_count <= 8) {
-                            return 308;
-                        } else {
-                            return -369;
-                        }
-                    } else {
-                        return -655;
-                    }
-                } else {
-                    return -945;
-                }
-            } else {
-                if (parent_ppm <= 225) {
-                    return -1052;
-                } else {
-                    if (parent_drop_rate <= 10) {
-                        return -606;
-                    } else {
-                        return -853;
-                    }
-                }
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree17(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (parent_drop_rate <= 0) {
-        if (drop_rate <= 1) {
-            if (etx <= 272) {
-                if (p_cpu <= 63) {
-                    if (is_new <= 0) {
-                        if (parent_ppm <= 58) {
-                            if (p_cpu <= 1) {
-                                return 296;
-                            } else {
-                                return 140;
-                            }
-                        } else {
-                            return 288;
-                        }
-                    } else {
-                        if (p_cpu <= 24) {
-                            if (rssi <= -76) {
-                                return 296;
-                            } else {
-                                return 54;
-                            }
-                        } else {
-                            if (etx <= 261) {
-                                return -187;
-                            } else {
-                                return -1448;
-                            }
-                        }
-                    }
-                } else {
-                    return -876;
-                }
-            } else {
-                if (p_cpu <= 7) {
-                    return 139;
-                } else {
-                    if (is_new <= 0) {
-                        if (rssi <= -78) {
-                            return 46;
-                        } else {
-                            return -497;
-                        }
-                    } else {
-                        return -652;
-                    }
-                }
-            }
-        } else {
-            if (etx <= 219) {
-                if (is_new <= 0) {
-                    return 308;
-                } else {
-                    return -516;
-                }
-            } else {
-                return -893;
-            }
-        }
-    } else {
-        if (p_cpu <= 42) {
-            if (etx <= 254) {
-                if (p_cpu <= 12) {
-                    if (is_new <= 0) {
-                        return 361;
-                    } else {
-                        return -249;
-                    }
-                } else {
-                    if (parent_drop_rate <= 68) {
-                        if (rssi <= -89) {
-                            if (etx <= 170) {
-                                return 2362;
-                            } else {
-                                return 47;
-                            }
-                        } else {
-                            if (etx <= 213) {
-                                return -276;
-                            } else {
-                                return -549;
-                            }
-                        }
-                    } else {
-                        return 2932;
-                    }
-                }
-            } else {
-                if (rssi <= -65) {
-                    return -486;
-                } else {
-                    return -815;
-                }
-            }
-        } else {
-            if (rssi <= -79) {
-                if (p_cpu <= 68) {
-                    if (is_new <= 0) {
-                        if (parent_drop_rate <= 8) {
-                            if (p_cpu <= 46) {
-                                return 1829;
-                            } else {
-                                return 311;
-                            }
-                        } else {
-                            return -571;
-                        }
-                    } else {
-                        return -488;
-                    }
-                } else {
-                    return -667;
-                }
-            } else {
-                if (parent_ppm <= 268) {
-                    return -1023;
-                } else {
-                    return -671;
-                }
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree18(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
-        if (drop_rate <= 1) {
-            if (hop_count <= 3) {
-                if (ppm <= 4) {
-                    if (parent_ppm <= 119) {
-                        return 73;
-                    } else {
-                        return -1458;
-                    }
-                } else {
-                    if (parent_drop_rate <= 13) {
-                        return 237;
-                    } else {
-                        return 691;
-                    }
-                }
-            } else {
-                if (is_new <= 0) {
-                    if (ppm <= 19) {
-                        return 344;
-                    } else {
-                        if (parent_ppm <= 804) {
-                            return 103;
-                        } else {
-                            return -935;
-                        }
-                    }
-                } else {
-                    if (ppm <= 57) {
-                        if (rssi <= -44) {
-                            return 128;
-                        } else {
-                            return -1805;
-                        }
-                    } else {
-                        if (cpu <= 19) {
-                            return -334;
-                        } else {
-                            if (parent_ppm <= 229) {
-                                return -1719;
-                            } else {
-                                return -664;
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            if (hop_count <= 3) {
-                if (parent_drop_rate <= 5) {
-                    if (hop_count <= 1) {
-                        return 311;
-                    } else {
-                        if (parent_ppm <= 165) {
-                            return -1033;
-                        } else {
-                            return 16;
-                        }
-                    }
-                } else {
-                    return 641;
-                }
-            } else {
-                if (parent_ppm <= 465) {
-                    return -870;
-                } else {
-                    if (rssi <= -88) {
-                        return 1195;
-                    } else {
-                        return -432;
-                    }
-                }
-            }
-        }
-    } else {
-        if (ppm <= 48) {
-            if (is_new <= 0) {
-                if (hop_count <= 9) {
-                    if (rssi <= -49) {
-                        return 343;
-                    } else {
-                        return -791;
-                    }
-                } else {
-                    return -378;
-                }
-            } else {
-                if (ppm <= 15) {
-                    if (parent_ppm <= 48) {
-                        return 747;
-                    } else {
-                        return -787;
-                    }
-                } else {
-                    return -307;
-                }
-            }
-        } else {
-            if (cpu <= 19) {
-                if (hop_count <= 21) {
-                    if (parent_drop_rate <= 10) {
-                        if (ppm <= 329) {
-                            return -322;
-                        } else {
-                            return -596;
-                        }
-                    } else {
-                        if (rssi <= -59) {
-                            return -539;
-                        } else {
-                            return -826;
-                        }
-                    }
-                } else {
-                    return 152;
-                }
-            } else {
-                return -714;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree19(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
-        if (etx <= 326) {
-            if (hop_count <= 4) {
-                if (parent_drop_rate <= 9) {
-                    if (etx <= 193) {
-                        return 239;
-                    } else {
-                        if (rssi <= -69) {
-                            if (parent_ppm <= 59) {
-                                return 90;
-                            } else {
-                                return 245;
-                            }
+                        if (cpu <= 61) {
+                            return 646;
                         } else {
                             if (hop_count <= 2) {
-                                return 153;
+                                return -9;
                             } else {
-                                return -139;
+                                return -2090;
                             }
                         }
                     }
                 } else {
-                    if (parent_ppm <= 312) {
-                        return -138;
+                    if (p_cpu <= 11) {
+                        return 600;
                     } else {
-                        return 648;
+                        if (cpu <= 34) {
+                            return -893;
+                        } else {
+                            return -2496;
+                        }
                     }
-                }
-            } else {
-                if (ppm <= 79) {
-                    if (etx <= 196) {
-                        return 324;
-                    } else {
-                        return -29;
-                    }
-                } else {
-                    return -485;
                 }
             }
         } else {
-            if (hop_count <= 2) {
-                return 141;
+            if (hop_count <= 3) {
+                if (etx <= 342) {
+                    return 764;
+                } else {
+                    return -1112;
+                }
             } else {
-                if (rssi <= -84) {
-                    if (cpu <= 51) {
-                        return -51;
+                if (hop_count <= 4) {
+                    if (is_new <= 0) {
+                        return -245;
                     } else {
-                        return -1037;
+                        return -2060;
                     }
                 } else {
-                    if (parent_ppm <= 372) {
-                        return -1044;
-                    } else {
-                        if (ppm <= 669) {
-                            return 37;
-                        } else {
-                            return -1011;
-                        }
-                    }
+                    return -2321;
                 }
             }
         }
     } else {
-        if (ppm <= 120) {
-            if (hop_count <= 6) {
-                if (etx <= 313) {
-                    if (rssi <= -60) {
-                        return 258;
-                    } else {
-                        if (cpu <= 1) {
-                            return 370;
-                        } else {
-                            return -762;
-                        }
-                    }
+        if (p_cpu <= 17) {
+            if (parent_drop_rate <= 0) {
+                if (etx <= 279) {
+                    return 873;
                 } else {
-                    return -815;
+                    return -2069;
                 }
             } else {
-                if (etx <= 164) {
-                    if (parent_ppm <= 471) {
-                        return 439;
+                if (parent_drop_rate <= 3) {
+                    if (hop_count <= 9) {
+                        return -195;
                     } else {
-                        return -502;
+                        if (etx <= 214) {
+                            return -901;
+                        } else {
+                            return -3070;
+                        }
                     }
                 } else {
-                    if (rssi <= -48) {
-                        if (parent_ppm <= 746) {
-                            if (etx <= 274) {
-                                return -240;
-                            } else {
-                                return -575;
-                            }
-                        } else {
-                            return -651;
-                        }
-                    } else {
-                        if (parent_ppm <= 167) {
-                            return -2521;
-                        } else {
-                            return -692;
-                        }
-                    }
+                    return -2001;
                 }
             }
         } else {
-            if (parent_ppm <= 227) {
-                return -864;
-            } else {
-                if (parent_drop_rate <= 1) {
-                    if (parent_ppm <= 393) {
-                        return -479;
+            if (cpu <= 29) {
+                if (p_cpu <= 40) {
+                    if (etx <= 214) {
+                        if (parent_drop_rate <= 0) {
+                            if (hop_count <= 7) {
+                                return 170;
+                            } else {
+                                return -2329;
+                            }
+                        } else {
+                            return -1621;
+                        }
                     } else {
-                        return 0;
+                        if (etx <= 309) {
+                            return -2051;
+                        } else {
+                            return -2581;
+                        }
                     }
                 } else {
-                    return -610;
+                    if (cpu <= 1) {
+                        return -1795;
+                    } else {
+                        return -2522;
+                    }
+                }
+            } else {
+                if (cpu <= 55) {
+                    return -2633;
+                } else {
+                    return -2992;
                 }
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree20(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (parent_drop_rate <= 0) {
-        if (drop_rate <= 1) {
-            if (is_new <= 0) {
-                if (etx <= 239) {
-                    return 199;
-                } else {
-                    if (rssi <= -78) {
-                        return 147;
+static int32_t mlof_predict_pdr_lgbm_tree4(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (p_cpu <= 25) {
+        if (parent_drop_rate <= 0) {
+            if (cpu <= 59) {
+                if (etx <= 287) {
+                    if (drop_rate <= 2) {
+                        return 970;
                     } else {
-                        if (p_cpu <= 11) {
-                            return 52;
+                        if (p_cpu <= 13) {
+                            return 774;
                         } else {
-                            return -338;
+                            if (is_new <= 0) {
+                                return 463;
+                            } else {
+                                return -2027;
+                            }
                         }
+                    }
+                } else {
+                    if (drop_rate <= 0) {
+                        return 615;
+                    } else {
+                        return -1014;
+                    }
+                }
+            } else {
+                if (p_cpu <= 7) {
+                    return 686;
+                } else {
+                    if (is_new <= 0) {
+                        return 137;
+                    } else {
+                        return -1967;
+                    }
+                }
+            }
+        } else {
+            if (is_new <= 0) {
+                if (p_cpu <= 18) {
+                    if (p_cpu <= 12) {
+                        return 741;
+                    } else {
+                        return 164;
+                    }
+                } else {
+                    return -424;
+                }
+            } else {
+                if (p_cpu <= 11) {
+                    return 97;
+                } else {
+                    if (cpu <= 41) {
+                        if (p_cpu <= 16) {
+                            return -474;
+                        } else {
+                            return -1250;
+                        }
+                    } else {
+                        return -1862;
+                    }
+                }
+            }
+        }
+    } else {
+        if (drop_rate <= 1) {
+            if (p_cpu <= 32) {
+                if (parent_drop_rate <= 0) {
+                    if (is_new <= 0) {
+                        return 785;
+                    } else {
+                        if (cpu <= 40) {
+                            return -894;
+                        } else {
+                            return -2901;
+                        }
+                    }
+                } else {
+                    if (is_new <= 0) {
+                        return -920;
+                    } else {
+                        return -1609;
+                    }
+                }
+            } else {
+                if (p_cpu <= 40) {
+                    if (is_new <= 0) {
+                        if (parent_drop_rate <= 0) {
+                            return -150;
+                        } else {
+                            if (etx <= 261) {
+                                return -1045;
+                            } else {
+                                return -2042;
+                            }
+                        }
+                    } else {
+                        return -1929;
+                    }
+                } else {
+                    if (p_cpu <= 63) {
+                        if (cpu <= 1) {
+                            return -1308;
+                        } else {
+                            return -1997;
+                        }
+                    } else {
+                        return -2412;
+                    }
+                }
+            }
+        } else {
+            if (p_cpu <= 46) {
+                if (cpu <= 23) {
+                    return -1905;
+                } else {
+                    return -2457;
+                }
+            } else {
+                return -2654;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree5(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (hop_count <= 4) {
+            if (cpu <= 54) {
+                if (etx <= 348) {
+                    if (hop_count <= 3) {
+                        return 895;
+                    } else {
+                        if (drop_rate <= 1) {
+                            if (etx <= 269) {
+                                return 771;
+                            } else {
+                                return -5;
+                            }
+                        } else {
+                            return -709;
+                        }
+                    }
+                } else {
+                    if (hop_count <= 3) {
+                        return 388;
+                    } else {
+                        return -1109;
+                    }
+                }
+            } else {
+                if (hop_count <= 2) {
+                    return 696;
+                } else {
+                    if (parent_ppm <= 366) {
+                        if (etx <= 219) {
+                            return -674;
+                        } else {
+                            return -2215;
+                        }
+                    } else {
+                        return -265;
+                    }
+                }
+            }
+        } else {
+            if (drop_rate <= 0) {
+                if (etx <= 280) {
+                    if (parent_drop_rate <= 1) {
+                        if (cpu <= 36) {
+                            return 728;
+                        } else {
+                            return -914;
+                        }
+                    } else {
+                        return -580;
+                    }
+                } else {
+                    if (cpu <= 34) {
+                        return -908;
+                    } else {
+                        return -2514;
+                    }
+                }
+            } else {
+                if (cpu <= 13) {
+                    return -964;
+                } else {
+                    return -2144;
+                }
+            }
+        }
+    } else {
+        if (drop_rate <= 0) {
+            if (parent_drop_rate <= 0) {
+                if (etx <= 242) {
+                    if (hop_count <= 7) {
+                        if (cpu <= 31) {
+                            return 619;
+                        } else {
+                            return -804;
+                        }
+                    } else {
+                        return -1415;
+                    }
+                } else {
+                    if (cpu <= 18) {
+                        return -1274;
+                    } else {
+                        return -2535;
+                    }
+                }
+            } else {
+                if (parent_ppm <= 639) {
+                    if (etx <= 242) {
+                        if (cpu <= 23) {
+                            if (hop_count <= 7) {
+                                return -643;
+                            } else {
+                                return -1226;
+                            }
+                        } else {
+                            return -1594;
+                        }
+                    } else {
+                        if (parent_ppm <= 204) {
+                            return -2324;
+                        } else {
+                            return -1730;
+                        }
+                    }
+                } else {
+                    return -2137;
+                }
+            }
+        } else {
+            if (cpu <= 29) {
+                if (drop_rate <= 8) {
+                    return -1894;
+                } else {
+                    return -2296;
+                }
+            } else {
+                return -2481;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree6(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (p_cpu <= 31) {
+            if (is_new <= 0) {
+                if (hop_count <= 2) {
+                    return 847;
+                } else {
+                    if (cpu <= 73) {
+                        return 723;
+                    } else {
+                        return -2799;
                     }
                 }
             } else {
                 if (p_cpu <= 11) {
-                    if (parent_ppm <= 455) {
-                        return 121;
+                    if (p_cpu <= 4) {
+                        return 767;
                     } else {
-                        return -1125;
+                        return 354;
                     }
                 } else {
-                    if (rssi <= -79) {
-                        if (etx <= 332) {
-                            return 48;
+                    if (hop_count <= 3) {
+                        if (cpu <= 38) {
+                            return 515;
                         } else {
-                            if (p_cpu <= 31) {
-                                return -1655;
+                            if (parent_ppm <= 221) {
+                                return -1298;
                             } else {
-                                return -303;
+                                return 625;
                             }
                         }
                     } else {
-                        if (parent_ppm <= 23) {
-                            return 448;
+                        if (parent_ppm <= 197) {
+                            return -2050;
                         } else {
-                            if (parent_ppm <= 262) {
-                                return -704;
-                            } else {
-                                return -189;
-                            }
+                            return -512;
                         }
                     }
                 }
             }
         } else {
-            if (ppm <= 224) {
-                return 693;
-            } else {
-                if (etx <= 139) {
-                    return 311;
+            if (hop_count <= 3) {
+                if (parent_ppm <= 140) {
+                    return -1178;
                 } else {
-                    if (parent_ppm <= 415) {
-                        return -736;
-                    } else {
-                        if (ppm <= 588) {
-                            return 1438;
+                    return 870;
+                }
+            } else {
+                if (parent_ppm <= 193) {
+                    return -2246;
+                } else {
+                    if (hop_count <= 4) {
+                        if (is_new <= 0) {
+                            return 318;
                         } else {
-                            return -588;
+                            return -1311;
+                        }
+                    } else {
+                        if (parent_drop_rate <= 0) {
+                            return -141;
+                        } else {
+                            return -1664;
                         }
                     }
                 }
             }
         }
     } else {
-        if (rssi <= -66) {
-            if (p_cpu <= 67) {
-                if (etx <= 285) {
-                    if (parent_drop_rate <= 1) {
-                        if (rssi <= -80) {
-                            if (ppm <= 10) {
-                                return -1276;
-                            } else {
-                                return 1218;
-                            }
-                        } else {
-                            if (p_cpu <= 13) {
-                                return 1508;
-                            } else {
-                                return -678;
-                            }
-                        }
-                    } else {
-                        if (ppm <= 56) {
-                            return 124;
-                        } else {
-                            if (parent_ppm <= 312) {
-                                return -560;
-                            } else {
-                                return -150;
-                            }
-                        }
-                    }
+        if (p_cpu <= 17) {
+            if (parent_drop_rate <= 0) {
+                return 632;
+            } else {
+                if (hop_count <= 6) {
+                    return 48;
                 } else {
-                    if (parent_ppm <= 509) {
-                        if (parent_drop_rate <= 37) {
-                            return -527;
-                        } else {
-                            return -1568;
-                        }
+                    if (p_cpu <= 7) {
+                        return 729;
                     } else {
-                        return -232;
+                        return -1563;
                     }
                 }
-            } else {
-                return -526;
             }
         } else {
-            if (p_cpu <= 8) {
-                if (parent_drop_rate <= 41) {
-                    return -40;
+            if (cpu <= 29) {
+                if (cpu <= 0) {
+                    return -748;
                 } else {
-                    return -1946;
+                    if (p_cpu <= 29) {
+                        if (hop_count <= 6) {
+                            if (is_new <= 0) {
+                                return -5;
+                            } else {
+                                return -1287;
+                            }
+                        } else {
+                            return -1552;
+                        }
+                    } else {
+                        if (parent_ppm <= 175) {
+                            return -2240;
+                        } else {
+                            if (p_cpu <= 64) {
+                                return -1620;
+                            } else {
+                                return -2060;
+                            }
+                        }
+                    }
                 }
             } else {
-                return -511;
+                if (parent_ppm <= 156) {
+                    return -2574;
+                } else {
+                    if (p_cpu <= 60) {
+                        return -1874;
+                    } else {
+                        return -2217;
+                    }
+                }
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree21(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 4) {
-        if (hop_count <= 1) {
-            if (parent_drop_rate <= 2) {
-                return 210;
-            } else {
-                return 675;
-            }
-        } else {
-            if (is_new <= 0) {
-                if (parent_ppm <= 57) {
-                    return 55;
-                } else {
-                    if (parent_drop_rate <= 9) {
-                        return 181;
-                    } else {
-                        return 536;
-                    }
-                }
-            } else {
-                if (cpu <= 23) {
-                    if (rssi <= -44) {
-                        if (cpu <= 0) {
-                            return 560;
+static int32_t mlof_predict_pdr_lgbm_tree7(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (p_cpu <= 32) {
+            if (etx <= 306) {
+                if (drop_rate <= 2) {
+                    if (cpu <= 95) {
+                        if (hop_count <= 2) {
+                            return 756;
                         } else {
-                            if (parent_ppm <= 50) {
-                                return -187;
+                            if (etx <= 243) {
+                                return 675;
                             } else {
-                                return 175;
+                                return 377;
                             }
                         }
                     } else {
-                        return -897;
+                        if (hop_count <= 1) {
+                            return 450;
+                        } else {
+                            return -2313;
+                        }
                     }
                 } else {
-                    if (rssi <= -62) {
-                        return -296;
+                    if (hop_count <= 2) {
+                        return 700;
                     } else {
-                        return -953;
+                        if (cpu <= 24) {
+                            return -114;
+                        } else {
+                            return -1378;
+                        }
                     }
+                }
+            } else {
+                if (hop_count <= 3) {
+                    if (etx <= 477) {
+                        return 457;
+                    } else {
+                        return -1223;
+                    }
+                } else {
+                    if (cpu <= 9) {
+                        return 89;
+                    } else {
+                        return -1577;
+                    }
+                }
+            }
+        } else {
+            if (hop_count <= 3) {
+                if (etx <= 382) {
+                    return 745;
+                } else {
+                    return -1319;
+                }
+            } else {
+                if (drop_rate <= 0) {
+                    if (p_cpu <= 53) {
+                        return -723;
+                    } else {
+                        return -2203;
+                    }
+                } else {
+                    return -1682;
+                }
+            }
+        }
+    } else {
+        if (p_cpu <= 17) {
+            if (hop_count <= 7) {
+                if (drop_rate <= 0) {
+                    if (etx <= 335) {
+                        return 577;
+                    } else {
+                        return -1780;
+                    }
+                } else {
+                    if (etx <= 217) {
+                        return -460;
+                    } else {
+                        return -2447;
+                    }
+                }
+            } else {
+                if (etx <= 240) {
+                    if (p_cpu <= 12) {
+                        return 20;
+                    } else {
+                        return -1402;
+                    }
+                } else {
+                    return -2149;
+                }
+            }
+        } else {
+            if (drop_rate <= 1) {
+                if (etx <= 253) {
+                    if (cpu <= 0) {
+                        return -168;
+                    } else {
+                        if (p_cpu <= 54) {
+                            if (hop_count <= 6) {
+                                return -612;
+                            } else {
+                                return -1218;
+                            }
+                        } else {
+                            return -1664;
+                        }
+                    }
+                } else {
+                    return -1613;
+                }
+            } else {
+                if (cpu <= 1) {
+                    return -1113;
+                } else {
+                    return -1927;
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree8(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (p_cpu <= 32) {
+            if (is_new <= 0) {
+                if (hop_count <= 3) {
+                    return 669;
+                } else {
+                    return 527;
+                }
+            } else {
+                if (hop_count <= 4) {
+                    if (p_cpu <= 6) {
+                        return 594;
+                    } else {
+                        if (hop_count <= 2) {
+                            return 435;
+                        } else {
+                            if (cpu <= 54) {
+                                return -127;
+                            } else {
+                                return -1636;
+                            }
+                        }
+                    }
+                } else {
+                    if (p_cpu <= 10) {
+                        return 378;
+                    } else {
+                        return -1465;
+                    }
+                }
+            }
+        } else {
+            if (hop_count <= 3) {
+                if (etx <= 378) {
+                    return 695;
+                } else {
+                    return -1428;
+                }
+            } else {
+                if (cpu <= 56) {
+                    if (hop_count <= 4) {
+                        if (is_new <= 0) {
+                            return 137;
+                        } else {
+                            return -1098;
+                        }
+                    } else {
+                        return -1227;
+                    }
+                } else {
+                    return -1863;
+                }
+            }
+        }
+    } else {
+        if (p_cpu <= 17) {
+            if (parent_drop_rate <= 0) {
+                if (cpu <= 52) {
+                    return 565;
+                } else {
+                    return -1971;
+                }
+            } else {
+                if (hop_count <= 8) {
+                    if (etx <= 313) {
+                        if (parent_drop_rate <= 5) {
+                            return 100;
+                        } else {
+                            return -1088;
+                        }
+                    } else {
+                        return -2799;
+                    }
+                } else {
+                    return -1484;
+                }
+            }
+        } else {
+            if (cpu <= 23) {
+                if (p_cpu <= 37) {
+                    if (etx <= 201) {
+                        if (parent_drop_rate <= 0) {
+                            return 277;
+                        } else {
+                            return -780;
+                        }
+                    } else {
+                        if (etx <= 314) {
+                            return -1179;
+                        } else {
+                            return -1744;
+                        }
+                    }
+                } else {
+                    if (cpu <= 0) {
+                        if (etx <= 249) {
+                            return -129;
+                        } else {
+                            return -1842;
+                        }
+                    } else {
+                        if (is_new <= 0) {
+                            if (hop_count <= 18) {
+                                return -1754;
+                            } else {
+                                return -809;
+                            }
+                        } else {
+                            return -1333;
+                        }
+                    }
+                }
+            } else {
+                if (cpu <= 53) {
+                    return -1511;
+                } else {
+                    return -1803;
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree9(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (p_cpu <= 32) {
+            if (is_new <= 0) {
+                return 585;
+            } else {
+                if (p_cpu <= 10) {
+                    if (p_cpu <= 2) {
+                        return 610;
+                    } else {
+                        if (cpu <= 83) {
+                            return 297;
+                        } else {
+                            return -1519;
+                        }
+                    }
+                } else {
+                    if (hop_count <= 2) {
+                        return 406;
+                    } else {
+                        if (parent_ppm <= 189) {
+                            if (cpu <= 31) {
+                                return -594;
+                            } else {
+                                return -2008;
+                            }
+                        } else {
+                            if (drop_rate <= 0) {
+                                return 101;
+                            } else {
+                                return -684;
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            if (hop_count <= 3) {
+                if (parent_ppm <= 74) {
+                    return -1700;
+                } else {
+                    return 647;
+                }
+            } else {
+                if (parent_ppm <= 109) {
+                    return -2227;
+                } else {
+                    if (cpu <= 72) {
+                        if (hop_count <= 4) {
+                            return -117;
+                        } else {
+                            return -931;
+                        }
+                    } else {
+                        return -1800;
+                    }
+                }
+            }
+        }
+    } else {
+        if (p_cpu <= 17) {
+            if (hop_count <= 7) {
+                if (drop_rate <= 20) {
+                    if (is_new <= 0) {
+                        return 562;
+                    } else {
+                        return -298;
+                    }
+                } else {
+                    return -2569;
+                }
+            } else {
+                if (drop_rate <= 0) {
+                    return -631;
+                } else {
+                    return -1979;
+                }
+            }
+        } else {
+            if (drop_rate <= 0) {
+                if (parent_ppm <= 173) {
+                    if (cpu <= 15) {
+                        return -1131;
+                    } else {
+                        return -1850;
+                    }
+                } else {
+                    if (parent_ppm <= 715) {
+                        if (hop_count <= 6) {
+                            if (p_cpu <= 27) {
+                                return 553;
+                            } else {
+                                return -728;
+                            }
+                        } else {
+                            return -972;
+                        }
+                    } else {
+                        return -1569;
+                    }
+                }
+            } else {
+                if (cpu <= 29) {
+                    if (parent_ppm <= 513) {
+                        if (drop_rate <= 8) {
+                            return -1324;
+                        } else {
+                            return -1728;
+                        }
+                    } else {
+                        if (p_cpu <= 46) {
+                            return -739;
+                        } else {
+                            return -1335;
+                        }
+                    }
+                } else {
+                    return -1688;
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree10(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (parent_drop_rate <= 0) {
+        if (drop_rate <= 0) {
+            if (etx <= 293) {
+                if (cpu <= 84) {
+                    if (is_new <= 0) {
+                        return 530;
+                    } else {
+                        if (etx <= 255) {
+                            return 421;
+                        } else {
+                            if (cpu <= 51) {
+                                return 79;
+                            } else {
+                                return -1494;
+                            }
+                        }
+                    }
+                } else {
+                    if (etx <= 174) {
+                        return 455;
+                    } else {
+                        return -1676;
+                    }
+                }
+            } else {
+                if (is_new <= 0) {
+                    return 253;
+                } else {
+                    if (cpu <= 33) {
+                        return -329;
+                    } else {
+                        return -1358;
+                    }
+                }
+            }
+        } else {
+            if (etx <= 239) {
+                if (etx <= 165) {
+                    return 535;
+                } else {
+                    if (cpu <= 77) {
+                        if (parent_ppm <= 97) {
+                            return -727;
+                        } else {
+                            return 249;
+                        }
+                    } else {
+                        return -1953;
+                    }
+                }
+            } else {
+                if (parent_ppm <= 297) {
+                    if (is_new <= 0) {
+                        return -603;
+                    } else {
+                        return -1601;
+                    }
+                } else {
+                    return 307;
+                }
+            }
+        }
+    } else {
+        if (drop_rate <= 0) {
+            if (is_new <= 0) {
+                if (parent_drop_rate <= 1) {
+                    if (etx <= 242) {
+                        return 297;
+                    } else {
+                        return -313;
+                    }
+                } else {
+                    if (etx <= 258) {
+                        if (parent_ppm <= 715) {
+                            return -270;
+                        } else {
+                            return -1200;
+                        }
+                    } else {
+                        return -968;
+                    }
+                }
+            } else {
+                if (parent_ppm <= 209) {
+                    if (cpu <= 40) {
+                        return -937;
+                    } else {
+                        return -1661;
+                    }
+                } else {
+                    if (parent_ppm <= 676) {
+                        if (parent_drop_rate <= 23) {
+                            if (etx <= 191) {
+                                return -393;
+                            } else {
+                                return -743;
+                            }
+                        } else {
+                            return -1983;
+                        }
+                    } else {
+                        return -1144;
+                    }
+                }
+            }
+        } else {
+            if (cpu <= 38) {
+                if (etx <= 227) {
+                    return -857;
+                } else {
+                    if (parent_ppm <= 513) {
+                        return -1260;
+                    } else {
+                        return -849;
+                    }
+                }
+            } else {
+                return -1448;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree11(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (hop_count <= 4) {
+            if (cpu <= 61) {
+                if (is_new <= 0) {
+                    if (parent_ppm <= 58) {
+                        return 433;
+                    } else {
+                        return 537;
+                    }
+                } else {
+                    if (etx <= 264) {
+                        return 403;
+                    } else {
+                        if (hop_count <= 2) {
+                            return 316;
+                        } else {
+                            if (parent_ppm <= 247) {
+                                return -1027;
+                            } else {
+                                return 139;
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (hop_count <= 2) {
+                    return 320;
+                } else {
+                    if (parent_drop_rate <= 3) {
+                        return -1576;
+                    } else {
+                        return -281;
+                    }
+                }
+            }
+        } else {
+            if (is_new <= 0) {
+                if (parent_drop_rate <= 0) {
+                    return 379;
+                } else {
+                    if (cpu <= 10) {
+                        return 51;
+                    } else {
+                        return -952;
+                    }
+                }
+            } else {
+                if (etx <= 223) {
+                    return -437;
+                } else {
+                    if (parent_ppm <= 209) {
+                        return -1657;
+                    } else {
+                        return -791;
+                    }
+                }
+            }
+        }
+    } else {
+        if (parent_drop_rate <= 1) {
+            if (etx <= 243) {
+                if (is_new <= 0) {
+                    if (hop_count <= 8) {
+                        if (parent_ppm <= 503) {
+                            return 396;
+                        } else {
+                            return -1323;
+                        }
+                    } else {
+                        return -663;
+                    }
+                } else {
+                    if (parent_ppm <= 229) {
+                        return -1156;
+                    } else {
+                        if (hop_count <= 8) {
+                            return 549;
+                        } else {
+                            return -709;
+                        }
+                    }
+                }
+            } else {
+                if (parent_ppm <= 233) {
+                    return -1541;
+                } else {
+                    return -781;
+                }
+            }
+        } else {
+            if (cpu <= 55) {
+                if (etx <= 260) {
+                    if (cpu <= 0) {
+                        return -171;
+                    } else {
+                        if (parent_ppm <= 715) {
+                            if (parent_ppm <= 181) {
+                                return -1441;
+                            } else {
+                                return -917;
+                            }
+                        } else {
+                            return -1278;
+                        }
+                    }
+                } else {
+                    if (is_new <= 0) {
+                        return -1585;
+                    } else {
+                        if (parent_ppm <= 362) {
+                            return -1288;
+                        } else {
+                            return -894;
+                        }
+                    }
+                }
+            } else {
+                return -1367;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree12(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (p_cpu <= 32) {
+            if (etx <= 445) {
+                if (is_new <= 0) {
+                    if (hop_count <= 2) {
+                        if (parent_drop_rate <= 1) {
+                            return 458;
+                        } else {
+                            return 779;
+                        }
+                    } else {
+                        if (etx <= 253) {
+                            return 415;
+                        } else {
+                            return 176;
+                        }
+                    }
+                } else {
+                    if (hop_count <= 3) {
+                        if (hop_count <= 2) {
+                            return 425;
+                        } else {
+                            if (drop_rate <= 0) {
+                                return 255;
+                            } else {
+                                return -652;
+                            }
+                        }
+                    } else {
+                        if (p_cpu <= 10) {
+                            return 382;
+                        } else {
+                            if (drop_rate <= 0) {
+                                return -333;
+                            } else {
+                                return -1073;
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (hop_count <= 3) {
+                    return -399;
+                } else {
+                    return -2223;
+                }
+            }
+        } else {
+            if (hop_count <= 3) {
+                if (parent_drop_rate <= 11) {
+                    if (etx <= 274) {
+                        return 507;
+                    } else {
+                        return -563;
+                    }
+                } else {
+                    return 1206;
+                }
+            } else {
+                if (hop_count <= 4) {
+                    if (etx <= 380) {
+                        if (is_new <= 0) {
+                            return 262;
+                        } else {
+                            return -719;
+                        }
+                    } else {
+                        return -1881;
+                    }
+                } else {
+                    return -1041;
+                }
+            }
+        }
+    } else {
+        if (p_cpu <= 13) {
+            if (etx <= 294) {
+                if (hop_count <= 8) {
+                    return 483;
+                } else {
+                    if (etx <= 187) {
+                        return 187;
+                    } else {
+                        return -1240;
+                    }
+                }
+            } else {
+                return -1884;
+            }
+        } else {
+            if (drop_rate <= 4) {
+                if (etx <= 227) {
+                    if (p_cpu <= 55) {
+                        if (parent_drop_rate <= 0) {
+                            if (p_cpu <= 28) {
+                                return 298;
+                            } else {
+                                return -794;
+                            }
+                        } else {
+                            if (hop_count <= 30) {
+                                return -623;
+                            } else {
+                                return 554;
+                            }
+                        }
+                    } else {
+                        if (hop_count <= 12) {
+                            return -1311;
+                        } else {
+                            return -855;
+                        }
+                    }
+                } else {
+                    return -986;
+                }
+            } else {
+                return -1220;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree13(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (p_cpu <= 32) {
+            if (is_new <= 0) {
+                if (cpu <= 90) {
+                    return 391;
+                } else {
+                    return -1711;
+                }
+            } else {
+                if (hop_count <= 3) {
+                    if (p_cpu <= 2) {
+                        return 429;
+                    } else {
+                        if (parent_ppm <= 48) {
+                            if (cpu <= 59) {
+                                return -100;
+                            } else {
+                                return -1334;
+                            }
+                        } else {
+                            return 310;
+                        }
+                    }
+                } else {
+                    if (p_cpu <= 14) {
+                        return 147;
+                    } else {
+                        if (parent_ppm <= 148) {
+                            return -1767;
+                        } else {
+                            if (cpu <= 14) {
+                                return 254;
+                            } else {
+                                return -732;
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            if (hop_count <= 3) {
+                if (parent_ppm <= 144) {
+                    return -1453;
+                } else {
+                    return 518;
+                }
+            } else {
+                if (parent_ppm <= 109) {
+                    return -1630;
+                } else {
+                    return -634;
                 }
             }
         }
     } else {
         if (p_cpu <= 18) {
-            if (drop_rate <= 1) {
-                if (parent_drop_rate <= 16) {
-                    if (hop_count <= 7) {
-                        if (rssi <= -55) {
-                            if (parent_ppm <= 65) {
-                                return 2;
-                            } else {
-                                return 278;
-                            }
-                        } else {
-                            if (parent_ppm <= 632) {
-                                return -708;
-                            } else {
-                                return 953;
-                            }
-                        }
+            if (hop_count <= 7) {
+                if (cpu <= 41) {
+                    if (parent_drop_rate <= 3) {
+                        return 409;
                     } else {
-                        if (parent_drop_rate <= 0) {
-                            if (parent_ppm <= 262) {
-                                return -474;
-                            } else {
-                                return -2152;
-                            }
+                        if (parent_ppm <= 229) {
+                            return -2039;
                         } else {
-                            if (p_cpu <= 5) {
-                                return 962;
-                            } else {
-                                return -158;
-                            }
+                            return -35;
                         }
                     }
                 } else {
-                    return -618;
+                    return -1164;
                 }
             } else {
-                return -707;
+                if (p_cpu <= 12) {
+                    return 48;
+                } else {
+                    return -868;
+                }
             }
         } else {
-            if (cpu <= 14) {
-                if (parent_drop_rate <= 10) {
-                    if (hop_count <= 20) {
-                        if (rssi <= -66) {
-                            if (rssi <= -68) {
-                                return -204;
+            if (parent_ppm <= 173) {
+                if (cpu <= 2) {
+                    return -611;
+                } else {
+                    return -1333;
+                }
+            } else {
+                if (p_cpu <= 64) {
+                    if (parent_drop_rate <= 0) {
+                        if (parent_ppm <= 294) {
+                            if (cpu <= 54) {
+                                return -129;
                             } else {
-                                return 770;
+                                return -1888;
                             }
                         } else {
-                            if (rssi <= -63) {
-                                return -777;
-                            } else {
-                                return -311;
-                            }
+                            return 806;
                         }
                     } else {
-                        if (cpu <= 9) {
-                            if (drop_rate <= 6) {
-                                return -94;
+                        if (cpu <= 39) {
+                            if (hop_count <= 29) {
+                                return -745;
                             } else {
-                                return 1398;
+                                return 250;
                             }
                         } else {
-                            return 2794;
+                            return -983;
                         }
                     }
                 } else {
-                    return -457;
-                }
-            } else {
-                if (parent_ppm <= 256) {
-                    return -739;
-                } else {
-                    return -478;
+                    if (is_new <= 0) {
+                        return -1590;
+                    } else {
+                        if (hop_count <= 6) {
+                            return 366;
+                        } else {
+                            return -1076;
+                        }
+                    }
                 }
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree22(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (parent_drop_rate <= 0) {
-        if (is_new <= 0) {
-            if (etx <= 239) {
-                return 163;
-            } else {
-                if (rssi <= -78) {
-                    return 106;
-                } else {
-                    if (etx <= 414) {
-                        if (p_cpu <= 6) {
-                            return 95;
-                        } else {
-                            return -264;
-                        }
+static int32_t mlof_predict_pdr_lgbm_tree14(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (hop_count <= 4) {
+            if (cpu <= 61) {
+                if (hop_count <= 2) {
+                    if (parent_drop_rate <= 0) {
+                        return 365;
                     } else {
-                        return -1321;
+                        return 601;
                     }
-                }
-            }
-        } else {
-            if (p_cpu <= 23) {
-                if (etx <= 312) {
-                    if (ppm <= 37) {
-                        if (ppm <= 7) {
-                            return -154;
+                } else {
+                    if (drop_rate <= 2) {
+                        if (parent_ppm <= 59) {
+                            return 192;
                         } else {
-                            return 312;
+                            return 362;
                         }
                     } else {
-                        if (rssi <= -84) {
-                            return 183;
+                        if (parent_ppm <= 110) {
+                            return -1922;
                         } else {
-                            if (p_cpu <= 9) {
-                                return -27;
+                            if (cpu <= 36) {
+                                return 184;
                             } else {
-                                return -399;
+                                return -876;
                             }
                         }
                     }
+                }
+            } else {
+                if (hop_count <= 2) {
+                    return 264;
                 } else {
-                    if (p_cpu <= 5) {
-                        return -169;
+                    return -1045;
+                }
+            }
+        } else {
+            if (drop_rate <= 0) {
+                if (is_new <= 0) {
+                    return 220;
+                } else {
+                    if (parent_ppm <= 197) {
+                        return -840;
                     } else {
-                        if (ppm <= 3) {
-                            return -2540;
-                        } else {
-                            return -779;
-                        }
+                        return -132;
                     }
                 }
             } else {
-                if (parent_ppm <= 23) {
-                    return 588;
+                if (parent_ppm <= 110) {
+                    return -1733;
                 } else {
-                    if (parent_ppm <= 406) {
-                        return -508;
+                    if (cpu <= 54) {
+                        return -598;
                     } else {
-                        if (ppm <= 24) {
-                            return -2554;
-                        } else {
-                            return 295;
-                        }
+                        return -1348;
                     }
                 }
             }
         }
     } else {
-        if (p_cpu <= 63) {
-            if (etx <= 182) {
-                if (rssi <= -89) {
-                    return 1153;
-                } else {
-                    if (ppm <= 1331) {
-                        if (etx <= 144) {
-                            if (p_cpu <= 52) {
-                                return 512;
-                            } else {
-                                return 3063;
-                            }
+        if (drop_rate <= 0) {
+            if (hop_count <= 6) {
+                if (parent_drop_rate <= 2) {
+                    if (cpu <= 41) {
+                        if (is_new <= 0) {
+                            return 424;
                         } else {
-                            if (rssi <= -77) {
-                                return -556;
-                            } else {
-                                return 56;
-                            }
+                            return -231;
                         }
                     } else {
-                        return -608;
+                        return -1080;
+                    }
+                } else {
+                    if (parent_ppm <= 202) {
+                        return -1738;
+                    } else {
+                        return -320;
                     }
                 }
             } else {
-                if (rssi <= -67) {
-                    if (parent_drop_rate <= 1) {
-                        if (rssi <= -72) {
-                            if (etx <= 357) {
-                                return 751;
+                if (parent_ppm <= 799) {
+                    if (cpu <= 30) {
+                        if (parent_ppm <= 471) {
+                            if (parent_ppm <= 233) {
+                                return -678;
+                            } else {
+                                return -345;
+                            }
+                        } else {
+                            if (hop_count <= 19) {
+                                return -660;
+                            } else {
+                                return -1431;
+                            }
+                        }
+                    } else {
+                        if (parent_ppm <= 166) {
+                            return -1341;
+                        } else {
+                            if (hop_count <= 29) {
+                                return -688;
+                            } else {
+                                return -2302;
+                            }
+                        }
+                    }
+                } else {
+                    return -1116;
+                }
+            }
+        } else {
+            if (parent_ppm <= 362) {
+                return -1114;
+            } else {
+                if (drop_rate <= 7) {
+                    return -660;
+                } else {
+                    return -965;
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree15(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (p_cpu <= 28) {
+            if (etx <= 354) {
+                if (etx <= 222) {
+                    return 337;
+                } else {
+                    if (hop_count <= 3) {
+                        return 273;
+                    } else {
+                        if (is_new <= 0) {
+                            return 136;
+                        } else {
+                            if (p_cpu <= 18) {
+                                return -52;
+                            } else {
+                                return -982;
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (hop_count <= 4) {
+                    if (etx <= 473) {
+                        return 48;
+                    } else {
+                        return -1260;
+                    }
+                } else {
+                    return -1669;
+                }
+            }
+        } else {
+            if (hop_count <= 3) {
+                if (is_new <= 0) {
+                    return 544;
+                } else {
+                    return -205;
+                }
+            } else {
+                if (etx <= 292) {
+                    if (drop_rate <= 0) {
+                        if (p_cpu <= 37) {
+                            return 157;
+                        } else {
+                            return -498;
+                        }
+                    } else {
+                        return -798;
+                    }
+                } else {
+                    if (parent_drop_rate <= 14) {
+                        return -1070;
+                    } else {
+                        return 674;
+                    }
+                }
+            }
+        }
+    } else {
+        if (p_cpu <= 13) {
+            if (hop_count <= 9) {
+                if (etx <= 304) {
+                    return 414;
+                } else {
+                    return -2140;
+                }
+            } else {
+                return -826;
+            }
+        } else {
+            if (drop_rate <= 8) {
+                if (etx <= 264) {
+                    if (p_cpu <= 29) {
+                        if (hop_count <= 8) {
+                            if (hop_count <= 6) {
+                                return 300;
+                            } else {
+                                return -162;
+                            }
+                        } else {
+                            if (etx <= 166) {
+                                return 8;
+                            } else {
+                                return -722;
+                            }
+                        }
+                    } else {
+                        return -631;
+                    }
+                } else {
+                    if (is_new <= 0) {
+                        if (hop_count <= 16) {
+                            if (hop_count <= 6) {
+                                return -484;
+                            } else {
+                                return -1266;
+                            }
+                        } else {
+                            if (p_cpu <= 54) {
+                                return 386;
+                            } else {
+                                return -1363;
+                            }
+                        }
+                    } else {
+                        if (parent_drop_rate <= 6) {
+                            return -858;
+                        } else {
+                            if (p_cpu <= 22) {
+                                return -1692;
+                            } else {
+                                return -533;
+                            }
+                        }
+                    }
+                }
+            } else {
+                return -959;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree16(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 4) {
+        if (cpu <= 61) {
+            if (parent_ppm <= 58) {
+                if (hop_count <= 1) {
+                    return 310;
+                } else {
+                    if (drop_rate <= 0) {
+                        return 182;
+                    } else {
+                        return -1593;
+                    }
+                }
+            } else {
+                return 321;
+            }
+        } else {
+            if (hop_count <= 2) {
+                return 231;
+            } else {
+                if (parent_drop_rate <= 3) {
+                    return -1255;
+                } else {
+                    return -136;
+                }
+            }
+        }
+    } else {
+        if (drop_rate <= 0) {
+            if (hop_count <= 6) {
+                if (is_new <= 0) {
+                    if (parent_ppm <= 607) {
+                        if (parent_drop_rate <= 10) {
+                            return 212;
+                        } else {
+                            return -782;
+                        }
+                    } else {
+                        if (parent_drop_rate <= 3) {
+                            return -2270;
+                        } else {
+                            return -597;
+                        }
+                    }
+                } else {
+                    if (parent_ppm <= 209) {
+                        if (cpu <= 38) {
+                            return -494;
+                        } else {
+                            return -1510;
+                        }
+                    } else {
+                        if (parent_ppm <= 415) {
+                            return 264;
+                        } else {
+                            if (cpu <= 34) {
+                                return -772;
+                            } else {
+                                return 512;
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (parent_ppm <= 639) {
+                    if (parent_drop_rate <= 23) {
+                        if (parent_ppm <= 250) {
+                            if (cpu <= 15) {
+                                return -351;
+                            } else {
+                                return -871;
+                            }
+                        } else {
+                            if (hop_count <= 20) {
+                                return -319;
+                            } else {
+                                return -784;
+                            }
+                        }
+                    } else {
+                        return -1675;
+                    }
+                } else {
+                    if (is_new <= 0) {
+                        if (parent_ppm <= 656) {
+                            return -2214;
+                        } else {
+                            return -967;
+                        }
+                    } else {
+                        return -600;
+                    }
+                }
+            }
+        } else {
+            if (parent_ppm <= 193) {
+                if (drop_rate <= 50) {
+                    return -1134;
+                } else {
+                    return 596;
+                }
+            } else {
+                if (cpu <= 56) {
+                    if (drop_rate <= 7) {
+                        if (parent_drop_rate <= 0) {
+                            return 323;
+                        } else {
+                            if (parent_ppm <= 310) {
+                                return -832;
+                            } else {
+                                return -494;
+                            }
+                        }
+                    } else {
+                        return -782;
+                    }
+                } else {
+                    return -907;
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree17(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (hop_count <= 4) {
+            if (etx <= 445) {
+                if (etx <= 228) {
+                    return 275;
+                } else {
+                    if (is_new <= 0) {
+                        if (parent_ppm <= 58) {
+                            return 98;
+                        } else {
+                            return 276;
+                        }
+                    } else {
+                        if (hop_count <= 1) {
+                            return 353;
+                        } else {
+                            if (cpu <= 25) {
+                                return 0;
+                            } else {
+                                return -488;
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (hop_count <= 3) {
+                    return -420;
+                } else {
+                    return -1821;
+                }
+            }
+        } else {
+            if (cpu <= 35) {
+                if (etx <= 302) {
+                    if (parent_drop_rate <= 0) {
+                        return 227;
+                    } else {
+                        return -204;
+                    }
+                } else {
+                    if (parent_ppm <= 231) {
+                        return -1292;
+                    } else {
+                        return -69;
+                    }
+                }
+            } else {
+                if (etx <= 231) {
+                    return -310;
+                } else {
+                    if (parent_ppm <= 294) {
+                        return -1317;
+                    } else {
+                        return -360;
+                    }
+                }
+            }
+        }
+    } else {
+        if (etx <= 213) {
+            if (parent_drop_rate <= 1) {
+                if (is_new <= 0) {
+                    if (hop_count <= 8) {
+                        if (parent_ppm <= 548) {
+                            return 437;
+                        } else {
+                            return -1387;
+                        }
+                    } else {
+                        return -363;
+                    }
+                } else {
+                    if (parent_ppm <= 226) {
+                        return -583;
+                    } else {
+                        return 187;
+                    }
+                }
+            } else {
+                if (cpu <= 0) {
+                    return 425;
+                } else {
+                    if (parent_ppm <= 767) {
+                        if (parent_ppm <= 179) {
+                            return -1032;
+                        } else {
+                            if (cpu <= 34) {
+                                return -370;
                             } else {
                                 return -655;
                             }
-                        } else {
-                            return -889;
                         }
                     } else {
-                        if (etx <= 285) {
-                            return -130;
-                        } else {
-                            if (parent_ppm <= 171) {
-                                return -1497;
-                            } else {
-                                return -367;
-                            }
-                        }
-                    }
-                } else {
-                    return -437;
-                }
-            }
-        } else {
-            return -449;
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree23(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 4) {
-        if (etx <= 402) {
-            if (parent_ppm <= 89) {
-                if (hop_count <= 1) {
-                    return 157;
-                } else {
-                    if (ppm <= 129) {
-                        if (cpu <= 2) {
-                            return 119;
-                        } else {
-                            return -13;
-                        }
-                    } else {
-                        if (is_new <= 0) {
-                            return -75;
-                        } else {
-                            return -857;
-                        }
-                    }
-                }
-            } else {
-                if (ppm <= 4) {
-                    if (p_cpu <= 27) {
-                        return -190;
-                    } else {
-                        return -2406;
-                    }
-                } else {
-                    return 179;
-                }
-            }
-        } else {
-            if (hop_count <= 1) {
-                return 459;
-            } else {
-                if (cpu <= 27) {
-                    return -448;
-                } else {
-                    return -1241;
-                }
-            }
-        }
-    } else {
-        if (ppm <= 54) {
-            if (hop_count <= 7) {
-                if (etx <= 254) {
-                    return 196;
-                } else {
-                    return -258;
-                }
-            } else {
-                if (p_cpu <= 96) {
-                    if (etx <= 245) {
-                        if (parent_ppm <= 891) {
-                            return -13;
-                        } else {
-                            return -802;
-                        }
-                    } else {
-                        return -417;
-                    }
-                } else {
-                    if (etx <= 239) {
-                        return -1149;
-                    } else {
-                        return -249;
+                        return -936;
                     }
                 }
             }
         } else {
-            if (cpu <= 14) {
-                if (etx <= 168) {
-                    if (hop_count <= 21) {
-                        if (parent_ppm <= 455) {
-                            return 367;
-                        } else {
-                            if (p_cpu <= 28) {
-                                return -1204;
-                            } else {
-                                return -135;
-                            }
-                        }
-                    } else {
-                        return 1878;
-                    }
-                } else {
-                    if (hop_count <= 20) {
-                        if (p_cpu <= 16) {
-                            if (etx <= 250) {
-                                return 77;
-                            } else {
-                                return -482;
-                            }
-                        } else {
-                            if (parent_ppm <= 214) {
-                                return -751;
-                            } else {
-                                return -342;
-                            }
-                        }
-                    } else {
-                        if (is_new <= 0) {
-                            return 1250;
-                        } else {
-                            return -128;
-                        }
-                    }
-                }
+            if (parent_ppm <= 270) {
+                return -842;
             } else {
-                if (parent_ppm <= 259) {
-                    if (p_cpu <= 67) {
-                        return -809;
-                    } else {
-                        return -273;
-                    }
+                if (parent_drop_rate <= 0) {
+                    return 621;
                 } else {
-                    return -410;
+                    if (hop_count <= 19) {
+                        if (parent_ppm <= 362) {
+                            if (parent_drop_rate <= 1) {
+                                return -10;
+                            } else {
+                                return -765;
+                            }
+                        } else {
+                            return -464;
+                        }
+                    } else {
+                        return -852;
+                    }
                 }
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree24(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 4) {
-        if (etx <= 397) {
-            if (parent_drop_rate <= 9) {
-                if (hop_count <= 1) {
-                    return 162;
-                } else {
-                    if (ppm <= 535) {
-                        if (cpu <= 0) {
-                            return 194;
+static int32_t mlof_predict_pdr_lgbm_tree18(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (p_cpu <= 39) {
+            if (cpu <= 61) {
+                if (hop_count <= 3) {
+                    if (parent_ppm <= 48) {
+                        if (p_cpu <= 5) {
+                            return 248;
                         } else {
-                            if (etx <= 263) {
-                                return 97;
+                            if (drop_rate <= 1) {
+                                return 73;
+                            } else {
+                                return -1049;
+                            }
+                        }
+                    } else {
+                        return 277;
+                    }
+                } else {
+                    if (cpu <= 12) {
+                        return 221;
+                    } else {
+                        if (p_cpu <= 10) {
+                            return 281;
+                        } else {
+                            if (parent_ppm <= 177) {
+                                return -604;
                             } else {
                                 return -53;
                             }
                         }
-                    } else {
-                        if (is_new <= 0) {
-                            return -13;
-                        } else {
-                            if (rssi <= -89) {
-                                return 399;
-                            } else {
-                                return -670;
-                            }
-                        }
                     }
                 }
             } else {
-                return 412;
+                if (hop_count <= 1) {
+                    return 341;
+                } else {
+                    if (drop_rate <= 1) {
+                        if (cpu <= 65) {
+                            if (p_cpu <= 10) {
+                                return 331;
+                            } else {
+                                return -1923;
+                            }
+                        } else {
+                            return -58;
+                        }
+                    } else {
+                        if (parent_ppm <= 56) {
+                            return -2185;
+                        } else {
+                            return -786;
+                        }
+                    }
+                }
             }
         } else {
-            if (hop_count <= 1) {
-                return 379;
+            if (parent_ppm <= 399) {
+                return -893;
             } else {
-                return -667;
+                if (hop_count <= 4) {
+                    return 409;
+                } else {
+                    return -564;
+                }
             }
         }
     } else {
-        if (ppm <= 54) {
-            if (hop_count <= 10) {
-                if (etx <= 206) {
-                    if (parent_drop_rate <= 28) {
-                        return 238;
+        if (p_cpu <= 13) {
+            if (drop_rate <= 14) {
+                return 277;
+            } else {
+                return -1343;
+            }
+        } else {
+            if (drop_rate <= 4) {
+                if (parent_ppm <= 150) {
+                    if (p_cpu <= 24) {
+                        if (cpu <= 29) {
+                            return -186;
+                        } else {
+                            return -1297;
+                        }
                     } else {
-                        return -720;
+                        return -946;
                     }
                 } else {
-                    return -123;
-                }
-            } else {
-                if (ppm <= 15) {
-                    return -593;
-                } else {
-                    if (hop_count <= 20) {
-                        return -302;
-                    } else {
-                        if (etx <= 181) {
-                            if (rssi <= -59) {
-                                return 3859;
+                    if (parent_drop_rate <= 0) {
+                        if (hop_count <= 8) {
+                            if (cpu <= 42) {
+                                return 410;
                             } else {
-                                return 75;
+                                return -1001;
                             }
                         } else {
-                            return 55;
+                            if (cpu <= 21) {
+                                return -1386;
+                            } else {
+                                return 84;
+                            }
+                        }
+                    } else {
+                        if (p_cpu <= 65) {
+                            if (parent_ppm <= 676) {
+                                return -343;
+                            } else {
+                                return -629;
+                            }
+                        } else {
+                            return -713;
+                        }
+                    }
+                }
+            } else {
+                if (parent_ppm <= 530) {
+                    return -792;
+                } else {
+                    return -552;
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree19(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (p_cpu <= 23) {
+        if (hop_count <= 8) {
+            if (drop_rate <= 0) {
+                if (cpu <= 95) {
+                    return 208;
+                } else {
+                    return -834;
+                }
+            } else {
+                if (hop_count <= 2) {
+                    return 204;
+                } else {
+                    if (cpu <= 17) {
+                        return -21;
+                    } else {
+                        if (parent_drop_rate <= 0) {
+                            return -1166;
+                        } else {
+                            return -415;
                         }
                     }
                 }
             }
         } else {
-            if (etx <= 183) {
-                if (parent_drop_rate <= 4) {
-                    if (hop_count <= 23) {
-                        if (rssi <= -43) {
-                            if (hop_count <= 9) {
-                                return 226;
+            if (hop_count <= 19) {
+                if (p_cpu <= 7) {
+                    return 792;
+                } else {
+                    return -613;
+                }
+            } else {
+                if (cpu <= 9) {
+                    return 1859;
+                } else {
+                    return -938;
+                }
+            }
+        }
+    } else {
+        if (hop_count <= 3) {
+            if (is_new <= 0) {
+                return 416;
+            } else {
+                return -246;
+            }
+        } else {
+            if (drop_rate <= 1) {
+                if (p_cpu <= 54) {
+                    if (cpu <= 89) {
+                        if (hop_count <= 4) {
+                            if (cpu <= 22) {
+                                return 321;
                             } else {
-                                return -322;
+                                return -384;
                             }
                         } else {
-                            return -905;
+                            if (hop_count <= 28) {
+                                return -341;
+                            } else {
+                                return 684;
+                            }
                         }
                     } else {
-                        return 1414;
+                        return -1122;
                     }
                 } else {
-                    if (rssi <= -40) {
-                        return -313;
+                    if (is_new <= 0) {
+                        if (cpu <= 67) {
+                            if (p_cpu <= 72) {
+                                return -758;
+                            } else {
+                                return -1650;
+                            }
+                        } else {
+                            return -39;
+                        }
                     } else {
-                        return 1484;
+                        if (hop_count <= 30) {
+                            if (p_cpu <= 84) {
+                                return -378;
+                            } else {
+                                return -1257;
+                            }
+                        } else {
+                            return -1338;
+                        }
                     }
                 }
             } else {
-                if (hop_count <= 10) {
-                    if (rssi <= -56) {
-                        return -366;
-                    } else {
-                        if (is_new <= 0) {
-                            return -748;
+                if (hop_count <= 11) {
+                    if (drop_rate <= 49) {
+                        if (parent_drop_rate <= 8) {
+                            return -777;
                         } else {
-                            return -469;
+                            if (drop_rate <= 4) {
+                                return -272;
+                            } else {
+                                return -684;
+                            }
+                        }
+                    } else {
+                        return -216;
+                    }
+                } else {
+                    if (p_cpu <= 57) {
+                        if (hop_count <= 27) {
+                            return -283;
+                        } else {
+                            if (parent_drop_rate <= 22) {
+                                return 1301;
+                            } else {
+                                return -735;
+                            }
+                        }
+                    } else {
+                        return -650;
+                    }
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree20(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 4) {
+        if (hop_count <= 2) {
+            return 208;
+        } else {
+            if (cpu <= 45) {
+                if (drop_rate <= 4) {
+                    if (parent_ppm <= 68) {
+                        if (p_cpu <= 8) {
+                            return 205;
+                        } else {
+                            return -136;
+                        }
+                    } else {
+                        return 204;
+                    }
+                } else {
+                    if (parent_ppm <= 140) {
+                        return -1168;
+                    } else {
+                        return -55;
+                    }
+                }
+            } else {
+                if (parent_ppm <= 238) {
+                    return -759;
+                } else {
+                    return 7;
+                }
+            }
+        }
+    } else {
+        if (p_cpu <= 13) {
+            if (parent_drop_rate <= 3) {
+                return 259;
+            } else {
+                return -416;
+            }
+        } else {
+            if (drop_rate <= 0) {
+                if (parent_ppm <= 197) {
+                    if (p_cpu <= 24) {
+                        if (cpu <= 36) {
+                            if (parent_drop_rate <= 5) {
+                                return -124;
+                            } else {
+                                return -1495;
+                            }
+                        } else {
+                            return -1078;
+                        }
+                    } else {
+                        if (parent_ppm <= 84) {
+                            return -1281;
+                        } else {
+                            if (hop_count <= 11) {
+                                return -730;
+                            } else {
+                                return -152;
+                            }
                         }
                     }
                 } else {
-                    if (parent_drop_rate <= 15) {
-                        if (hop_count <= 20) {
-                            if (rssi <= -65) {
-                                return -79;
+                    if (parent_drop_rate <= 1) {
+                        if (hop_count <= 8) {
+                            return 374;
+                        } else {
+                            if (parent_ppm <= 276) {
+                                return -854;
                             } else {
-                                return -351;
+                                return 91;
+                            }
+                        }
+                    } else {
+                        if (parent_ppm <= 580) {
+                            if (parent_drop_rate <= 25) {
+                                return -231;
+                            } else {
+                                return -1339;
+                            }
+                        } else {
+                            if (p_cpu <= 34) {
+                                return -983;
+                            } else {
+                                return -422;
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (parent_ppm <= 338) {
+                    if (parent_drop_rate <= 12) {
+                        if (hop_count <= 12) {
+                            return -663;
+                        } else {
+                            if (cpu <= 2) {
+                                return 1206;
+                            } else {
+                                return -335;
+                            }
+                        }
+                    } else {
+                        return -1054;
+                    }
+                } else {
+                    if (cpu <= 44) {
+                        if (hop_count <= 8) {
+                            if (parent_drop_rate <= 8) {
+                                return -315;
+                            } else {
+                                return 127;
+                            }
+                        } else {
+                            return -435;
+                        }
+                    } else {
+                        return -601;
+                    }
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree21(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (p_cpu <= 23) {
+        if (hop_count <= 7) {
+            if (etx <= 222) {
+                return 192;
+            } else {
+                if (hop_count <= 2) {
+                    return 155;
+                } else {
+                    if (cpu <= 23) {
+                        if (etx <= 445) {
+                            return 61;
+                        } else {
+                            return -1335;
+                        }
+                    } else {
+                        if (etx <= 287) {
+                            return -175;
+                        } else {
+                            if (p_cpu <= 10) {
+                                return -93;
+                            } else {
+                                return -910;
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            if (etx <= 202) {
+                if (hop_count <= 19) {
+                    return -85;
+                } else {
+                    return 1537;
+                }
+            } else {
+                if (etx <= 344) {
+                    if (hop_count <= 8) {
+                        return -39;
+                    } else {
+                        if (etx <= 324) {
+                            return -750;
+                        } else {
+                            return 1112;
+                        }
+                    }
+                } else {
+                    if (hop_count <= 10) {
+                        return -2058;
+                    } else {
+                        return 67;
+                    }
+                }
+            }
+        }
+    } else {
+        if (hop_count <= 3) {
+            if (etx <= 428) {
+                if (hop_count <= 2) {
+                    return 472;
+                } else {
+                    return 145;
+                }
+            } else {
+                return -1125;
+            }
+        } else {
+            if (cpu <= 1) {
+                if (hop_count <= 18) {
+                    if (etx <= 159) {
+                        return 751;
+                    } else {
+                        return -192;
+                    }
+                } else {
+                    if (hop_count <= 20) {
+                        return 1501;
+                    } else {
+                        return 81;
+                    }
+                }
+            } else {
+                if (is_new <= 0) {
+                    if (etx <= 247) {
+                        if (p_cpu <= 42) {
+                            if (parent_drop_rate <= 7) {
+                                return -93;
+                            } else {
+                                return -505;
+                            }
+                        } else {
+                            return -666;
+                        }
+                    } else {
+                        if (hop_count <= 4) {
+                            if (parent_drop_rate <= 3) {
+                                return -474;
+                            } else {
+                                return 931;
+                            }
+                        } else {
+                            return -862;
+                        }
+                    }
+                } else {
+                    if (hop_count <= 18) {
+                        if (hop_count <= 15) {
+                            if (parent_drop_rate <= 6) {
+                                return -473;
+                            } else {
+                                return -262;
+                            }
+                        } else {
+                            return 186;
+                        }
+                    } else {
+                        return -585;
+                    }
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree22(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (p_cpu <= 23) {
+        if (etx <= 354) {
+            if (cpu <= 61) {
+                if (etx <= 222) {
+                    return 167;
+                } else {
+                    if (drop_rate <= 0) {
+                        if (p_cpu <= 20) {
+                            return 111;
+                        } else {
+                            if (parent_ppm <= 288) {
+                                return -416;
+                            } else {
+                                return 203;
+                            }
+                        }
+                    } else {
+                        return -222;
+                    }
+                }
+            } else {
+                if (p_cpu <= 3) {
+                    return 137;
+                } else {
+                    if (parent_ppm <= 212) {
+                        return -806;
+                    } else {
+                        return -160;
+                    }
+                }
+            }
+        } else {
+            if (p_cpu <= 3) {
+                return 392;
+            } else {
+                if (etx <= 473) {
+                    return -334;
+                } else {
+                    return -1447;
+                }
+            }
+        }
+    } else {
+        if (parent_ppm <= 148) {
+            if (etx <= 314) {
+                if (is_new <= 0) {
+                    if (p_cpu <= 39) {
+                        return -128;
+                    } else {
+                        return -955;
+                    }
+                } else {
+                    if (parent_ppm <= 93) {
+                        return -1014;
+                    } else {
+                        return -476;
+                    }
+                }
+            } else {
+                return -882;
+            }
+        } else {
+            if (drop_rate <= 0) {
+                if (p_cpu <= 39) {
+                    if (etx <= 419) {
+                        if (etx <= 176) {
+                            return 219;
+                        } else {
+                            if (parent_ppm <= 181) {
+                                return -533;
+                            } else {
+                                return -71;
+                            }
+                        }
+                    } else {
+                        return -936;
+                    }
+                } else {
+                    if (parent_ppm <= 310) {
+                        if (etx <= 162) {
+                            if (cpu <= 12) {
+                                return 1538;
+                            } else {
+                                return -291;
+                            }
+                        } else {
+                            return -465;
+                        }
+                    } else {
+                        return -198;
+                    }
+                }
+            } else {
+                if (parent_ppm <= 508) {
+                    return -468;
+                } else {
+                    if (p_cpu <= 46) {
+                        if (parent_ppm <= 639) {
+                            if (parent_ppm <= 548) {
+                                return -246;
+                            } else {
+                                return 456;
+                            }
+                        } else {
+                            if (parent_ppm <= 656) {
+                                return -1315;
+                            } else {
+                                return -139;
+                            }
+                        }
+                    } else {
+                        if (is_new <= 0) {
+                            return -726;
+                        } else {
+                            return -202;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree23(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 6) {
+        if (p_cpu <= 39) {
+            if (etx <= 445) {
+                if (etx <= 264) {
+                    return 143;
+                } else {
+                    if (hop_count <= 3) {
+                        if (parent_ppm <= 42) {
+                            if (drop_rate <= 6) {
+                                return -48;
+                            } else {
+                                return -1997;
                             }
                         } else {
                             return 150;
                         }
                     } else {
-                        return -407;
+                        if (parent_ppm <= 244) {
+                            if (p_cpu <= 9) {
+                                return 134;
+                            } else {
+                                return -715;
+                            }
+                        } else {
+                            if (etx <= 290) {
+                                return 643;
+                            } else {
+                                return 16;
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (hop_count <= 3) {
+                    return -188;
+                } else {
+                    if (p_cpu <= 22) {
+                        return -2324;
+                    } else {
+                        return -906;
+                    }
+                }
+            }
+        } else {
+            if (parent_ppm <= 107) {
+                return -863;
+            } else {
+                if (parent_drop_rate <= 0) {
+                    if (parent_ppm <= 276) {
+                        return -108;
+                    } else {
+                        return 1065;
+                    }
+                } else {
+                    if (etx <= 189) {
+                        return -791;
+                    } else {
+                        if (parent_ppm <= 419) {
+                            return -516;
+                        } else {
+                            if (parent_drop_rate <= 9) {
+                                return -331;
+                            } else {
+                                return 444;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    } else {
+        if (p_cpu <= 8) {
+            return 521;
+        } else {
+            if (drop_rate <= 7) {
+                if (parent_ppm <= 229) {
+                    if (etx <= 190) {
+                        if (p_cpu <= 23) {
+                            return 344;
+                        } else {
+                            if (hop_count <= 12) {
+                                return -482;
+                            } else {
+                                return 299;
+                            }
+                        }
+                    } else {
+                        if (parent_ppm <= 224) {
+                            if (hop_count <= 11) {
+                                return -644;
+                            } else {
+                                return -237;
+                            }
+                        } else {
+                            return -1357;
+                        }
+                    }
+                } else {
+                    if (parent_drop_rate <= 1) {
+                        if (etx <= 179) {
+                            return 576;
+                        } else {
+                            if (hop_count <= 8) {
+                                return 179;
+                            } else {
+                                return -343;
+                            }
+                        }
+                    } else {
+                        if (p_cpu <= 82) {
+                            return -231;
+                        } else {
+                            return -705;
+                        }
+                    }
+                }
+            } else {
+                return -445;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree24(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 6) {
+        if (cpu <= 61) {
+            if (hop_count <= 4) {
+                if (parent_ppm <= 170) {
+                    if (etx <= 264) {
+                        return 118;
+                    } else {
+                        if (drop_rate <= 4) {
+                            if (hop_count <= 3) {
+                                return 60;
+                            } else {
+                                return -427;
+                            }
+                        } else {
+                            return -1001;
+                        }
+                    }
+                } else {
+                    return 214;
+                }
+            } else {
+                if (drop_rate <= 1) {
+                    if (etx <= 302) {
+                        if (parent_ppm <= 593) {
+                            if (parent_ppm <= 156) {
+                                return 5;
+                            } else {
+                                return 264;
+                            }
+                        } else {
+                            return -537;
+                        }
+                    } else {
+                        if (parent_ppm <= 128) {
+                            return -1184;
+                        } else {
+                            if (etx <= 337) {
+                                return -706;
+                            } else {
+                                return 230;
+                            }
+                        }
+                    }
+                } else {
+                    if (parent_ppm <= 195) {
+                        return -825;
+                    } else {
+                        return -102;
+                    }
+                }
+            }
+        } else {
+            if (hop_count <= 1) {
+                return 252;
+            } else {
+                if (parent_ppm <= 586) {
+                    return -574;
+                } else {
+                    return 114;
+                }
+            }
+        }
+    } else {
+        if (cpu <= 0) {
+            if (etx <= 356) {
+                if (hop_count <= 8) {
+                    return 622;
+                } else {
+                    return 13;
+                }
+            } else {
+                return -1147;
+            }
+        } else {
+            if (hop_count <= 12) {
+                if (drop_rate <= 11) {
+                    if (etx <= 227) {
+                        if (parent_ppm <= 567) {
+                            return -147;
+                        } else {
+                            if (parent_drop_rate <= 4) {
+                                return -1043;
+                            } else {
+                                return -375;
+                            }
+                        }
+                    } else {
+                        if (parent_ppm <= 310) {
+                            return -570;
+                        } else {
+                            if (etx <= 473) {
+                                return -292;
+                            } else {
+                                return 852;
+                            }
+                        }
+                    }
+                } else {
+                    return -525;
+                }
+            } else {
+                if (hop_count <= 19) {
+                    return -126;
+                } else {
+                    if (cpu <= 26) {
+                        if (parent_ppm <= 294) {
+                            return 677;
+                        } else {
+                            if (hop_count <= 28) {
+                                return -610;
+                            } else {
+                                return 357;
+                            }
+                        }
+                    } else {
+                        return -637;
                     }
                 }
             }
@@ -3102,365 +3102,739 @@ static int32_t mlof_predict_pdr_lgbm_tree24(uint8_t is_new, uint8_t cpu, uint8_t
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree25(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+static int32_t mlof_predict_pdr_lgbm_tree25(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
     if (hop_count <= 4) {
-        if (etx <= 394) {
-            if (parent_drop_rate <= 9) {
-                if (parent_ppm <= 57) {
-                    if (hop_count <= 1) {
-                        return 127;
-                    } else {
-                        if (drop_rate <= 53) {
-                            if (cpu <= 1) {
-                                return 85;
-                            } else {
-                                return -76;
-                            }
-                        } else {
-                            return -1824;
-                        }
-                    }
+        if (parent_ppm <= 238) {
+            if (p_cpu <= 21) {
+                if (p_cpu <= 5) {
+                    return 141;
                 } else {
-                    return 129;
+                    return 75;
                 }
             } else {
-                if (parent_ppm <= 357) {
-                    if (hop_count <= 3) {
-                        if (etx <= 308) {
-                            return 542;
-                        } else {
-                            return -1120;
-                        }
-                    } else {
-                        return -1111;
-                    }
+                if (hop_count <= 2) {
+                    return 235;
                 } else {
-                    return 600;
+                    if (parent_ppm <= 109) {
+                        return -830;
+                    } else {
+                        return -87;
+                    }
                 }
             }
         } else {
-            if (hop_count <= 2) {
-                return 30;
-            } else {
-                if (etx <= 482) {
-                    return -957;
-                } else {
-                    return 238;
-                }
-            }
+            return 203;
         }
     } else {
-        if (etx <= 183) {
-            if (p_cpu <= 64) {
-                if (hop_count <= 7) {
-                    if (parent_ppm <= 804) {
-                        if (p_cpu <= 52) {
-                            return 213;
-                        } else {
-                            return 1199;
-                        }
-                    } else {
-                        return -459;
-                    }
-                } else {
-                    if (hop_count <= 22) {
-                        if (parent_ppm <= 265) {
-                            if (rssi <= -56) {
-                                return -820;
-                            } else {
-                                return 141;
-                            }
-                        } else {
-                            if (rssi <= -59) {
-                                return 180;
-                            } else {
-                                return -283;
-                            }
-                        }
-                    } else {
-                        return 1336;
-                    }
-                }
+        if (p_cpu <= 10) {
+            if (hop_count <= 10) {
+                return 233;
             } else {
-                if (rssi <= -45) {
-                    return -321;
-                } else {
-                    return -912;
-                }
+                return -997;
             }
         } else {
-            if (cpu <= 1) {
-                if (parent_drop_rate <= 29) {
-                    if (p_cpu <= 24) {
-                        if (etx <= 321) {
-                            return 127;
+            if (drop_rate <= 1) {
+                if (parent_ppm <= 130) {
+                    if (is_new <= 0) {
+                        if (p_cpu <= 31) {
+                            return -78;
                         } else {
-                            return -665;
+                            return -857;
                         }
                     } else {
-                        if (p_cpu <= 119) {
-                            return -230;
+                        if (parent_ppm <= 93) {
+                            return -953;
                         } else {
-                            return 933;
-                        }
-                    }
-                } else {
-                    return -550;
-                }
-            } else {
-                if (rssi <= -79) {
-                    if (etx <= 478) {
-                        return -217;
-                    } else {
-                        return -1095;
-                    }
-                } else {
-                    if (hop_count <= 10) {
-                        return -418;
-                    } else {
-                        return -255;
-                    }
-                }
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree26(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (parent_drop_rate <= 0) {
-        if (is_new <= 0) {
-            if (p_cpu <= 67) {
-                return 95;
-            } else {
-                return -803;
-            }
-        } else {
-            if (p_cpu <= 6) {
-                if (drop_rate <= 12) {
-                    if (rssi <= -69) {
-                        if (parent_ppm <= 49) {
-                            return 14;
-                        } else {
-                            return 292;
-                        }
-                    } else {
-                        return -52;
-                    }
-                } else {
-                    if (cpu <= 15) {
-                        return 128;
-                    } else {
-                        if (parent_ppm <= 35) {
-                            return -268;
-                        } else {
-                            if (rssi <= -86) {
-                                return 170;
-                            } else {
-                                return -2039;
-                            }
-                        }
-                    }
-                }
-            } else {
-                if (rssi <= -93) {
-                    if (parent_ppm <= 385) {
-                        return 234;
-                    } else {
-                        return 2768;
-                    }
-                } else {
-                    if (ppm <= 3) {
-                        if (cpu <= 18) {
-                            if (p_cpu <= 8) {
-                                return -3157;
-                            } else {
-                                return -954;
-                            }
-                        } else {
-                            return 1142;
-                        }
-                    } else {
-                        if (ppm <= 36) {
-                            return 97;
-                        } else {
-                            if (rssi <= -48) {
-                                return -252;
-                            } else {
-                                return -615;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    } else {
-        if (cpu <= 14) {
-            if (p_cpu <= 10) {
-                if (ppm <= 27) {
-                    if (rssi <= -78) {
-                        return 698;
-                    } else {
-                        return -1822;
-                    }
-                } else {
-                    return 229;
-                }
-            } else {
-                if (parent_drop_rate <= 28) {
-                    if (parent_ppm <= 562) {
-                        if (parent_ppm <= 353) {
-                            if (is_new <= 0) {
-                                return -7;
-                            } else {
-                                return -294;
-                            }
-                        } else {
-                            return 46;
-                        }
-                    } else {
-                        if (parent_drop_rate <= 26) {
-                            if (rssi <= -59) {
-                                return -144;
-                            } else {
-                                return -428;
-                            }
-                        } else {
-                            if (parent_ppm <= 583) {
-                                return 2290;
-                            } else {
-                                return 243;
-                            }
+                            return -453;
                         }
                     }
                 } else {
-                    if (parent_ppm <= 429) {
-                        return -746;
-                    } else {
-                        return -279;
-                    }
-                }
-            }
-        } else {
-            if (parent_ppm <= 477) {
-                return -375;
-            } else {
-                return -236;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree27(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (parent_drop_rate <= 1) {
-        if (drop_rate <= 2) {
-            if (p_cpu <= 40) {
-                if (etx <= 399) {
-                    if (etx <= 207) {
-                        return 110;
-                    } else {
-                        if (rssi <= -56) {
-                            if (parent_drop_rate <= 0) {
-                                return 59;
+                    if (parent_drop_rate <= 1) {
+                        if (hop_count <= 9) {
+                            if (p_cpu <= 27) {
+                                return 285;
                             } else {
-                                return 484;
+                                return -56;
                             }
                         } else {
-                            if (is_new <= 0) {
-                                return -132;
+                            if (parent_ppm <= 303) {
+                                return -708;
                             } else {
-                                return -569;
+                                return 468;
                             }
                         }
-                    }
-                } else {
-                    if (cpu <= 36) {
-                        return -223;
-                    } else {
-                        return -1057;
-                    }
-                }
-            } else {
-                if (ppm <= 7) {
-                    if (rssi <= -87) {
-                        return -2290;
                     } else {
                         if (is_new <= 0) {
-                            return 399;
+                            if (hop_count <= 17) {
+                                return -346;
+                            } else {
+                                return 357;
+                            }
                         } else {
-                            return -1138;
+                            if (hop_count <= 20) {
+                                return -79;
+                            } else {
+                                return -473;
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (parent_ppm <= 542) {
+                    if (p_cpu <= 16) {
+                        if (parent_ppm <= 116) {
+                            return -2682;
+                        } else {
+                            return -632;
+                        }
+                    } else {
+                        if (p_cpu <= 94) {
+                            if (parent_drop_rate <= 12) {
+                                return -339;
+                            } else {
+                                return -553;
+                            }
+                        } else {
+                            return 1178;
                         }
                     }
                 } else {
-                    if (rssi <= -70) {
-                        return 59;
-                    } else {
-                        if (rssi <= -63) {
-                            return -604;
-                        } else {
-                            if (etx <= 392) {
-                                return -211;
+                    if (p_cpu <= 41) {
+                        if (parent_drop_rate <= 6) {
+                            if (parent_ppm <= 727) {
+                                return -798;
                             } else {
-                                return 700;
+                                return 566;
+                            }
+                        } else {
+                            if (drop_rate <= 37) {
+                                return 430;
+                            } else {
+                                return -1185;
                             }
                         }
+                    } else {
+                        if (parent_ppm <= 548) {
+                            return 1106;
+                        } else {
+                            return -296;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree26(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 6) {
+        if (p_cpu <= 31) {
+            if (etx <= 306) {
+                if (cpu <= 95) {
+                    if (etx <= 191) {
+                        return 139;
+                    } else {
+                        return 78;
+                    }
+                } else {
+                    if (hop_count <= 1) {
+                        return 147;
+                    } else {
+                        return -1130;
+                    }
+                }
+            } else {
+                if (hop_count <= 2) {
+                    return 122;
+                } else {
+                    if (p_cpu <= 5) {
+                        return 436;
+                    } else {
+                        return -387;
                     }
                 }
             }
         } else {
-            if (ppm <= 240) {
-                return 445;
+            if (drop_rate <= 0) {
+                if (is_new <= 0) {
+                    if (p_cpu <= 40) {
+                        return 340;
+                    } else {
+                        if (etx <= 292) {
+                            return -31;
+                        } else {
+                            return -1316;
+                        }
+                    }
+                } else {
+                    return -189;
+                }
             } else {
-                return -295;
+                if (etx <= 176) {
+                    if (etx <= 171) {
+                        return -540;
+                    } else {
+                        return -1945;
+                    }
+                } else {
+                    return -263;
+                }
             }
         }
     } else {
-        if (cpu <= 19) {
-            if (p_cpu <= 13) {
-                if (parent_drop_rate <= 41) {
-                    return 159;
-                } else {
-                    return -880;
-                }
-            } else {
-                if (etx <= 181) {
-                    if (p_cpu <= 88) {
-                        if (p_cpu <= 20) {
-                            if (parent_drop_rate <= 8) {
-                                return -1050;
-                            } else {
-                                return 23;
-                            }
+        if (p_cpu <= 8) {
+            return 517;
+        } else {
+            if (cpu <= 0) {
+                if (is_new <= 0) {
+                    if (p_cpu <= 45) {
+                        if (etx <= 266) {
+                            return 222;
                         } else {
-                            if (ppm <= 36) {
-                                return 756;
-                            } else {
-                                return 77;
-                            }
+                            return -747;
                         }
                     } else {
-                        return -624;
+                        return 1177;
                     }
                 } else {
-                    if (rssi <= -84) {
-                        if (parent_drop_rate <= 2) {
-                            if (ppm <= 244) {
-                                return 157;
+                    return -540;
+                }
+            } else {
+                if (is_new <= 0) {
+                    if (etx <= 248) {
+                        if (p_cpu <= 54) {
+                            if (hop_count <= 9) {
+                                return -11;
                             } else {
-                                return 1615;
+                                return -320;
                             }
                         } else {
-                            return -107;
+                            if (cpu <= 65) {
+                                return -700;
+                            } else {
+                                return -171;
+                            }
                         }
                     } else {
-                        if (p_cpu <= 40) {
-                            if (parent_drop_rate <= 62) {
-                                return -142;
+                        if (hop_count <= 16) {
+                            return -642;
+                        } else {
+                            if (cpu <= 9) {
+                                return 1086;
                             } else {
-                                return 1899;
+                                return -467;
+                            }
+                        }
+                    }
+                } else {
+                    if (hop_count <= 18) {
+                        if (hop_count <= 12) {
+                            if (drop_rate <= 54) {
+                                return -247;
+                            } else {
+                                return 483;
                             }
                         } else {
-                            if (p_cpu <= 57) {
-                                return -424;
+                            return -9;
+                        }
+                    } else {
+                        if (cpu <= 2) {
+                            return 757;
+                        } else {
+                            return -462;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree27(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 4) {
+        if (etx <= 477) {
+            if (parent_ppm <= 58) {
+                if (p_cpu <= 8) {
+                    return 92;
+                } else {
+                    if (etx <= 264) {
+                        if (hop_count <= 2) {
+                            return 29;
+                        } else {
+                            return -172;
+                        }
+                    } else {
+                        return -423;
+                    }
+                }
+            } else {
+                if (p_cpu <= 50) {
+                    if (parent_ppm <= 448) {
+                        if (p_cpu <= 43) {
+                            return 114;
+                        } else {
+                            if (etx <= 244) {
+                                return -1876;
+                            } else {
+                                return -155;
+                            }
+                        }
+                    } else {
+                        if (p_cpu <= 42) {
+                            return 242;
+                        } else {
+                            return 1084;
+                        }
+                    }
+                } else {
+                    if (p_cpu <= 53) {
+                        return -1642;
+                    } else {
+                        return 255;
+                    }
+                }
+            }
+        } else {
+            return -1078;
+        }
+    } else {
+        if (p_cpu <= 13) {
+            if (etx <= 335) {
+                return 135;
+            } else {
+                return -1475;
+            }
+        } else {
+            if (parent_ppm <= 148) {
+                if (etx <= 183) {
+                    if (parent_ppm <= 43) {
+                        return -1294;
+                    } else {
+                        if (parent_drop_rate <= 4) {
+                            return 64;
+                        } else {
+                            return -1183;
+                        }
+                    }
+                } else {
+                    return -546;
+                }
+            } else {
+                if (parent_drop_rate <= 0) {
+                    if (etx <= 251) {
+                        if (parent_ppm <= 374) {
+                            return 231;
+                        } else {
+                            return 836;
+                        }
+                    } else {
+                        if (parent_ppm <= 440) {
+                            if (hop_count <= 7) {
+                                return -305;
+                            } else {
+                                return -1210;
+                            }
+                        } else {
+                            return 1470;
+                        }
+                    }
+                } else {
+                    if (p_cpu <= 65) {
+                        if (hop_count <= 12) {
+                            if (parent_ppm <= 229) {
+                                return -386;
+                            } else {
+                                return -187;
+                            }
+                        } else {
+                            if (parent_ppm <= 215) {
+                                return 355;
+                            } else {
+                                return -104;
+                            }
+                        }
+                    } else {
+                        if (parent_drop_rate <= 3) {
+                            if (p_cpu <= 79) {
+                                return -221;
+                            } else {
+                                return 652;
+                            }
+                        } else {
+                            if (etx <= 239) {
+                                return -559;
+                            } else {
+                                return -279;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree28(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (p_cpu <= 27) {
+        if (is_new <= 0) {
+            if (parent_ppm <= 817) {
+                return 87;
+            } else {
+                return -1026;
+            }
+        } else {
+            if (p_cpu <= 3) {
+                return 125;
+            } else {
+                if (parent_ppm <= 87) {
+                    if (cpu <= 26) {
+                        if (drop_rate <= 0) {
+                            return -3;
+                        } else {
+                            if (cpu <= 18) {
+                                return -2046;
+                            } else {
+                                return -357;
+                            }
+                        }
+                    } else {
+                        return -690;
+                    }
+                } else {
+                    if (drop_rate <= 8) {
+                        if (parent_drop_rate <= 2) {
+                            return 115;
+                        } else {
+                            if (parent_ppm <= 175) {
+                                return -967;
+                            } else {
+                                return -5;
+                            }
+                        }
+                    } else {
+                        return -254;
+                    }
+                }
+            }
+        }
+    } else {
+        if (parent_ppm <= 267) {
+            if (parent_ppm <= 74) {
+                return -631;
+            } else {
+                if (cpu <= 2) {
+                    if (p_cpu <= 55) {
+                        if (parent_drop_rate <= 1) {
+                            return 328;
+                        } else {
+                            if (parent_drop_rate <= 2) {
+                                return -1700;
+                            } else {
+                                return -296;
+                            }
+                        }
+                    } else {
+                        return 1066;
+                    }
+                } else {
+                    return -311;
+                }
+            }
+        } else {
+            if (parent_drop_rate <= 0) {
+                return 418;
+            } else {
+                if (p_cpu <= 40) {
+                    if (parent_ppm <= 600) {
+                        if (parent_drop_rate <= 25) {
+                            if (parent_ppm <= 548) {
+                                return -14;
+                            } else {
+                                return 341;
+                            }
+                        } else {
+                            return -1215;
+                        }
+                    } else {
+                        if (parent_drop_rate <= 8) {
+                            if (p_cpu <= 36) {
+                                return -801;
+                            } else {
+                                return -44;
+                            }
+                        } else {
+                            if (drop_rate <= 1) {
+                                return -275;
+                            } else {
+                                return 381;
+                            }
+                        }
+                    }
+                } else {
+                    if (parent_drop_rate <= 7) {
+                        if (drop_rate <= 65) {
+                            if (is_new <= 0) {
+                                return -497;
+                            } else {
+                                return -252;
+                            }
+                        } else {
+                            return 1051;
+                        }
+                    } else {
+                        if (cpu <= 0) {
+                            return 907;
+                        } else {
+                            if (p_cpu <= 65) {
+                                return -89;
+                            } else {
+                                return -330;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree29(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 4) {
+        if (parent_ppm <= 288) {
+            if (etx <= 445) {
+                if (parent_ppm <= 58) {
+                    if (p_cpu <= 7) {
+                        return 74;
+                    } else {
+                        if (etx <= 266) {
+                            if (hop_count <= 2) {
+                                return 24;
+                            } else {
+                                return -133;
+                            }
+                        } else {
+                            if (p_cpu <= 19) {
+                                return -260;
+                            } else {
+                                return -804;
+                            }
+                        }
+                    }
+                } else {
+                    if (p_cpu <= 43) {
+                        return 96;
+                    } else {
+                        return -693;
+                    }
+                }
+            } else {
+                if (hop_count <= 3) {
+                    return -202;
+                } else {
+                    return -1546;
+                }
+            }
+        } else {
+            if (p_cpu <= 14) {
+                return 12;
+            } else {
+                if (cpu <= 90) {
+                    return 292;
+                } else {
+                    return -731;
+                }
+            }
+        }
+    } else {
+        if (p_cpu <= 12) {
+            if (etx <= 335) {
+                if (etx <= 191) {
+                    return 243;
+                } else {
+                    if (hop_count <= 9) {
+                        return 92;
+                    } else {
+                        return -872;
+                    }
+                }
+            } else {
+                return -1530;
+            }
+        } else {
+            if (parent_ppm <= 91) {
+                return -549;
+            } else {
+                if (drop_rate <= 4) {
+                    if (parent_ppm <= 715) {
+                        if (etx <= 216) {
+                            if (p_cpu <= 55) {
+                                return 89;
+                            } else {
+                                return -208;
+                            }
+                        } else {
+                            if (parent_ppm <= 247) {
+                                return -342;
+                            } else {
+                                return -83;
+                            }
+                        }
+                    } else {
+                        if (etx <= 212) {
+                            if (cpu <= 33) {
+                                return -693;
+                            } else {
+                                return -30;
+                            }
+                        } else {
+                            if (p_cpu <= 25) {
+                                return -1488;
+                            } else {
+                                return -1;
+                            }
+                        }
+                    }
+                } else {
+                    if (drop_rate <= 64) {
+                        if (etx <= 459) {
+                            return -243;
+                        } else {
+                            if (drop_rate <= 23) {
+                                return -96;
+                            } else {
+                                return 733;
+                            }
+                        }
+                    } else {
+                        if (etx <= 235) {
+                            return -87;
+                        } else {
+                            if (p_cpu <= 48) {
+                                return 139;
+                            } else {
+                                return 1574;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree30(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 4) {
+        if (parent_ppm <= 45) {
+            if (p_cpu <= 9) {
+                return 55;
+            } else {
+                if (p_cpu <= 33) {
+                    if (etx <= 222) {
+                        return -55;
+                    } else {
+                        if (cpu <= 47) {
+                            return -235;
+                        } else {
+                            if (hop_count <= 2) {
+                                return -488;
+                            } else {
+                                return -2059;
+                            }
+                        }
+                    }
+                } else {
+                    return -1629;
+                }
+            }
+        } else {
+            if (hop_count <= 3) {
+                return 101;
+            } else {
+                if (cpu <= 14) {
+                    if (p_cpu <= 40) {
+                        return 98;
+                    } else {
+                        return -675;
+                    }
+                } else {
+                    if (p_cpu <= 19) {
+                        return -16;
+                    } else {
+                        if (p_cpu <= 53) {
+                            return -456;
+                        } else {
+                            return 593;
+                        }
+                    }
+                }
+            }
+        }
+    } else {
+        if (p_cpu <= 10) {
+            if (hop_count <= 10) {
+                return 161;
+            } else {
+                return -1449;
+            }
+        } else {
+            if (cpu <= 0) {
+                if (etx <= 262) {
+                    if (parent_ppm <= 554) {
+                        if (is_new <= 0) {
+                            if (p_cpu <= 45) {
+                                return 227;
+                            } else {
+                                return 1198;
+                            }
+                        } else {
+                            return -406;
+                        }
+                    } else {
+                        if (etx <= 222) {
+                            return 534;
+                        } else {
+                            return 2029;
+                        }
+                    }
+                } else {
+                    return -403;
+                }
+            } else {
+                if (parent_ppm <= 89) {
+                    if (p_cpu <= 12) {
+                        return 97;
+                    } else {
+                        if (parent_ppm <= 23) {
+                            return 514;
+                        } else {
+                            return -560;
+                        }
+                    }
+                } else {
+                    if (is_new <= 0) {
+                        if (etx <= 243) {
+                            if (parent_ppm <= 607) {
+                                return -26;
+                            } else {
+                                return -465;
+                            }
+                        } else {
+                            if (parent_ppm <= 229) {
+                                return -858;
+                            } else {
+                                return -296;
+                            }
+                        }
+                    } else {
+                        if (cpu <= 54) {
+                            if (parent_ppm <= 362) {
+                                return -153;
+                            } else {
+                                return -5;
+                            }
+                        } else {
+                            if (p_cpu <= 15) {
+                                return -1189;
                             } else {
                                 return -226;
                             }
@@ -3468,2484 +3842,622 @@ static int32_t mlof_predict_pdr_lgbm_tree27(uint8_t is_new, uint8_t cpu, uint8_t
                     }
                 }
             }
-        } else {
-            return -287;
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree28(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+static int32_t mlof_predict_pdr_lgbm_tree31(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
     if (hop_count <= 6) {
-        if (drop_rate <= 2) {
-            if (etx <= 249) {
-                if (parent_drop_rate <= 11) {
-                    if (p_cpu <= 67) {
-                        if (parent_ppm <= 58) {
-                            if (hop_count <= 2) {
-                                return 75;
-                            } else {
-                                return -43;
-                            }
-                        } else {
-                            if (rssi <= -51) {
-                                return 122;
-                            } else {
-                                return -62;
-                            }
-                        }
+        if (p_cpu <= 40) {
+            if (parent_ppm <= 204) {
+                if (p_cpu <= 22) {
+                    if (cpu <= 95) {
+                        return 54;
                     } else {
-                        if (rssi <= -82) {
-                            return 1587;
+                        if (hop_count <= 1) {
+                            return 133;
                         } else {
-                            return -925;
-                        }
-                    }
-                } else {
-                    if (rssi <= -86) {
-                        if (hop_count <= 4) {
-                            return 423;
-                        } else {
-                            return 1992;
-                        }
-                    } else {
-                        if (parent_ppm <= 876) {
-                            if (parent_drop_rate <= 20) {
-                                return 654;
+                            if (p_cpu <= 12) {
+                                return -2312;
                             } else {
-                                return 120;
-                            }
-                        } else {
-                            if (parent_drop_rate <= 25) {
-                                return -1556;
-                            } else {
-                                return 195;
+                                return -311;
                             }
                         }
                     }
-                }
-            } else {
-                if (hop_count <= 2) {
-                    return 109;
                 } else {
-                    if (cpu <= 0) {
-                        return 221;
-                    } else {
-                        if (parent_ppm <= 487) {
-                            if (rssi <= -93) {
-                                return 210;
-                            } else {
-                                return -333;
-                            }
-                        } else {
-                            return 210;
-                        }
-                    }
-                }
-            }
-        } else {
-            if (hop_count <= 2) {
-                return 156;
-            } else {
-                if (parent_ppm <= 1091) {
-                    if (parent_ppm <= 471) {
-                        return -449;
-                    } else {
-                        return -122;
-                    }
-                } else {
-                    return 1344;
-                }
-            }
-        }
-    } else {
-        if (parent_drop_rate <= 28) {
-            if (hop_count <= 23) {
-                if (etx <= 255) {
-                    if (parent_ppm <= 681) {
-                        if (parent_ppm <= 281) {
-                            if (parent_drop_rate <= 13) {
-                                return -210;
-                            } else {
-                                return -832;
-                            }
-                        } else {
-                            if (etx <= 165) {
-                                return 363;
-                            } else {
-                                return -77;
-                            }
-                        }
-                    } else {
-                        return -293;
-                    }
-                } else {
-                    if (p_cpu <= 101) {
-                        if (parent_ppm <= 229) {
-                            return -584;
-                        } else {
-                            return -274;
-                        }
-                    } else {
-                        return 82;
-                    }
-                }
-            } else {
-                return 193;
-            }
-        } else {
-            return -373;
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree29(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 4) {
-        if (parent_ppm <= 95) {
-            if (p_cpu <= 5) {
-                return 73;
-            } else {
-                if (hop_count <= 2) {
-                    return 52;
-                } else {
-                    if (ppm <= 131) {
-                        if (rssi <= -44) {
-                            if (cpu <= 0) {
-                                return 114;
-                            } else {
-                                return -140;
-                            }
-                        } else {
-                            return -1598;
-                        }
-                    } else {
-                        return -991;
-                    }
-                }
-            }
-        } else {
-            if (rssi <= -44) {
-                if (ppm <= 4) {
-                    if (parent_ppm <= 119) {
-                        return 187;
-                    } else {
-                        return -1330;
-                    }
-                } else {
-                    return 112;
-                }
-            } else {
-                if (hop_count <= 2) {
-                    return 45;
-                } else {
-                    if (cpu <= 111) {
-                        return -513;
-                    } else {
-                        return -2397;
-                    }
-                }
-            }
-        }
-    } else {
-        if (ppm <= 54) {
-            if (hop_count <= 12) {
-                if (parent_ppm <= 791) {
-                    return 64;
-                } else {
-                    if (p_cpu <= 105) {
-                        return -511;
-                    } else {
-                        return 1872;
-                    }
-                }
-            } else {
-                if (p_cpu <= 96) {
-                    if (hop_count <= 20) {
-                        if (rssi <= -70) {
-                            return -54;
-                        } else {
-                            return -589;
-                        }
-                    } else {
-                        return 535;
-                    }
-                } else {
-                    return -737;
-                }
-            }
-        } else {
-            if (parent_ppm <= 227) {
-                if (p_cpu <= 17) {
-                    if (ppm <= 216) {
-                        if (hop_count <= 7) {
-                            return 132;
-                        } else {
-                            return -672;
-                        }
-                    } else {
-                        return -726;
-                    }
-                } else {
-                    if (p_cpu <= 40) {
-                        return -732;
-                    } else {
-                        return -357;
-                    }
-                }
-            } else {
-                if (drop_rate <= 0) {
-                    if (ppm <= 925) {
-                        if (parent_ppm <= 860) {
-                            return -119;
-                        } else {
-                            if (is_new <= 0) {
-                                return -582;
-                            } else {
-                                return -167;
-                            }
-                        }
-                    } else {
-                        return 267;
-                    }
-                } else {
-                    if (ppm <= 407) {
-                        if (rssi <= -67) {
-                            return 357;
-                        } else {
-                            return -201;
-                        }
-                    } else {
-                        return -295;
-                    }
-                }
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree30(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 4) {
-        if (etx <= 402) {
-            if (parent_ppm <= 907) {
-                if (parent_ppm <= 61) {
-                    if (hop_count <= 1) {
+                    if (hop_count <= 3) {
                         return 81;
                     } else {
-                        if (ppm <= 127) {
-                            return 2;
-                        } else {
-                            if (cpu <= 28) {
-                                return -271;
+                        if (parent_drop_rate <= 2) {
+                            if (parent_ppm <= 193) {
+                                return -392;
                             } else {
-                                return -1047;
+                                return 1040;
                             }
-                        }
-                    }
-                } else {
-                    if (ppm <= 4) {
-                        if (parent_ppm <= 127) {
-                            return -265;
                         } else {
-                            return -1347;
-                        }
-                    } else {
-                        if (rssi <= -43) {
-                            return 99;
-                        } else {
-                            return -218;
+                            return -884;
                         }
                     }
                 }
             } else {
-                return 941;
+                return 146;
             }
         } else {
-            if (ppm <= 694) {
-                if (parent_ppm <= 37) {
-                    if (hop_count <= 1) {
-                        return -263;
-                    } else {
-                        return -2318;
-                    }
+            if (cpu <= 11) {
+                if (parent_ppm <= 560) {
+                    return -918;
                 } else {
-                    return 49;
+                    return -61;
                 }
             } else {
-                return -987;
+                if (parent_drop_rate <= 23) {
+                    return -126;
+                } else {
+                    return 1125;
+                }
             }
         }
     } else {
-        if (ppm <= 44) {
-            if (p_cpu <= 85) {
-                if (etx <= 332) {
-                    if (etx <= 176) {
-                        return 260;
-                    } else {
-                        if (p_cpu <= 76) {
-                            return 25;
-                        } else {
-                            return 694;
-                        }
-                    }
-                } else {
-                    return -459;
-                }
-            } else {
-                return -436;
-            }
+        if (p_cpu <= 7) {
+            return 541;
         } else {
-            if (parent_ppm <= 227) {
-                if (etx <= 237) {
-                    if (p_cpu <= 17) {
-                        return 39;
-                    } else {
-                        if (hop_count <= 14) {
-                            return -619;
-                        } else {
-                            if (rssi <= -79) {
-                                return 2404;
+            if (p_cpu <= 74) {
+                if (hop_count <= 14) {
+                    if (parent_ppm <= 362) {
+                        if (parent_drop_rate <= 12) {
+                            if (hop_count <= 7) {
+                                return -25;
                             } else {
-                                return 173;
+                                return -246;
                             }
-                        }
-                    }
-                } else {
-                    if (p_cpu <= 54) {
-                        return -659;
-                    } else {
-                        return -225;
-                    }
-                }
-            } else {
-                if (etx <= 183) {
-                    if (parent_ppm <= 791) {
-                        if (rssi <= -48) {
-                            if (rssi <= -52) {
-                                return 79;
-                            } else {
-                                return 670;
-                            }
-                        } else {
-                            if (p_cpu <= 63) {
-                                return 38;
-                            } else {
-                                return -618;
-                            }
-                        }
-                    } else {
-                        return -299;
-                    }
-                } else {
-                    if (ppm <= 85) {
-                        return -49;
-                    } else {
-                        return -203;
-                    }
-                }
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree31(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 6) {
-        if (etx <= 222) {
-            if (parent_drop_rate <= 9) {
-                return 71;
-            } else {
-                if (hop_count <= 5) {
-                    if (p_cpu <= 11) {
-                        return 160;
-                    } else {
-                        return 700;
-                    }
-                } else {
-                    if (parent_drop_rate <= 18) {
-                        if (drop_rate <= 11) {
-                            if (is_new <= 0) {
-                                return 1738;
-                            } else {
-                                return 295;
-                            }
-                        } else {
-                            return -820;
-                        }
-                    } else {
-                        return -568;
-                    }
-                }
-            }
-        } else {
-            if (hop_count <= 3) {
-                if (parent_ppm <= 93) {
-                    if (etx <= 454) {
-                        if (hop_count <= 2) {
-                            return 39;
                         } else {
                             if (is_new <= 0) {
-                                return -64;
+                                return -1030;
                             } else {
-                                return -536;
+                                return -382;
                             }
                         }
                     } else {
-                        return -993;
-                    }
-                } else {
-                    return 102;
-                }
-            } else {
-                if (parent_ppm <= 487) {
-                    if (cpu <= 2) {
-                        if (parent_ppm <= 482) {
-                            if (p_cpu <= 28) {
-                                return 30;
-                            } else {
-                                return -477;
-                            }
-                        } else {
-                            return 3005;
-                        }
-                    } else {
-                        if (p_cpu <= 4) {
+                        if (parent_ppm <= 458) {
                             if (parent_drop_rate <= 4) {
-                                return 153;
+                                return 348;
                             } else {
-                                return -1704;
+                                return -99;
                             }
                         } else {
-                            return -426;
-                        }
-                    }
-                } else {
-                    if (parent_ppm <= 1140) {
-                        if (parent_ppm <= 498) {
-                            return 1032;
-                        } else {
-                            return 4;
-                        }
-                    } else {
-                        return 1536;
-                    }
-                }
-            }
-        }
-    } else {
-        if (hop_count <= 20) {
-            if (parent_ppm <= 1306) {
-                if (drop_rate <= 0) {
-                    if (parent_ppm <= 305) {
-                        return -238;
-                    } else {
-                        return -106;
-                    }
-                } else {
-                    return -242;
-                }
-            } else {
-                return -687;
-            }
-        } else {
-            if (p_cpu <= 99) {
-                if (parent_ppm <= 757) {
-                    if (is_new <= 0) {
-                        if (etx <= 212) {
-                            if (parent_drop_rate <= 30) {
-                                return 1391;
+                            if (parent_drop_rate <= 6) {
+                                return -295;
                             } else {
-                                return 3664;
-                            }
-                        } else {
-                            return 321;
-                        }
-                    } else {
-                        return 346;
-                    }
-                } else {
-                    return -353;
-                }
-            } else {
-                return -257;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree32(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 6) {
-        if (etx <= 324) {
-            if (cpu <= 1) {
-                if (parent_drop_rate <= 0) {
-                    return 88;
-                } else {
-                    if (etx <= 293) {
-                        if (ppm <= 0) {
-                            return -1036;
-                        } else {
-                            if (parent_ppm <= 602) {
-                                return 745;
-                            } else {
-                                return 59;
-                            }
-                        }
-                    } else {
-                        return -482;
-                    }
-                }
-            } else {
-                if (hop_count <= 3) {
-                    if (parent_drop_rate <= 5) {
-                        return 44;
-                    } else {
-                        return 465;
-                    }
-                } else {
-                    if (rssi <= -50) {
-                        if (etx <= 193) {
-                            return 84;
-                        } else {
-                            if (parent_ppm <= 716) {
-                                return -149;
-                            } else {
-                                return 410;
-                            }
-                        }
-                    } else {
-                        if (parent_ppm <= 465) {
-                            return -692;
-                        } else {
-                            if (parent_ppm <= 655) {
-                                return 160;
-                            } else {
-                                return -561;
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            if (hop_count <= 1) {
-                return 403;
-            } else {
-                if (cpu <= 22) {
-                    if (parent_ppm <= 420) {
-                        if (cpu <= 0) {
-                            return 336;
-                        } else {
-                            return -271;
-                        }
-                    } else {
-                        return 243;
-                    }
-                } else {
-                    if (p_cpu <= 22) {
-                        if (ppm <= 40) {
-                            return 612;
-                        } else {
-                            return -951;
-                        }
-                    } else {
-                        return -219;
-                    }
-                }
-            }
-        }
-    } else {
-        if (parent_drop_rate <= 28) {
-            if (etx <= 213) {
-                if (etx <= 212) {
-                    if (rssi <= -66) {
-                        if (cpu <= 1) {
-                            if (hop_count <= 10) {
-                                return 553;
-                            } else {
-                                return 21;
-                            }
-                        } else {
-                            return -64;
-                        }
-                    } else {
-                        if (rssi <= -63) {
-                            if (parent_ppm <= 360) {
-                                return -1171;
-                            } else {
-                                return -163;
-                            }
-                        } else {
-                            if (rssi <= -59) {
-                                return 270;
-                            } else {
-                                return -157;
+                                return -47;
                             }
                         }
                     }
                 } else {
-                    if (cpu <= 23) {
-                        return 1108;
-                    } else {
-                        return -475;
-                    }
-                }
-            } else {
-                return -159;
-            }
-        } else {
-            return -267;
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree33(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 3) {
-        if (ppm <= 4) {
-            if (p_cpu <= 40) {
-                if (etx <= 394) {
-                    return -46;
-                } else {
-                    return -2261;
-                }
-            } else {
-                return -1692;
-            }
-        } else {
-            return 62;
-        }
-    } else {
-        if (ppm <= 44) {
-            if (hop_count <= 9) {
-                if (etx <= 184) {
-                    if (p_cpu <= 56) {
-                        return 170;
-                    } else {
-                        if (rssi <= -59) {
-                            return 2359;
-                        } else {
-                            return -63;
-                        }
-                    }
-                } else {
-                    return 20;
-                }
-            } else {
-                if (parent_ppm <= 131) {
-                    return 1238;
-                } else {
-                    if (parent_ppm <= 171) {
-                        return -1562;
-                    } else {
-                        if (rssi <= -93) {
-                            return -1077;
-                        } else {
-                            if (rssi <= -70) {
-                                return 98;
-                            } else {
-                                return -278;
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            if (parent_ppm <= 157) {
-                if (etx <= 235) {
-                    if (hop_count <= 7) {
-                        return -138;
-                    } else {
-                        if (p_cpu <= 43) {
-                            return -1327;
-                        } else {
-                            return -224;
-                        }
-                    }
-                } else {
-                    if (hop_count <= 11) {
-                        if (ppm <= 1784) {
-                            return -657;
-                        } else {
-                            if (parent_ppm <= 127) {
-                                return -493;
-                            } else {
-                                return 2644;
-                            }
-                        }
-                    } else {
-                        return 1344;
-                    }
-                }
-            } else {
-                if (ppm <= 170) {
-                    if (drop_rate <= 29) {
-                        if (etx <= 169) {
+                    if (hop_count <= 20) {
+                        if (p_cpu <= 28) {
                             if (hop_count <= 17) {
-                                return 96;
+                                return -757;
                             } else {
-                                return 1276;
+                                return 266;
                             }
                         } else {
-                            return -87;
-                        }
-                    } else {
-                        if (parent_ppm <= 498) {
-                            return 2604;
-                        } else {
-                            return 186;
-                        }
-                    }
-                } else {
-                    if (hop_count <= 10) {
-                        if (etx <= 220) {
-                            return -101;
-                        } else {
-                            if (p_cpu <= 11) {
-                                return -600;
-                            } else {
-                                return -229;
-                            }
-                        }
-                    } else {
-                        if (p_cpu <= 58) {
-                            if (p_cpu <= 56) {
-                                return 21;
-                            } else {
-                                return 778;
-                            }
-                        } else {
-                            return -127;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree34(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (parent_drop_rate <= 2) {
-        if (etx <= 441) {
-            if (cpu <= 19) {
-                if (ppm <= 4) {
-                    if (p_cpu <= 4) {
-                        return 61;
-                    } else {
-                        return -218;
-                    }
-                } else {
-                    if (ppm <= 22) {
-                        return 114;
-                    } else {
-                        if (ppm <= 2046) {
-                            return 36;
-                        } else {
-                            if (rssi <= -55) {
-                                return 2480;
-                            } else {
-                                return -658;
-                            }
-                        }
-                    }
-                }
-            } else {
-                if (is_new <= 0) {
-                    if (p_cpu <= 60) {
-                        return 34;
-                    } else {
-                        return -454;
-                    }
-                } else {
-                    if (etx <= 178) {
-                        return 67;
-                    } else {
-                        if (rssi <= -68) {
-                            if (etx <= 428) {
-                                return -119;
-                            } else {
-                                return 1564;
-                            }
-                        } else {
-                            return -362;
-                        }
-                    }
-                }
-            }
-        } else {
-            return -407;
-        }
-    } else {
-        if (rssi <= -79) {
-            if (etx <= 402) {
-                if (p_cpu <= 16) {
-                    if (etx <= 326) {
-                        return 357;
-                    } else {
-                        if (etx <= 382) {
-                            if (rssi <= -82) {
-                                return -1045;
-                            } else {
-                                return 660;
-                            }
-                        } else {
-                            return 1035;
-                        }
-                    }
-                } else {
-                    if (etx <= 168) {
-                        if (p_cpu <= 73) {
-                            return 1065;
-                        } else {
-                            return -990;
-                        }
-                    } else {
-                        return -47;
-                    }
-                }
-            } else {
-                return -323;
-            }
-        } else {
-            if (ppm <= 20) {
-                if (p_cpu <= 6) {
-                    return -2170;
-                } else {
-                    return -340;
-                }
-            } else {
-                if (ppm <= 44) {
-                    if (parent_drop_rate <= 4) {
-                        return 591;
-                    } else {
-                        return 32;
-                    }
-                } else {
-                    if (rssi <= -40) {
-                        if (etx <= 465) {
-                            if (cpu <= 0) {
-                                return 105;
-                            } else {
-                                return -151;
-                            }
-                        } else {
-                            return -534;
-                        }
-                    } else {
-                        if (parent_drop_rate <= 20) {
-                            if (p_cpu <= 80) {
-                                return 438;
-                            } else {
-                                return 2059;
-                            }
-                        } else {
-                            return -408;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree35(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 3) {
-        if (parent_drop_rate <= 2) {
-            return 40;
-        } else {
-            if (etx <= 308) {
-                return 389;
-            } else {
-                if (p_cpu <= 42) {
-                    if (ppm <= 199) {
-                        return 597;
-                    } else {
-                        return -711;
-                    }
-                } else {
-                    return 1145;
-                }
-            }
-        }
-    } else {
-        if (ppm <= 32) {
-            if (p_cpu <= 51) {
-                return 106;
-            } else {
-                if (ppm <= 19) {
-                    return -451;
-                } else {
-                    if (hop_count <= 11) {
-                        return -310;
-                    } else {
-                        if (rssi <= -67) {
-                            if (parent_drop_rate <= 12) {
-                                return 2412;
-                            } else {
-                                return 237;
-                            }
-                        } else {
-                            if (hop_count <= 19) {
-                                return -639;
-                            } else {
-                                return 1312;
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            if (etx <= 183) {
-                if (ppm <= 302) {
-                    if (rssi <= -58) {
-                        if (hop_count <= 14) {
-                            if (parent_drop_rate <= 7) {
-                                return 117;
-                            } else {
-                                return 575;
-                            }
-                        } else {
-                            if (hop_count <= 20) {
-                                return -826;
-                            } else {
-                                return 493;
-                            }
-                        }
-                    } else {
-                        if (rssi <= -40) {
-                            if (etx <= 159) {
-                                return 162;
-                            } else {
-                                return -270;
-                            }
-                        } else {
-                            return 1859;
-                        }
-                    }
-                } else {
-                    return -195;
-                }
-            } else {
-                if (parent_drop_rate <= 0) {
-                    if (etx <= 216) {
-                        if (rssi <= -47) {
-                            return -38;
-                        } else {
-                            return -802;
-                        }
-                    } else {
-                        if (ppm <= 1784) {
-                            if (rssi <= -58) {
-                                return -296;
-                            } else {
-                                return -616;
-                            }
-                        } else {
-                            if (drop_rate <= 53) {
-                                return 55;
-                            } else {
-                                return 2835;
-                            }
-                        }
-                    }
-                } else {
-                    if (parent_drop_rate <= 1) {
-                        if (rssi <= -72) {
-                            if (rssi <= -84) {
-                                return -15;
-                            } else {
-                                return 853;
-                            }
-                        } else {
-                            if (ppm <= 61) {
-                                return -956;
-                            } else {
-                                return 8;
-                            }
-                        }
-                    } else {
-                        return -120;
-                    }
-                }
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree36(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 6) {
-        if (ppm <= 514) {
-            if (parent_ppm <= 55) {
-                return 3;
-            } else {
-                if (ppm <= 4) {
-                    if (parent_ppm <= 556) {
-                        if (parent_ppm <= 71) {
-                            return 29;
-                        } else {
-                            return -623;
-                        }
-                    } else {
-                        return 992;
-                    }
-                } else {
-                    if (ppm <= 26) {
-                        return 128;
-                    } else {
-                        return 47;
-                    }
-                }
-            }
-        } else {
-            if (hop_count <= 2) {
-                if (parent_drop_rate <= 3) {
-                    return 12;
-                } else {
-                    return 513;
-                }
-            } else {
-                if (ppm <= 1784) {
-                    if (parent_ppm <= 330) {
-                        if (is_new <= 0) {
-                            return -1201;
-                        } else {
-                            return -323;
-                        }
-                    } else {
-                        if (rssi <= -87) {
-                            return 424;
-                        } else {
-                            return -195;
-                        }
-                    }
-                } else {
-                    if (drop_rate <= 85) {
-                        if (p_cpu <= 74) {
-                            if (parent_ppm <= 185) {
-                                return 1218;
-                            } else {
-                                return -183;
-                            }
-                        } else {
-                            return 2035;
-                        }
-                    } else {
-                        if (ppm <= 1906) {
-                            return 697;
-                        } else {
-                            return 3564;
-                        }
-                    }
-                }
-            }
-        }
-    } else {
-        if (parent_drop_rate <= 30) {
-            if (hop_count <= 23) {
-                if (rssi <= -66) {
-                    if (p_cpu <= 63) {
-                        if (parent_ppm <= 298) {
-                            if (ppm <= 31) {
-                                return 347;
-                            } else {
-                                return -307;
-                            }
-                        } else {
-                            if (parent_drop_rate <= 2) {
-                                return 449;
-                            } else {
-                                return -5;
-                            }
-                        }
-                    } else {
-                        if (parent_ppm <= 259) {
-                            return 207;
-                        } else {
-                            return -219;
-                        }
-                    }
-                } else {
-                    if (rssi <= -63) {
-                        if (parent_drop_rate <= 1) {
-                            if (is_new <= 0) {
-                                return -1431;
-                            } else {
-                                return -521;
-                            }
-                        } else {
-                            if (parent_drop_rate <= 2) {
-                                return 693;
-                            } else {
-                                return -499;
-                            }
-                        }
-                    } else {
-                        return -100;
-                    }
-                }
-            } else {
-                return 239;
-            }
-        } else {
-            if (parent_ppm <= 420) {
-                return -509;
-            } else {
-                return -180;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree37(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 6) {
-        if (etx <= 270) {
-            if (parent_ppm <= 1200) {
-                if (parent_ppm <= 58) {
-                    if (hop_count <= 1) {
-                        return 43;
-                    } else {
-                        if (drop_rate <= 78) {
-                            if (ppm <= 1299) {
-                                return -42;
-                            } else {
-                                return 1226;
-                            }
-                        } else {
-                            return -2020;
-                        }
-                    }
-                } else {
-                    if (ppm <= 4) {
-                        if (p_cpu <= 34) {
-                            if (etx <= 237) {
-                                return 99;
-                            } else {
-                                return -894;
-                            }
-                        } else {
-                            if (cpu <= 0) {
-                                return 899;
-                            } else {
-                                return -1741;
-                            }
-                        }
-                    } else {
-                        if (ppm <= 26) {
-                            return 113;
-                        } else {
-                            return 40;
-                        }
-                    }
-                }
-            } else {
-                return 2042;
-            }
-        } else {
-            if (hop_count <= 1) {
-                return 189;
-            } else {
-                if (cpu <= 0) {
-                    return 170;
-                } else {
-                    if (parent_ppm <= 95) {
-                        if (ppm <= 45) {
-                            return -110;
-                        } else {
-                            if (cpu <= 14) {
-                                return -395;
-                            } else {
-                                return -901;
-                            }
-                        }
-                    } else {
-                        if (ppm <= 454) {
-                            if (ppm <= 9) {
-                                return -574;
-                            } else {
-                                return 4;
-                            }
-                        } else {
-                            if (p_cpu <= 44) {
-                                return -367;
-                            } else {
-                                return 3;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    } else {
-        if (parent_ppm <= 59) {
-            return 464;
-        } else {
-            if (parent_drop_rate <= 14) {
-                if (hop_count <= 21) {
-                    if (parent_ppm <= 153) {
-                        if (ppm <= 32) {
-                            return 431;
-                        } else {
-                            return -492;
-                        }
-                    } else {
-                        return -71;
-                    }
-                } else {
-                    if (ppm <= 64) {
-                        return -237;
-                    } else {
-                        if (p_cpu <= 69) {
-                            if (drop_rate <= 14) {
-                                return 534;
-                            } else {
-                                return 3039;
-                            }
-                        } else {
-                            return 210;
-                        }
-                    }
-                }
-            } else {
-                if (parent_ppm <= 183) {
-                    return -1190;
-                } else {
-                    if (etx <= 139) {
-                        return 1624;
-                    } else {
-                        return -150;
-                    }
-                }
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree38(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 6) {
-        if (etx <= 221) {
-            if (parent_drop_rate <= 9) {
-                if (parent_ppm <= 562) {
-                    return 40;
-                } else {
-                    if (rssi <= -80) {
-                        return 295;
-                    } else {
-                        if (drop_rate <= 92) {
-                            return -529;
-                        } else {
-                            return 1180;
-                        }
-                    }
-                }
-            } else {
-                if (parent_drop_rate <= 20) {
-                    if (parent_ppm <= 312) {
-                        if (parent_ppm <= 278) {
-                            return 206;
-                        } else {
-                            return -2255;
-                        }
-                    } else {
-                        if (parent_ppm <= 846) {
-                            if (parent_ppm <= 706) {
-                                return 694;
-                            } else {
-                                return 1597;
-                            }
-                        } else {
-                            if (etx <= 199) {
-                                return -1022;
-                            } else {
-                                return 928;
-                            }
-                        }
-                    }
-                } else {
-                    if (hop_count <= 5) {
-                        if (rssi <= -43) {
-                            return 326;
-                        } else {
-                            return -1237;
-                        }
-                    } else {
-                        return -502;
-                    }
-                }
-            }
-        } else {
-            if (hop_count <= 2) {
-                return 52;
-            } else {
-                if (rssi <= -84) {
-                    if (parent_ppm <= 1140) {
-                        if (parent_drop_rate <= 30) {
-                            if (rssi <= -93) {
-                                return 148;
-                            } else {
-                                return -57;
-                            }
-                        } else {
-                            return 649;
-                        }
-                    } else {
-                        return 2078;
-                    }
-                } else {
-                    if (cpu <= 9) {
-                        if (parent_ppm <= 429) {
-                            if (parent_drop_rate <= 1) {
-                                return -87;
-                            } else {
-                                return -486;
-                            }
-                        } else {
-                            return 125;
-                        }
-                    } else {
-                        if (parent_ppm <= 253) {
-                            return -451;
-                        } else {
-                            if (etx <= 461) {
-                                return -90;
-                            } else {
-                                return -958;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    } else {
-        if (parent_ppm <= 1026) {
-            if (hop_count <= 20) {
-                return -94;
-            } else {
-                if (cpu <= 14) {
-                    if (etx <= 158) {
-                        return 2149;
-                    } else {
-                        if (is_new <= 0) {
-                            if (hop_count <= 29) {
-                                return 1322;
-                            } else {
-                                return -571;
-                            }
-                        } else {
-                            return 61;
-                        }
-                    }
-                } else {
-                    return -92;
-                }
-            }
-        } else {
-            return -263;
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree39(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 4) {
-        if (parent_drop_rate <= 9) {
-            return 23;
-        } else {
-            if (parent_ppm <= 415) {
-                if (hop_count <= 2) {
-                    return 221;
-                } else {
-                    if (parent_drop_rate <= 19) {
-                        if (drop_rate <= 22) {
-                            if (parent_drop_rate <= 18) {
-                                return -753;
-                            } else {
-                                return 785;
-                            }
-                        } else {
-                            return 1276;
-                        }
-                    } else {
-                        return -1484;
-                    }
-                }
-            } else {
-                if (p_cpu <= 7) {
-                    return 26;
-                } else {
-                    if (p_cpu <= 68) {
-                        return 570;
-                    } else {
-                        return 1655;
-                    }
-                }
-            }
-        }
-    } else {
-        if (ppm <= 49) {
-            if (is_new <= 0) {
-                if (parent_ppm <= 681) {
-                    if (parent_ppm <= 53) {
-                        if (ppm <= 43) {
-                            return -20;
-                        } else {
-                            return -1095;
-                        }
-                    } else {
-                        if (ppm <= 24) {
-                            return 314;
-                        } else {
-                            return 68;
-                        }
-                    }
-                } else {
-                    return -577;
-                }
-            } else {
-                if (parent_ppm <= 498) {
-                    if (p_cpu <= 3) {
-                        return 545;
-                    } else {
-                        if (parent_ppm <= 34) {
-                            if (p_cpu <= 9) {
-                                return -13;
-                            } else {
-                                return 1949;
-                            }
-                        } else {
-                            if (ppm <= 15) {
-                                return -452;
-                            } else {
-                                return -136;
-                            }
-                        }
-                    }
-                } else {
-                    if (parent_drop_rate <= 1) {
-                        return -1215;
-                    } else {
-                        return 132;
-                    }
-                }
-            }
-        } else {
-            if (parent_ppm <= 101) {
-                return -465;
-            } else {
-                if (p_cpu <= 2) {
-                    if (hop_count <= 7) {
-                        return 421;
-                    } else {
-                        return 2516;
-                    }
-                } else {
-                    if (is_new <= 0) {
-                        if (parent_ppm <= 689) {
-                            if (cpu <= 35) {
-                                return -16;
-                            } else {
-                                return -313;
-                            }
-                        } else {
-                            if (ppm <= 368) {
-                                return -454;
-                            } else {
-                                return -125;
-                            }
-                        }
-                    } else {
-                        if (parent_drop_rate <= 29) {
-                            return -23;
-                        } else {
-                            if (parent_ppm <= 406) {
-                                return -434;
-                            } else {
-                                return -110;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree40(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 3) {
-        if (parent_drop_rate <= 2) {
-            if (parent_ppm <= 697) {
-                if (rssi <= -92) {
-                    return 81;
-                } else {
-                    if (hop_count <= 1) {
-                        return 50;
-                    } else {
-                        if (is_new <= 0) {
-                            return 7;
-                        } else {
-                            return -139;
-                        }
-                    }
-                }
-            } else {
-                if (p_cpu <= 29) {
-                    return -178;
-                } else {
-                    return -1997;
-                }
-            }
-        } else {
-            if (p_cpu <= 32) {
-                return 126;
-            } else {
-                if (parent_ppm <= 294) {
-                    if (rssi <= -74) {
-                        return -2214;
-                    } else {
-                        return -70;
-                    }
-                } else {
-                    return 704;
-                }
-            }
-        }
-    } else {
-        if (p_cpu <= 3) {
-            if (drop_rate <= 10) {
-                if (is_new <= 0) {
-                    return 102;
-                } else {
-                    if (parent_drop_rate <= 5) {
-                        if (parent_ppm <= 250) {
-                            return 482;
-                        } else {
-                            return 2389;
-                        }
-                    } else {
-                        return -281;
-                    }
-                }
-            } else {
-                return -1062;
-            }
-        } else {
-            if (cpu <= 1) {
-                if (parent_drop_rate <= 31) {
-                    if (rssi <= -91) {
-                        return -142;
-                    } else {
-                        if (rssi <= -66) {
-                            if (parent_ppm <= 298) {
-                                return 13;
-                            } else {
-                                return 242;
-                            }
-                        } else {
-                            if (rssi <= -63) {
-                                return -298;
-                            } else {
-                                return 56;
-                            }
-                        }
-                    }
-                } else {
-                    return -276;
-                }
-            } else {
-                if (cpu <= 2) {
-                    if (parent_ppm <= 817) {
-                        if (p_cpu <= 73) {
-                            return -193;
-                        } else {
-                            return 190;
-                        }
-                    } else {
-                        if (parent_ppm <= 1140) {
-                            return -615;
-                        } else {
-                            if (hop_count <= 9) {
-                                return 918;
-                            } else {
-                                return -420;
-                            }
-                        }
-                    }
-                } else {
-                    if (parent_ppm <= 1306) {
-                        if (rssi <= -59) {
-                            if (rssi <= -63) {
-                                return -59;
-                            } else {
-                                return 106;
-                            }
-                        } else {
-                            if (parent_ppm <= 171) {
-                                return -437;
-                            } else {
-                                return -85;
-                            }
-                        }
-                    } else {
-                        return -573;
-                    }
-                }
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree41(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 6) {
-        if (p_cpu <= 85) {
-            if (cpu <= 0) {
-                if (parent_ppm <= 415) {
-                    return 72;
-                } else {
-                    return 672;
-                }
-            } else {
-                if (hop_count <= 2) {
-                    if (parent_drop_rate <= 0) {
-                        return 27;
-                    } else {
-                        return 291;
-                    }
-                } else {
-                    if (rssi <= -50) {
-                        if (ppm <= 1784) {
-                            if (parent_ppm <= 55) {
-                                return -114;
-                            } else {
-                                return 9;
-                            }
-                        } else {
-                            if (parent_ppm <= 326) {
-                                return 1121;
-                            } else {
-                                return 144;
-                            }
-                        }
-                    } else {
-                        return -251;
-                    }
-                }
-            }
-        } else {
-            return 522;
-        }
-    } else {
-        if (parent_ppm <= 262) {
-            if (ppm <= 19) {
-                if (parent_ppm <= 227) {
-                    return 476;
-                } else {
-                    return -1018;
-                }
-            } else {
-                if (p_cpu <= 73) {
-                    if (rssi <= -81) {
-                        if (rssi <= -85) {
-                            if (parent_ppm <= 259) {
-                                return -363;
-                            } else {
-                                return -2565;
-                            }
-                        } else {
-                            if (ppm <= 179) {
-                                return 907;
-                            } else {
-                                return -306;
-                            }
-                        }
-                    } else {
-                        if (rssi <= -80) {
-                            if (p_cpu <= 6) {
-                                return -2754;
-                            } else {
-                                return -548;
-                            }
-                        } else {
-                            return -339;
-                        }
-                    }
-                } else {
-                    return 142;
-                }
-            }
-        } else {
-            if (parent_ppm <= 576) {
-                if (parent_drop_rate <= 28) {
-                    if (parent_drop_rate <= 27) {
-                        return 35;
-                    } else {
-                        if (hop_count <= 10) {
-                            if (rssi <= -48) {
-                                return 1096;
-                            } else {
-                                return -638;
-                            }
-                        } else {
-                            return -337;
-                        }
-                    }
-                } else {
-                    return -212;
-                }
-            } else {
-                if (is_new <= 0) {
-                    if (parent_ppm <= 689) {
-                        if (parent_ppm <= 665) {
-                            if (cpu <= 0) {
-                                return 1005;
-                            } else {
-                                return -256;
-                            }
-                        } else {
-                            if (parent_drop_rate <= 19) {
-                                return 862;
-                            } else {
-                                return -312;
-                            }
-                        }
-                    } else {
-                        return -303;
-                    }
-                } else {
-                    return -51;
-                }
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree42(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (cpu <= 28) {
-        if (ppm <= 4) {
-            if (parent_ppm <= 45) {
-                return 23;
-            } else {
-                return -253;
-            }
-        } else {
-            if (ppm <= 407) {
-                if (parent_ppm <= 891) {
-                    if (parent_ppm <= 376) {
-                        if (etx <= 172) {
-                            if (hop_count <= 5) {
-                                return 57;
-                            } else {
-                                return 267;
-                            }
-                        } else {
-                            if (rssi <= -57) {
-                                return 23;
-                            } else {
-                                return -86;
-                            }
-                        }
-                    } else {
-                        if (ppm <= 15) {
-                            return -467;
-                        } else {
-                            if (is_new <= 0) {
-                                return 40;
-                            } else {
-                                return 196;
-                            }
-                        }
-                    }
-                } else {
-                    if (is_new <= 0) {
-                        if (parent_ppm <= 1091) {
-                            return -670;
-                        } else {
-                            if (p_cpu <= 46) {
-                                return 723;
-                            } else {
-                                return -470;
-                            }
-                        }
-                    } else {
-                        return 17;
-                    }
-                }
-            } else {
-                if (etx <= 222) {
-                    return 45;
-                } else {
-                    if (parent_ppm <= 757) {
-                        return -165;
-                    } else {
-                        if (rssi <= -81) {
-                            if (p_cpu <= 102) {
-                                return 252;
-                            } else {
-                                return 1959;
-                            }
-                        } else {
-                            if (hop_count <= 5) {
-                                return 737;
-                            } else {
-                                return -104;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    } else {
-        if (hop_count <= 2) {
-            if (etx <= 441) {
-                return 22;
-            } else {
-                return -1692;
-            }
-        } else {
-            if (ppm <= 48) {
-                return 60;
-            } else {
-                if (parent_ppm <= 42) {
-                    if (p_cpu <= 42) {
-                        return -1235;
-                    } else {
-                        return 170;
-                    }
-                } else {
-                    if (p_cpu <= 30) {
-                        if (etx <= 310) {
-                            if (etx <= 149) {
-                                return -1193;
-                            } else {
-                                return -130;
-                            }
-                        } else {
-                            if (is_new <= 0) {
-                                return -1262;
-                            } else {
-                                return -363;
-                            }
-                        }
-                    } else {
-                        if (etx <= 162) {
-                            return -450;
-                        } else {
-                            if (p_cpu <= 114) {
-                                return -50;
-                            } else {
-                                return -315;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree43(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (etx <= 187) {
-        if (parent_ppm <= 876) {
-            if (p_cpu <= 88) {
-                if (p_cpu <= 52) {
-                    if (p_cpu <= 51) {
-                        return 45;
-                    } else {
-                        if (etx <= 157) {
-                            return 558;
-                        } else {
-                            return -1173;
-                        }
-                    }
-                } else {
-                    if (parent_ppm <= 290) {
-                        return -188;
-                    } else {
-                        if (rssi <= -59) {
-                            if (p_cpu <= 73) {
-                                return 982;
-                            } else {
-                                return 91;
-                            }
-                        } else {
-                            if (rssi <= -40) {
-                                return 170;
-                            } else {
-                                return 2225;
-                            }
-                        }
-                    }
-                }
-            } else {
-                return -297;
-            }
-        } else {
-            if (rssi <= -82) {
-                if (parent_drop_rate <= 25) {
-                    return -96;
-                } else {
-                    return 1803;
-                }
-            } else {
-                return -305;
-            }
-        }
-    } else {
-        if (rssi <= -79) {
-            if (etx <= 402) {
-                return 29;
-            } else {
-                if (rssi <= -82) {
-                    return -251;
-                } else {
-                    if (parent_ppm <= 583) {
-                        if (parent_ppm <= 460) {
-                            return 284;
-                        } else {
-                            return 1870;
-                        }
-                    } else {
-                        return -672;
-                    }
-                }
-            }
-        } else {
-            if (ppm <= 1784) {
-                if (etx <= 223) {
-                    if (rssi <= -56) {
-                        if (p_cpu <= 101) {
-                            if (drop_rate <= 6) {
-                                return 0;
-                            } else {
-                                return 259;
-                            }
-                        } else {
-                            return -392;
-                        }
-                    } else {
-                        return -99;
-                    }
-                } else {
-                    if (ppm <= 514) {
-                        if (p_cpu <= 90) {
-                            return -78;
-                        } else {
-                            if (etx <= 309) {
-                                return 12;
-                            } else {
-                                return 422;
-                            }
-                        }
-                    } else {
-                        if (etx <= 227) {
-                            return -582;
-                        } else {
-                            return -148;
-                        }
-                    }
-                }
-            } else {
-                if (drop_rate <= 31) {
-                    return 2;
-                } else {
-                    if (etx <= 304) {
-                        return 257;
-                    } else {
-                        if (etx <= 357) {
-                            return 2592;
-                        } else {
-                            if (etx <= 402) {
-                                return -513;
-                            } else {
-                                return 1972;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree44(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 3) {
-        if (p_cpu <= 64) {
-            if (parent_ppm <= 77) {
-                return -2;
-            } else {
-                if (ppm <= 4) {
-                    if (p_cpu <= 34) {
-                        if (rssi <= -65) {
-                            return -21;
-                        } else {
-                            return -1052;
-                        }
-                    } else {
-                        return -2166;
-                    }
-                } else {
-                    return 41;
-                }
-            }
-        } else {
-            return 546;
-        }
-    } else {
-        if (ppm <= 26) {
-            if (p_cpu <= 58) {
-                return 111;
-            } else {
-                return -279;
-            }
-        } else {
-            if (parent_ppm <= 227) {
-                if (p_cpu <= 8) {
-                    if (drop_rate <= 26) {
-                        return -15;
-                    } else {
-                        return -786;
-                    }
-                } else {
-                    if (p_cpu <= 75) {
-                        if (parent_ppm <= 42) {
-                            return -508;
-                        } else {
-                            return -202;
-                        }
-                    } else {
-                        if (rssi <= -91) {
-                            return -940;
-                        } else {
-                            if (rssi <= -87) {
-                                return 1879;
-                            } else {
-                                return 152;
-                            }
-                        }
-                    }
-                }
-            } else {
-                if (cpu <= 1) {
-                    if (parent_drop_rate <= 33) {
-                        if (p_cpu <= 117) {
-                            if (rssi <= -58) {
-                                return 139;
-                            } else {
-                                return -72;
-                            }
-                        } else {
-                            if (rssi <= -83) {
-                                return 3670;
-                            } else {
-                                return 386;
-                            }
-                        }
-                    } else {
-                        if (ppm <= 35) {
-                            if (rssi <= -70) {
-                                return -559;
-                            } else {
-                                return 2495;
-                            }
-                        } else {
-                            if (hop_count <= 8) {
-                                return 19;
-                            } else {
-                                return -423;
-                            }
-                        }
-                    }
-                } else {
-                    if (hop_count <= 19) {
-                        if (hop_count <= 17) {
-                            if (hop_count <= 16) {
-                                return -58;
-                            } else {
-                                return 239;
-                            }
-                        } else {
-                            if (rssi <= -52) {
-                                return -435;
+                            if (parent_ppm <= 175) {
+                                return 1294;
                             } else {
                                 return 142;
                             }
                         }
                     } else {
-                        if (p_cpu <= 65) {
-                            if (ppm <= 387) {
-                                return 299;
+                        if (hop_count <= 27) {
+                            if (p_cpu <= 23) {
+                                return 1532;
                             } else {
-                                return 1557;
+                                return -434;
                             }
                         } else {
-                            if (drop_rate <= 30) {
-                                return 91;
+                            if (p_cpu <= 67) {
+                                return 251;
                             } else {
-                                return -377;
+                                return -639;
                             }
                         }
                     }
                 }
+            } else {
+                return -309;
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree45(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 8) {
-        if (etx <= 176) {
-            if (hop_count <= 5) {
-                if (parent_ppm <= 1026) {
-                    return 42;
-                } else {
-                    return -2299;
-                }
+static int32_t mlof_predict_pdr_lgbm_tree32(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 6) {
+        if (drop_rate <= 2) {
+            if (etx <= 482) {
+                return 53;
             } else {
-                if (ppm <= 446) {
-                    if (ppm <= 70) {
-                        return 155;
-                    } else {
-                        return 535;
-                    }
-                } else {
-                    return -203;
-                }
+                return -729;
             }
         } else {
-            if (rssi <= -79) {
-                if (parent_ppm <= 492) {
-                    return 17;
+            if (hop_count <= 2) {
+                if (p_cpu <= 17) {
+                    return 18;
                 } else {
-                    if (hop_count <= 6) {
-                        if (p_cpu <= 41) {
-                            return 185;
-                        } else {
-                            if (rssi <= -93) {
-                                return 2322;
-                            } else {
-                                return 680;
-                            }
-                        }
-                    } else {
-                        if (etx <= 224) {
-                            if (p_cpu <= 28) {
-                                return 654;
-                            } else {
-                                return -926;
-                            }
-                        } else {
-                            return 154;
-                        }
-                    }
+                    return 444;
                 }
             } else {
-                if (cpu <= 16) {
-                    if (p_cpu <= 104) {
-                        return -10;
-                    } else {
-                        return 2785;
-                    }
+                if (parent_ppm <= 193) {
+                    return -506;
                 } else {
-                    if (hop_count <= 1) {
-                        return 65;
+                    if (parent_ppm <= 199) {
+                        return 1389;
                     } else {
-                        if (parent_ppm <= 697) {
-                            return -168;
+                        if (p_cpu <= 25) {
+                            if (hop_count <= 5) {
+                                return -21;
+                            } else {
+                                return 665;
+                            }
                         } else {
-                            return 86;
+                            if (etx <= 176) {
+                                return -948;
+                            } else {
+                                return -174;
+                            }
                         }
                     }
                 }
             }
         }
     } else {
-        if (p_cpu <= 12) {
-            if (parent_ppm <= 545) {
-                if (parent_ppm <= 294) {
-                    if (etx <= 167) {
-                        return 957;
-                    } else {
-                        if (parent_ppm <= 278) {
-                            if (parent_ppm <= 181) {
-                                return -1125;
-                            } else {
-                                return 202;
-                            }
-                        } else {
-                            if (hop_count <= 9) {
-                                return -3104;
-                            } else {
-                                return -255;
-                            }
-                        }
-                    }
-                } else {
-                    if (parent_ppm <= 316) {
-                        return 1469;
-                    } else {
-                        return 56;
-                    }
-                }
-            } else {
-                return -1160;
-            }
+        if (p_cpu <= 8) {
+            return 432;
         } else {
-            if (p_cpu <= 14) {
-                if (etx <= 351) {
-                    if (rssi <= -44) {
-                        if (ppm <= 313) {
-                            if (etx <= 184) {
-                                return 1242;
-                            } else {
-                                return -529;
-                            }
-                        } else {
-                            return 1732;
-                        }
+            if (etx <= 163) {
+                if (p_cpu <= 59) {
+                    if (parent_ppm <= 548) {
+                        return 342;
                     } else {
-                        return 1915;
+                        if (parent_drop_rate <= 5) {
+                            return -1027;
+                        } else {
+                            if (parent_drop_rate <= 10) {
+                                return 991;
+                            } else {
+                                return -422;
+                            }
+                        }
                     }
                 } else {
-                    return 2661;
+                    return -443;
                 }
             } else {
-                return -57;
+                if (parent_ppm <= 366) {
+                    if (hop_count <= 15) {
+                        if (etx <= 226) {
+                            if (p_cpu <= 53) {
+                                return -69;
+                            } else {
+                                return -449;
+                            }
+                        } else {
+                            if (drop_rate <= 61) {
+                                return -307;
+                            } else {
+                                return 952;
+                            }
+                        }
+                    } else {
+                        if (p_cpu <= 74) {
+                            if (parent_ppm <= 138) {
+                                return -827;
+                            } else {
+                                return 162;
+                            }
+                        } else {
+                            return -564;
+                        }
+                    }
+                } else {
+                    if (hop_count <= 9) {
+                        if (parent_ppm <= 715) {
+                            if (etx <= 344) {
+                                return 116;
+                            } else {
+                                return -297;
+                            }
+                        } else {
+                            if (etx <= 301) {
+                                return -395;
+                            } else {
+                                return 591;
+                            }
+                        }
+                    } else {
+                        if (hop_count <= 12) {
+                            if (etx <= 455) {
+                                return -272;
+                            } else {
+                                return 878;
+                            }
+                        } else {
+                            if (parent_drop_rate <= 4) {
+                                return 274;
+                            } else {
+                                return -113;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree46(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (drop_rate <= 2) {
-        if (etx <= 491) {
-            if (etx <= 431) {
-                if (rssi <= -78) {
-                    if (parent_drop_rate <= 0) {
-                        if (hop_count <= 11) {
-                            if (hop_count <= 8) {
-                                return 20;
-                            } else {
-                                return -793;
-                            }
-                        } else {
-                            if (p_cpu <= 74) {
-                                return 2113;
-                            } else {
-                                return -957;
-                            }
-                        }
-                    } else {
-                        if (parent_drop_rate <= 1) {
-                            return 461;
-                        } else {
-                            return 62;
-                        }
-                    }
+static int32_t mlof_predict_pdr_lgbm_tree33(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (p_cpu <= 27) {
+        if (etx <= 354) {
+            if (drop_rate <= 22) {
+                if (etx <= 198) {
+                    return 74;
                 } else {
-                    if (etx <= 213) {
-                        if (p_cpu <= 89) {
-                            if (parent_drop_rate <= 7) {
-                                return 12;
+                    if (p_cpu <= 8) {
+                        return 60;
+                    } else {
+                        if (is_new <= 0) {
+                            if (parent_ppm <= 366) {
+                                return -5;
                             } else {
-                                return 131;
+                                return 196;
                             }
                         } else {
-                            return -335;
-                        }
-                    } else {
-                        if (hop_count <= 1) {
-                            return 94;
-                        } else {
-                            if (parent_ppm <= 287) {
-                                return -130;
+                            if (parent_ppm <= 89) {
+                                return -497;
                             } else {
-                                return -22;
+                                return -93;
                             }
                         }
                     }
                 }
             } else {
-                if (ppm <= 479) {
-                    return -329;
+                if (parent_ppm <= 519) {
+                    if (drop_rate <= 49) {
+                        if (drop_rate <= 44) {
+                            return -158;
+                        } else {
+                            return -1343;
+                        }
+                    } else {
+                        return 461;
+                    }
                 } else {
-                    return 661;
+                    return -1189;
                 }
             }
         } else {
-            if (p_cpu <= 58) {
-                if (hop_count <= 8) {
-                    if (rssi <= -71) {
-                        if (parent_drop_rate <= 4) {
-                            return 1744;
-                        } else {
-                            return -113;
-                        }
-                    } else {
-                        if (p_cpu <= 41) {
-                            return -1263;
-                        } else {
-                            return 764;
-                        }
-                    }
-                } else {
-                    if (ppm <= 85) {
-                        return 3031;
-                    } else {
-                        return 1006;
-                    }
-                }
+            if (parent_drop_rate <= 0) {
+                return -34;
             } else {
-                if (parent_drop_rate <= 8) {
-                    return -940;
+                if (parent_ppm <= 324) {
+                    return -770;
                 } else {
-                    return 551;
+                    return -156;
                 }
             }
         }
     } else {
-        if (ppm <= 236) {
-            if (parent_ppm <= 672) {
-                if (drop_rate <= 41) {
-                    if (p_cpu <= 5) {
-                        return 70;
-                    } else {
-                        if (drop_rate <= 36) {
-                            return 991;
-                        } else {
-                            return 2632;
-                        }
-                    }
+        if (parent_ppm <= 154) {
+            if (etx <= 263) {
+                if (parent_drop_rate <= 0) {
+                    return -337;
                 } else {
-                    if (hop_count <= 13) {
-                        if (p_cpu <= 20) {
-                            return 1165;
-                        } else {
-                            return -423;
-                        }
+                    if (parent_drop_rate <= 3) {
+                        return 333;
                     } else {
-                        return 1300;
+                        if (p_cpu <= 64) {
+                            return -607;
+                        } else {
+                            return 704;
+                        }
                     }
                 }
             } else {
-                return -540;
+                return -475;
             }
         } else {
-            if (etx <= 469) {
-                return -68;
+            if (parent_drop_rate <= 0) {
+                if (parent_ppm <= 482) {
+                    if (etx <= 292) {
+                        return 222;
+                    } else {
+                        return -256;
+                    }
+                } else {
+                    return 845;
+                }
             } else {
-                return -426;
+                if (parent_drop_rate <= 7) {
+                    if (parent_ppm <= 415) {
+                        if (p_cpu <= 35) {
+                            if (parent_ppm <= 407) {
+                                return 18;
+                            } else {
+                                return 1265;
+                            }
+                        } else {
+                            return -178;
+                        }
+                    } else {
+                        if (p_cpu <= 28) {
+                            if (parent_ppm <= 586) {
+                                return -391;
+                            } else {
+                                return -2099;
+                            }
+                        } else {
+                            return -245;
+                        }
+                    }
+                } else {
+                    if (p_cpu <= 65) {
+                        if (parent_ppm <= 362) {
+                            if (drop_rate <= 0) {
+                                return 76;
+                            } else {
+                                return -339;
+                            }
+                        } else {
+                            return 31;
+                        }
+                    } else {
+                        return -234;
+                    }
+                }
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree47(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (cpu <= 14) {
-        if (hop_count <= 23) {
-            if (parent_drop_rate <= 28) {
-                if (ppm <= 7) {
-                    return -56;
+static int32_t mlof_predict_pdr_lgbm_tree34(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (drop_rate <= 1) {
+        if (parent_ppm <= 695) {
+            if (cpu <= 53) {
+                if (etx <= 191) {
+                    if (parent_ppm <= 639) {
+                        return 77;
+                    } else {
+                        if (cpu <= 27) {
+                            return -646;
+                        } else {
+                            return 834;
+                        }
+                    }
                 } else {
-                    return 24;
+                    if (p_cpu <= 77) {
+                        if (p_cpu <= 5) {
+                            return 75;
+                        } else {
+                            if (parent_ppm <= 87) {
+                                return -73;
+                            } else {
+                                return 32;
+                            }
+                        }
+                    } else {
+                        if (cpu <= 22) {
+                            return -1208;
+                        } else {
+                            return 2;
+                        }
+                    }
                 }
             } else {
-                if (parent_ppm <= 385) {
-                    if (rssi <= -92) {
-                        return 930;
-                    } else {
-                        return -628;
-                    }
+                if (etx <= 228) {
+                    return 68;
                 } else {
-                    if (hop_count <= 4) {
-                        return 320;
-                    } else {
-                        return -69;
-                    }
+                    return -354;
                 }
             }
         } else {
-            if (etx <= 158) {
-                return 2016;
-            } else {
-                if (parent_ppm <= 278) {
-                    return -1293;
+            return -227;
+        }
+    } else {
+        if (parent_ppm <= 548) {
+            if (etx <= 265) {
+                if (p_cpu <= 22) {
+                    if (parent_ppm <= 221) {
+                        return -70;
+                    } else {
+                        if (parent_ppm <= 436) {
+                            return 410;
+                        } else {
+                            return -245;
+                        }
+                    }
                 } else {
-                    if (cpu <= 2) {
-                        if (parent_drop_rate <= 16) {
-                            if (parent_drop_rate <= 13) {
-                                return 39;
+                    return -160;
+                }
+            } else {
+                if (drop_rate <= 49) {
+                    if (p_cpu <= 28) {
+                        if (parent_ppm <= 244) {
+                            if (p_cpu <= 4) {
+                                return 343;
                             } else {
-                                return -1366;
+                                return -832;
                             }
                         } else {
-                            if (ppm <= 92) {
-                                return 1061;
+                            if (cpu <= 9) {
+                                return 400;
+                            } else {
+                                return -437;
+                            }
+                        }
+                    } else {
+                        return -226;
+                    }
+                } else {
+                    return 747;
+                }
+            }
+        } else {
+            if (p_cpu <= 46) {
+                if (cpu <= 67) {
+                    if (p_cpu <= 22) {
+                        if (drop_rate <= 32) {
+                            return 54;
+                        } else {
+                            return -1370;
+                        }
+                    } else {
+                        if (etx <= 181) {
+                            if (parent_ppm <= 586) {
+                                return 1229;
+                            } else {
+                                return -493;
+                            }
+                        } else {
+                            return 536;
+                        }
+                    }
+                } else {
+                    return -414;
+                }
+            } else {
+                if (is_new <= 0) {
+                    return -315;
+                } else {
+                    if (cpu <= 75) {
+                        if (etx <= 248) {
+                            return -81;
+                        } else {
+                            return 293;
+                        }
+                    } else {
+                        return -465;
+                    }
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree35(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 4) {
+        if (parent_ppm <= 45) {
+            return 5;
+        } else {
+            return 62;
+        }
+    } else {
+        if (cpu <= 1) {
+            if (parent_ppm <= 705) {
+                if (hop_count <= 18) {
+                    if (hop_count <= 10) {
+                        if (parent_ppm <= 231) {
+                            if (parent_drop_rate <= 6) {
+                                return 56;
+                            } else {
+                                return -1190;
+                            }
+                        } else {
+                            if (drop_rate <= 11) {
+                                return 416;
+                            } else {
+                                return -1053;
+                            }
+                        }
+                    } else {
+                        return -205;
+                    }
+                } else {
+                    if (drop_rate <= 0) {
+                        return 270;
+                    } else {
+                        return 1738;
+                    }
+                }
+            } else {
+                return -353;
+            }
+        } else {
+            if (drop_rate <= 0) {
+                if (hop_count <= 22) {
+                    if (parent_ppm <= 247) {
+                        if (parent_drop_rate <= 5) {
+                            if (is_new <= 0) {
+                                return 32;
+                            } else {
+                                return -187;
+                            }
+                        } else {
+                            if (parent_ppm <= 148) {
+                                return -982;
+                            } else {
+                                return -211;
+                            }
+                        }
+                    } else {
+                        if (parent_ppm <= 482) {
+                            if (hop_count <= 10) {
+                                return 168;
+                            } else {
+                                return -77;
+                            }
+                        } else {
+                            if (is_new <= 0) {
+                                return -270;
+                            } else {
+                                return 58;
+                            }
+                        }
+                    }
+                } else {
+                    if (parent_ppm <= 346) {
+                        return -42;
+                    } else {
+                        if (parent_ppm <= 379) {
+                            return -1751;
+                        } else {
+                            if (parent_ppm <= 467) {
+                                return 76;
+                            } else {
+                                return -770;
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (is_new <= 0) {
+                    if (hop_count <= 18) {
+                        return -292;
+                    } else {
+                        if (cpu <= 7) {
+                            return 1540;
+                        } else {
+                            return -84;
+                        }
+                    }
+                } else {
+                    if (parent_ppm <= 542) {
+                        if (drop_rate <= 50) {
+                            if (parent_drop_rate <= 30) {
+                                return -148;
+                            } else {
+                                return -1129;
+                            }
+                        } else {
+                            if (parent_ppm <= 209) {
+                                return 1540;
                             } else {
                                 return 38;
                             }
                         }
                     } else {
-                        if (parent_drop_rate <= 24) {
-                            return 1434;
+                        if (parent_ppm <= 548) {
+                            return 942;
                         } else {
-                            return -471;
-                        }
-                    }
-                }
-            }
-        }
-    } else {
-        if (etx <= 271) {
-            if (parent_ppm <= 1026) {
-                return -5;
-            } else {
-                return -266;
-            }
-        } else {
-            if (ppm <= 1482) {
-                if (hop_count <= 9) {
-                    if (hop_count <= 1) {
-                        return 98;
-                    } else {
-                        if (parent_ppm <= 39) {
-                            if (ppm <= 0) {
-                                return 385;
-                            } else {
-                                return -827;
-                            }
-                        } else {
-                            if (etx <= 457) {
-                                return -147;
-                            } else {
-                                return -509;
-                            }
-                        }
-                    }
-                } else {
-                    if (parent_ppm <= 192) {
-                        if (rssi <= -83) {
-                            return -468;
-                        } else {
-                            return 1649;
-                        }
-                    } else {
-                        return -39;
-                    }
-                }
-            } else {
-                if (drop_rate <= 20) {
-                    return -44;
-                } else {
-                    if (cpu <= 63) {
-                        if (rssi <= -84) {
-                            if (rssi <= -90) {
-                                return 302;
-                            } else {
-                                return 2664;
-                            }
-                        } else {
-                            return -242;
-                        }
-                    } else {
-                        if (cpu <= 82) {
-                            return 2031;
-                        } else {
-                            if (etx <= 288) {
-                                return -498;
-                            } else {
-                                return 888;
-                            }
+                            return 26;
                         }
                     }
                 }
@@ -5954,123 +4466,123 @@ static int32_t mlof_predict_pdr_lgbm_tree47(uint8_t is_new, uint8_t cpu, uint8_t
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree48(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 2) {
-        if (parent_drop_rate <= 1) {
-            return 16;
-        } else {
-            if (p_cpu <= 9) {
-                if (etx <= 334) {
-                    return 125;
+static int32_t mlof_predict_pdr_lgbm_tree36(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (p_cpu <= 32) {
+        if (etx <= 314) {
+            if (cpu <= 61) {
+                if (etx <= 209) {
+                    return 57;
                 } else {
-                    return -936;
-                }
-            } else {
-                return 417;
-            }
-        }
-    } else {
-        if (p_cpu <= 3) {
-            if (parent_drop_rate <= 12) {
-                if (parent_drop_rate <= 0) {
-                    return 58;
-                } else {
-                    if (parent_drop_rate <= 5) {
-                        return 1134;
+                    if (parent_drop_rate <= 13) {
+                        return 19;
                     } else {
-                        if (parent_ppm <= 316) {
-                            return -594;
-                        } else {
-                            if (parent_ppm <= 538) {
-                                return 1713;
-                            } else {
-                                return -399;
-                            }
-                        }
+                        return -324;
                     }
                 }
             } else {
-                if (rssi <= -80) {
-                    return 573;
-                } else {
-                    return -961;
-                }
+                return -164;
             }
         } else {
-            if (parent_ppm <= 46) {
-                if (parent_ppm <= 22) {
-                    return 83;
-                } else {
-                    if (p_cpu <= 33) {
-                        if (parent_ppm <= 25) {
+            if (p_cpu <= 3) {
+                return 342;
+            } else {
+                if (cpu <= 99) {
+                    if (drop_rate <= 0) {
+                        if (p_cpu <= 26) {
+                            return -30;
+                        } else {
+                            return -434;
+                        }
+                    } else {
+                        if (p_cpu <= 16) {
                             if (p_cpu <= 9) {
-                                return -321;
+                                return -112;
                             } else {
-                                return -1137;
+                                return -1177;
                             }
                         } else {
-                            return -115;
-                        }
-                    } else {
-                        if (parent_ppm <= 23) {
-                            return 695;
-                        } else {
-                            if (parent_ppm <= 26) {
-                                return -1976;
-                            } else {
-                                return -692;
-                            }
-                        }
-                    }
-                }
-            } else {
-                if (etx <= 183) {
-                    if (p_cpu <= 66) {
-                        if (p_cpu <= 52) {
-                            if (p_cpu <= 47) {
-                                return 65;
-                            } else {
-                                return -442;
-                            }
-                        } else {
-                            if (parent_ppm <= 891) {
-                                return 474;
-                            } else {
-                                return -467;
-                            }
-                        }
-                    } else {
-                        return -167;
-                    }
-                } else {
-                    if (rssi <= -66) {
-                        if (etx <= 261) {
-                            if (parent_drop_rate <= 22) {
-                                return 41;
+                            if (etx <= 320) {
+                                return -1241;
                             } else {
                                 return -202;
                             }
-                        } else {
-                            if (p_cpu <= 98) {
-                                return -84;
+                        }
+                    }
+                } else {
+                    return 1129;
+                }
+            }
+        }
+    } else {
+        if (cpu <= 1) {
+            if (etx <= 348) {
+                if (p_cpu <= 74) {
+                    if (p_cpu <= 47) {
+                        if (p_cpu <= 36) {
+                            if (parent_drop_rate <= 10) {
+                                return 782;
                             } else {
-                                return 176;
+                                return -1123;
                             }
+                        } else {
+                            return -143;
                         }
                     } else {
-                        if (parent_ppm <= 202) {
-                            if (etx <= 216) {
-                                return -126;
+                        if (drop_rate <= 8) {
+                            return 698;
+                        } else {
+                            return -519;
+                        }
+                    }
+                } else {
+                    return -882;
+                }
+            } else {
+                return -614;
+            }
+        } else {
+            if (is_new <= 0) {
+                if (p_cpu <= 49) {
+                    if (cpu <= 3) {
+                        if (parent_drop_rate <= 5) {
+                            if (etx <= 199) {
+                                return -1566;
                             } else {
-                                return -396;
+                                return -424;
                             }
                         } else {
-                            if (rssi <= -63) {
-                                return -211;
-                            } else {
-                                return -13;
-                            }
+                            return -105;
                         }
+                    } else {
+                        return -85;
+                    }
+                } else {
+                    if (cpu <= 67) {
+                        return -403;
+                    } else {
+                        if (parent_drop_rate <= 23) {
+                            return -64;
+                        } else {
+                            return 1005;
+                        }
+                    }
+                }
+            } else {
+                if (cpu <= 64) {
+                    if (cpu <= 3) {
+                        return -342;
+                    } else {
+                        if (parent_drop_rate <= 37) {
+                            return -8;
+                        } else {
+                            return -755;
+                        }
+                    }
+                } else {
+                    if (drop_rate <= 62) {
+                        return -173;
+                    } else {
+                        return 903;
                     }
                 }
             }
@@ -6078,182 +4590,1670 @@ static int32_t mlof_predict_pdr_lgbm_tree48(uint8_t is_new, uint8_t cpu, uint8_t
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree49(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (drop_rate <= 2) {
-        if (parent_drop_rate <= 81) {
-            if (parent_ppm <= 1306) {
-                if (parent_ppm <= 1200) {
-                    if (ppm <= 4) {
-                        if (parent_ppm <= 44) {
-                            if (etx <= 298) {
-                                return -14;
-                            } else {
-                                return 414;
-                            }
-                        } else {
-                            return -190;
-                        }
-                    } else {
-                        if (ppm <= 30) {
-                            if (parent_drop_rate <= 5) {
-                                return 44;
-                            } else {
-                                return -173;
-                            }
-                        } else {
-                            if (hop_count <= 2) {
-                                return 22;
-                            } else {
-                                return -24;
-                            }
-                        }
-                    }
+static int32_t mlof_predict_pdr_lgbm_tree37(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 6) {
+        if (cpu <= 70) {
+            if (p_cpu <= 52) {
+                if (etx <= 473) {
+                    return 34;
                 } else {
-                    if (etx <= 183) {
-                        if (rssi <= -61) {
-                            return -393;
-                        } else {
-                            if (parent_drop_rate <= 22) {
-                                return 3964;
-                            } else {
-                                return 691;
-                            }
-                        }
-                    } else {
-                        if (rssi <= -89) {
-                            return 2036;
-                        } else {
-                            return -50;
-                        }
-                    }
+                    return -459;
                 }
             } else {
-                return -434;
-            }
-        } else {
-            return 1821;
-        }
-    } else {
-        if (ppm <= 313) {
-            if (hop_count <= 20) {
-                if (parent_drop_rate <= 10) {
-                    if (hop_count <= 13) {
-                        if (ppm <= 236) {
-                            if (parent_ppm <= 159) {
-                                return 39;
-                            } else {
-                                return 931;
-                            }
-                        } else {
-                            if (ppm <= 286) {
-                                return -443;
-                            } else {
-                                return 616;
-                            }
-                        }
-                    } else {
-                        if (hop_count <= 15) {
-                            return 2225;
-                        } else {
-                            return -111;
-                        }
-                    }
+                if (cpu <= 17) {
+                    return -640;
                 } else {
-                    if (hop_count <= 4) {
-                        return 1388;
+                    if (cpu <= 50) {
+                        return 156;
                     } else {
-                        if (ppm <= 307) {
-                            return -192;
-                        } else {
-                            return 1576;
-                        }
+                        return -497;
                     }
-                }
-            } else {
-                if (ppm <= 248) {
-                    return 2330;
-                } else {
-                    return 177;
                 }
             }
         } else {
             if (hop_count <= 1) {
-                return 152;
+                return 190;
             } else {
-                if (parent_ppm <= 109) {
-                    if (hop_count <= 3) {
-                        if (ppm <= 1299) {
-                            return -1257;
-                        } else {
-                            if (rssi <= -49) {
-                                return 523;
+                if (drop_rate <= 38) {
+                    if (drop_rate <= 30) {
+                        return -359;
+                    } else {
+                        return -1378;
+                    }
+                } else {
+                    if (cpu <= 88) {
+                        return -502;
+                    } else {
+                        return 1227;
+                    }
+                }
+            }
+        }
+    } else {
+        if (p_cpu <= 8) {
+            return 366;
+        } else {
+            if (etx <= 198) {
+                if (cpu <= 1) {
+                    if (hop_count <= 8) {
+                        return 729;
+                    } else {
+                        if (p_cpu <= 40) {
+                            if (hop_count <= 17) {
+                                return -460;
                             } else {
-                                return -1913;
+                                return 811;
+                            }
+                        } else {
+                            if (parent_drop_rate <= 11) {
+                                return 696;
+                            } else {
+                                return -147;
+                            }
+                        }
+                    }
+                } else {
+                    if (drop_rate <= 41) {
+                        if (etx <= 196) {
+                            if (etx <= 195) {
+                                return -60;
+                            } else {
+                                return -889;
+                            }
+                        } else {
+                            if (p_cpu <= 23) {
+                                return 1699;
+                            } else {
+                                return 139;
                             }
                         }
                     } else {
-                        return -276;
+                        return -583;
+                    }
+                }
+            } else {
+                if (p_cpu <= 25) {
+                    if (parent_drop_rate <= 6) {
+                        if (drop_rate <= 23) {
+                            if (hop_count <= 9) {
+                                return 56;
+                            } else {
+                                return -418;
+                            }
+                        } else {
+                            return -1336;
+                        }
+                    } else {
+                        if (etx <= 219) {
+                            if (etx <= 211) {
+                                return -433;
+                            } else {
+                                return 1116;
+                            }
+                        } else {
+                            if (cpu <= 12) {
+                                return -1086;
+                            } else {
+                                return -466;
+                            }
+                        }
                     }
                 } else {
-                    return -82;
+                    if (hop_count <= 39) {
+                        if (etx <= 491) {
+                            return -105;
+                        } else {
+                            return 426;
+                        }
+                    } else {
+                        return -718;
+                    }
                 }
             }
         }
     }
 }
 
-uint16_t mlof_predict_pdr_lgbm(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, int16_t rssi, uint16_t ppm, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+static int32_t mlof_predict_pdr_lgbm_tree38(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 6) {
+        if (parent_ppm <= 256) {
+            if (p_cpu <= 28) {
+                return 22;
+            } else {
+                return -178;
+            }
+        } else {
+            if (p_cpu <= 12) {
+                return -41;
+            } else {
+                if (p_cpu <= 40) {
+                    if (p_cpu <= 35) {
+                        if (p_cpu <= 26) {
+                            return 208;
+                        } else {
+                            return -11;
+                        }
+                    } else {
+                        if (cpu <= 45) {
+                            if (parent_ppm <= 508) {
+                                return 313;
+                            } else {
+                                return 1094;
+                            }
+                        } else {
+                            return -124;
+                        }
+                    }
+                } else {
+                    if (cpu <= 27) {
+                        if (p_cpu <= 42) {
+                            return -963;
+                        } else {
+                            return -165;
+                        }
+                    } else {
+                        if (drop_rate <= 0) {
+                            return 856;
+                        } else {
+                            return -151;
+                        }
+                    }
+                }
+            }
+        }
+    } else {
+        if (hop_count <= 47) {
+            if (is_new <= 0) {
+                if (hop_count <= 18) {
+                    if (p_cpu <= 60) {
+                        if (cpu <= 0) {
+                            if (p_cpu <= 52) {
+                                return 68;
+                            } else {
+                                return 1233;
+                            }
+                        } else {
+                            return -154;
+                        }
+                    } else {
+                        return -411;
+                    }
+                } else {
+                    if (hop_count <= 23) {
+                        if (p_cpu <= 43) {
+                            return 1219;
+                        } else {
+                            return 116;
+                        }
+                    } else {
+                        if (drop_rate <= 0) {
+                            return -898;
+                        } else {
+                            return 162;
+                        }
+                    }
+                }
+            } else {
+                if (p_cpu <= 22) {
+                    if (cpu <= 29) {
+                        if (cpu <= 18) {
+                            if (parent_ppm <= 379) {
+                                return -128;
+                            } else {
+                                return -1085;
+                            }
+                        } else {
+                            return 371;
+                        }
+                    } else {
+                        if (p_cpu <= 14) {
+                            return -1375;
+                        } else {
+                            return -442;
+                        }
+                    }
+                } else {
+                    if (hop_count <= 18) {
+                        if (hop_count <= 15) {
+                            if (parent_ppm <= 542) {
+                                return -51;
+                            } else {
+                                return 128;
+                            }
+                        } else {
+                            if (parent_ppm <= 676) {
+                                return 422;
+                            } else {
+                                return -246;
+                            }
+                        }
+                    } else {
+                        return -176;
+                    }
+                }
+            }
+        } else {
+            return 1345;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree39(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 3) {
+        if (parent_drop_rate <= 0) {
+            if (cpu <= 95) {
+                return 25;
+            } else {
+                if (hop_count <= 1) {
+                    return 131;
+                } else {
+                    return -1373;
+                }
+            }
+        } else {
+            if (p_cpu <= 14) {
+                return 8;
+            } else {
+                return 271;
+            }
+        }
+    } else {
+        if (etx <= 266) {
+            if (parent_drop_rate <= 11) {
+                if (etx <= 163) {
+                    if (parent_drop_rate <= 6) {
+                        if (parent_drop_rate <= 2) {
+                            if (p_cpu <= 48) {
+                                return 127;
+                            } else {
+                                return 898;
+                            }
+                        } else {
+                            if (hop_count <= 5) {
+                                return -1356;
+                            } else {
+                                return -117;
+                            }
+                        }
+                    } else {
+                        if (etx <= 149) {
+                            if (p_cpu <= 52) {
+                                return 1567;
+                            } else {
+                                return -204;
+                            }
+                        } else {
+                            if (etx <= 153) {
+                                return -845;
+                            } else {
+                                return 499;
+                            }
+                        }
+                    }
+                } else {
+                    if (p_cpu <= 13) {
+                        return 60;
+                    } else {
+                        if (hop_count <= 30) {
+                            if (hop_count <= 24) {
+                                return -36;
+                            } else {
+                                return -617;
+                            }
+                        } else {
+                            if (cpu <= 34) {
+                                return 1813;
+                            } else {
+                                return -853;
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (p_cpu <= 15) {
+                    return -1422;
+                } else {
+                    if (is_new <= 0) {
+                        if (cpu <= 0) {
+                            return 798;
+                        } else {
+                            if (cpu <= 14) {
+                                return -484;
+                            } else {
+                                return -126;
+                            }
+                        }
+                    } else {
+                        return -51;
+                    }
+                }
+            }
+        } else {
+            if (parent_drop_rate <= 10) {
+                if (p_cpu <= 5) {
+                    return 445;
+                } else {
+                    return -195;
+                }
+            } else {
+                if (is_new <= 0) {
+                    if (cpu <= 1) {
+                        return 470;
+                    } else {
+                        return -392;
+                    }
+                } else {
+                    if (hop_count <= 10) {
+                        if (cpu <= 25) {
+                            return 638;
+                        } else {
+                            return -44;
+                        }
+                    } else {
+                        if (parent_drop_rate <= 34) {
+                            return -161;
+                        } else {
+                            return 851;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree40(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 4) {
+        if (etx <= 445) {
+            if (parent_drop_rate <= 2) {
+                return 21;
+            } else {
+                if (hop_count <= 2) {
+                    return 257;
+                } else {
+                    if (parent_ppm <= 175) {
+                        return -824;
+                    } else {
+                        if (parent_drop_rate <= 4) {
+                            if (etx <= 348) {
+                                return 238;
+                            } else {
+                                return 2106;
+                            }
+                        } else {
+                            return 8;
+                        }
+                    }
+                }
+            }
+        } else {
+            if (hop_count <= 3) {
+                return -149;
+            } else {
+                return -1108;
+            }
+        }
+    } else {
+        if (etx <= 182) {
+            if (parent_ppm <= 453) {
+                if (cpu <= 15) {
+                    if (hop_count <= 22) {
+                        return 196;
+                    } else {
+                        return 1508;
+                    }
+                } else {
+                    if (parent_ppm <= 374) {
+                        if (parent_drop_rate <= 3) {
+                            return 66;
+                        } else {
+                            return -359;
+                        }
+                    } else {
+                        if (parent_ppm <= 422) {
+                            if (etx <= 157) {
+                                return 1712;
+                            } else {
+                                return 324;
+                            }
+                        } else {
+                            if (etx <= 159) {
+                                return -1347;
+                            } else {
+                                return 216;
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (hop_count <= 5) {
+                    if (parent_drop_rate <= 5) {
+                        return -1751;
+                    } else {
+                        return -419;
+                    }
+                } else {
+                    return -123;
+                }
+            }
+        } else {
+            if (parent_ppm <= 282) {
+                if (parent_drop_rate <= 13) {
+                    return -118;
+                } else {
+                    if (etx <= 245) {
+                        return -839;
+                    } else {
+                        return -180;
+                    }
+                }
+            } else {
+                if (parent_drop_rate <= 0) {
+                    if (parent_ppm <= 482) {
+                        if (etx <= 254) {
+                            if (cpu <= 27) {
+                                return 333;
+                            } else {
+                                return 1618;
+                            }
+                        } else {
+                            if (cpu <= 18) {
+                                return 214;
+                            } else {
+                                return -1480;
+                            }
+                        }
+                    } else {
+                        return 1409;
+                    }
+                } else {
+                    if (hop_count <= 39) {
+                        if (etx <= 440) {
+                            if (etx <= 382) {
+                                return -32;
+                            } else {
+                                return -286;
+                            }
+                        } else {
+                            return 234;
+                        }
+                    } else {
+                        return -646;
+                    }
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree41(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 6) {
+        if (etx <= 445) {
+            if (hop_count <= 2) {
+                if (p_cpu <= 24) {
+                    if (parent_drop_rate <= 0) {
+                        if (etx <= 327) {
+                            return 20;
+                        } else {
+                            return 208;
+                        }
+                    } else {
+                        if (p_cpu <= 15) {
+                            return 61;
+                        } else {
+                            return 318;
+                        }
+                    }
+                } else {
+                    return 322;
+                }
+            } else {
+                if (p_cpu <= 4) {
+                    return 104;
+                } else {
+                    if (etx <= 177) {
+                        if (p_cpu <= 44) {
+                            if (hop_count <= 5) {
+                                return 41;
+                            } else {
+                                return 256;
+                            }
+                        } else {
+                            if (parent_drop_rate <= 4) {
+                                return -1079;
+                            } else {
+                                return -164;
+                            }
+                        }
+                    } else {
+                        if (etx <= 411) {
+                            if (cpu <= 21) {
+                                return -21;
+                            } else {
+                                return -138;
+                            }
+                        } else {
+                            if (p_cpu <= 50) {
+                                return 563;
+                            } else {
+                                return -720;
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            if (parent_drop_rate <= 12) {
+                if (drop_rate <= 1) {
+                    if (p_cpu <= 37) {
+                        if (hop_count <= 3) {
+                            if (cpu <= 26) {
+                                return 342;
+                            } else {
+                                return -708;
+                            }
+                        } else {
+                            return -1065;
+                        }
+                    } else {
+                        return 661;
+                    }
+                } else {
+                    if (p_cpu <= 23) {
+                        return -1582;
+                    } else {
+                        return -628;
+                    }
+                }
+            } else {
+                return 772;
+            }
+        }
+    } else {
+        if (drop_rate <= 64) {
+            if (hop_count <= 47) {
+                if (hop_count <= 42) {
+                    if (p_cpu <= 7) {
+                        return 363;
+                    } else {
+                        if (p_cpu <= 25) {
+                            if (hop_count <= 8) {
+                                return -8;
+                            } else {
+                                return -323;
+                            }
+                        } else {
+                            if (hop_count <= 11) {
+                                return -90;
+                            } else {
+                                return -12;
+                            }
+                        }
+                    }
+                } else {
+                    return -975;
+                }
+            } else {
+                return 889;
+            }
+        } else {
+            if (p_cpu <= 54) {
+                return 1036;
+            } else {
+                if (parent_drop_rate <= 9) {
+                    return -591;
+                } else {
+                    return 833;
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree42(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 2) {
+        if (p_cpu <= 17) {
+            return 19;
+        } else {
+            if (parent_drop_rate <= 1) {
+                return 97;
+            } else {
+                if (etx <= 205) {
+                    if (p_cpu <= 35) {
+                        return 468;
+                    } else {
+                        return 1259;
+                    }
+                } else {
+                    if (p_cpu <= 29) {
+                        return 343;
+                    } else {
+                        if (is_new <= 0) {
+                            return 177;
+                        } else {
+                            return -1379;
+                        }
+                    }
+                }
+            }
+        }
+    } else {
+        if (p_cpu <= 5) {
+            return 91;
+        } else {
+            if (cpu <= 56) {
+                if (p_cpu <= 93) {
+                    if (etx <= 195) {
+                        if (parent_drop_rate <= 36) {
+                            if (hop_count <= 12) {
+                                return 6;
+                            } else {
+                                return 135;
+                            }
+                        } else {
+                            return -1092;
+                        }
+                    } else {
+                        if (etx <= 196) {
+                            if (cpu <= 1) {
+                                return 261;
+                            } else {
+                                return -677;
+                            }
+                        } else {
+                            if (etx <= 358) {
+                                return -30;
+                            } else {
+                                return -137;
+                            }
+                        }
+                    }
+                } else {
+                    if (parent_drop_rate <= 12) {
+                        return 1858;
+                    } else {
+                        return -54;
+                    }
+                }
+            } else {
+                if (parent_drop_rate <= 16) {
+                    if (p_cpu <= 51) {
+                        if (etx <= 188) {
+                            if (parent_drop_rate <= 9) {
+                                return -642;
+                            } else {
+                                return 138;
+                            }
+                        } else {
+                            if (etx <= 213) {
+                                return 200;
+                            } else {
+                                return -248;
+                            }
+                        }
+                    } else {
+                        if (p_cpu <= 60) {
+                            if (hop_count <= 10) {
+                                return -33;
+                            } else {
+                                return 358;
+                            }
+                        } else {
+                            if (parent_drop_rate <= 3) {
+                                return 93;
+                            } else {
+                                return -253;
+                            }
+                        }
+                    }
+                } else {
+                    if (etx <= 344) {
+                        if (hop_count <= 8) {
+                            if (etx <= 210) {
+                                return 1022;
+                            } else {
+                                return -91;
+                            }
+                        } else {
+                            return -109;
+                        }
+                    } else {
+                        if (hop_count <= 16) {
+                            if (cpu <= 73) {
+                                return 2282;
+                            } else {
+                                return 71;
+                            }
+                        } else {
+                            return -236;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree43(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (drop_rate <= 4) {
+        if (etx <= 334) {
+            if (cpu <= 113) {
+                if (etx <= 182) {
+                    if (p_cpu <= 59) {
+                        if (parent_drop_rate <= 15) {
+                            return 44;
+                        } else {
+                            if (cpu <= 40) {
+                                return 175;
+                            } else {
+                                return 1395;
+                            }
+                        }
+                    } else {
+                        if (parent_drop_rate <= 3) {
+                            if (cpu <= 43) {
+                                return 683;
+                            } else {
+                                return -455;
+                            }
+                        } else {
+                            if (etx <= 175) {
+                                return -582;
+                            } else {
+                                return 143;
+                            }
+                        }
+                    }
+                } else {
+                    if (cpu <= 31) {
+                        return 12;
+                    } else {
+                        if (p_cpu <= 79) {
+                            if (etx <= 281) {
+                                return -27;
+                            } else {
+                                return -234;
+                            }
+                        } else {
+                            if (parent_drop_rate <= 8) {
+                                return 1280;
+                            } else {
+                                return -20;
+                            }
+                        }
+                    }
+                }
+            } else {
+                return -836;
+            }
+        } else {
+            if (parent_drop_rate <= 10) {
+                if (p_cpu <= 8) {
+                    return 75;
+                } else {
+                    if (p_cpu <= 59) {
+                        return -253;
+                    } else {
+                        if (etx <= 366) {
+                            if (etx <= 342) {
+                                return 651;
+                            } else {
+                                return -569;
+                            }
+                        } else {
+                            if (drop_rate <= 2) {
+                                return 104;
+                            } else {
+                                return 1381;
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (p_cpu <= 63) {
+                    if (is_new <= 0) {
+                        if (etx <= 375) {
+                            return 390;
+                        } else {
+                            return -590;
+                        }
+                    } else {
+                        if (parent_drop_rate <= 17) {
+                            if (drop_rate <= 0) {
+                                return 496;
+                            } else {
+                                return -123;
+                            }
+                        } else {
+                            if (parent_drop_rate <= 19) {
+                                return 1570;
+                            } else {
+                                return 236;
+                            }
+                        }
+                    }
+                } else {
+                    if (etx <= 391) {
+                        return -830;
+                    } else {
+                        return -17;
+                    }
+                }
+            }
+        }
+    } else {
+        if (drop_rate <= 64) {
+            return -89;
+        } else {
+            if (cpu <= 81) {
+                if (cpu <= 20) {
+                    return 877;
+                } else {
+                    return -214;
+                }
+            } else {
+                return 1036;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree44(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (drop_rate <= 1) {
+        if (parent_ppm <= 676) {
+            if (parent_ppm <= 666) {
+                if (p_cpu <= 82) {
+                    if (p_cpu <= 79) {
+                        if (parent_drop_rate <= 23) {
+                            if (parent_ppm <= 267) {
+                                return 6;
+                            } else {
+                                return 65;
+                            }
+                        } else {
+                            return -452;
+                        }
+                    } else {
+                        return 1016;
+                    }
+                } else {
+                    return -615;
+                }
+            } else {
+                if (p_cpu <= 51) {
+                    return 119;
+                } else {
+                    return 1571;
+                }
+            }
+        } else {
+            if (parent_drop_rate <= 23) {
+                return -205;
+            } else {
+                if (cpu <= 34) {
+                    if (etx <= 177) {
+                        return 1068;
+                    } else {
+                        if (p_cpu <= 41) {
+                            return -1207;
+                        } else {
+                            return -44;
+                        }
+                    }
+                } else {
+                    return 1702;
+                }
+            }
+        }
+    } else {
+        if (parent_ppm <= 548) {
+            if (parent_drop_rate <= 25) {
+                if (p_cpu <= 94) {
+                    if (cpu <= 11) {
+                        return 36;
+                    } else {
+                        if (drop_rate <= 49) {
+                            return -126;
+                        } else {
+                            if (etx <= 277) {
+                                return -47;
+                            } else {
+                                return 949;
+                            }
+                        }
+                    }
+                } else {
+                    return 1181;
+                }
+            } else {
+                return -604;
+            }
+        } else {
+            if (etx <= 303) {
+                if (cpu <= 48) {
+                    if (parent_ppm <= 676) {
+                        if (etx <= 175) {
+                            return -368;
+                        } else {
+                            if (parent_drop_rate <= 24) {
+                                return 276;
+                            } else {
+                                return 1319;
+                            }
+                        }
+                    } else {
+                        if (parent_drop_rate <= 16) {
+                            return -256;
+                        } else {
+                            if (parent_drop_rate <= 30) {
+                                return 482;
+                            } else {
+                                return -593;
+                            }
+                        }
+                    }
+                } else {
+                    if (etx <= 285) {
+                        return -106;
+                    } else {
+                        return -1095;
+                    }
+                }
+            } else {
+                if (parent_ppm <= 841) {
+                    if (p_cpu <= 54) {
+                        return 547;
+                    } else {
+                        return -146;
+                    }
+                } else {
+                    if (cpu <= 23) {
+                        return 48;
+                    } else {
+                        if (cpu <= 57) {
+                            return 2442;
+                        } else {
+                            return 540;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree45(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 8) {
+        if (parent_ppm <= 1071) {
+            if (parent_ppm <= 244) {
+                if (p_cpu <= 10) {
+                    return 26;
+                } else {
+                    if (etx <= 264) {
+                        if (parent_ppm <= 79) {
+                            if (hop_count <= 2) {
+                                return 33;
+                            } else {
+                                return -191;
+                            }
+                        } else {
+                            if (p_cpu <= 36) {
+                                return 58;
+                            } else {
+                                return -223;
+                            }
+                        }
+                    } else {
+                        if (parent_ppm <= 74) {
+                            if (parent_drop_rate <= 0) {
+                                return -410;
+                            } else {
+                                return 694;
+                            }
+                        } else {
+                            if (parent_drop_rate <= 14) {
+                                return -126;
+                            } else {
+                                return 745;
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (p_cpu <= 79) {
+                    if (etx <= 231) {
+                        if (etx <= 227) {
+                            if (p_cpu <= 59) {
+                                return 61;
+                            } else {
+                                return -362;
+                            }
+                        } else {
+                            if (hop_count <= 3) {
+                                return 97;
+                            } else {
+                                return -809;
+                            }
+                        }
+                    } else {
+                        return 136;
+                    }
+                } else {
+                    return 1238;
+                }
+            }
+        } else {
+            return -764;
+        }
+    } else {
+        if (p_cpu <= 25) {
+            if (drop_rate <= 24) {
+                if (hop_count <= 19) {
+                    if (parent_ppm <= 95) {
+                        return 502;
+                    } else {
+                        if (parent_ppm <= 300) {
+                            if (etx <= 211) {
+                                return -230;
+                            } else {
+                                return -870;
+                            }
+                        } else {
+                            if (parent_ppm <= 593) {
+                                return 33;
+                            } else {
+                                return -938;
+                            }
+                        }
+                    }
+                } else {
+                    if (parent_ppm <= 297) {
+                        if (etx <= 210) {
+                            return 1708;
+                        } else {
+                            return -176;
+                        }
+                    } else {
+                        return -706;
+                    }
+                }
+            } else {
+                return -1318;
+            }
+        } else {
+            if (hop_count <= 11) {
+                return -83;
+            } else {
+                if (parent_ppm <= 276) {
+                    if (hop_count <= 24) {
+                        if (etx <= 182) {
+                            if (parent_ppm <= 244) {
+                                return 489;
+                            } else {
+                                return 1673;
+                            }
+                        } else {
+                            return 230;
+                        }
+                    } else {
+                        return -730;
+                    }
+                } else {
+                    return -19;
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree46(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 2) {
+        if (p_cpu <= 17) {
+            if (cpu <= 89) {
+                return 16;
+            } else {
+                if (hop_count <= 1) {
+                    return -7;
+                } else {
+                    return -1506;
+                }
+            }
+        } else {
+            if (parent_drop_rate <= 1) {
+                return 92;
+            } else {
+                return 349;
+            }
+        }
+    } else {
+        if (p_cpu <= 2) {
+            return 144;
+        } else {
+            if (parent_ppm <= 116) {
+                if (p_cpu <= 17) {
+                    if (cpu <= 50) {
+                        if (parent_drop_rate <= 3) {
+                            if (parent_ppm <= 14) {
+                                return 389;
+                            } else {
+                                return -24;
+                            }
+                        } else {
+                            return -944;
+                        }
+                    } else {
+                        if (is_new <= 0) {
+                            return 43;
+                        } else {
+                            if (parent_ppm <= 66) {
+                                return -2018;
+                            } else {
+                                return -571;
+                            }
+                        }
+                    }
+                } else {
+                    if (parent_drop_rate <= 0) {
+                        if (p_cpu <= 35) {
+                            if (cpu <= 24) {
+                                return -311;
+                            } else {
+                                return -743;
+                            }
+                        } else {
+                            if (cpu <= 46) {
+                                return -394;
+                            } else {
+                                return 174;
+                            }
+                        }
+                    } else {
+                        if (parent_drop_rate <= 2) {
+                            if (parent_ppm <= 91) {
+                                return -10;
+                            } else {
+                                return 625;
+                            }
+                        } else {
+                            if (is_new <= 0) {
+                                return -1128;
+                            } else {
+                                return -99;
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (parent_drop_rate <= 0) {
+                    if (parent_ppm <= 482) {
+                        if (hop_count <= 8) {
+                            if (hop_count <= 5) {
+                                return 39;
+                            } else {
+                                return 204;
+                            }
+                        } else {
+                            if (cpu <= 21) {
+                                return -783;
+                            } else {
+                                return 38;
+                            }
+                        }
+                    } else {
+                        if (p_cpu <= 38) {
+                            return 298;
+                        } else {
+                            return 2089;
+                        }
+                    }
+                } else {
+                    if (hop_count <= 48) {
+                        if (p_cpu <= 82) {
+                            if (parent_drop_rate <= 34) {
+                                return -16;
+                            } else {
+                                return -530;
+                            }
+                        } else {
+                            if (parent_ppm <= 695) {
+                                return -375;
+                            } else {
+                                return 135;
+                            }
+                        }
+                    } else {
+                        return 1018;
+                    }
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree47(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (hop_count <= 8) {
+        if (p_cpu <= 79) {
+            if (cpu <= 23) {
+                if (parent_drop_rate <= 15) {
+                    if (p_cpu <= 66) {
+                        if (p_cpu <= 61) {
+                            return 25;
+                        } else {
+                            return -659;
+                        }
+                    } else {
+                        if (cpu <= 5) {
+                            return -538;
+                        } else {
+                            return 1076;
+                        }
+                    }
+                } else {
+                    return -226;
+                }
+            } else {
+                if (hop_count <= 1) {
+                    return 49;
+                } else {
+                    return -47;
+                }
+            }
+        } else {
+            return 929;
+        }
+    } else {
+        if (p_cpu <= 19) {
+            if (etx <= 203) {
+                if (drop_rate <= 0) {
+                    if (etx <= 192) {
+                        if (parent_drop_rate <= 7) {
+                            if (p_cpu <= 14) {
+                                return 163;
+                            } else {
+                                return -608;
+                            }
+                        } else {
+                            return -1532;
+                        }
+                    } else {
+                        return 453;
+                    }
+                } else {
+                    return 683;
+                }
+            } else {
+                if (etx <= 209) {
+                    return -1568;
+                } else {
+                    if (cpu <= 1) {
+                        return -1117;
+                    } else {
+                        return -252;
+                    }
+                }
+            }
+        } else {
+            if (parent_drop_rate <= 0) {
+                if (cpu <= 12) {
+                    if (p_cpu <= 32) {
+                        return -2321;
+                    } else {
+                        return -629;
+                    }
+                } else {
+                    return -74;
+                }
+            } else {
+                if (drop_rate <= 7) {
+                    if (p_cpu <= 22) {
+                        if (hop_count <= 14) {
+                            if (etx <= 184) {
+                                return 1229;
+                            } else {
+                                return 283;
+                            }
+                        } else {
+                            if (parent_drop_rate <= 6) {
+                                return -702;
+                            } else {
+                                return 370;
+                            }
+                        }
+                    } else {
+                        if (etx <= 491) {
+                            if (p_cpu <= 82) {
+                                return -7;
+                            } else {
+                                return -333;
+                            }
+                        } else {
+                            return 949;
+                        }
+                    }
+                } else {
+                    if (p_cpu <= 25) {
+                        return -687;
+                    } else {
+                        if (cpu <= 27) {
+                            if (hop_count <= 27) {
+                                return -236;
+                            } else {
+                                return 1070;
+                            }
+                        } else {
+                            if (hop_count <= 18) {
+                                return 29;
+                            } else {
+                                return -247;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree48(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (drop_rate <= 22) {
+        if (cpu <= 24) {
+            if (hop_count <= 32) {
+                if (parent_ppm <= 799) {
+                    return 19;
+                } else {
+                    if (cpu <= 22) {
+                        if (cpu <= 7) {
+                            if (cpu <= 6) {
+                                return -119;
+                            } else {
+                                return 787;
+                            }
+                        } else {
+                            return -437;
+                        }
+                    } else {
+                        return 666;
+                    }
+                }
+            } else {
+                if (p_cpu <= 67) {
+                    if (hop_count <= 40) {
+                        return 1872;
+                    } else {
+                        return 543;
+                    }
+                } else {
+                    return -397;
+                }
+            }
+        } else {
+            if (hop_count <= 33) {
+                if (p_cpu <= 93) {
+                    if (parent_ppm <= 727) {
+                        if (hop_count <= 1) {
+                            return 44;
+                        } else {
+                            if (parent_ppm <= 107) {
+                                return -172;
+                            } else {
+                                return -32;
+                            }
+                        }
+                    } else {
+                        if (parent_drop_rate <= 17) {
+                            if (p_cpu <= 71) {
+                                return -105;
+                            } else {
+                                return 502;
+                            }
+                        } else {
+                            if (parent_ppm <= 1071) {
+                                return 761;
+                            } else {
+                                return -227;
+                            }
+                        }
+                    }
+                } else {
+                    return 1043;
+                }
+            } else {
+                if (parent_ppm <= 817) {
+                    return -908;
+                } else {
+                    return 337;
+                }
+            }
+        }
+    } else {
+        if (cpu <= 111) {
+            if (cpu <= 53) {
+                if (parent_ppm <= 477) {
+                    if (hop_count <= 1) {
+                        return 23;
+                    } else {
+                        if (parent_ppm <= 74) {
+                            return -1110;
+                        } else {
+                            return -334;
+                        }
+                    }
+                } else {
+                    if (parent_drop_rate <= 9) {
+                        if (drop_rate <= 38) {
+                            if (p_cpu <= 41) {
+                                return -1171;
+                            } else {
+                                return -341;
+                            }
+                        } else {
+                            if (cpu <= 19) {
+                                return 976;
+                            } else {
+                                return -384;
+                            }
+                        }
+                    } else {
+                        if (drop_rate <= 31) {
+                            if (parent_ppm <= 508) {
+                                return 1769;
+                            } else {
+                                return 326;
+                            }
+                        } else {
+                            if (parent_drop_rate <= 17) {
+                                return -448;
+                            } else {
+                                return 208;
+                            }
+                        }
+                    }
+                }
+            } else {
+                return 1;
+            }
+        } else {
+            return 968;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree49(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
+    if (parent_drop_rate <= 13) {
+        if (p_cpu <= 93) {
+            if (parent_ppm <= 487) {
+                if (parent_ppm <= 366) {
+                    if (cpu <= 22) {
+                        return 16;
+                    } else {
+                        return -34;
+                    }
+                } else {
+                    if (parent_drop_rate <= 4) {
+                        if (hop_count <= 5) {
+                            return -7;
+                        } else {
+                            if (p_cpu <= 36) {
+                                return 628;
+                            } else {
+                                return 154;
+                            }
+                        }
+                    } else {
+                        if (parent_drop_rate <= 5) {
+                            if (p_cpu <= 17) {
+                                return 623;
+                            } else {
+                                return -472;
+                            }
+                        } else {
+                            if (hop_count <= 4) {
+                                return 391;
+                            } else {
+                                return 23;
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (parent_drop_rate <= 9) {
+                    if (parent_drop_rate <= 0) {
+                        if (p_cpu <= 38) {
+                            return 149;
+                        } else {
+                            return 1501;
+                        }
+                    } else {
+                        return -160;
+                    }
+                } else {
+                    if (parent_ppm <= 503) {
+                        return -451;
+                    } else {
+                        if (parent_ppm <= 513) {
+                            if (is_new <= 0) {
+                                return 1995;
+                            } else {
+                                return 98;
+                            }
+                        } else {
+                            if (parent_ppm <= 573) {
+                                return -189;
+                            } else {
+                                return 178;
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            return 1132;
+        }
+    } else {
+        if (parent_ppm <= 477) {
+            if (hop_count <= 2) {
+                return 270;
+            } else {
+                if (p_cpu <= 15) {
+                    return -1996;
+                } else {
+                    if (is_new <= 0) {
+                        if (cpu <= 2) {
+                            if (hop_count <= 10) {
+                                return -607;
+                            } else {
+                                return 1658;
+                            }
+                        } else {
+                            return -714;
+                        }
+                    } else {
+                        return -161;
+                    }
+                }
+            }
+        } else {
+            if (parent_ppm <= 1071) {
+                if (hop_count <= 11) {
+                    if (cpu <= 16) {
+                        return -27;
+                    } else {
+                        return 307;
+                    }
+                } else {
+                    if (p_cpu <= 28) {
+                        return -1608;
+                    } else {
+                        if (hop_count <= 13) {
+                            return -317;
+                        } else {
+                            if (p_cpu <= 33) {
+                                return 1260;
+                            } else {
+                                return 26;
+                            }
+                        }
+                    }
+                }
+            } else {
+                return -475;
+            }
+        }
+    }
+}
+
+uint16_t mlof_predict_pdr_lgbm(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint16_t etx, uint8_t drop_rate, uint16_t parent_ppm, uint8_t parent_drop_rate, uint8_t hop_count) {
     int32_t sum = 0;
-    sum += mlof_predict_pdr_lgbm_tree0(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree1(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree2(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree3(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree4(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree5(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree6(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree7(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree8(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree9(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree10(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree11(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree12(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree13(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree14(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree15(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree16(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree17(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree18(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree19(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree20(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree21(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree22(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree23(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree24(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree25(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree26(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree27(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree28(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree29(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree30(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree31(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree32(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree33(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree34(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree35(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree36(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree37(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree38(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree39(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree40(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree41(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree42(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree43(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree44(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree45(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree46(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree47(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree48(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree49(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree0(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree1(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree2(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree3(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree4(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree5(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree6(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree7(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree8(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree9(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree10(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree11(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree12(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree13(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree14(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree15(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree16(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree17(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree18(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree19(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree20(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree21(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree22(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree23(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree24(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree25(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree26(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree27(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree28(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree29(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree30(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree31(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree32(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree33(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree34(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree35(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree36(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree37(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree38(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree39(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree40(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree41(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree42(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree43(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree44(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree45(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree46(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree47(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree48(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree49(is_new, cpu, p_cpu, etx, drop_rate, parent_ppm, parent_drop_rate, hop_count);
     if (sum < 0) sum = 0;
     if (sum > 65535) sum = 65535;
     return (uint16_t)sum;
