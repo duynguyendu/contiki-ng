@@ -463,30 +463,27 @@ uint32_t mlof_predict_count;
 static uint16_t predict_pdr(rpl_nbr_t *nbr, int is_new) {
   rtimer_clock_t start = RTIMER_NOW();
   uint16_t pdr;
-  uint16_t parent_ppm = nbr->mlof.weighted_ppm;
-  uint8_t parent_drop_rate = nbr->mlof.weighted_drop_rate;
-  int16_t rssi = nbr->mlof.rssi;
-  uint8_t hop_count = nbr->mlof.hop_count;
-  uint8_t cpu = last_self_cpu_usage;
-  uint8_t p_cpu = nbr->mlof.weighted_cpu_usage;
-  uint16_t etx = nbr->mlof.etx;
-  uint16_t ppm = last_self_ppm;
-  uint8_t drop_rate = last_self_drop_rate;
-
 #if MLOF_MODEL == MLOF_MODEL_LINEAR
-  pdr = mlof_predict_pdr_linear(parent_ppm, parent_drop_rate, rssi, hop_count,
-                                (uint8_t)is_new, cpu, p_cpu, etx, ppm,
-                                drop_rate);
+  pdr = mlof_predict_pdr_linear(
+      (uint8_t)is_new, last_self_cpu_usage, nbr->mlof.weighted_cpu_usage,
+      nbr->mlof.etx, nbr->mlof.rssi, last_self_ppm, last_self_drop_rate,
+      nbr->mlof.weighted_ppm, nbr->mlof.weighted_drop_rate,
+      nbr->mlof.hop_count);
 #elif MLOF_MODEL == MLOF_MODEL_DTREE
-  pdr = mlof_predict_pdr_dtree(parent_ppm, parent_drop_rate, rssi, hop_count,
-                               (uint8_t)is_new, cpu, p_cpu, etx, ppm,
-                               drop_rate);
+  pdr = mlof_predict_pdr_dtree((uint8_t)is_new, nbr->mlof.weighted_cpu_usage,
+                               last_self_drop_rate,
+                               nbr->mlof.weighted_drop_rate,
+                               nbr->mlof.hop_count);
 #elif MLOF_MODEL == MLOF_MODEL_LGBM
-  pdr = mlof_predict_pdr_lgbm(is_new, cpu, p_cpu, etx, rssi, ppm, drop_rate,
-                              parent_ppm, parent_drop_rate, hop_count);
+  pdr = mlof_predict_pdr_lgbm((uint8_t)is_new, nbr->mlof.weighted_cpu_usage,
+                              last_self_drop_rate, nbr->mlof.weighted_drop_rate,
+                              nbr->mlof.hop_count);
 #else /* MLOF_MODEL == MLOF_MODEL_SVM */
-  pdr = mlof_predict_pdr_svm(parent_ppm, parent_drop_rate, rssi, hop_count,
-                             (uint8_t)is_new, cpu, p_cpu, etx, ppm, drop_rate);
+  pdr = mlof_predict_pdr_svm(
+      (uint8_t)is_new, last_self_cpu_usage, nbr->mlof.weighted_cpu_usage,
+      nbr->mlof.etx, nbr->mlof.rssi, last_self_ppm, last_self_drop_rate,
+      nbr->mlof.weighted_ppm, nbr->mlof.weighted_drop_rate,
+      nbr->mlof.hop_count);
 #endif
 
   mlof_predict_ticks += (rtimer_clock_t)(RTIMER_NOW() - start);
