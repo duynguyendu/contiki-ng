@@ -26,8 +26,6 @@
 
 #define RANK_THRESHOLD 96 // ~ 2.5 ETX (no PDR) or 6.69% in PDR (no ETX)
 
-#define MLOF_MODEL_SVM 0
-#define MLOF_MODEL_LINEAR 1
 #define MLOF_MODEL_DTREE 2
 #define MLOF_MODEL_LGBM 3
 
@@ -37,14 +35,10 @@
 #define MLOF_MODEL MLOF_MODEL_DTREE
 #endif
 
-#if MLOF_MODEL == MLOF_MODEL_LINEAR
-#include "mlof-linear.h"
-#elif MLOF_MODEL == MLOF_MODEL_DTREE
+#if MLOF_MODEL == MLOF_MODEL_DTREE
 #include "mlof-dtree.h"
-#elif MLOF_MODEL == MLOF_MODEL_LGBM
-#include "mlof-lgbm.h"
 #else
-#include "mlof-svm.h"
+#include "mlof-lgbm.h"
 #endif
 
 #ifdef MLOF_CONF_PATH_W_PDR
@@ -250,45 +244,9 @@ static uint8_t cpu_usage_percent(void) {
 #endif /* ENERGEST_CONF_ON */
 }
 
-/* When link stats are unavailable, report a plausible-but-poor link rather
- * than an out-of-range sentinel (e.g. INT16_MAX): the model only ever sees
- * values from that range during training, so an unmeasured link should still
- * land somewhere realistic instead of forcing an unmodeled extreme through
- * predict_pdr(). ETX 4.0 (four transmissions per successful delivery) and
- * RSSI -90 dBm (weak but not implausible) both read as "bad link", not
- * "unknown". */
-#define MLOF_ETX_UNKNOWN ((uint16_t)(8 * LINK_STATS_ETX_DIVISOR))
-#define MLOF_RSSI_UNKNOWN ((int16_t)-120)
-
-/* ETX and RSSI to the preferred parent, from its link statistics. Both are 0
- * at the root and MLOF_{ETX,RSSI}_UNKNOWN when unavailable: no preferred
- * parent yet, or the statistic has not been measured (ETX == 0, RSSI ==
- * LINK_STATS_RSSI_UNKNOWN). One shared root/link-stats check for both
- * values. */
-static void parent_link_metrics(uint16_t *etx, int16_t *rssi) {
-  rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
-  const struct link_stats *stats;
-
-  if (rpl_dag_root_is_root()) {
-    *etx = 0;
-    *rssi = 0;
-    return;
-  }
-  stats = parent == NULL ? NULL : rpl_neighbor_get_link_stats(parent);
-  if (stats == NULL) {
-    *etx = MLOF_ETX_UNKNOWN;
-    *rssi = MLOF_RSSI_UNKNOWN;
-    return;
-  }
-
-  *etx = stats->etx == 0 ? MLOF_ETX_UNKNOWN : stats->etx;
-  *rssi =
-      stats->rssi == LINK_STATS_RSSI_UNKNOWN ? MLOF_RSSI_UNKNOWN : stats->rssi;
-}
-
 /* Blend weights out of 16 (5/16 ~= 0.31, 11/16 ~= 0.69) so the average is a
  * shift instead of a division. Shared by every self/parent path-metric blend
- * below (CPU usage, ppm, drop_rate). */
+ * below (CPU usage, ppm). */
 #define MLOF_BLEND_W_SELF 5
 #define MLOF_BLEND_W_PARENT 11
 #define MLOF_BLEND_W_SHIFT 4
@@ -320,16 +278,14 @@ static uint8_t weighted_cpu_usage(uint8_t self_cpu_usage) {
 
 #define MLOF_TRAFFIC_MIN_WINDOW (30 * CLOCK_SECOND)
 #define MLOF_DROP_RATE_MAX MLOF_U8_REAL_MAX
-#define MLOF_DROP_RATE_UNKNOWN MLOF_U8_UNKNOWN
 
-/* This node's own ppm/drop_rate blended with its preferred parent's last-
- * advertised ppm/drop_rate, mirroring weighted_cpu_usage(): the advertised
- * value becomes a path metric (an exponentially-decaying average along the
- * route to the root) instead of a single-hop reading, so a congested link
- * further up the path is visible to nodes several hops below it. drop_rate
- * has an "unknown" sentinel to guard against, same as CPU usage; ppm does
- * not define one (0 from a real but quiet parent is meaningful), so only a
- * missing parent is special-cased there. */
+/* This node's own ppm blended with its preferred parent's last-advertised
+ * ppm, mirroring weighted_cpu_usage(): the advertised value becomes a path
+ * metric (an exponentially-decaying average along the route to the root)
+ * instead of a single-hop reading, so a congested link further up the path is
+ * visible to nodes several hops below it. ppm does not define an "unknown"
+ * sentinel (0 from a real but quiet parent is meaningful), so only a missing
+ * parent is special-cased. */
 static uint16_t weighted_ppm(uint16_t self_ppm) {
   rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
 
@@ -341,21 +297,6 @@ static uint16_t weighted_ppm(uint16_t self_ppm) {
   }
   return (uint16_t)MIN(blend_with_parent(self_ppm, parent->mlof.weighted_ppm),
                        0xffff);
-}
-
-static uint8_t weighted_drop_rate(uint8_t self_drop_rate) {
-  rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
-
-  if (rpl_dag_root_is_root()) {
-    return 0;
-  }
-  if (parent == NULL ||
-      parent->mlof.weighted_drop_rate == MLOF_DROP_RATE_UNKNOWN) {
-    return self_drop_rate;
-  }
-  return (uint8_t)MIN(
-      blend_with_parent(self_drop_rate, parent->mlof.weighted_drop_rate),
-      MLOF_DROP_RATE_MAX);
 }
 
 static void traffic_metrics(uint16_t *ppm, uint8_t *drop_rate) {
@@ -403,35 +344,6 @@ static void traffic_metrics(uint16_t *ppm, uint8_t *drop_rate) {
   *drop_rate = last_drop_rate;
 }
 
-/* Preferred parent's own ppm/drop_rate/cpu_usage path metrics, as last
- * advertised in its DIO (i.e. fetched straight from its stored MLOF_MC, no
- * recomputation) - lets a node see how loaded its parent's own uplink and
- * CPU already are, one hop further up. 0 at the root, INT16_MAX / 0xff
- * ("unknown") when there is no parent. None of these are re-advertised on
- * the wire (see rpl-icmp6.c). */
-static void parent_advertised_metrics(uint16_t *parent_ppm,
-                                      uint8_t *parent_drop_rate,
-                                      uint8_t *parent_cpu_usage) {
-  rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
-
-  if (rpl_dag_root_is_root()) {
-    *parent_ppm = 0;
-    *parent_drop_rate = 0;
-    *parent_cpu_usage = 0;
-    return;
-  }
-  if (parent == NULL) {
-    *parent_ppm = (uint16_t)INT16_MAX;
-    *parent_drop_rate = MLOF_DROP_RATE_UNKNOWN;
-    *parent_cpu_usage = MLOF_CPU_USAGE_UNKNOWN;
-    return;
-  }
-
-  *parent_ppm = parent->mlof.weighted_ppm;
-  *parent_drop_rate = parent->mlof.weighted_drop_rate;
-  *parent_cpu_usage = parent->mlof.weighted_cpu_usage;
-}
-
 static uint8_t hop_count_via_parent(void) {
   rpl_nbr_t *parent = curr_instance.dag.preferred_parent;
 
@@ -444,15 +356,13 @@ static uint8_t hop_count_via_parent(void) {
   return parent->mlof.hop_count + 1;
 }
 
-/* This node's own CPU usage/ppm/drop_rate (fixed point; single-hop, i.e. not
+/* This node's own CPU usage/drop_rate (fixed point; single-hop, i.e. not
  * blended with the parent's) as last sampled for the metric container.
  * Cached so the parent-switch callback can report them without resampling,
  * and so predict_pdr() can use the single-hop reading for its own "cpu"/
- * "ppm"/"drop_rate" features - out->weighted_cpu_usage/out->ppm/
- * out->drop_rate, by contrast, are the path-blended values advertised on the
- * wire (see fill_multiple_metrics()). */
+ * "drop_rate" features - out->weighted_cpu_usage, by contrast, is the
+ * path-blended value advertised on the wire (see fill_multiple_metrics()). */
 static uint8_t last_self_cpu_usage;
-static uint16_t last_self_ppm;
 static uint8_t last_self_drop_rate;
 
 /* Total rtimer ticks spent in predict_pdr() and number of calls since boot,
@@ -463,27 +373,16 @@ uint32_t mlof_predict_count;
 static uint16_t predict_pdr(rpl_nbr_t *nbr, int is_new) {
   rtimer_clock_t start = RTIMER_NOW();
   uint16_t pdr;
-#if MLOF_MODEL == MLOF_MODEL_LINEAR
-  pdr = mlof_predict_pdr_linear(
-      (uint8_t)is_new, last_self_cpu_usage, nbr->mlof.weighted_cpu_usage,
-      nbr->mlof.etx, nbr->mlof.rssi, last_self_ppm, last_self_drop_rate,
-      nbr->mlof.weighted_ppm, nbr->mlof.weighted_drop_rate,
-      nbr->mlof.hop_count);
-#elif MLOF_MODEL == MLOF_MODEL_DTREE
-  pdr = mlof_predict_pdr_dtree((uint8_t)is_new, nbr->mlof.weighted_cpu_usage,
-                               last_self_drop_rate,
-                               nbr->mlof.weighted_drop_rate,
+#if MLOF_MODEL == MLOF_MODEL_DTREE
+  pdr = mlof_predict_pdr_dtree((uint8_t)is_new, last_self_cpu_usage,
+                               nbr->mlof.weighted_cpu_usage,
+                               last_self_drop_rate, nbr->mlof.weighted_ppm,
                                nbr->mlof.hop_count);
-#elif MLOF_MODEL == MLOF_MODEL_LGBM
-  pdr = mlof_predict_pdr_lgbm((uint8_t)is_new, nbr->mlof.weighted_cpu_usage,
-                              last_self_drop_rate, nbr->mlof.weighted_drop_rate,
+#else
+  pdr = mlof_predict_pdr_lgbm((uint8_t)is_new, last_self_cpu_usage,
+                              nbr->mlof.weighted_cpu_usage,
+                              last_self_drop_rate, nbr->mlof.weighted_ppm,
                               nbr->mlof.hop_count);
-#else /* MLOF_MODEL == MLOF_MODEL_SVM */
-  pdr = mlof_predict_pdr_svm(
-      (uint8_t)is_new, last_self_cpu_usage, nbr->mlof.weighted_cpu_usage,
-      nbr->mlof.etx, nbr->mlof.rssi, last_self_ppm, last_self_drop_rate,
-      nbr->mlof.weighted_ppm, nbr->mlof.weighted_drop_rate,
-      nbr->mlof.hop_count);
 #endif
 
   mlof_predict_ticks += (rtimer_clock_t)(RTIMER_NOW() - start);
@@ -499,29 +398,14 @@ static void fill_multiple_metrics(void) {
   traffic_metrics(&self_ppm, &self_drop_rate);
 
   last_self_cpu_usage = self_cpu_usage;
-  last_self_ppm = self_ppm;
   last_self_drop_rate = self_drop_rate;
 
-  /* out->weighted_cpu_usage: this node's own weighted path metric, advertised
-     on the wire. The weighted_cpu_usage() function is used only here, for that
-     advertised value - out->parent_cpu_usage below is a plain fetch, never
-     re-blended. */
+  /* This node's own CPU usage and ppm (measured locally on the link to its
+     parent), each blended with the parent's advertised value into a path
+     metric advertised on the wire. */
   out->weighted_cpu_usage = weighted_cpu_usage(self_cpu_usage);
-  parent_link_metrics(&out->etx, &out->rssi);
-  /* This node's own ppm/drop_rate, measured locally on the link to its
-     parent, then blended with the parent's own advertised ppm/drop_rate the
-     same way weighted_cpu_usage() blends CPU - out->weighted_ppm/
-     out->weighted_drop_rate become path metrics, advertised on the wire,
-     rather than single-hop readings. last_self_ppm/last_self_drop_rate cache
-     the raw, unblended values for predict_pdr()'s own features (see
-     above). */
   out->weighted_ppm = weighted_ppm(self_ppm);
-  out->weighted_drop_rate = weighted_drop_rate(self_drop_rate);
-  /* The parent's own ppm/drop_rate/cpu_usage, fetched from its last DIO. */
-  parent_advertised_metrics(&out->parent_ppm, &out->parent_drop_rate,
-                            &out->parent_cpu_usage);
   out->hop_count = hop_count_via_parent();
-  out->nbr_count = (uint8_t)MIN(rpl_neighbor_count(), 0xff);
 }
 /*---------------------------------------------------------------------------*/
 #if MLOF_LOG_TRAINING_DATA
@@ -543,16 +427,13 @@ void rpl_mlof_callback_parent_switch(rpl_nbr_t *old, rpl_nbr_t *parent,
                           : lla->u8[LINKADDR_SIZE - 1] +
                                 (lla->u8[LINKADDR_SIZE - 2] << 8);
 
-  LOG_PRINT("MLOF metrics: is_new=%d parent_id=%u cpu=%u p_cpu=%u etx=%u "
-            "rssi=%d ppm=%u drop_rate=%u parent_ppm=%u parent_drop_rate=%u "
-            "hop_count=%u nbr_count=%u\n",
+  LOG_PRINT("MLOF metrics: is_new=%d parent_id=%u cpu=%u p_cpu=%u "
+            "drop_rate=%u parent_ppm=%u hop_count=%u\n",
             is_new, parent_id, (unsigned)last_self_cpu_usage,
             (unsigned)parent->mlof.weighted_cpu_usage,
-            (unsigned)parent->mlof.etx, (int)parent->mlof.rssi,
-            (unsigned)last_self_ppm, (unsigned)last_self_drop_rate,
+            (unsigned)last_self_drop_rate,
             (unsigned)parent->mlof.weighted_ppm,
-            (unsigned)parent->mlof.weighted_drop_rate,
-            (unsigned)parent->mlof.hop_count, (unsigned)parent->mlof.nbr_count);
+            (unsigned)parent->mlof.hop_count);
 }
 
 /* 2-arg adapter wired as RPL_CALLBACK_PARENT_SWITCH: every call through it is a

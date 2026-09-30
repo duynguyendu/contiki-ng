@@ -2,1307 +2,1287 @@
  * DO NOT EDIT BY HAND -- retrain and re-run the converter instead. */
 #include "mlof-lgbm.h"
 
-static int32_t mlof_predict_pdr_lgbm_tree0(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (p_cpu <= 25) {
-        if (parent_drop_rate <= 0) {
-            return 50997;
-        } else {
-            if (p_cpu <= 16) {
-                return 49985;
+static int32_t mlof_predict_pdr_lgbm_tree0(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (p_cpu <= 28) {
+            if (is_new <= 0) {
+                return 49286;
             } else {
-                return 48419;
+                if (hop_count <= 3) {
+                    return 48840;
+                } else {
+                    return 47172;
+                }
+            }
+        } else {
+            return 46520;
+        }
+    } else {
+        if (p_cpu <= 28) {
+            if (p_cpu <= 15) {
+                return 47244;
+            } else {
+                return 45731;
+            }
+        } else {
+            return 44709;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree1(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (p_cpu <= 28) {
+            if (is_new <= 0) {
+                return 1479;
+            } else {
+                if (hop_count <= 2) {
+                    return 1234;
+                } else {
+                    return -81;
+                }
+            }
+        } else {
+            return -977;
+        }
+    } else {
+        if (p_cpu <= 32) {
+            if (p_cpu <= 15) {
+                return -332;
+            } else {
+                return -1828;
+            }
+        } else {
+            return -2707;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree2(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (p_cpu <= 23) {
+        if (is_new <= 0) {
+            return 1249;
+        } else {
+            if (p_cpu <= 13) {
+                return 785;
+            } else {
+                return -1143;
+            }
+        }
+    } else {
+        if (drop_rate <= 2) {
+            if (p_cpu <= 32) {
+                if (is_new <= 0) {
+                    return -218;
+                } else {
+                    return -1646;
+                }
+            } else {
+                return -2011;
+            }
+        } else {
+            return -2835;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree3(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (p_cpu <= 23) {
+        if (is_new <= 0) {
+            if (p_cpu <= 15) {
+                return 1216;
+            } else {
+                return 633;
+            }
+        } else {
+            if (p_cpu <= 10) {
+                return 869;
+            } else {
+                return -857;
+            }
+        }
+    } else {
+        if (drop_rate <= 2) {
+            if (p_cpu <= 35) {
+                return -874;
+            } else {
+                return -1877;
+            }
+        } else {
+            return -2582;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree4(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (p_cpu <= 30) {
+            return 1045;
+        } else {
+            if (is_new <= 0) {
+                return 399;
+            } else {
+                return -1525;
+            }
+        }
+    } else {
+        if (drop_rate <= 0) {
+            if (hop_count <= 7) {
+                if (p_cpu <= 20) {
+                    return 396;
+                } else {
+                    return -1021;
+                }
+            } else {
+                return -1606;
+            }
+        } else {
+            return -2283;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree5(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (p_cpu <= 30) {
+            if (is_new <= 0) {
+                return 996;
+            } else {
+                return 510;
+            }
+        } else {
+            return -656;
+        }
+    } else {
+        if (drop_rate <= 2) {
+            if (p_cpu <= 20) {
+                if (hop_count <= 9) {
+                    return 31;
+                } else {
+                    return -1387;
+                }
+            } else {
+                return -1468;
+            }
+        } else {
+            return -2147;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree6(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (p_cpu <= 21) {
+        if (is_new <= 0) {
+            return 846;
+        } else {
+            if (p_cpu <= 8) {
+                return 734;
+            } else {
+                return -449;
             }
         }
     } else {
         if (p_cpu <= 35) {
             if (is_new <= 0) {
-                return 48486;
+                return -256;
             } else {
-                return 46743;
+                return -1288;
             }
         } else {
             if (drop_rate <= 1) {
-                return 46552;
+                return -1348;
             } else {
-                return 45766;
+                return -1958;
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree1(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
-        if (p_cpu <= 31) {
-            if (is_new <= 0) {
-                return 1307;
-            } else {
-                return 598;
-            }
-        } else {
-            return -1761;
-        }
-    } else {
-        if (p_cpu <= 18) {
-            if (hop_count <= 7) {
-                return 560;
-            } else {
-                return -1612;
-            }
-        } else {
-            if (drop_rate <= 1) {
-                return -2499;
-            } else {
-                return -3405;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree2(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
-        if (p_cpu <= 32) {
-            if (drop_rate <= 0) {
-                return 1136;
-            } else {
-                return 171;
-            }
-        } else {
-            return -1652;
-        }
-    } else {
-        if (p_cpu <= 17) {
-            if (parent_drop_rate <= 0) {
-                return 1018;
-            } else {
-                return -1179;
-            }
-        } else {
-            if (drop_rate <= 1) {
-                return -2237;
-            } else {
-                return -3076;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree3(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (p_cpu <= 25) {
-        if (parent_drop_rate <= 0) {
-            return 1035;
-        } else {
-            if (is_new <= 0) {
-                return 161;
-            } else {
-                return -1126;
-            }
-        }
-    } else {
-        if (p_cpu <= 39) {
-            if (is_new <= 0) {
-                return -896;
-            } else {
-                return -2189;
-            }
-        } else {
-            if (drop_rate <= 4) {
-                return -2407;
-            } else {
-                return -2962;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree4(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (p_cpu <= 24) {
-        if (parent_drop_rate <= 0) {
-            return 932;
-        } else {
-            if (is_new <= 0) {
-                return 236;
-            } else {
-                return -973;
-            }
-        }
-    } else {
-        if (p_cpu <= 33) {
-            if (parent_drop_rate <= 0) {
-                return 73;
-            } else {
-                return -1539;
-            }
-        } else {
-            if (drop_rate <= 0) {
-                return -1940;
-            } else {
-                return -2515;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree5(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
+static int32_t mlof_predict_pdr_lgbm_tree7(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
     if (hop_count <= 5) {
         if (hop_count <= 4) {
-            if (is_new <= 0) {
-                return 903;
-            } else {
-                return 420;
-            }
+            return 798;
         } else {
             if (is_new <= 0) {
-                return 336;
+                return 358;
             } else {
-                return -1934;
+                return -1083;
             }
         }
     } else {
         if (drop_rate <= 0) {
-            if (parent_drop_rate <= 0) {
-                return -220;
+            if (hop_count <= 7) {
+                return -366;
             } else {
-                return -1590;
+                return -1196;
             }
         } else {
-            return -2259;
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree6(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
-        if (p_cpu <= 31) {
-            if (is_new <= 0) {
-                return 802;
+            if (cpu <= 28) {
+                return -1420;
             } else {
-                return 323;
-            }
-        } else {
-            if (hop_count <= 3) {
-                return 755;
-            } else {
-                return -1657;
-            }
-        }
-    } else {
-        if (p_cpu <= 17) {
-            return -18;
-        } else {
-            if (p_cpu <= 46) {
-                return -1531;
-            } else {
-                return -2053;
+                return -1917;
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree7(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (p_cpu <= 23) {
-        if (parent_drop_rate <= 0) {
-            return 700;
-        } else {
-            if (is_new <= 0) {
-                return 229;
-            } else {
-                return -739;
-            }
-        }
-    } else {
-        if (p_cpu <= 32) {
-            if (is_new <= 0) {
-                return -148;
-            } else {
-                return -1525;
-            }
-        } else {
-            if (drop_rate <= 1) {
-                return -1403;
-            } else {
-                return -1890;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree8(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 4) {
-        if (hop_count <= 3) {
-            return 665;
-        } else {
-            if (drop_rate <= 0) {
-                return 410;
-            } else {
-                return -1302;
-            }
-        }
-    } else {
-        if (p_cpu <= 17) {
-            if (drop_rate <= 0) {
-                return 368;
-            } else {
-                return -1856;
-            }
-        } else {
-            if (drop_rate <= 1) {
-                return -1198;
-            } else {
-                return -1725;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree9(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 5) {
-        if (p_cpu <= 20) {
-            if (p_cpu <= 9) {
-                return 636;
-            } else {
-                return 441;
-            }
-        } else {
-            if (hop_count <= 3) {
-                return 560;
-            } else {
-                return -874;
-            }
-        }
-    } else {
-        if (p_cpu <= 13) {
-            return 475;
-        } else {
-            if (drop_rate <= 4) {
-                return -1123;
-            } else {
-                return -1615;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree10(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (p_cpu <= 22) {
-        if (parent_drop_rate <= 1) {
-            if (p_cpu <= 11) {
-                return 565;
-            } else {
-                return 341;
-            }
-        } else {
-            if (p_cpu <= 11) {
-                return 471;
-            } else {
-                return -374;
-            }
-        }
-    } else {
-        if (p_cpu <= 37) {
-            if (is_new <= 0) {
-                return -180;
-            } else {
-                return -1132;
-            }
-        } else {
-            return -1297;
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree11(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 4) {
-        if (drop_rate <= 4) {
-            return 481;
-        } else {
-            if (hop_count <= 2) {
-                return 470;
-            } else {
-                return -1073;
-            }
-        }
-    } else {
-        if (p_cpu <= 17) {
-            if (drop_rate <= 0) {
-                return 300;
-            } else {
-                return -1615;
-            }
-        } else {
-            if (drop_rate <= 4) {
-                return -916;
-            } else {
-                return -1363;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree12(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 4) {
+static int32_t mlof_predict_pdr_lgbm_tree8(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (p_cpu <= 20) {
         if (is_new <= 0) {
-            return 464;
+            return 703;
         } else {
-            if (p_cpu <= 10) {
-                return 443;
-            } else {
-                return -604;
-            }
-        }
-    } else {
-        if (p_cpu <= 13) {
-            if (hop_count <= 8) {
-                return 456;
-            } else {
-                return -979;
-            }
-        } else {
-            if (drop_rate <= 0) {
-                return -712;
-            } else {
-                return -1164;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree13(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 4) {
-        if (is_new <= 0) {
-            return 415;
-        } else {
-            if (p_cpu <= 6) {
-                return 472;
-            } else {
-                return -415;
-            }
-        }
-    } else {
-        if (p_cpu <= 22) {
-            if (is_new <= 0) {
-                return 303;
-            } else {
-                return -952;
-            }
-        } else {
-            if (p_cpu <= 54) {
-                return -795;
-            } else {
-                return -1150;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree14(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 6) {
-        if (drop_rate <= 1) {
-            if (is_new <= 0) {
-                return 377;
-            } else {
-                return 91;
-            }
-        } else {
-            if (hop_count <= 2) {
-                return 418;
-            } else {
-                return -1042;
-            }
-        }
-    } else {
-        if (drop_rate <= 8) {
-            return -736;
-        } else {
-            if (hop_count <= 11) {
-                return -1177;
-            } else {
-                return -906;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree15(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 4) {
-        if (hop_count <= 2) {
-            return 373;
-        } else {
-            if (drop_rate <= 0) {
-                return 246;
-            } else {
-                return -629;
-            }
-        }
-    } else {
-        if (p_cpu <= 13) {
-            if (hop_count <= 9) {
-                return 402;
-            } else {
-                return -1167;
-            }
-        } else {
-            if (p_cpu <= 29) {
-                return -409;
-            } else {
-                return -790;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree16(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 4) {
-        if (hop_count <= 2) {
-            return 339;
-        } else {
-            if (is_new <= 0) {
-                return 259;
-            } else {
-                return -311;
-            }
-        }
-    } else {
-        if (drop_rate <= 0) {
-            if (hop_count <= 6) {
-                return 126;
-            } else {
-                return -552;
-            }
-        } else {
-            if (hop_count <= 5) {
-                return -1255;
-            } else {
-                return -770;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree17(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 6) {
-        if (drop_rate <= 1) {
-            if (p_cpu <= 40) {
-                return 258;
-            } else {
-                return -599;
-            }
-        } else {
-            if (hop_count <= 2) {
-                return 295;
-            } else {
-                return -818;
-            }
-        }
-    } else {
-        if (p_cpu <= 61) {
             if (p_cpu <= 8) {
-                return 776;
+                return 586;
+            } else {
+                return -333;
+            }
+        }
+    } else {
+        if (p_cpu <= 35) {
+            if (is_new <= 0) {
+                return -123;
+            } else {
+                return -1021;
+            }
+        } else {
+            if (drop_rate <= 1) {
+                return -1114;
+            } else {
+                return -1614;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree9(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (hop_count <= 3) {
+            return 694;
+        } else {
+            if (drop_rate <= 0) {
+                return 386;
+            } else {
+                return -1227;
+            }
+        }
+    } else {
+        if (cpu <= 31) {
+            if (hop_count <= 6) {
+                return -116;
+            } else {
+                if (drop_rate <= 5) {
+                    return -881;
+                } else {
+                    return -1398;
+                }
+            }
+        } else {
+            return -1450;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree10(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (hop_count <= 3) {
+            return 630;
+        } else {
+            if (is_new <= 0) {
+                return 413;
+            } else {
+                return -638;
+            }
+        }
+    } else {
+        if (cpu <= 39) {
+            if (hop_count <= 7) {
+                return -322;
+            } else {
+                if (p_cpu <= 56) {
+                    return -845;
+                } else {
+                    return -1326;
+                }
+            }
+        } else {
+            return -1409;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree11(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (hop_count <= 4) {
+            return 536;
+        } else {
+            if (cpu <= 35) {
+                return 114;
+            } else {
+                return -1411;
+            }
+        }
+    } else {
+        if (drop_rate <= 0) {
+            if (hop_count <= 8) {
+                if (p_cpu <= 43) {
+                    return -96;
+                } else {
+                    return -879;
+                }
+            } else {
+                return -848;
+            }
+        } else {
+            return -1179;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree12(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (cpu <= 58) {
+            if (hop_count <= 4) {
+                return 496;
+            } else {
+                return -6;
+            }
+        } else {
+            if (hop_count <= 2) {
+                return 323;
+            } else {
+                return -1486;
+            }
+        }
+    } else {
+        if (cpu <= 29) {
+            if (hop_count <= 7) {
+                return -128;
+            } else {
+                return -722;
+            }
+        } else {
+            return -1063;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree13(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (hop_count <= 3) {
+            return 461;
+        } else {
+            if (drop_rate <= 1) {
+                return 253;
+            } else {
+                return -1110;
+            }
+        }
+    } else {
+        if (cpu <= 40) {
+            if (hop_count <= 6) {
+                return 43;
+            } else {
+                if (drop_rate <= 8) {
+                    return -583;
+                } else {
+                    return -1048;
+                }
+            }
+        } else {
+            return -1054;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree14(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (p_cpu <= 26) {
+        if (p_cpu <= 15) {
+            return 386;
+        } else {
+            if (is_new <= 0) {
+                return 188;
             } else {
                 return -531;
             }
-        } else {
-            return -869;
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree18(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 6) {
-        if (p_cpu <= 28) {
-            if (drop_rate <= 2) {
-                return 241;
-            } else {
-                return -151;
-            }
-        } else {
-            if (hop_count <= 3) {
-                return 595;
-            } else {
-                return -620;
-            }
         }
     } else {
-        if (p_cpu <= 57) {
-            if (drop_rate <= 8) {
-                return -386;
-            } else {
-                return -747;
-            }
+        if (parent_ppm <= 233) {
+            return -1061;
         } else {
-            return -777;
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree19(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (p_cpu <= 29) {
-        if (hop_count <= 7) {
-            if (drop_rate <= 1) {
-                return 218;
-            } else {
-                return -196;
-            }
-        } else {
-            if (drop_rate <= 7) {
-                return -398;
-            } else {
-                return -1158;
-            }
-        }
-    } else {
-        if (hop_count <= 3) {
-            return 455;
-        } else {
-            if (p_cpu <= 54) {
-                return -443;
-            } else {
-                return -666;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree20(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 4) {
-        if (hop_count <= 3) {
-            if (parent_drop_rate <= 0) {
-                return 192;
-            } else {
-                return 400;
-            }
-        } else {
-            if (drop_rate <= 2) {
-                return 54;
-            } else {
-                return -868;
-            }
-        }
-    } else {
-        if (p_cpu <= 11) {
-            return 356;
-        } else {
-            if (drop_rate <= 0) {
-                return -293;
-            } else {
-                return -550;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree21(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 6) {
-        if (is_new <= 0) {
             if (p_cpu <= 49) {
-                return 198;
+                if (drop_rate <= 8) {
+                    return -241;
+                } else {
+                    return -826;
+                }
             } else {
-                return -1086;
-            }
-        } else {
-            if (p_cpu <= 10) {
-                return 214;
-            } else {
-                return -581;
-            }
-        }
-    } else {
-        if (p_cpu <= 8) {
-            return 785;
-        } else {
-            if (hop_count <= 12) {
-                return -470;
-            } else {
-                return -245;
+                return -802;
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree22(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
+static int32_t mlof_predict_pdr_lgbm_tree15(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
     if (hop_count <= 6) {
-        if (drop_rate <= 0) {
-            if (p_cpu <= 42) {
-                return 158;
+        if (p_cpu <= 40) {
+            if (drop_rate <= 2) {
+                return 362;
             } else {
-                return -524;
+                if (hop_count <= 2) {
+                    return 329;
+                } else {
+                    return -785;
+                }
             }
+        } else {
+            return -667;
+        }
+    } else {
+        if (drop_rate <= 8) {
+            if (cpu <= 51) {
+                return -480;
+            } else {
+                return -900;
+            }
+        } else {
+            return -970;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree16(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 5) {
+        if (cpu <= 58) {
+            return 315;
         } else {
             if (hop_count <= 2) {
-                return 244;
+                return 148;
             } else {
-                return -556;
+                return -1226;
             }
         }
     } else {
-        if (p_cpu <= 10) {
-            return 477;
-        } else {
-            if (p_cpu <= 65) {
-                return -331;
+        if (drop_rate <= 4) {
+            if (parent_ppm <= 135) {
+                return -966;
             } else {
-                return -592;
+                if (p_cpu <= 56) {
+                    return -319;
+                } else {
+                    return -702;
+                }
             }
+        } else {
+            return -791;
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree23(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (p_cpu <= 29) {
-        if (hop_count <= 7) {
-            if (is_new <= 0) {
-                return 171;
-            } else {
-                return -78;
-            }
-        } else {
-            if (hop_count <= 17) {
-                return -409;
-            } else {
-                return 351;
-            }
-        }
-    } else {
-        if (hop_count <= 3) {
-            return 428;
-        } else {
-            if (p_cpu <= 64) {
-                return -297;
-            } else {
-                return -513;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree24(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (p_cpu <= 29) {
-        if (hop_count <= 8) {
-            if (drop_rate <= 4) {
-                return 131;
-            } else {
-                return -239;
-            }
-        } else {
-            if (hop_count <= 17) {
-                return -484;
-            } else {
-                return 331;
-            }
-        }
-    } else {
-        if (hop_count <= 3) {
-            return 409;
-        } else {
-            if (hop_count <= 11) {
-                return -407;
-            } else {
-                return -164;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree25(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
+static int32_t mlof_predict_pdr_lgbm_tree17(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
     if (hop_count <= 4) {
-        if (hop_count <= 2) {
-            if (p_cpu <= 25) {
-                return 146;
-            } else {
-                return 564;
-            }
-        } else {
-            if (is_new <= 0) {
-                return 84;
-            } else {
-                return -286;
-            }
-        }
+        return 294;
     } else {
-        if (p_cpu <= 10) {
-            return 273;
-        } else {
-            if (drop_rate <= 8) {
-                return -175;
+        if (p_cpu <= 15) {
+            if (hop_count <= 9) {
+                return 318;
             } else {
-                return -447;
+                return -682;
+            }
+        } else {
+            if (parent_ppm <= 235) {
+                return -839;
+            } else {
+                if (p_cpu <= 51) {
+                    if (parent_ppm <= 893) {
+                        return -267;
+                    } else {
+                        return -1271;
+                    }
+                } else {
+                    return -609;
+                }
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree26(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
+static int32_t mlof_predict_pdr_lgbm_tree18(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 4) {
+        return 266;
+    } else {
+        if (drop_rate <= 0) {
+            if (parent_ppm <= 701) {
+                if (hop_count <= 7) {
+                    return 71;
+                } else {
+                    if (parent_ppm <= 284) {
+                        return -571;
+                    } else {
+                        return -143;
+                    }
+                }
+            } else {
+                return -871;
+            }
+        } else {
+            if (parent_ppm <= 301) {
+                return -902;
+            } else {
+                return -459;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree19(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 4) {
+        if (cpu <= 76) {
+            return 247;
+        } else {
+            return -691;
+        }
+    } else {
+        if (cpu <= 25) {
+            if (hop_count <= 7) {
+                if (p_cpu <= 41) {
+                    return 167;
+                } else {
+                    return -451;
+                }
+            } else {
+                return -324;
+            }
+        } else {
+            if (parent_ppm <= 284) {
+                return -828;
+            } else {
+                return -406;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree20(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
     if (hop_count <= 6) {
         if (is_new <= 0) {
-            if (p_cpu <= 40) {
-                return 125;
-            } else {
-                return -362;
-            }
+            return 235;
         } else {
-            if (p_cpu <= 5) {
-                return 278;
+            if (hop_count <= 2) {
+                return 204;
             } else {
-                return -380;
+                if (parent_ppm <= 181) {
+                    return -810;
+                } else {
+                    return -161;
+                }
             }
         }
     } else {
-        if (p_cpu <= 64) {
-            if (p_cpu <= 7) {
-                return 744;
-            } else {
-                return -208;
-            }
+        if (parent_ppm <= 181) {
+            return -719;
         } else {
-            return -440;
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree27(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 3) {
-        if (parent_drop_rate <= 0) {
-            if (p_cpu <= 2) {
-                return 170;
+            if (p_cpu <= 56) {
+                return -259;
             } else {
-                return 58;
-            }
-        } else {
-            return 338;
-        }
-    } else {
-        if (p_cpu <= 11) {
-            if (hop_count <= 10) {
-                return 147;
-            } else {
-                return -1075;
-            }
-        } else {
-            if (drop_rate <= 7) {
-                return -160;
-            } else {
-                return -374;
+                return -553;
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree28(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
+static int32_t mlof_predict_pdr_lgbm_tree21(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 4) {
+        if (hop_count <= 2) {
+            return 241;
+        } else {
+            return 90;
+        }
+    } else {
+        if (drop_rate <= 8) {
+            if (p_cpu <= 15) {
+                return 161;
+            } else {
+                if (parent_ppm <= 133) {
+                    return -1014;
+                } else {
+                    if (parent_ppm <= 893) {
+                        return -203;
+                    } else {
+                        return -1015;
+                    }
+                }
+            }
+        } else {
+            return -603;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree22(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 6) {
+        if (is_new <= 0) {
+            return 194;
+        } else {
+            if (hop_count <= 2) {
+                return 183;
+            } else {
+                if (parent_ppm <= 181) {
+                    return -721;
+                } else {
+                    return -124;
+                }
+            }
+        }
+    } else {
+        if (parent_ppm <= 135) {
+            return -784;
+        } else {
+            if (p_cpu <= 56) {
+                return -222;
+            } else {
+                return -477;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree23(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 6) {
+        if (cpu <= 47) {
+            return 159;
+        } else {
+            if (hop_count <= 2) {
+                return 97;
+            } else {
+                return -741;
+            }
+        }
+    } else {
+        if (parent_ppm <= 241) {
+            if (cpu <= 23) {
+                return -289;
+            } else {
+                return -692;
+            }
+        } else {
+            if (drop_rate <= 8) {
+                return -146;
+            } else {
+                return -432;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree24(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 4) {
+        return 144;
+    } else {
+        if (cpu <= 45) {
+            if (hop_count <= 8) {
+                if (drop_rate <= 7) {
+                    return 52;
+                } else {
+                    return -384;
+                }
+            } else {
+                if (parent_ppm <= 738) {
+                    if (parent_ppm <= 284) {
+                        return -368;
+                    } else {
+                        return -125;
+                    }
+                } else {
+                    return -615;
+                }
+            }
+        } else {
+            return -485;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree25(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 4) {
+        if (cpu <= 58) {
+            return 135;
+        } else {
+            if (hop_count <= 1) {
+                return 180;
+            } else {
+                return -904;
+            }
+        }
+    } else {
+        if (p_cpu <= 15) {
+            return 164;
+        } else {
+            if (cpu <= 39) {
+                if (p_cpu <= 62) {
+                    return -139;
+                } else {
+                    return -460;
+                }
+            } else {
+                return -403;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree26(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
     if (hop_count <= 3) {
-        if (parent_drop_rate <= 0) {
-            if (drop_rate <= 16) {
-                return 84;
+        if (p_cpu <= 23) {
+            return 121;
+        } else {
+            return 553;
+        }
+    } else {
+        if (drop_rate <= 0) {
+            if (parent_ppm <= 738) {
+                if (hop_count <= 10) {
+                    return 56;
+                } else {
+                    return -189;
+                }
+            } else {
+                return -637;
+            }
+        } else {
+            if (parent_ppm <= 296) {
+                return -595;
+            } else {
+                return -199;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree27(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 7) {
+        if (cpu <= 63) {
+            if (drop_rate <= 0) {
+                return 118;
+            } else {
+                return -117;
+            }
+        } else {
+            return -422;
+        }
+    } else {
+        if (parent_ppm <= 284) {
+            return -349;
+        } else {
+            if (drop_rate <= 11) {
+                if (parent_ppm <= 562) {
+                    return 18;
+                } else {
+                    return -290;
+                }
+            } else {
+                return -365;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree28(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (drop_rate <= 0) {
+        if (parent_ppm <= 681) {
+            if (cpu <= 55) {
+                if (p_cpu <= 44) {
+                    return 101;
+                } else {
+                    return -117;
+                }
+            } else {
+                return -261;
+            }
+        } else {
+            return -460;
+        }
+    } else {
+        if (parent_ppm <= 396) {
+            if (p_cpu <= 6) {
+                return 81;
             } else {
                 return -392;
             }
         } else {
-            return 293;
-        }
-    } else {
-        if (is_new <= 0) {
-            if (parent_drop_rate <= 1) {
-                return 189;
-            } else {
-                return -268;
-            }
-        } else {
-            if (parent_drop_rate <= 0) {
-                return -659;
-            } else {
-                return -184;
-            }
+            return -94;
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree29(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
+static int32_t mlof_predict_pdr_lgbm_tree29(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
     if (hop_count <= 3) {
-        if (parent_drop_rate <= 0) {
-            if (hop_count <= 1) {
-                return 119;
-            } else {
-                return 43;
-            }
+        if (p_cpu <= 23) {
+            return 91;
         } else {
-            return 264;
+            return 487;
         }
     } else {
-        if (is_new <= 0) {
-            if (parent_drop_rate <= 1) {
-                return 175;
+        if (drop_rate <= 0) {
+            if (parent_ppm <= 893) {
+                if (hop_count <= 20) {
+                    return 4;
+                } else {
+                    return -580;
+                }
             } else {
-                return -227;
+                return -731;
             }
         } else {
-            if (parent_drop_rate <= 0) {
-                return -628;
+            if (parent_ppm <= 235) {
+                return -583;
             } else {
-                return -143;
+                return -165;
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree30(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 3) {
-        if (parent_drop_rate <= 0) {
-            if (drop_rate <= 16) {
-                return 70;
-            } else {
-                return -369;
-            }
-        } else {
-            return 215;
-        }
+static int32_t mlof_predict_pdr_lgbm_tree30(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (p_cpu <= 18) {
+        return 74;
     } else {
-        if (p_cpu <= 10) {
-            if (hop_count <= 10) {
-                return 137;
-            } else {
-                return -1730;
-            }
-        } else {
-            if (drop_rate <= 4) {
-                return -99;
-            } else {
-                return -265;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree31(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (p_cpu <= 46) {
-        if (drop_rate <= 1) {
-            return 64;
-        } else {
-            if (hop_count <= 1) {
-                return 221;
-            } else {
-                return -205;
-            }
-        }
-    } else {
-        if (is_new <= 0) {
-            if (p_cpu <= 60) {
-                return -236;
-            } else {
-                return -673;
-            }
-        } else {
-            if (hop_count <= 18) {
-                return -100;
-            } else {
-                return -395;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree32(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 3) {
-        if (p_cpu <= 36) {
-            if (p_cpu <= 2) {
-                return 127;
-            } else {
-                return 36;
-            }
-        } else {
-            return 659;
-        }
-    } else {
-        if (p_cpu <= 10) {
-            if (hop_count <= 10) {
-                return 129;
-            } else {
-                return -1170;
-            }
-        } else {
-            if (drop_rate <= 0) {
-                return -63;
-            } else {
-                return -200;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree33(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 3) {
-        if (parent_drop_rate <= 0) {
-            if (hop_count <= 1) {
-                return 90;
-            } else {
-                return 19;
-            }
-        } else {
-            return 226;
-        }
-    } else {
-        if (is_new <= 0) {
-            if (parent_drop_rate <= 1) {
-                return 136;
-            } else {
-                return -175;
-            }
-        } else {
-            if (parent_drop_rate <= 7) {
-                return -296;
-            } else {
-                return -26;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree34(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (p_cpu <= 46) {
-        if (is_new <= 0) {
-            return 60;
-        } else {
-            if (p_cpu <= 3) {
-                return 229;
-            } else {
-                return -175;
-            }
-        }
-    } else {
-        if (is_new <= 0) {
-            if (p_cpu <= 60) {
-                return -152;
-            } else {
-                return -596;
-            }
-        } else {
-            if (drop_rate <= 66) {
-                return -111;
-            } else {
-                return 1159;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree35(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (drop_rate <= 4) {
-        if (is_new <= 0) {
-            if (parent_drop_rate <= 4) {
-                return 60;
-            } else {
-                return -95;
-            }
-        } else {
-            if (hop_count <= 2) {
-                return 115;
-            } else {
-                return -104;
-            }
-        }
-    } else {
-        if (hop_count <= 12) {
-            if (hop_count <= 1) {
-                return 157;
-            } else {
-                return -247;
-            }
-        } else {
-            return 55;
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree36(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (drop_rate <= 0) {
-        if (p_cpu <= 54) {
-            if (p_cpu <= 2) {
-                return 100;
-            } else {
-                return 27;
-            }
-        } else {
-            return -281;
-        }
-    } else {
-        if (parent_drop_rate <= 0) {
+        if (parent_ppm <= 181) {
             if (is_new <= 0) {
-                return 65;
+                return -130;
             } else {
-                return -664;
+                return -574;
             }
         } else {
-            if (p_cpu <= 9) {
-                return 443;
+            if (p_cpu <= 59) {
+                if (drop_rate <= 5) {
+                    if (parent_ppm <= 963) {
+                        return 34;
+                    } else {
+                        return -874;
+                    }
+                } else {
+                    return -219;
+                }
             } else {
-                return -66;
+                return -282;
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree37(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (is_new <= 0) {
-        if (p_cpu <= 49) {
-            if (hop_count <= 17) {
-                return 39;
+static int32_t mlof_predict_pdr_lgbm_tree31(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 7) {
+        if (cpu <= 64) {
+            if (p_cpu <= 44) {
+                return 80;
             } else {
-                return 752;
+                return -256;
             }
         } else {
-            if (hop_count <= 37) {
-                return -345;
+            if (hop_count <= 1) {
+                return 260;
             } else {
-                return 1523;
+                if (parent_ppm <= 317) {
+                    return -856;
+                } else {
+                    return -79;
+                }
             }
         }
     } else {
-        if (p_cpu <= 3) {
-            return 199;
+        if (parent_ppm <= 135) {
+            return -539;
         } else {
-            if (parent_drop_rate <= 0) {
-                return -424;
-            } else {
-                return -62;
-            }
+            return -127;
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree38(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
+static int32_t mlof_predict_pdr_lgbm_tree32(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
     if (hop_count <= 2) {
-        if (p_cpu <= 24) {
-            if (parent_drop_rate <= 0) {
-                return 32;
-            } else {
-                return 227;
-            }
-        } else {
-            return 431;
-        }
+        return 102;
     } else {
-        if (p_cpu <= 5) {
-            if (p_cpu <= 1) {
-                return 304;
+        if (cpu <= 29) {
+            if (parent_ppm <= 562) {
+                if (parent_ppm <= 105) {
+                    if (is_new <= 0) {
+                        return -102;
+                    } else {
+                        return -708;
+                    }
+                } else {
+                    return 66;
+                }
             } else {
-                return 89;
+                return -244;
             }
         } else {
-            if (hop_count <= 12) {
-                return -68;
+            if (parent_ppm <= 187) {
+                return -480;
             } else {
-                return 72;
+                return -140;
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree39(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (drop_rate <= 4) {
-        if (p_cpu <= 65) {
-            if (hop_count <= 28) {
-                return 20;
+static int32_t mlof_predict_pdr_lgbm_tree33(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 2) {
+        return 90;
+    } else {
+        if (cpu <= 41) {
+            if (parent_ppm <= 927) {
+                if (drop_rate <= 11) {
+                    if (parent_ppm <= 91) {
+                        return -153;
+                    } else {
+                        return 30;
+                    }
+                } else {
+                    return -241;
+                }
             } else {
-                return 751;
+                return -520;
             }
         } else {
-            if (hop_count <= 31) {
-                return -201;
+            if (parent_ppm <= 219) {
+                return -495;
             } else {
-                return -1140;
+                return -154;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree34(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 8) {
+        if (drop_rate <= 7) {
+            if (p_cpu <= 44) {
+                if (parent_ppm <= 927) {
+                    if (parent_ppm <= 105) {
+                        return 13;
+                    } else {
+                        return 113;
+                    }
+                } else {
+                    return -1217;
+                }
+            } else {
+                if (parent_ppm <= 344) {
+                    return -458;
+                } else {
+                    return 58;
+                }
+            }
+        } else {
+            return -178;
+        }
+    } else {
+        return -132;
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree35(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (drop_rate <= 0) {
+        if (parent_ppm <= 691) {
+            if (cpu <= 95) {
+                return 45;
+            } else {
+                return -729;
+            }
+        } else {
+            if (cpu <= 28) {
+                return -490;
+            } else {
+                return 184;
+            }
+        }
+    } else {
+        if (parent_ppm <= 396) {
+            if (cpu <= 0) {
+                return 647;
+            } else {
+                return -219;
+            }
+        } else {
+            return -17;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree36(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 2) {
+        if (p_cpu <= 23) {
+            return 62;
+        } else {
+            return 586;
+        }
+    } else {
+        if (cpu <= 14) {
+            if (parent_ppm <= 562) {
+                if (parent_ppm <= 65) {
+                    return -165;
+                } else {
+                    return 88;
+                }
+            } else {
+                return -237;
+            }
+        } else {
+            if (parent_ppm <= 320) {
+                return -214;
+            } else {
+                return -35;
+            }
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree37(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (cpu <= 58) {
+        if (hop_count <= 8) {
+            return 46;
+        } else {
+            if (parent_ppm <= 87) {
+                return -797;
+            } else {
+                return -75;
             }
         }
     } else {
         if (hop_count <= 1) {
-            return 176;
+            return 189;
         } else {
-            if (parent_drop_rate <= 0) {
-                return -647;
+            if (parent_ppm <= 317) {
+                if (drop_rate <= 54) {
+                    return -459;
+                } else {
+                    return 1042;
+                }
             } else {
-                return -100;
+                return -119;
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree40(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
+static int32_t mlof_predict_pdr_lgbm_tree38(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (cpu <= 58) {
+        if (drop_rate <= 17) {
+            if (parent_ppm <= 562) {
+                return 40;
+            } else {
+                if (cpu <= 33) {
+                    return -207;
+                } else {
+                    return 238;
+                }
+            }
+        } else {
+            return -202;
+        }
+    } else {
+        if (parent_ppm <= 317) {
+            if (p_cpu <= 4) {
+                return 100;
+            } else {
+                return -417;
+            }
+        } else {
+            return -67;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree39(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 20) {
+        if (drop_rate <= 4) {
+            if (cpu <= 81) {
+                if (hop_count <= 10) {
+                    return 47;
+                } else {
+                    return -61;
+                }
+            } else {
+                return -362;
+            }
+        } else {
+            return -115;
+        }
+    } else {
+        if (p_cpu <= 56) {
+            if (cpu <= 5) {
+                return 675;
+            } else {
+                return -279;
+            }
+        } else {
+            return -675;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree40(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (cpu <= 69) {
+        if (drop_rate <= 8) {
+            if (parent_ppm <= 681) {
+                if (p_cpu <= 68) {
+                    return 30;
+                } else {
+                    return -260;
+                }
+            } else {
+                if (drop_rate <= 0) {
+                    if (cpu <= 25) {
+                        return -449;
+                    } else {
+                        return 117;
+                    }
+                } else {
+                    return 259;
+                }
+            }
+        } else {
+            return -145;
+        }
+    } else {
+        return -214;
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree41(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 8) {
+        if (cpu <= 64) {
+            if (parent_ppm <= 393) {
+                if (drop_rate <= 0) {
+                    return 37;
+                } else {
+                    if (hop_count <= 2) {
+                        return 72;
+                    } else {
+                        return -298;
+                    }
+                }
+            } else {
+                return 161;
+            }
+        } else {
+            return -214;
+        }
+    } else {
+        if (parent_ppm <= 83) {
+            return -703;
+        } else {
+            return -68;
+        }
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree42(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
     if (hop_count <= 2) {
-        if (parent_drop_rate <= 0) {
-            return 33;
+        if (p_cpu <= 28) {
+            return 42;
         } else {
-            if (drop_rate <= 38) {
-                return 207;
-            } else {
-                return 705;
-            }
+            return 926;
         }
     } else {
-        if (drop_rate <= 22) {
+        if (parent_ppm <= 91) {
             if (is_new <= 0) {
-                return 16;
+                return -112;
             } else {
-                return -78;
+                return -643;
             }
         } else {
-            if (parent_drop_rate <= 0) {
-                return -884;
+            if (drop_rate <= 8) {
+                return 7;
             } else {
-                return -162;
+                if (p_cpu <= 22) {
+                    return -564;
+                } else {
+                    return -103;
+                }
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree41(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (drop_rate <= 4) {
-        if (hop_count <= 8) {
-            return 21;
-        } else {
-            if (parent_drop_rate <= 1) {
-                return -424;
+static int32_t mlof_predict_pdr_lgbm_tree43(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 1) {
+        return 71;
+    } else {
+        if (parent_ppm <= 77) {
+            if (is_new <= 0) {
+                return -79;
             } else {
-                return -11;
+                return -455;
+            }
+        } else {
+            if (hop_count <= 8) {
+                if (drop_rate <= 1) {
+                    return 55;
+                } else {
+                    return -90;
+                }
+            } else {
+                if (parent_ppm <= 284) {
+                    return -161;
+                } else {
+                    return -12;
+                }
             }
         }
-    } else {
-        if (parent_drop_rate <= 5) {
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree44(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 20) {
+        if (parent_ppm <= 927) {
             if (hop_count <= 1) {
-                return 89;
+                return 67;
             } else {
-                return -260;
+                if (parent_ppm <= 97) {
+                    if (is_new <= 0) {
+                        return -61;
+                    } else {
+                        return -424;
+                    }
+                } else {
+                    return 10;
+                }
             }
         } else {
-            if (hop_count <= 2) {
-                return 523;
+            if (p_cpu <= 65) {
+                return -517;
             } else {
-                return -48;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree42(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (p_cpu <= 5) {
-        if (is_new <= 0) {
-            return 29;
-        } else {
-            if (parent_drop_rate <= 0) {
-                return 131;
-            } else {
-                return 490;
+                return 237;
             }
         }
     } else {
-        if (is_new <= 0) {
-            if (p_cpu <= 60) {
-                return 31;
-            } else {
-                return -496;
-            }
-        } else {
-            if (parent_drop_rate <= 0) {
-                return -387;
-            } else {
-                return -22;
-            }
-        }
+        return -289;
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree43(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 2) {
-        if (p_cpu <= 25) {
-            if (parent_drop_rate <= 0) {
-                return 19;
-            } else {
-                return 157;
-            }
+static int32_t mlof_predict_pdr_lgbm_tree45(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 8) {
+        if (cpu <= 57) {
+            return 26;
         } else {
-            return 406;
+            return -149;
         }
     } else {
-        if (p_cpu <= 5) {
-            if (is_new <= 0) {
-                return 44;
+        if (p_cpu <= 24) {
+            if (hop_count <= 11) {
+                if (p_cpu <= 20) {
+                    return 189;
+                } else {
+                    return -322;
+                }
             } else {
-                return 324;
+                return -446;
             }
         } else {
-            if (is_new <= 0) {
-                return -6;
-            } else {
-                return -98;
-            }
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree44(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (p_cpu <= 74) {
-        if (hop_count <= 14) {
-            if (drop_rate <= 0) {
-                return 14;
-            } else {
-                return -82;
-            }
-        } else {
-            if (p_cpu <= 26) {
-                return -292;
-            } else {
-                return 216;
-            }
-        }
-    } else {
-        if (parent_drop_rate <= 3) {
-            if (hop_count <= 24) {
-                return 485;
-            } else {
-                return -1310;
-            }
-        } else {
-            return -277;
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree45(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (hop_count <= 49) {
-        if (hop_count <= 39) {
-            if (drop_rate <= 69) {
-                return 5;
-            } else {
-                return 593;
-            }
-        } else {
-            if (parent_drop_rate <= 9) {
-                return 327;
-            } else {
-                return -842;
-            }
-        }
-    } else {
-        return 1845;
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree46(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (drop_rate <= 22) {
-        if (p_cpu <= 82) {
-            return 10;
-        } else {
-            if (drop_rate <= 2) {
-                return -704;
-            } else {
-                return -48;
-            }
-        }
-    } else {
-        if (p_cpu <= 41) {
-            if (parent_drop_rate <= 20) {
-                return -322;
-            } else {
-                return 733;
-            }
-        } else {
-            if (p_cpu <= 42) {
-                return 1015;
+            if (cpu <= 1) {
+                return 204;
             } else {
                 return -56;
             }
@@ -1310,142 +1290,170 @@ static int32_t mlof_predict_pdr_lgbm_tree46(uint8_t is_new, uint8_t p_cpu, uint8
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree47(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (p_cpu <= 46) {
-        if (hop_count <= 15) {
-            if (drop_rate <= 8) {
-                return 18;
+static int32_t mlof_predict_pdr_lgbm_tree46(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (cpu <= 44) {
+        if (parent_ppm <= 963) {
+            if (p_cpu <= 70) {
+                return 25;
             } else {
-                return -125;
+                if (is_new <= 0) {
+                    return -1171;
+                } else {
+                    if (parent_ppm <= 672) {
+                        return -257;
+                    } else {
+                        return 573;
+                    }
+                }
             }
         } else {
-            if (drop_rate <= 16) {
-                return 209;
+            if (is_new <= 0) {
+                return -869;
             } else {
-                return 1176;
+                return 52;
             }
         }
     } else {
-        if (is_new <= 0) {
-            return -231;
+        return -88;
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree47(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 21) {
+        if (hop_count <= 1) {
+            return 55;
         } else {
-            if (drop_rate <= 66) {
-                return -18;
+            if (parent_ppm <= 71) {
+                if (cpu <= 65) {
+                    return -103;
+                } else {
+                    return -1084;
+                }
             } else {
-                return 932;
+                if (drop_rate <= 0) {
+                    return 17;
+                } else {
+                    if (parent_ppm <= 396) {
+                        return -162;
+                    } else {
+                        return 49;
+                    }
+                }
+            }
+        }
+    } else {
+        return -325;
+    }
+}
+
+static int32_t mlof_predict_pdr_lgbm_tree48(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 20) {
+        return 8;
+    } else {
+        if (p_cpu <= 56) {
+            if (p_cpu <= 29) {
+                return -481;
+            } else {
+                if (drop_rate <= 0) {
+                    return -34;
+                } else {
+                    if (drop_rate <= 2) {
+                        return 1766;
+                    } else {
+                        return 305;
+                    }
+                }
+            }
+        } else {
+            if (drop_rate <= 3) {
+                return -786;
+            } else {
+                return -171;
             }
         }
     }
 }
 
-static int32_t mlof_predict_pdr_lgbm_tree48(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (drop_rate <= 22) {
-        if (hop_count <= 12) {
-            if (p_cpu <= 46) {
-                return 8;
-            } else {
-                return -113;
-            }
-        } else {
-            if (hop_count <= 20) {
-                return 179;
-            } else {
-                return -110;
-            }
-        }
-    } else {
-        if (p_cpu <= 41) {
-            if (hop_count <= 1) {
-                return 186;
-            } else {
-                return -448;
-            }
-        } else {
-            return -14;
-        }
-    }
-}
-
-static int32_t mlof_predict_pdr_lgbm_tree49(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
-    if (p_cpu <= 3) {
-        if (is_new <= 0) {
+static int32_t mlof_predict_pdr_lgbm_tree49(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
+    if (hop_count <= 8) {
+        if (cpu <= 67) {
             return 20;
         } else {
-            if (hop_count <= 3) {
-                return 115;
+            if (hop_count <= 1) {
+                return 232;
             } else {
-                return 549;
+                if (parent_ppm <= 69) {
+                    return -1855;
+                } else {
+                    if (parent_ppm <= 457) {
+                        return -399;
+                    } else {
+                        return 129;
+                    }
+                }
             }
         }
     } else {
-        if (is_new <= 0) {
-            if (p_cpu <= 49) {
-                return 27;
-            } else {
-                return -245;
-            }
+        if (parent_ppm <= 45) {
+            return -1618;
         } else {
-            if (parent_drop_rate <= 1) {
-                return -255;
-            } else {
-                return 12;
-            }
+            return -55;
         }
     }
 }
 
-uint16_t mlof_predict_pdr_lgbm(uint8_t is_new, uint8_t p_cpu, uint8_t drop_rate, uint8_t parent_drop_rate, uint8_t hop_count) {
+uint16_t mlof_predict_pdr_lgbm(uint8_t is_new, uint8_t cpu, uint8_t p_cpu, uint8_t drop_rate, uint16_t parent_ppm, uint8_t hop_count) {
     int32_t sum = 0;
-    sum += mlof_predict_pdr_lgbm_tree0(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree1(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree2(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree3(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree4(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree5(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree6(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree7(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree8(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree9(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree10(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree11(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree12(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree13(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree14(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree15(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree16(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree17(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree18(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree19(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree20(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree21(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree22(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree23(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree24(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree25(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree26(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree27(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree28(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree29(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree30(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree31(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree32(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree33(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree34(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree35(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree36(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree37(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree38(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree39(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree40(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree41(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree42(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree43(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree44(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree45(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree46(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree47(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree48(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
-    sum += mlof_predict_pdr_lgbm_tree49(is_new, p_cpu, drop_rate, parent_drop_rate, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree0(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree1(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree2(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree3(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree4(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree5(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree6(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree7(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree8(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree9(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree10(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree11(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree12(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree13(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree14(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree15(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree16(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree17(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree18(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree19(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree20(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree21(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree22(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree23(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree24(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree25(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree26(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree27(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree28(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree29(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree30(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree31(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree32(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree33(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree34(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree35(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree36(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree37(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree38(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree39(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree40(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree41(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree42(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree43(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree44(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree45(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree46(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree47(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree48(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
+    sum += mlof_predict_pdr_lgbm_tree49(is_new, cpu, p_cpu, drop_rate, parent_ppm, hop_count);
     if (sum < 0) sum = 0;
     if (sum > 65535) sum = 65535;
     return (uint16_t)sum;

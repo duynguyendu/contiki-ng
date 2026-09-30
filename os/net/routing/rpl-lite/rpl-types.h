@@ -114,24 +114,10 @@ struct rpl_mlof_mc {
                                   weighted with its parent's), fixed point with
                                   divisor MLOF_CPU_USAGE_UNIT (128); 0..0x7f,
                                   0xff while unknown */
-  uint16_t etx;
-  int16_t rssi;
   uint16_t weighted_ppm;       /* ppm path metric (this node's own
                                    packets/minute to the preferred parent,
                                    weighted with its parent's) */
-  uint8_t weighted_drop_rate;  /* drop_rate path metric (this node's own
-                                   queue-drop fraction on the parent link,
-                                   weighted with its parent's), fixed point
-                                   /256; 0xff while unknown */
-  uint16_t parent_ppm;       /* preferred parent's own ppm, as last advertised
-                                in its DIO; INT16_MAX while unknown */
-  uint8_t parent_drop_rate;  /* preferred parent's own drop_rate, as last
-                                advertised in its DIO; 0xff while unknown */
-  uint8_t parent_cpu_usage;  /* preferred parent's own cpu_usage (its weighted
-                                path metric), as last advertised in its DIO;
-                                0xff while unknown */
   uint8_t hop_count;
-  uint8_t nbr_count;  /* sender's RPL neighbor count, capped at 0xff */
 };
 typedef struct rpl_mlof_mc rpl_mlof_mc_t;
 #endif /* RPL_MULTIPLE_METRICS */
