@@ -24,7 +24,7 @@
 #define PDR_STEP_VALUE 64
 #define MLOF_PDR_RANGE_SCALED ((uint32_t)NUM_PDR_STEP * PDR_STEP_VALUE)
 
-#define RANK_THRESHOLD 32 // ~ 2.5 ETX (no PDR) or 6.69% in PDR (no ETX)
+#define RANK_THRESHOLD 64 // ~ 2.5 ETX (no PDR) or 6.69% in PDR (no ETX)
 
 #define MLOF_MODEL_DTREE 2
 #define MLOF_MODEL_LGBM 3
