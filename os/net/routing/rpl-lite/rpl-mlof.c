@@ -26,6 +26,8 @@
 
 #define RANK_THRESHOLD 64 // ~ 2.5 ETX (no PDR) or 6.69% in PDR (no ETX)
 
+#define MLOF_MODEL_SVM 0
+#define MLOF_MODEL_LINEAR 1
 #define MLOF_MODEL_DTREE 2
 #define MLOF_MODEL_LGBM 3
 
@@ -35,10 +37,14 @@
 #define MLOF_MODEL MLOF_MODEL_DTREE
 #endif
 
-#if MLOF_MODEL == MLOF_MODEL_DTREE
+#if MLOF_MODEL == MLOF_MODEL_LINEAR
+#include "mlof-linear.h"
+#elif MLOF_MODEL == MLOF_MODEL_DTREE
 #include "mlof-dtree.h"
-#else
+#elif MLOF_MODEL == MLOF_MODEL_LGBM
 #include "mlof-lgbm.h"
+#else
+#include "mlof-svm.h"
 #endif
 
 #ifdef MLOF_CONF_PATH_W_PDR
@@ -373,16 +379,26 @@ uint32_t mlof_predict_count;
 static uint16_t predict_pdr(rpl_nbr_t *nbr, int is_new) {
   rtimer_clock_t start = RTIMER_NOW();
   uint16_t pdr;
-#if MLOF_MODEL == MLOF_MODEL_DTREE
+#if MLOF_MODEL == MLOF_MODEL_LINEAR
+  pdr = mlof_predict_pdr_linear((uint8_t)is_new, last_self_cpu_usage,
+                                nbr->mlof.weighted_cpu_usage,
+                                last_self_drop_rate, nbr->mlof.weighted_ppm,
+                                nbr->mlof.hop_count);
+#elif MLOF_MODEL == MLOF_MODEL_DTREE
   pdr = mlof_predict_pdr_dtree((uint8_t)is_new, last_self_cpu_usage,
                                nbr->mlof.weighted_cpu_usage,
                                last_self_drop_rate, nbr->mlof.weighted_ppm,
                                nbr->mlof.hop_count);
-#else
+#elif MLOF_MODEL == MLOF_MODEL_LGBM
   pdr = mlof_predict_pdr_lgbm((uint8_t)is_new, last_self_cpu_usage,
                               nbr->mlof.weighted_cpu_usage,
                               last_self_drop_rate, nbr->mlof.weighted_ppm,
                               nbr->mlof.hop_count);
+#else /* MLOF_MODEL == MLOF_MODEL_SVM */
+  pdr = mlof_predict_pdr_svm((uint8_t)is_new, last_self_cpu_usage,
+                             nbr->mlof.weighted_cpu_usage,
+                             last_self_drop_rate, nbr->mlof.weighted_ppm,
+                             nbr->mlof.hop_count);
 #endif
 
   mlof_predict_ticks += (rtimer_clock_t)(RTIMER_NOW() - start);
