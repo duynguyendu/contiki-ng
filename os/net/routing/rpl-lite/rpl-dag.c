@@ -47,6 +47,7 @@
 #include "net/nbr-table.h"
 #include "net/routing/rpl-lite/rpl.h"
 #include "sys/cc.h"
+#include "sys/rtimer.h"
 
 /* Log configuration */
 #include "sys/log.h"
@@ -246,13 +247,21 @@ int rpl_dag_ready_to_advertise(void) {
   }
 }
 /*---------------------------------------------------------------------------*/
+/* Total rtimer ticks spent in rpl_dag_update_state() and number of calls since
+ * boot, printed by the client's metrics log to get the average run time. */
+uint32_t rpl_dag_update_ticks;
+uint32_t rpl_dag_update_count;
+
 /* Updates rank and parent */
 void rpl_dag_update_state(void) {
   rpl_rank_t old_rank;
+  rtimer_clock_t start;
 
   if (!curr_instance.used) {
     return;
   }
+
+  start = RTIMER_NOW();
 
   old_rank = curr_instance.dag.rank;
   /* Any scheduled state update is no longer needed */
@@ -365,6 +374,9 @@ void rpl_dag_update_state(void) {
 
   /* Finally, update metric container */
   curr_instance.of->update_metric_container();
+
+  rpl_dag_update_ticks += (rtimer_clock_t)(RTIMER_NOW() - start);
+  rpl_dag_update_count++;
 }
 /*---------------------------------------------------------------------------*/
 static rpl_nbr_t *update_nbr_from_dio(uip_ipaddr_t *from, rpl_dio_t *dio) {
