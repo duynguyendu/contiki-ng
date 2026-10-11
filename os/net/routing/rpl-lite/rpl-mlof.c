@@ -53,6 +53,14 @@
 #define MLOF_PATH_W_PDR 12
 #endif
 
+/* Extra busy-wait (us) added to every PDR inference, to emulate a slower
+   model (e.g. 318 makes the dtree's ~13 us match the SVR's ~331 us). */
+#ifdef MLOF_CONF_EXTRA_INFERENCE_US
+#define MLOF_EXTRA_INFERENCE_US MLOF_CONF_EXTRA_INFERENCE_US
+#else
+#define MLOF_EXTRA_INFERENCE_US 0
+#endif
+
 /* Neighbors advertising a larger hop count (e.g. counting up in a loop, or
    0xff = unknown) are not usable. */
 #define MLOF_MAX_HOP_COUNT 127
@@ -399,6 +407,10 @@ static uint16_t predict_pdr(rpl_nbr_t *nbr, int is_new) {
                              nbr->mlof.weighted_cpu_usage,
                              last_self_drop_rate, nbr->mlof.weighted_ppm,
                              nbr->mlof.hop_count);
+#endif
+
+#if MLOF_EXTRA_INFERENCE_US > 0
+  RTIMER_BUSYWAIT(US_TO_RTIMERTICKS(MLOF_EXTRA_INFERENCE_US));
 #endif
 
   mlof_predict_ticks += (rtimer_clock_t)(RTIMER_NOW() - start);
