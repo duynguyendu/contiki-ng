@@ -427,11 +427,13 @@ static uint16_t predict_pdr(rpl_nbr_t *nbr, int is_new) {
                              nbr->mlof.hop_count);
 #endif
 
-#if MLOF_EXTRA_INFERENCE_US > 0
+#if MLOF_EXTRA_INFERENCE_US > 0 && MLOF_EXTRA_INFERENCE_IN_CPU
   RTIMER_BUSYWAIT(US_TO_RTIMERTICKS(MLOF_EXTRA_INFERENCE_US));
-#if !MLOF_EXTRA_INFERENCE_IN_CPU
-  extra_inference_ticks += US_TO_RTIMERTICKS(MLOF_EXTRA_INFERENCE_US);
-#endif
+#elif MLOF_EXTRA_INFERENCE_US > 0
+  /* measured, as the wait overshoots the rounded-down tick count */
+  rtimer_clock_t wait_start = RTIMER_NOW();
+  RTIMER_BUSYWAIT(US_TO_RTIMERTICKS(MLOF_EXTRA_INFERENCE_US));
+  extra_inference_ticks += (rtimer_clock_t)(RTIMER_NOW() - wait_start);
 #endif
 
   mlof_predict_ticks += (rtimer_clock_t)(RTIMER_NOW() - start);
