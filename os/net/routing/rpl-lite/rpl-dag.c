@@ -261,6 +261,10 @@ void rpl_dag_update_state(void) {
     return;
   }
 
+#if LOG_PACKET_TIME
+  /* Timeline marks (see sicslowpan.c), printed outside the timed part */
+  printf("DAG_START\n");
+#endif
   start = RTIMER_NOW();
 
   old_rank = curr_instance.dag.rank;
@@ -375,8 +379,12 @@ void rpl_dag_update_state(void) {
   /* Finally, update metric container */
   curr_instance.of->update_metric_container();
 
-  rpl_dag_update_ticks += (rtimer_clock_t)(RTIMER_NOW() - start);
+  rtimer_clock_t elapsed = RTIMER_NOW() - start;
+  rpl_dag_update_ticks += elapsed;
   rpl_dag_update_count++;
+#if LOG_PACKET_TIME
+  printf("DAG_DONE %lu\n", (unsigned long)RTIMERTICKS_TO_US_64(elapsed));
+#endif
 }
 /*---------------------------------------------------------------------------*/
 static rpl_nbr_t *update_nbr_from_dio(uip_ipaddr_t *from, rpl_dio_t *dio) {

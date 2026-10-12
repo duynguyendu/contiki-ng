@@ -60,6 +60,8 @@
  */
 
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "contiki.h"
 #include "dev/watchdog.h"
@@ -1554,6 +1556,48 @@ compress_hdr_ipv6(void)
 /** \name Input/output functions common to all compression schemes
  * @{                                                                 */
 /*--------------------------------------------------------------------*/
+#ifndef LOG_PACKET_TIME
+#define LOG_PACKET_TIME 0
+#endif
+
+#if LOG_PACKET_TIME
+/* Per-packet timing log of the upward app traffic (UDP to the root), forwarded
+ * or originated here. Rx, forward and enqueue all run in one synchronous call
+ * chain, so a single line covers them; a second one comes when the MAC is done:
+ *   PKT_ENQ <src node> <seqno> <free queuebufs>
+ *   PKT_TX <src node & 0xff> <seqno & 0xff> <mac status> <transmissions>
+ * (mac status 0 = OK, 1 = COLLISION, 2 = NOACK, 6 = QUEUE_FULL, see mac.h).
+ * Times come from the log line itself. Kept short: z1 prints with a blocking
+ * UART. */
+static uint16_t packet_time_tag;
+
+/* Logs the packet in uip_buf if it is app data to the root and returns its
+ * tag, (src << 8) | (seqno & 0xff), passed to the MAC as the sent-callback
+ * ptr; 0 = not logged. */
+static uint16_t
+packet_time_enqueue(void)
+{
+  uip_ipaddr_t root;
+  uint8_t *udp;
+  uint16_t src;
+  unsigned long seq;
+
+  if(!NETSTACK_ROUTING.get_root_ipaddr(&root) ||
+     !uip_ipaddr_cmp(&root, &UIP_IP_BUF->destipaddr)) {
+    return 0;
+  }
+  udp = uipbuf_search_header(uip_buf, uip_len, UIP_PROTO_UDP);
+  if(udp == NULL) {
+    return 0;
+  }
+  src = uip_ntohs(UIP_IP_BUF->srcipaddr.u16[7]);
+  /* the client's payload is its seqno as a NUL-terminated decimal string */
+  seq = strtoul((char *)udp + UIP_UDPH_LEN, NULL, 10);
+  printf("PKT_ENQ %u %lu %u\n", src, seq, (unsigned)queuebuf_numfree());
+  return (src << 8) | (seq & 0xff);
+}
+#endif /* LOG_PACKET_TIME */
+
 /**
  * Callback function for the MAC packet sent callback
  */
@@ -1561,6 +1605,13 @@ static void
 packet_sent(void *ptr, int status, int transmissions)
 {
   const linkaddr_t *dest;
+
+#if LOG_PACKET_TIME
+  if(ptr != NULL) {
+    uint16_t tag = (uintptr_t)ptr;
+    printf("PKT_TX %u %u %d %d\n", tag >> 8, tag & 0xff, status, transmissions);
+  }
+#endif
 
   if(callback != NULL) {
     callback->output_callback(status);
@@ -1592,7 +1643,11 @@ send_packet(void)
 {
   /* Provide a callback function to receive the result of
      a packet transmission. */
+#if LOG_PACKET_TIME
+  NETSTACK_MAC.send(&packet_sent, (void *)(uintptr_t)packet_time_tag);
+#else
   NETSTACK_MAC.send(&packet_sent, NULL);
+#endif
 
   /* If we are sending multiple packets in a row, we need to let the
      watchdog know that we are still alive. */
@@ -1654,6 +1709,10 @@ static uint8_t
 output(const linkaddr_t *localdest)
 {
   int frag_needed;
+
+#if LOG_PACKET_TIME
+  packet_time_tag = packet_time_enqueue();
+#endif
 
   /* init */
   uncomp_hdr_len = UIP_IPH_LEN;
