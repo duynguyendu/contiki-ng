@@ -61,6 +61,21 @@
 #define MLOF_EXTRA_INFERENCE_US 0
 #endif
 
+/* 1 = that busy-wait counts as CPU time in the model's CPU usage input (and
+   the one advertised to neighbours), as a really slower model would; 0 = it
+   is counted as idle there, so the delay only costs time and the model sees
+   the same CPU usage as without it. The metrics log always shows real CPU. */
+#ifdef MLOF_CONF_EXTRA_INFERENCE_IN_CPU
+#define MLOF_EXTRA_INFERENCE_IN_CPU MLOF_CONF_EXTRA_INFERENCE_IN_CPU
+#else
+#define MLOF_EXTRA_INFERENCE_IN_CPU 1
+#endif
+
+#if !MLOF_EXTRA_INFERENCE_IN_CPU
+/* Total rtimer (= Energest) ticks spent in that busy-wait since boot */
+static uint64_t extra_inference_ticks;
+#endif
+
 /* Neighbors advertising a larger hop count (e.g. counting up in a loop, or
    0xff = unknown) are not usable. */
 #define MLOF_MAX_HOP_COUNT 127
@@ -239,6 +254,9 @@ static uint8_t cpu_usage_percent(void) {
 
   energest_flush();
   cpu = energest_type_time(ENERGEST_TYPE_CPU);
+#if !MLOF_EXTRA_INFERENCE_IN_CPU
+  cpu -= extra_inference_ticks;
+#endif
   total = ENERGEST_GET_TOTAL_TIME();
 
   delta_cpu = cpu - last_cpu;
@@ -411,6 +429,9 @@ static uint16_t predict_pdr(rpl_nbr_t *nbr, int is_new) {
 
 #if MLOF_EXTRA_INFERENCE_US > 0
   RTIMER_BUSYWAIT(US_TO_RTIMERTICKS(MLOF_EXTRA_INFERENCE_US));
+#if !MLOF_EXTRA_INFERENCE_IN_CPU
+  extra_inference_ticks += US_TO_RTIMERTICKS(MLOF_EXTRA_INFERENCE_US);
+#endif
 #endif
 
   mlof_predict_ticks += (rtimer_clock_t)(RTIMER_NOW() - start);
